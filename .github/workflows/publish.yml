@@ -1,0 +1,91 @@
+# Mirror the upstream OpenClaw model catalog.
+#
+# Triggers are limited to schedule + workflow_dispatch on purpose:
+# pull_request_target is the one trigger that would hand a fork PR this
+# repo's write token — never add it here.
+name: publish-catalog
+
+on:
+  schedule:
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Validate and diff only; do not write or push"
+        type: boolean
+        default: false
+      force_pr:
+        description: "Open a PR even when the diff is small"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: publish-catalog
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Install pinned dependencies
+        run: npm ci
+
+      - name: Fetch, validate, and transform the upstream catalog
+        id: publish
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            node scripts/publish-catalog.mjs --dry-run
+          else
+            node scripts/publish-catalog.mjs
+          fi
+
+      - name: Commit and push (auto mode)
+        if: >-
+          steps.publish.outputs.changed == 'true' &&
+          inputs.dry_run != true &&
+          steps.publish.outputs.needs_review != 'true' &&
+          inputs.force_pr != true
+        env:
+          # env indirection: never interpolate step outputs (which carry
+          # upstream-derived strings) directly into a run script.
+          SUMMARY: ${{ steps.publish.outputs.summary }}
+        run: |
+          git config user.name "clawpod-catalog-bot"
+          git config user.email "captain@wondermove.net"
+          git add models/v1/catalog.json
+          git commit -m "catalog: $SUMMARY"
+          git push origin HEAD:main
+
+      - name: Open a review PR (large diff or forced)
+        if: >-
+          steps.publish.outputs.changed == 'true' &&
+          inputs.dry_run != true &&
+          (steps.publish.outputs.needs_review == 'true' || inputs.force_pr == true)
+        env:
+          GH_TOKEN: ${{ github.token }}
+          SUMMARY: ${{ steps.publish.outputs.summary }}
+        run: |
+          branch="catalog-update-$(date -u +%Y%m%d-%H%M%S)"
+          git config user.name "clawpod-catalog-bot"
+          git config user.email "captain@wondermove.net"
+          git checkout -b "$branch"
+          git add models/v1/catalog.json
+          git commit -m "catalog: $SUMMARY"
+          git push origin "$branch"
+          gh pr create \
+            --title "catalog: review-gated update" \
+            --body "$SUMMARY
+
+Review gate triggered: provider removal or model-count swing beyond threshold (or forced). Compare the diff before merging." \
+            --base main \
+            --head "$branch"
