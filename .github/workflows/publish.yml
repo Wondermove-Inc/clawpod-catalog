@@ -82,10 +82,12 @@ jobs:
           git add models/v1/catalog.json
           git commit -m "catalog: $SUMMARY"
           git push origin "$branch"
+          {
+            printf '%s\n\n' "$SUMMARY"
+            printf 'Review gate triggered: provider removal or model-count swing beyond threshold (or forced). Compare the diff before merging.\n'
+          } > /tmp/pr-body.txt
           gh pr create \
             --title "catalog: review-gated update" \
-            --body "$SUMMARY
-
-Review gate triggered: provider removal or model-count swing beyond threshold (or forced). Compare the diff before merging." \
+            --body-file /tmp/pr-body.txt \
             --base main \
             --head "$branch"
