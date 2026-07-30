@@ -1,0 +1,13 @@
+{
+  "name": "clawpod-catalog",
+  "private": true,
+  "type": "module",
+  "description": "Publish tooling for the ClawPoD model-catalog mirror",
+  "scripts": {
+    "publish-catalog": "node scripts/publish-catalog.mjs",
+    "publish-catalog:dry-run": "node scripts/publish-catalog.mjs --dry-run"
+  },
+  "dependencies": {
+    "zod": "4.3.6"
+  }
+}

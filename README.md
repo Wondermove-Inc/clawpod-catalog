@@ -29,15 +29,23 @@ https://raw.githubusercontent.com/Wondermove-Inc/clawpod-catalog/main/models/v1/
 `models/v1/catalog.json` — 본가 원격 번들과 동일 스키마(`schemaVersion: 1`):
 `generatedAt` / `minVersion`(재작성됨) / `sourceMinVersion`(원본) / `sourceCommit` / `providers`.
 
-변환 로직의 원본은 clawpod-agent 의 `scripts/refresh-model-catalog.ts` 다. 게시 자동화(스케줄 워크플로)는 clawpod-agent 계획서 PHASE 3-pre 에서 추가된다.
+변환 로직의 원본은 clawpod-agent 의 `scripts/refresh-model-catalog.ts` 이며, 이 레포의 `scripts/publish-catalog.mjs` 가 같은 의미론을 standalone 으로 구현한다 (+ `baseUrl`/`headers` 재귀 제거, generatedAt 미래 skew ≤24h·회귀 금지 가드).
 
-## 수동 갱신 (자동화 전까지)
+## 게시 자동화
+
+`.github/workflows/publish.yml` — 6시간 스케줄 + `workflow_dispatch` 만 사용한다 (`pull_request_target` 금지: fork PR 에 쓰기 토큰이 노출되는 유일한 경로).
+
+- **자동 게시(기본)**: diff 가 작으면 main 에 직접 커밋.
+- **PR 게이트**: provider 삭제가 있거나 모델 수 변동이 ±50 을 넘으면(또는 `force_pr` 입력) PR 을 열어 사람 리뷰를 거친다.
+- `dry_run` 입력으로 검증·diff 만 수행할 수 있다.
+- 재작성되는 `minVersion` 값은 루트 `MIN_VERSION` 파일이 결정한다.
+
+## 수동 갱신 (비상시)
 
 ```bash
-cd clawpod-agent
-pnpm model-catalog:refresh          # 본가에서 받아 검증·변환
-cp scripts/lib/model-catalog.json <이 레포>/models/v1/catalog.json
-# diff 확인 후 커밋
+npm ci
+node scripts/publish-catalog.mjs    # 본가에서 받아 검증·변환·기록
+# git diff 확인 후 커밋
 ```
 
 ## 주의
