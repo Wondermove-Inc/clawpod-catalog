@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1785562472790,
+  "generatedAt": 1785575158300,
   "minVersion": "2026.4.11",
   "providers": {
     "anthropic": {
@@ -5056,6 +5056,6 @@
       "defaultModel": "glm-5.2"
     }
   },
-  "sourceCommit": "0892684551fda8aaae51297c227ac12590205208",
+  "sourceCommit": "aab7321870f7a789acc6d20c70287d89f3a58f27",
   "sourceMinVersion": "2026.7.0"
 }
