@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1785661599121,
+  "generatedAt": 1785688831419,
   "minVersion": "2026.4.11",
   "providers": {
     "anthropic": {
@@ -2663,7 +2663,9 @@
           },
           "compat": {
             "requiresStringContent": true
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "NVIDIA retired this model and no longer lists it in its model catalog."
         },
         {
           "id": "z-ai/glm-5.1",
@@ -2999,9 +3001,9 @@
           "maxTokens": 128000,
           "cost": {
             "input": 0.09999999999999999,
-            "output": 0.6000000000000001,
+            "output": 0.6,
             "cacheRead": 0.01,
-            "cacheWrite": 0.12500000000000003
+            "cacheWrite": 0.125
           },
           "compat": {
             "codeMode": "preferred",
@@ -5026,9 +5028,9 @@
           "contextWindow": 1000000,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.2856,
-            "output": 0.8976,
-            "cacheRead": 0.05304,
+            "input": 0.2842,
+            "output": 0.8932,
+            "cacheRead": 0.05278,
             "cacheWrite": 0
           },
           "compat": {
@@ -5056,6 +5058,6 @@
       "defaultModel": "glm-5.2"
     }
   },
-  "sourceCommit": "0138f5b5e37d164e20b643d39f1d384297af13af",
+  "sourceCommit": "b84e14f22255612cc8473ad132221f18c0265bcc",
   "sourceMinVersion": "2026.7.0"
 }
