@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1786466477914,
+  "generatedAt": 1786480614298,
   "minVersion": "2026.4.11",
   "providers": {
     "anthropic": {
@@ -2146,6 +2146,78 @@
             "off": "minimal",
             "xhigh": "xhigh"
           }
+        },
+        {
+          "id": "muse-spark-1.2",
+          "name": "Muse Spark 1.2",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 1.25,
+            "output": 4.25,
+            "cacheRead": 0.15,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "supportedReasoningEfforts": [
+              "minimal",
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ],
+            "supportsReasoningEffort": true,
+            "supportsTools": true
+          },
+          "thinkingLevelMap": {
+            "high": "high",
+            "low": "low",
+            "medium": "medium",
+            "minimal": "minimal",
+            "off": "minimal",
+            "xhigh": "xhigh"
+          }
+        },
+        {
+          "id": "muse-spark-1.2-contributor",
+          "name": "Muse Spark 1.2 Contributor",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0.1,
+            "output": 0.2,
+            "cacheRead": 0.002,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "supportedReasoningEfforts": [
+              "minimal",
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ],
+            "supportsReasoningEffort": true,
+            "supportsTools": true
+          },
+          "thinkingLevelMap": {
+            "high": "high",
+            "low": "low",
+            "medium": "medium",
+            "minimal": "minimal",
+            "off": "minimal",
+            "xhigh": "xhigh"
+          }
         }
       ],
       "defaultModel": "muse-spark-1.1"
@@ -2919,7 +2991,7 @@
               "tokenMode": "detail"
             }
           },
-          "replacedBy": "gpt-5.6",
+          "replacedBy": "gpt-5.6-sol",
           "status": "deprecated"
         },
         {
@@ -2949,44 +3021,8 @@
               "tokenMode": "detail"
             }
           },
-          "replacedBy": "gpt-5.6",
+          "replacedBy": "gpt-5.6-sol",
           "status": "deprecated"
-        },
-        {
-          "id": "gpt-5.6",
-          "name": "GPT-5.6",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 1050000,
-          "contextTokens": 272000,
-          "maxTokens": 128000,
-          "cost": {
-            "input": 5,
-            "output": 30,
-            "cacheRead": 0.5,
-            "cacheWrite": 6.25
-          },
-          "compat": {
-            "codeMode": "preferred",
-            "supportedReasoningEfforts": [
-              "none",
-              "low",
-              "medium",
-              "high",
-              "xhigh",
-              "max"
-            ],
-            "supportsReasoningEffort": true,
-            "supportsTemperature": false
-          },
-          "thinkingLevelMap": {
-            "max": "max",
-            "off": "none",
-            "xhigh": "xhigh"
-          }
         },
         {
           "id": "gpt-5.6-luna",
@@ -5298,9 +5334,9 @@
           "contextWindow": 1000000,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.4886,
-            "output": 1.5355999999999999,
-            "cacheRead": 0.09074,
+            "input": 0.406,
+            "output": 1.276,
+            "cacheRead": 0.0754,
             "cacheWrite": 0
           },
           "compat": {
@@ -5328,6 +5364,6 @@
       "defaultModel": "glm-5.2"
     }
   },
-  "sourceCommit": "18f126326a397b4ecfe0aa4b319bfb60740f52ed",
+  "sourceCommit": "e74be5d41db4afbdd382db6a3bc60a32d805579b",
   "sourceMinVersion": "2026.7.0"
 }
