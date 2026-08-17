@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1786955794129,
+  "generatedAt": 1786984485231,
   "minVersion": "2026.4.11",
   "providers": {
     "anthropic": {
@@ -1185,9 +1185,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.08259999999999999,
-            "output": 0.16519999999999999,
-            "cacheRead": 0.01652,
+            "input": 0.0798,
+            "output": 0.1596,
+            "cacheRead": 0.01596,
             "cacheWrite": 0
           },
           "compat": {
@@ -1207,9 +1207,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 1.32,
-            "output": 3.9600000000000004,
-            "cacheRead": 0.044,
+            "input": 0.66,
+            "output": 1.9800000000000002,
+            "cacheRead": 0.022,
             "cacheWrite": 0
           },
           "compat": {
@@ -3036,10 +3036,10 @@
           "contextTokens": 272000,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.09999999999999999,
-            "output": 0.6,
-            "cacheRead": 0.01,
-            "cacheWrite": 0.125
+            "input": 0.19999999999999998,
+            "output": 1.2,
+            "cacheRead": 0.02,
+            "cacheWrite": 0.25
           },
           "compat": {
             "codeMode": "preferred",
@@ -3108,10 +3108,10 @@
           "contextTokens": 272000,
           "maxTokens": 128000,
           "cost": {
-            "input": 1,
-            "output": 6,
-            "cacheRead": 0.09999999999999999,
-            "cacheWrite": 1.25
+            "input": 2,
+            "output": 12,
+            "cacheRead": 0.19999999999999998,
+            "cacheWrite": 2.5
           },
           "compat": {
             "codeMode": "preferred",
@@ -5383,6 +5383,6 @@
       "defaultModel": "glm-5.2"
     }
   },
-  "sourceCommit": "fb0e8b145e4c5401a8eb97587a51a83312d12331",
+  "sourceCommit": "1a821db04926c969f1cdd0e76f9300cba5366837",
   "sourceMinVersion": "2026.7.0"
 }
