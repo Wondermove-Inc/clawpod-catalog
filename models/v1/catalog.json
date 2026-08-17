@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1786941403504,
+  "generatedAt": 1786955794129,
   "minVersion": "2026.4.11",
   "providers": {
     "anthropic": {
@@ -1207,9 +1207,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.66,
-            "output": 1.9800000000000002,
-            "cacheRead": 0.022,
+            "input": 1.32,
+            "output": 3.9600000000000004,
+            "cacheRead": 0.044,
             "cacheWrite": 0
           },
           "compat": {
@@ -5383,6 +5383,6 @@
       "defaultModel": "glm-5.2"
     }
   },
-  "sourceCommit": "d095113698b6dce8ac9dfd981498f3ca955a1ab0",
+  "sourceCommit": "fb0e8b145e4c5401a8eb97587a51a83312d12331",
   "sourceMinVersion": "2026.7.0"
 }
