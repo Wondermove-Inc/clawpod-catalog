@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1787416449042,
+  "generatedAt": 1787430811737,
   "minVersion": "2026.4.11",
   "providers": {
     "anthropic": {
@@ -25,6 +25,19 @@
           "compat": {
             "codeMode": "preferred"
           },
+          "contextWindowDefault": "1m",
+          "contextWindows": [
+            {
+              "contextWindow": 200000,
+              "id": "200k",
+              "label": "200K"
+            },
+            {
+              "contextWindow": 1000000,
+              "id": "1m",
+              "label": "1M"
+            }
+          ],
           "mediaInput": {
             "image": {
               "maxSidePx": 2576,
@@ -145,6 +158,19 @@
           "compat": {
             "codeMode": "preferred"
           },
+          "contextWindowDefault": "1m",
+          "contextWindows": [
+            {
+              "contextWindow": 200000,
+              "id": "200k",
+              "label": "200K"
+            },
+            {
+              "contextWindow": 1000000,
+              "id": "1m",
+              "label": "1M"
+            }
+          ],
           "mediaInput": {
             "image": {
               "maxSidePx": 2576,
@@ -176,6 +202,19 @@
           "compat": {
             "codeMode": "preferred"
           },
+          "contextWindowDefault": "1m",
+          "contextWindows": [
+            {
+              "contextWindow": 200000,
+              "id": "200k",
+              "label": "200K"
+            },
+            {
+              "contextWindow": 1000000,
+              "id": "1m",
+              "label": "1M"
+            }
+          ],
           "mediaInput": {
             "image": {
               "maxSidePx": 2576,
@@ -686,6 +725,19 @@
           "reasoning": true,
           "contextWindow": 1000000,
           "maxTokens": 128000,
+          "contextWindowDefault": "1m",
+          "contextWindows": [
+            {
+              "contextWindow": 200000,
+              "id": "200k",
+              "label": "200K"
+            },
+            {
+              "contextWindow": 1000000,
+              "id": "1m",
+              "label": "1M"
+            }
+          ],
           "mediaInput": {
             "image": {
               "maxSidePx": 2576,
@@ -724,6 +776,19 @@
           "reasoning": true,
           "contextWindow": 1000000,
           "maxTokens": 128000,
+          "contextWindowDefault": "1m",
+          "contextWindows": [
+            {
+              "contextWindow": 200000,
+              "id": "200k",
+              "label": "200K"
+            },
+            {
+              "contextWindow": 1000000,
+              "id": "1m",
+              "label": "1M"
+            }
+          ],
           "mediaInput": {
             "image": {
               "maxSidePx": 2576,
@@ -742,6 +807,19 @@
           "reasoning": true,
           "contextWindow": 1000000,
           "maxTokens": 128000,
+          "contextWindowDefault": "1m",
+          "contextWindows": [
+            {
+              "contextWindow": 200000,
+              "id": "200k",
+              "label": "200K"
+            },
+            {
+              "contextWindow": 1000000,
+              "id": "1m",
+              "label": "1M"
+            }
+          ],
           "mediaInput": {
             "image": {
               "maxSidePx": 2576,
@@ -5630,6 +5708,6 @@
       "defaultModel": "glm-5.2"
     }
   },
-  "sourceCommit": "31ce436b5f69e3343144f55b4a7cba9a656da1a9",
+  "sourceCommit": "53aa9414fe671bac33d7bcc44156c2eac3eb9507",
   "sourceMinVersion": "2026.7.0"
 }
