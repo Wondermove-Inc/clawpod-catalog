@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1787762396970,
+  "generatedAt": 1787778842687,
   "minVersion": "2026.4.11",
   "providers": {
     "anthropic": {
@@ -1261,9 +1261,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.08106,
-            "output": 0.16212,
-            "cacheRead": 0.016212,
+            "input": 0.07952,
+            "output": 0.15904,
+            "cacheRead": 0.015904,
             "cacheWrite": 0
           },
           "compat": {
@@ -1469,7 +1469,15 @@
             "cacheWrite": 6.25
           },
           "compat": {
-            "codeMode": "capable"
+            "codeMode": "capable",
+            "supportedReasoningEfforts": [
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "supportsReasoningEffort": true
           }
         },
         {
@@ -5350,6 +5358,26 @@
           }
         },
         {
+          "id": "glm-5.3-flash",
+          "name": "GLM-5.3-Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0.075,
+            "output": 0.25,
+            "cacheRead": 0.015,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "codeMode": "preferred"
+          }
+        },
+        {
           "id": "glm-5v-turbo",
           "name": "GLM-5V-Turbo",
           "input": [
@@ -5370,6 +5398,6 @@
       "defaultModel": "glm-5.2"
     }
   },
-  "sourceCommit": "424521a3d3924c943f441da1b799f3563450662f",
+  "sourceCommit": "549360bc4261508a59ce6374d31cd2d207fac206",
   "sourceMinVersion": "2026.7.0"
 }
