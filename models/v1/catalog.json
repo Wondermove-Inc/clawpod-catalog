@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1787778842687,
+  "generatedAt": 1787812570736,
   "minVersion": "2026.4.11",
   "providers": {
     "anthropic": {
@@ -1605,6 +1605,19 @@
             "output": 14,
             "cacheRead": 0.175,
             "cacheWrite": 0
+          },
+          "compat": {
+            "supportedReasoningEfforts": [
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ]
+          },
+          "thinkingLevelMap": {
+            "max": null,
+            "minimal": "low",
+            "xhigh": "xhigh"
           }
         },
         {
@@ -1623,8 +1636,22 @@
             "cacheRead": 0.25,
             "cacheWrite": 0
           },
+          "compat": {
+            "supportedReasoningEfforts": [
+              "none",
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ]
+          },
           "replacedBy": "gpt-5.6-terra",
-          "status": "deprecated"
+          "status": "deprecated",
+          "thinkingLevelMap": {
+            "max": null,
+            "minimal": "low",
+            "xhigh": "xhigh"
+          }
         },
         {
           "id": "gpt-5.4-mini",
@@ -1664,10 +1691,22 @@
             "cacheWrite": 0
           },
           "compat": {
-            "codeMode": "capable"
+            "codeMode": "capable",
+            "supportedReasoningEfforts": [
+              "none",
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ]
           },
           "replacedBy": "gpt-5.6-sol",
-          "status": "deprecated"
+          "status": "deprecated",
+          "thinkingLevelMap": {
+            "max": null,
+            "minimal": "low",
+            "xhigh": "xhigh"
+          }
         },
         {
           "id": "gpt-5.6-luna",
@@ -1687,7 +1726,20 @@
             "cacheWrite": 0
           },
           "compat": {
-            "codeMode": "capable"
+            "codeMode": "capable",
+            "supportedReasoningEfforts": [
+              "none",
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ]
+          },
+          "thinkingLevelMap": {
+            "max": "max",
+            "minimal": "low",
+            "xhigh": "xhigh"
           }
         },
         {
@@ -1708,7 +1760,20 @@
             "cacheWrite": 0
           },
           "compat": {
-            "codeMode": "capable"
+            "codeMode": "capable",
+            "supportedReasoningEfforts": [
+              "none",
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ]
+          },
+          "thinkingLevelMap": {
+            "max": "max",
+            "minimal": "low",
+            "xhigh": "xhigh"
           }
         },
         {
@@ -1729,7 +1794,20 @@
             "cacheWrite": 0
           },
           "compat": {
-            "codeMode": "capable"
+            "codeMode": "capable",
+            "supportedReasoningEfforts": [
+              "none",
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ]
+          },
+          "thinkingLevelMap": {
+            "max": "max",
+            "minimal": "low",
+            "xhigh": "xhigh"
           }
         },
         {
@@ -5398,6 +5476,6 @@
       "defaultModel": "glm-5.2"
     }
   },
-  "sourceCommit": "549360bc4261508a59ce6374d31cd2d207fac206",
+  "sourceCommit": "6c10672d95072cc1a4b645c519a4513621cd940a",
   "sourceMinVersion": "2026.7.0"
 }
