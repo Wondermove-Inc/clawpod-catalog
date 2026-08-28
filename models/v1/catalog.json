@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1787863111653,
+  "generatedAt": 1787880772879,
   "minVersion": "2026.4.11",
   "providers": {
     "anthropic": {
@@ -1261,9 +1261,32 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.07798000000000001,
-            "output": 0.15596000000000002,
-            "cacheRead": 0.015595999999999999,
+            "input": 0.088606,
+            "output": 0.177212,
+            "cacheRead": 0.017721200000000003,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "codeMode": "preferred",
+            "maxTokensField": "max_tokens",
+            "supportsReasoningEffort": true,
+            "supportsUsageInStreaming": true
+          }
+        },
+        {
+          "id": "deepseek-v4-flash-vision-exp",
+          "name": "DeepSeek V4 Flash Vision (Experimental)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 384000,
+          "cost": {
+            "input": 0.44,
+            "output": 1.32,
+            "cacheRead": 0.014,
             "cacheWrite": 0
           },
           "compat": {
@@ -2922,6 +2945,25 @@
           }
         },
         {
+          "id": "nvidia/nemotron-3.5-lightning-30b-a3b",
+          "name": "Nemotron 3.5 Lightning 30B",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "requiresStringContent": true
+          }
+        },
+        {
           "id": "qwen/qwen3.5-397b-a17b",
           "name": "Qwen3.5 397B A17B",
           "input": [
@@ -4207,6 +4249,229 @@
         }
       ]
     },
+    "qwen": {
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "glm-4.7",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 202752,
+          "maxTokens": 16384
+        },
+        {
+          "id": "glm-5",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 202752,
+          "maxTokens": 16384
+        },
+        {
+          "id": "kimi-k2.5",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": false,
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
+          "id": "MiniMax-M2.5",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 65536
+        },
+        {
+          "id": "qwen3-coder-next",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 262144,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 0.12,
+            "output": 0.7999999999999999,
+            "cacheRead": 0.07,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "qwen3-coder-plus",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 1000000,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 0.65,
+            "output": 3.25,
+            "cacheRead": 0.13,
+            "cacheWrite": 0.8125
+          }
+        },
+        {
+          "id": "qwen3-max-2026-01-23",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 262144,
+          "maxTokens": 65536
+        },
+        {
+          "id": "qwen3.5-plus",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": false,
+          "contextWindow": 1000000,
+          "maxTokens": 65536
+        },
+        {
+          "id": "qwen3.6-flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 0.1875,
+            "output": 1.125,
+            "cacheRead": 0,
+            "cacheWrite": 0.234375
+          }
+        },
+        {
+          "id": "qwen3.6-plus",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 0.325,
+            "output": 1.95,
+            "cacheRead": 0,
+            "cacheWrite": 0.40625
+          }
+        },
+        {
+          "id": "qwen3.7-max",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 1.475,
+            "output": 4.425,
+            "cacheRead": 0.295,
+            "cacheWrite": 1.84375
+          }
+        },
+        {
+          "id": "qwen3.7-plus",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 0.32,
+            "output": 1.28,
+            "cacheRead": 0.064,
+            "cacheWrite": 0.39999999999999997
+          }
+        },
+        {
+          "id": "qwen3.8-flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0.15,
+            "output": 0.47,
+            "cacheRead": 0.016,
+            "cacheWrite": 0.19999999999999998
+          },
+          "compat": {
+            "reasoningEffortMap": {
+              "high": "xhigh",
+              "max": "xhigh",
+              "minimal": "low"
+            },
+            "supportedReasoningEfforts": [
+              "low",
+              "medium",
+              "xhigh"
+            ],
+            "supportsReasoningEffort": true
+          },
+          "thinkingLevelMap": {
+            "high": "xhigh",
+            "max": "xhigh",
+            "minimal": "low"
+          }
+        },
+        {
+          "id": "qwen3.8-max",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 2,
+            "output": 6,
+            "cacheRead": 0.25,
+            "cacheWrite": 2.5
+          },
+          "compat": {
+            "codeMode": "capable",
+            "reasoningEffortMap": {
+              "high": "xhigh",
+              "max": "xhigh",
+              "minimal": "low"
+            },
+            "supportedReasoningEfforts": [
+              "low",
+              "medium",
+              "xhigh"
+            ],
+            "supportsReasoningEffort": true
+          },
+          "thinkingLevelMap": {
+            "high": "xhigh",
+            "max": "xhigh",
+            "minimal": "low"
+          }
+        }
+      ]
+    },
     "qwen-token-plan": {
       "api": "openai-completions",
       "models": [
@@ -4309,6 +4574,77 @@
             "output": 0,
             "cacheRead": 0,
             "cacheWrite": 0
+          }
+        },
+        {
+          "id": "qwen3.8-flash",
+          "name": "qwen3.8-flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "reasoningEffortMap": {
+              "high": "xhigh",
+              "max": "xhigh",
+              "minimal": "low"
+            },
+            "supportedReasoningEfforts": [
+              "low",
+              "medium",
+              "xhigh"
+            ],
+            "supportsReasoningEffort": true
+          },
+          "thinkingLevelMap": {
+            "high": "xhigh",
+            "max": "xhigh",
+            "minimal": "low"
+          }
+        },
+        {
+          "id": "qwen3.8-max",
+          "name": "qwen3.8-max",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "codeMode": "capable",
+            "reasoningEffortMap": {
+              "high": "xhigh",
+              "max": "xhigh",
+              "minimal": "low"
+            },
+            "supportedReasoningEfforts": [
+              "low",
+              "medium",
+              "xhigh"
+            ],
+            "supportsReasoningEffort": true
+          },
+          "thinkingLevelMap": {
+            "high": "xhigh",
+            "max": "xhigh",
+            "minimal": "low"
           }
         }
       ]
@@ -5518,6 +5854,6 @@
       "defaultModel": "glm-5.2"
     }
   },
-  "sourceCommit": "97f66133c5e3e5bcb1dcc5b2815c19221d031768",
+  "sourceCommit": "902fa2aba3aa9995b47469c0bcfa7f8720b76d10",
   "sourceMinVersion": "2026.7.0"
 }
