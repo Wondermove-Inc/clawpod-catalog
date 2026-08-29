@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1787954511133,
+  "generatedAt": 1787981513489,
   "minVersion": "2026.4.11",
   "providers": {
     "anthropic": {
@@ -1261,9 +1261,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.0868,
-            "output": 0.1736,
-            "cacheRead": 0.01736,
+            "input": 0.08512,
+            "output": 0.17024,
+            "cacheRead": 0.017024,
             "cacheWrite": 0
           },
           "compat": {
@@ -1306,9 +1306,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.741588,
-            "output": 1.483176,
-            "cacheRead": 0.061799,
+            "input": 0.6909540000000001,
+            "output": 1.3819080000000001,
+            "cacheRead": 0.057579500000000006,
             "cacheWrite": 0
           },
           "compat": {
@@ -1375,8 +1375,7 @@
           "id": "accounts/fireworks/routers/glm-5p2-fast",
           "name": "GLM 5.2 Fast",
           "input": [
-            "text",
-            "image"
+            "text"
           ],
           "reasoning": true,
           "contextWindow": 256000,
@@ -2620,9 +2619,9 @@
           "contextWindow": 1048576,
           "maxTokens": 1048576,
           "cost": {
-            "input": 2.5500000000000003,
-            "output": 12.75,
-            "cacheRead": 0.25599998999999996,
+            "input": 3,
+            "output": 15,
+            "cacheRead": 0.3,
             "cacheWrite": 0
           },
           "compat": {
@@ -5854,6 +5853,6 @@
       "defaultModel": "glm-5.2"
     }
   },
-  "sourceCommit": "cd46f44661559219501486fea2d3db184288670e",
+  "sourceCommit": "5994e9c3a6d5ffe208cb9685f3d99e16c5d0105b",
   "sourceMinVersion": "2026.7.0"
 }
