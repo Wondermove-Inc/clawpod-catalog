@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1788035215277,
+  "generatedAt": 1788064291262,
   "minVersion": "2026.4.11",
   "providers": {
     "anthropic": {
@@ -1261,9 +1261,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.08204,
-            "output": 0.16408,
-            "cacheRead": 0.016408,
+            "input": 0.08064,
+            "output": 0.16128,
+            "cacheRead": 0.016128,
             "cacheWrite": 0
           },
           "compat": {
@@ -1306,9 +1306,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.54897,
-            "output": 1.09794,
-            "cacheRead": 0.045747499999999997,
+            "input": 0.498336,
+            "output": 0.996672,
+            "cacheRead": 0.041528,
             "cacheWrite": 0
           },
           "compat": {
@@ -2462,7 +2462,7 @@
           "cost": {
             "input": 0.3,
             "output": 0.8999999999999999,
-            "cacheRead": 0,
+            "cacheRead": 0.03,
             "cacheWrite": 0
           }
         },
@@ -2495,7 +2495,7 @@
           "cost": {
             "input": 0.5,
             "output": 1.5,
-            "cacheRead": 0,
+            "cacheRead": 0.049999999999999996,
             "cacheWrite": 0
           }
         },
@@ -2530,7 +2530,7 @@
           "cost": {
             "input": 1.5,
             "output": 7.5,
-            "cacheRead": 0,
+            "cacheRead": 0.15,
             "cacheWrite": 0
           }
         },
@@ -2547,7 +2547,7 @@
           "cost": {
             "input": 0.15,
             "output": 0.6,
-            "cacheRead": 0,
+            "cacheRead": 0.015,
             "cacheWrite": 0
           }
         },
@@ -2564,7 +2564,7 @@
           "cost": {
             "input": 0.15,
             "output": 0.6,
-            "cacheRead": 0,
+            "cacheRead": 0.015,
             "cacheWrite": 0
           }
         }
@@ -5763,9 +5763,9 @@
           "contextWindow": 200000,
           "maxTokens": 131072,
           "cost": {
-            "input": 1.26,
-            "output": 3.9600000000000004,
-            "cacheRead": 0.234,
+            "input": 0.966,
+            "output": 3.036,
+            "cacheRead": 0.1794,
             "cacheWrite": 0
           },
           "compat": {
@@ -5853,6 +5853,6 @@
       "defaultModel": "glm-5.2"
     }
   },
-  "sourceCommit": "f9b3bcccdba3dc159c6484c30f56974b90a6d938",
+  "sourceCommit": "ecb0386e89b330884512a193dec116e6c4e14444",
   "sourceMinVersion": "2026.7.0"
 }
