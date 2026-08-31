@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1788150959351,
+  "generatedAt": 1788159460789,
   "minVersion": "2026.4.11",
   "providers": {
     "anthropic": {
@@ -1284,9 +1284,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.22,
-            "output": 0.66,
-            "cacheRead": 0.007,
+            "input": 0.44,
+            "output": 1.32,
+            "cacheRead": 0.014,
             "cacheWrite": 0
           },
           "compat": {
@@ -3404,7 +3404,28 @@
             "input": 2.5,
             "output": 15,
             "cacheRead": 0.25,
-            "cacheWrite": 0
+            "cacheWrite": 0,
+            "tieredPricing": [
+              {
+                "cacheRead": 0.25,
+                "cacheWrite": 0,
+                "input": 2.5,
+                "output": 15,
+                "range": [
+                  0,
+                  272001
+                ]
+              },
+              {
+                "cacheRead": 0.5,
+                "cacheWrite": 0,
+                "input": 5,
+                "output": 22.5,
+                "range": [
+                  272001
+                ]
+              }
+            ]
           }
         },
         {
@@ -3455,7 +3476,28 @@
             "input": 30,
             "output": 180,
             "cacheRead": 0,
-            "cacheWrite": 0
+            "cacheWrite": 0,
+            "tieredPricing": [
+              {
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "input": 30,
+                "output": 180,
+                "range": [
+                  0,
+                  272001
+                ]
+              },
+              {
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "input": 60,
+                "output": 270,
+                "range": [
+                  272001
+                ]
+              }
+            ]
           }
         },
         {
@@ -3473,7 +3515,28 @@
             "input": 5,
             "output": 30,
             "cacheRead": 0.5,
-            "cacheWrite": 0
+            "cacheWrite": 0,
+            "tieredPricing": [
+              {
+                "cacheRead": 0.5,
+                "cacheWrite": 0,
+                "input": 5,
+                "output": 30,
+                "range": [
+                  0,
+                  272001
+                ]
+              },
+              {
+                "cacheRead": 1,
+                "cacheWrite": 0,
+                "input": 10,
+                "output": 45,
+                "range": [
+                  272001
+                ]
+              }
+            ]
           },
           "compat": {
             "codeMode": "preferred"
@@ -3503,7 +3566,28 @@
             "input": 30,
             "output": 180,
             "cacheRead": 0,
-            "cacheWrite": 0
+            "cacheWrite": 0,
+            "tieredPricing": [
+              {
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "input": 30,
+                "output": 180,
+                "range": [
+                  0,
+                  272001
+                ]
+              },
+              {
+                "cacheRead": 0,
+                "cacheWrite": 0,
+                "input": 60,
+                "output": 270,
+                "range": [
+                  272001
+                ]
+              }
+            ]
           },
           "compat": {
             "codeMode": "preferred"
@@ -3533,7 +3617,28 @@
             "input": 0.19999999999999998,
             "output": 1.2,
             "cacheRead": 0.02,
-            "cacheWrite": 0.25
+            "cacheWrite": 0.25,
+            "tieredPricing": [
+              {
+                "cacheRead": 0.02,
+                "cacheWrite": 0.25,
+                "input": 0.19999999999999998,
+                "output": 1.2,
+                "range": [
+                  0,
+                  272001
+                ]
+              },
+              {
+                "cacheRead": 0.04,
+                "cacheWrite": 0.5,
+                "input": 0.39999999999999997,
+                "output": 1.7999999999999998,
+                "range": [
+                  272001
+                ]
+              }
+            ]
           },
           "compat": {
             "codeMode": "preferred",
@@ -3569,7 +3674,28 @@
             "input": 2,
             "output": 10,
             "cacheRead": 0.19999999999999998,
-            "cacheWrite": 2.5
+            "cacheWrite": 2.5,
+            "tieredPricing": [
+              {
+                "cacheRead": 0.19999999999999998,
+                "cacheWrite": 2.5,
+                "input": 2,
+                "output": 10,
+                "range": [
+                  0,
+                  272001
+                ]
+              },
+              {
+                "cacheRead": 0.39999999999999997,
+                "cacheWrite": 5,
+                "input": 4,
+                "output": 15,
+                "range": [
+                  272001
+                ]
+              }
+            ]
           },
           "compat": {
             "codeMode": "preferred",
@@ -3605,7 +3731,28 @@
             "input": 2,
             "output": 12,
             "cacheRead": 0.19999999999999998,
-            "cacheWrite": 2.5
+            "cacheWrite": 2.5,
+            "tieredPricing": [
+              {
+                "cacheRead": 0.19999999999999998,
+                "cacheWrite": 2.5,
+                "input": 2,
+                "output": 12,
+                "range": [
+                  0,
+                  272001
+                ]
+              },
+              {
+                "cacheRead": 0.39999999999999997,
+                "cacheWrite": 5,
+                "input": 4,
+                "output": 18,
+                "range": [
+                  272001
+                ]
+              }
+            ]
           },
           "compat": {
             "codeMode": "preferred",
@@ -3762,26 +3909,26 @@
           "contextTokens": 922000,
           "maxTokens": 128000,
           "cost": {
-            "input": 5,
-            "output": 30,
-            "cacheRead": 0.5,
-            "cacheWrite": 6.25,
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.2,
+            "cacheWrite": 2.5,
             "tieredPricing": [
               {
-                "cacheRead": 0.5,
-                "cacheWrite": 6.25,
-                "input": 5,
-                "output": 30,
+                "cacheRead": 0.2,
+                "cacheWrite": 2.5,
+                "input": 2,
+                "output": 10,
                 "range": [
                   0,
                   272000
                 ]
               },
               {
-                "cacheRead": 1,
-                "cacheWrite": 12.5,
-                "input": 10,
-                "output": 45,
+                "cacheRead": 0.4,
+                "cacheWrite": 5,
+                "input": 4,
+                "output": 15,
                 "range": [
                   272000
                 ]
@@ -4315,7 +4462,38 @@
             "input": 0.65,
             "output": 3.25,
             "cacheRead": 0.13,
-            "cacheWrite": 0.8125
+            "cacheWrite": 0.8125,
+            "tieredPricing": [
+              {
+                "cacheRead": 0.13,
+                "cacheWrite": 0.8125,
+                "input": 0.65,
+                "output": 3.25,
+                "range": [
+                  0,
+                  32001
+                ]
+              },
+              {
+                "cacheRead": 0.234,
+                "cacheWrite": 1.4625,
+                "input": 1.17,
+                "output": 5.85,
+                "range": [
+                  32001,
+                  128001
+                ]
+              },
+              {
+                "cacheRead": 0.39,
+                "cacheWrite": 2.4375,
+                "input": 1.95,
+                "output": 9.75,
+                "range": [
+                  128001
+                ]
+              }
+            ]
           }
         },
         {
@@ -4350,7 +4528,28 @@
             "input": 0.1875,
             "output": 1.125,
             "cacheRead": 0,
-            "cacheWrite": 0.234375
+            "cacheWrite": 0.234375,
+            "tieredPricing": [
+              {
+                "cacheRead": 0,
+                "cacheWrite": 0.234375,
+                "input": 0.1875,
+                "output": 1.125,
+                "range": [
+                  0,
+                  256001
+                ]
+              },
+              {
+                "cacheRead": 0,
+                "cacheWrite": 0.9375,
+                "input": 0.75,
+                "output": 3,
+                "range": [
+                  256001
+                ]
+              }
+            ]
           }
         },
         {
@@ -4366,7 +4565,28 @@
             "input": 0.325,
             "output": 1.95,
             "cacheRead": 0,
-            "cacheWrite": 0.40625
+            "cacheWrite": 0.40625,
+            "tieredPricing": [
+              {
+                "cacheRead": 0,
+                "cacheWrite": 0.40625,
+                "input": 0.325,
+                "output": 1.95,
+                "range": [
+                  0,
+                  256001
+                ]
+              },
+              {
+                "cacheRead": 0,
+                "cacheWrite": 1.625,
+                "input": 1.3,
+                "output": 3.9,
+                "range": [
+                  256001
+                ]
+              }
+            ]
           }
         },
         {
@@ -4397,7 +4617,28 @@
             "input": 0.32,
             "output": 1.28,
             "cacheRead": 0.064,
-            "cacheWrite": 0.39999999999999997
+            "cacheWrite": 0.39999999999999997,
+            "tieredPricing": [
+              {
+                "cacheRead": 0.064,
+                "cacheWrite": 0.39999999999999997,
+                "input": 0.32,
+                "output": 1.28,
+                "range": [
+                  0,
+                  256001
+                ]
+              },
+              {
+                "cacheRead": 0.192,
+                "cacheWrite": 1.2,
+                "input": 0.96,
+                "output": 3.84,
+                "range": [
+                  256001
+                ]
+              }
+            ]
           }
         },
         {
@@ -5895,6 +6136,6 @@
       "defaultModel": "glm-5.2"
     }
   },
-  "sourceCommit": "10f5ef53cdc1619d9a8271c66c71ad6e83892934",
+  "sourceCommit": "22ae6417e9fe9293cbbfb2a36248e647b802d48e",
   "sourceMinVersion": "2026.7.0"
 }
