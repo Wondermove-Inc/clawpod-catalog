@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1788281322187,
+  "generatedAt": 1788306692837,
   "minVersion": "2026.4.11",
   "providers": {
     "anthropic": {
@@ -20,6 +20,51 @@
             "input": 10,
             "output": 50,
             "cacheRead": 1,
+            "cacheWrite": 12.5
+          },
+          "compat": {
+            "codeMode": "preferred"
+          },
+          "contextWindowDefault": "1m",
+          "contextWindows": [
+            {
+              "contextWindow": 200000,
+              "id": "200k",
+              "label": "200K"
+            },
+            {
+              "contextWindow": 1000000,
+              "id": "1m",
+              "label": "1M"
+            }
+          ],
+          "mediaInput": {
+            "image": {
+              "maxSidePx": 2576,
+              "preferredSidePx": 2576,
+              "tokenMode": "provider"
+            }
+          },
+          "thinkingLevelMap": {
+            "max": "max",
+            "minimal": "low",
+            "xhigh": "xhigh"
+          }
+        },
+        {
+          "id": "claude-fable-5-1",
+          "name": "Claude Fable 5.1",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 10,
+            "output": 50,
+            "cacheRead": 0.25,
             "cacheWrite": 12.5
           },
           "compat": {
@@ -730,6 +775,73 @@
           }
         },
         {
+          "id": "claude-fable-5-1",
+          "name": "Claude Fable 5.1 (Claude CLI)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "contextWindowDefault": "1m",
+          "contextWindows": [
+            {
+              "contextWindow": 200000,
+              "id": "200k",
+              "label": "200K"
+            },
+            {
+              "contextWindow": 1000000,
+              "id": "1m",
+              "label": "1M"
+            }
+          ],
+          "mediaInput": {
+            "image": {
+              "maxSidePx": 2576,
+              "preferredSidePx": 2576,
+              "tokenMode": "provider"
+            }
+          }
+        },
+        {
+          "id": "claude-opus-4-6",
+          "name": "Claude Opus 4.6 (Claude CLI)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 200000,
+          "maxTokens": 128000,
+          "mediaInput": {
+            "image": {
+              "maxSidePx": 1568,
+              "preferredSidePx": 1568,
+              "tokenMode": "provider"
+            }
+          }
+        },
+        {
+          "id": "claude-opus-4-7",
+          "name": "Claude Opus 4.7 (Claude CLI)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 200000,
+          "maxTokens": 128000,
+          "mediaInput": {
+            "image": {
+              "maxSidePx": 2576,
+              "preferredSidePx": 2576,
+              "tokenMode": "provider"
+            }
+          }
+        },
+        {
           "id": "claude-opus-4-8",
           "name": "Claude Opus 4.8 (Claude CLI)",
           "input": [
@@ -776,6 +888,24 @@
             "image": {
               "maxSidePx": 2576,
               "preferredSidePx": 2576,
+              "tokenMode": "provider"
+            }
+          }
+        },
+        {
+          "id": "claude-sonnet-4-6",
+          "name": "Claude Sonnet 4.6 (Claude CLI)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 200000,
+          "maxTokens": 128000,
+          "mediaInput": {
+            "image": {
+              "maxSidePx": 1568,
+              "preferredSidePx": 1568,
               "tokenMode": "provider"
             }
           }
@@ -1244,9 +1374,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.07476000000000001,
-            "output": 0.14952000000000001,
-            "cacheRead": 0.014952,
+            "input": 0.07014000000000001,
+            "output": 0.14028000000000002,
+            "cacheRead": 0.014028,
             "cacheWrite": 0
           },
           "compat": {
@@ -1289,9 +1419,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 1.5999999999999999,
-            "output": 3.1999999999999997,
-            "cacheRead": 0.135,
+            "input": 1.0241639999999999,
+            "output": 2.0483279999999997,
+            "cacheRead": 0.085347,
             "cacheWrite": 0
           },
           "compat": {
@@ -6119,6 +6249,6 @@
       "defaultModel": "glm-5.2"
     }
   },
-  "sourceCommit": "4fb5d93aa0bb3f740eb614d5cab9a97a00bb2bd8",
+  "sourceCommit": "0a9b08c13ac096e9a7ea95a22c2d6afcca90d79d",
   "sourceMinVersion": "2026.7.0"
 }
