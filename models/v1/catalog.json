@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1788453095119,
+  "generatedAt": 1788470440746,
   "minVersion": "2026.4.11",
   "providers": {
     "anthropic": {
@@ -1374,9 +1374,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.08399999999999999,
-            "output": 0.16799999999999998,
-            "cacheRead": 0.016800000000000002,
+            "input": 0.07784,
+            "output": 0.15568,
+            "cacheRead": 0.015568,
             "cacheWrite": 0
           },
           "compat": {
@@ -1419,9 +1419,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 1.035996,
-            "output": 2.071992,
-            "cacheRead": 0.086333,
+            "input": 1.0274699999999999,
+            "output": 2.0549399999999998,
+            "cacheRead": 0.0856225,
             "cacheWrite": 0
           },
           "compat": {
@@ -3885,6 +3885,63 @@
             "off": "none",
             "xhigh": "xhigh"
           }
+        },
+        {
+          "id": "gpt-6-astra",
+          "name": "GPT-6 Astra",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1050000,
+          "contextTokens": 272000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 10,
+            "output": 50,
+            "cacheRead": 1,
+            "cacheWrite": 12.5,
+            "tieredPricing": [
+              {
+                "cacheRead": 1,
+                "cacheWrite": 12.5,
+                "input": 10,
+                "output": 50,
+                "range": [
+                  0,
+                  272001
+                ]
+              },
+              {
+                "cacheRead": 2,
+                "cacheWrite": 25,
+                "input": 20,
+                "output": 75,
+                "range": [
+                  272001
+                ]
+              }
+            ]
+          },
+          "compat": {
+            "codeMode": "preferred",
+            "supportedReasoningEfforts": [
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "supportsReasoningEffort": true,
+            "supportsTemperature": false
+          },
+          "thinkingLevelMap": {
+            "max": "max",
+            "minimal": "low",
+            "off": null,
+            "xhigh": "xhigh"
+          }
         }
       ],
       "defaultUtilityModel": "gpt-5.6-luna"
@@ -6249,6 +6306,6 @@
       "defaultModel": "glm-5.2"
     }
   },
-  "sourceCommit": "b5f9636c016001ce0a43695eaa045b1714d47c05",
+  "sourceCommit": "2010e3733272a7cfab693988e0e75e60177ffe40",
   "sourceMinVersion": "2026.7.0"
 }
