@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1788539572538,
+  "generatedAt": 1788553745630,
   "minVersion": "2026.4.11",
   "providers": {
     "anthropic": {
@@ -1374,9 +1374,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.08806,
-            "output": 0.17612,
-            "cacheRead": 0.017612,
+            "input": 0.0875,
+            "output": 0.175,
+            "cacheRead": 0.0175,
             "cacheWrite": 0
           },
           "compat": {
@@ -1419,9 +1419,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 1.011984,
-            "output": 2.023968,
-            "cacheRead": 0.084332,
+            "input": 0.9918,
+            "output": 1.9836,
+            "cacheRead": 0.08265,
             "cacheWrite": 0
           },
           "compat": {
@@ -2295,6 +2295,59 @@
         }
       ],
       "defaultModel": "openai/gpt-oss-120b"
+    },
+    "huggingface": {
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "deepseek-ai/DeepSeek-R1",
+          "name": "DeepSeek R1",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 131072,
+          "maxTokens": 8192,
+          "cost": {
+            "input": 3,
+            "output": 7,
+            "cacheRead": 3,
+            "cacheWrite": 3
+          }
+        },
+        {
+          "id": "deepseek-ai/DeepSeek-V3.1",
+          "name": "DeepSeek V3.1",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 131072,
+          "maxTokens": 8192,
+          "cost": {
+            "input": 0.6,
+            "output": 1.25,
+            "cacheRead": 0.6,
+            "cacheWrite": 0.6
+          }
+        },
+        {
+          "id": "openai/gpt-oss-120b",
+          "name": "GPT-OSS 120B",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 131072,
+          "maxTokens": 8192,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        }
+      ]
     },
     "kilocode": {
       "api": "openai-completions",
@@ -6378,6 +6431,6 @@
       "defaultModel": "glm-5.2"
     }
   },
-  "sourceCommit": "0d2bc80eee0c2bcec52fc01e3727844e4c823759",
+  "sourceCommit": "7b0bc9c9d88f5e9db966fc376cbc253d7fc1a9ea",
   "sourceMinVersion": "2026.7.0"
 }
