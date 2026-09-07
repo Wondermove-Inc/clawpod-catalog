@@ -21,7 +21,13 @@ on:
 
 permissions:
   contents: write
-  pull-requests: write
+  # No pull-requests scope: this workflow never creates a PR. Repository
+  # policy ("Allow GitHub Actions to create and approve pull requests") is off
+  # here, so a gh pr create call fails the whole run — and it used to, every
+  # six hours, after already pushing the review branch. The review path now
+  # publishes a branch plus a tracking issue and leaves opening the PR to a
+  # person.
+  issues: write
 
 concurrency:
   group: publish-catalog
@@ -66,28 +72,62 @@ jobs:
           git commit -m "catalog: $SUMMARY"
           git push origin HEAD:main
 
-      - name: Open a review PR (large diff or forced)
+      - name: Stage the review branch (large diff or forced)
         if: >-
           steps.publish.outputs.changed == 'true' &&
           inputs.dry_run != true &&
           (steps.publish.outputs.needs_review == 'true' || inputs.force_pr == true)
         env:
-          GH_TOKEN: ${{ github.token }}
+          # env indirection: never interpolate step outputs (which carry
+          # upstream-derived strings) directly into a run script.
           SUMMARY: ${{ steps.publish.outputs.summary }}
+          REPO: ${{ github.repository }}
+          BRANCH: catalog-update
         run: |
-          branch="catalog-update-$(date -u +%Y%m%d-%H%M%S)"
           git config user.name "clawpod-catalog-bot"
           git config user.email "captain@wondermove.net"
-          git checkout -b "$branch"
           git add models/v1/catalog.json
           git commit -m "catalog: $SUMMARY"
-          git push origin "$branch"
+          # One fixed branch, force-pushed: a review that stays open for days
+          # must not leave a new timestamped branch behind on every run.
+          git push --force origin "HEAD:refs/heads/$BRANCH"
+          compare="https://github.com/$REPO/compare/main...$BRANCH?expand=1"
           {
             printf '%s\n\n' "$SUMMARY"
-            printf 'Review gate triggered: provider removal or model-count swing beyond threshold (or forced). Compare the diff before merging.\n'
-          } > /tmp/pr-body.txt
-          gh pr create \
-            --title "catalog: review-gated update" \
-            --body-file /tmp/pr-body.txt \
-            --base main \
-            --head "$branch"
+            printf 'Review gate triggered: provider removal or model-count swing beyond threshold (or forced). Compare the diff before merging.\n\n'
+            printf 'Open the pull request: %s\n' "$compare"
+          } > /tmp/review-body.txt
+          {
+            echo "### Catalog update awaiting review"
+            echo
+            echo '```'
+            cat /tmp/review-body.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Track the pending review in one issue
+        if: >-
+          steps.publish.outputs.changed == 'true' &&
+          inputs.dry_run != true &&
+          (steps.publish.outputs.needs_review == 'true' || inputs.force_pr == true)
+        # Notification only: the branch and the job summary above already carry
+        # the result, so a repository that also restricts issues must not turn
+        # a pending review back into a failed run.
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TITLE: "catalog: update awaiting review"
+        run: |
+          # Reuse the same issue for as long as the review is pending and keep
+          # its body current, so a review that spans days produces one issue
+          # instead of a comment every six hours. `env.TITLE` keeps the title
+          # out of the jq program text, and `// empty` makes "no match" an
+          # empty string instead of the literal "null".
+          existing="$(gh issue list --state open --limit 100 --json number,title \
+            --jq '[.[] | select(.title == env.TITLE)][0].number // empty')"
+          if [ -n "$existing" ]; then
+            gh issue edit "$existing" --body-file /tmp/review-body.txt
+            echo "updated issue #$existing"
+          else
+            gh issue create --title "$TITLE" --body-file /tmp/review-body.txt
+          fi
