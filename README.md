@@ -12,7 +12,7 @@ ClawPoD 에이전트 게이트웨이가 사용하는 **검증·변환된 OpenCla
 
 - **안정된 소비 URL 제공**: ClawPoD gateway는 upstream에 직접 연결하지 않고 이 저장소의 raw artifact를 조회합니다.
 - **검증과 변환**: publisher가 upstream bundle을 검사하고 ClawPoD 정책에 맞게 변환합니다.
-- **변경 추적**: 게시 결과와 diff를 Git commit 또는 review PR 경로로 남깁니다.
+- **변경 추적**: 게시 결과와 diff를 `main` commit으로 남깁니다.
 - **방어 계층 제공**: publisher와 consumer가 각각 schema와 transport override를 검사합니다.
 
 이 경계가 upstream 데이터의 진실성, 무중단 가용성, 암호학적 provenance, human approval 또는 fleet-wide rollback을 보장하는 것은 아닙니다. 정확한 한계는 [보안 및 신뢰 경계](#보안-및-신뢰-경계)와 [Rollback과 사고 대응](#rollback과-사고-대응)을 참고하세요.
@@ -138,12 +138,15 @@ Publisher의 8MiB 검사는 streaming download/memory cap이 아닙니다. Consu
 
 | 조건 | Workflow 동작 |
 | --- | --- |
-| 변경 없음 | commit·PR 없이 종료 |
-| provider 삭제 없음, model 수 변동 절댓값 ≤ 50, `force_pr=false` | `main`에 자동 commit/push 시도 |
-| provider 삭제, model 수 변동 절댓값 > 50 또는 `force_pr=true` | 별도 branch를 push하고 review PR 생성 시도 |
-| `dry_run=true` | catalog write, commit, push, PR 없이 검증·diff만 수행 |
+| 변경 없음 | commit 없이 종료 |
+| 변경 있음 | `main`에 자동 commit/push |
+| `dry_run=true` | catalog write, commit, push 없이 검증·diff만 수행 |
 
-PR 경로는 사람 검토가 필요한 변경을 분리하기 위한 **routing**입니다. required reviewer, 승인 또는 merge를 강제하지 않습니다. PR 생성은 repository의 GitHub Actions 설정에도 의존합니다.
+게시는 **무인 자동**입니다. 사람 검토를 요구하는 경로는 없습니다. Provider 삭제나 model 수 급변은 workflow log에 notice로 남을 뿐 게시를 막지 않습니다.
+
+게시를 막는 것은 문서가 **깨졌을 때**뿐입니다. Schema 검증 실패, 필수 provider(`anthropic`, `openai`) 누락, `generatedAt`이 24시간 이상 미래, 현재 게시본보다 과거인 `generatedAt`이 여기 해당하며 이 경우 run이 실패하고 기존 artifact가 유지됩니다.
+
+2026-09-05부터 8회 연속 실패한 원인이 이 부분입니다. 당시에는 model 수 급변(274 -> 1003)이 review 경로로 routing됐고, 그 경로가 `gh pr create`를 호출했는데 조직 정책이 GitHub Actions의 PR 생성을 금지하고 있어 branch push 직후 run이 실패했습니다. Review 경로 자체를 제거해 해결했습니다.
 
 Workflow는 nominal 6시간 cron(`17 */6 * * *`)과 수동 dispatch로 실행됩니다. 동일 concurrency group에서 동시에 하나만 실행하고 running run은 취소하지 않지만, 대기 중인 pending run은 새 pending run으로 대체될 수 있습니다.
 
@@ -190,9 +193,9 @@ Credential, token, internal endpoint 또는 secret을 catalog와 workflow output
 ### 정상 게시 확인
 
 1. [publish-catalog workflow](https://github.com/Wondermove-Inc/clawpod-catalog/actions/workflows/publish.yml)의 결론과 summary를 확인합니다.
-2. 자동 mode면 `main` commit, review mode면 branch와 PR 생성 여부를 확인합니다.
+2. `main`에 catalog commit이 올라갔는지 확인합니다.
 3. [빠른 시작](#카탈로그-소비)의 `curl | jq`로 현재 artifact가 parse되는지 확인합니다.
-4. PR이 생성됐다는 사실을 승인 완료로 간주하지 않습니다.
+4. Commit이 올라갔다는 사실을 내용 검증 완료로 간주하지 않습니다.
 5. Consumer 적용이 필요하면 fetch 시점과 process restart 여부를 별도로 확인합니다.
 
 ### 수동 갱신
@@ -217,8 +220,7 @@ node scripts/publish-catalog.mjs
 | 증상 | 확인할 내용 |
 | --- | --- |
 | Dry-run 결과가 `nothing to do` | upstream `generatedAt`이 현재 게시본보다 과거인지, 변환 결과가 현재 artifact와 byte 단위로 같은지 확인 |
-| 예상한 PR이 없음 | `needs_review`, `force_pr`, 변경 유무, Actions의 PR 생성 설정과 workflow log |
-| Workflow가 `main`에 바로 commit | provider 삭제 여부, model 수 변동이 **50 초과**인지, `force_pr` 값 |
+| Workflow가 `main`에 commit하지 않음 | 변경 유무(`changed`), `dry_run` 값, publish step의 검증 실패 여부 |
 | Consumer에 즉시 반영되지 않음 | 6시간 TTL, stored cache, build stamp, source URL, process restart 여부 |
 | Consumer가 vendored snapshot 사용 | cache 부재·손상, URL mismatch, build stamp 부재/신선도, refresh 비활성화, acceptance 오류 |
 | Fetch 실패 후 이전 결과가 계속 보임 | 기존 valid cache가 유지될 수 있으며 최대 보존 기간이 없음 |

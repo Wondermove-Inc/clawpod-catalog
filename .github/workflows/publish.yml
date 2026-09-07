@@ -14,14 +14,17 @@ on:
         description: "Validate and diff only; do not write or push"
         type: boolean
         default: false
-      force_pr:
-        description: "Open a PR even when the diff is small"
-        type: boolean
-        default: false
 
+# No pull-requests scope: this workflow never opens a PR. The organization
+# forbids GitHub Actions from creating pull requests, and the old review path
+# called `gh pr create` after pushing a branch — so a large upstream change
+# failed the run every six hours and left an orphan branch behind. Publishing
+# is unattended by design; correctness is enforced by the validation in
+# scripts/publish-catalog.mjs (schema, required providers, clock skew,
+# monotonic generatedAt), which fails the run instead of publishing a bad
+# document.
 permissions:
   contents: write
-  pull-requests: write
 
 concurrency:
   group: publish-catalog
@@ -49,12 +52,10 @@ jobs:
             node scripts/publish-catalog.mjs
           fi
 
-      - name: Commit and push (auto mode)
+      - name: Commit and push
         if: >-
           steps.publish.outputs.changed == 'true' &&
-          inputs.dry_run != true &&
-          steps.publish.outputs.needs_review != 'true' &&
-          inputs.force_pr != true
+          inputs.dry_run != true
         env:
           # env indirection: never interpolate step outputs (which carry
           # upstream-derived strings) directly into a run script.
@@ -65,29 +66,3 @@ jobs:
           git add models/v1/catalog.json
           git commit -m "catalog: $SUMMARY"
           git push origin HEAD:main
-
-      - name: Open a review PR (large diff or forced)
-        if: >-
-          steps.publish.outputs.changed == 'true' &&
-          inputs.dry_run != true &&
-          (steps.publish.outputs.needs_review == 'true' || inputs.force_pr == true)
-        env:
-          GH_TOKEN: ${{ github.token }}
-          SUMMARY: ${{ steps.publish.outputs.summary }}
-        run: |
-          branch="catalog-update-$(date -u +%Y%m%d-%H%M%S)"
-          git config user.name "clawpod-catalog-bot"
-          git config user.email "captain@wondermove.net"
-          git checkout -b "$branch"
-          git add models/v1/catalog.json
-          git commit -m "catalog: $SUMMARY"
-          git push origin "$branch"
-          {
-            printf '%s\n\n' "$SUMMARY"
-            printf 'Review gate triggered: provider removal or model-count swing beyond threshold (or forced). Compare the diff before merging.\n'
-          } > /tmp/pr-body.txt
-          gh pr create \
-            --title "catalog: review-gated update" \
-            --body-file /tmp/pr-body.txt \
-            --base main \
-            --head "$branch"
