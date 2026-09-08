@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1788845221575,
+  "generatedAt": 1788871123757,
   "minVersion": "2026.4.11",
-  "sourceCommit": "ade9cce816fabe84c268933da2cd8e2bba2db6a4",
+  "sourceCommit": "ea21d360924a53b8ec941c84c29423739d31725f",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -2681,9 +2681,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.22,
-            "output": 0.66,
-            "cacheRead": 0.007,
+            "input": 0.44,
+            "output": 1.32,
+            "cacheRead": 0.014,
             "cacheWrite": 0
           },
           "compat": {
@@ -5400,11 +5400,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.14,
-            "output": 0.28,
-            "cacheRead": 0.028,
+            "input": 0.065,
+            "output": 0.18,
+            "cacheRead": 0.016,
             "cacheWrite": 0
           }
         },
@@ -5419,9 +5419,9 @@
           "contextWindow": 1048576,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.22,
-            "output": 0.66,
-            "cacheRead": 0.007,
+            "input": 0.44,
+            "output": 1.32,
+            "cacheRead": 0.014,
             "cacheWrite": 0
           }
         },
@@ -24369,6 +24369,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1788842002317,
+  "sourceGeneratedAt": 1788856638352,
   "supplementDigest": "041b0dc647b66a51855b058c3a9901b51c85c7a04305719742663ea4811c7d91"
 }
