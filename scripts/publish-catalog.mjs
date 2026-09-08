@@ -1,244 +1,138 @@
-// Publish job: mirror the upstream OpenClaw model catalog into models/v1/catalog.json.
-//
-// Pipeline (see README): fetch -> zod validation -> strip baseUrl/headers ->
-// drop pricing -> rewrite minVersion (source preserved as sourceMinVersion) ->
-// diff against the published bundle -> emit gate decision for the workflow.
-//
-// Standalone by design: this repo is the firewall between upstream and the
-// agents, so the job must not depend on the agent repo being reachable.
+// Publish the upstream mirror plus this repository's manually maintained models.
+// This command has no dependency on clawpod-agent or provider credentials.
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { z } from "zod";
+import { buildCatalog, countModels, MAX_CATALOG_BYTES, serializeCatalog } from "./catalog.mjs";
 
 const DEFAULT_CATALOG_URL = "https://catalog.openclaw.ai/models/v1/catalog.json";
-const MAX_CATALOG_BYTES = 8 * 1024 * 1024;
 const FETCH_TIMEOUT_MS = 30_000;
-// generatedAt more than this far in the future means a broken upstream clock
-// or a tampered bundle; refuse to publish it.
-const MAX_FUTURE_SKEW_MS = 24 * 60 * 60 * 1000;
-// Publishing is unattended: a swing this large (or a provider disappearing)
-// is only logged, never gated. Gating routed to a PR the organization forbids
-// GitHub Actions from opening, which turned every large upstream change into a
-// failed run. The guards that still stop a publish are the ones that catch a
-// broken document, not an unexpected one: schema validation, the required
-// anthropic/openai providers, clock skew, and a non-monotonic generatedAt.
 const LARGE_MODEL_DELTA_NOTICE = 50;
-
-const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const outputPath = path.join(rootDir, "models", "v1", "catalog.json");
-const minVersionPath = path.join(rootDir, "MIN_VERSION");
-
-const costSchema = z
-  .object({
-    input: z.number().finite().nonnegative(),
-    output: z.number().finite().nonnegative(),
-    cacheRead: z.number().finite().nonnegative().optional(),
-    cacheWrite: z.number().finite().nonnegative().optional(),
-  })
-  .loose();
-
-const modelSchema = z
-  .object({
-    id: z.string().trim().min(1),
-    name: z.string().optional(),
-    api: z.string().optional(),
-    input: z.array(z.string()).optional(),
-    reasoning: z.boolean().optional(),
-    contextWindow: z.number().finite().positive().optional(),
-    contextTokens: z.number().int().positive().optional(),
-    maxTokens: z.number().finite().positive().optional(),
-    cost: costSchema.optional(),
-  })
-  .loose();
-
-const providerSchema = z
-  .object({
-    api: z.string().optional(),
-    models: z.array(modelSchema),
-  })
-  .loose();
-
-const bundleSchema = z
-  .object({
-    schemaVersion: z.literal(1).optional(),
-    generatedAt: z.number().int().positive(),
-    minVersion: z.string().optional(),
-    pricing: z.unknown().optional(),
-    providers: z.record(z.string(), providerSchema),
-  })
-  .loose();
-
-function fail(message) {
-  console.error(`publish-catalog: ${message}`);
-  process.exit(1);
-}
+const defaultRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
 function parseArgs(argv) {
   let dryRun = false;
-  for (const arg of argv) {
-    if (arg === "--dry-run") {
+  let sourceFile;
+  for (let i = 0; i < argv.length; i++) {
+    if (argv[i] === "--dry-run") {
       dryRun = true;
-      continue;
+    } else if (argv[i] === "--source-file" && argv[i + 1] && !argv[i + 1].startsWith("--")) {
+      if (sourceFile) throw new Error("--source-file may only be specified once");
+      sourceFile = argv[++i];
+    } else {
+      throw new Error(`unknown or incomplete argument: ${argv[i]}`);
     }
-    fail(`unknown argument: ${arg}`);
   }
-  return { dryRun };
+  return { dryRun, sourceFile };
 }
 
-async function fetchCatalog(url) {
-  const response = await fetch(url, {
+function parseSource(body) {
+  if (body.byteLength > MAX_CATALOG_BYTES) {
+    throw new Error(`catalog exceeds ${MAX_CATALOG_BYTES} bytes (${body.byteLength})`);
+  }
+  return JSON.parse(body.toString("utf8"));
+}
+
+async function fetchCatalog(fetchImpl) {
+  const response = await fetchImpl(DEFAULT_CATALOG_URL, {
     headers: { Accept: "application/json" },
     signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
   });
-  if (!response.ok) {
-    fail(`catalog request failed: HTTP ${response.status}`);
-  }
-  const body = Buffer.from(await response.arrayBuffer());
-  if (body.byteLength > MAX_CATALOG_BYTES) {
-    fail(`catalog exceeds ${MAX_CATALOG_BYTES} bytes (${body.byteLength})`);
-  }
+  if (!response.ok) throw new Error(`catalog request failed: HTTP ${response.status}`);
+  return parseSource(Buffer.from(await response.arrayBuffer()));
+}
+
+function readPrevious(filePath) {
   try {
-    return JSON.parse(body.toString("utf8"));
-  } catch {
-    fail("catalog is not valid JSON");
+    const contents = fs.readFileSync(filePath, "utf8");
+    return { contents, bundle: JSON.parse(contents) };
+  } catch (error) {
+    if (error.code === "ENOENT") return { contents: "", bundle: undefined };
+    // A corrupt previous file must not silently disable the rollback guard.
+    throw error;
   }
 }
 
-// The upstream bundle intentionally carries no transport fields; agents also
-// sanitize on their side. Stripping here keeps the published artifact inert
-// even if upstream (or a compromised upstream) starts including them.
-function stripTransportKeys(value) {
-  if (Array.isArray(value)) {
-    return value.map((item) => stripTransportKeys(item));
-  }
-  if (value && typeof value === "object") {
-    const next = {};
-    for (const [key, entry] of Object.entries(value)) {
-      if (key === "baseUrl" || key === "headers") {
-        continue;
-      }
-      next[key] = stripTransportKeys(entry);
-    }
-    return next;
-  }
-  return value;
+function writeOutput(target, name, value) {
+  if (target) fs.appendFileSync(target, `${name}=${value}\n`);
 }
 
-function countModels(bundle) {
-  return Object.values(bundle.providers ?? {}).reduce(
-    (total, provider) => total + (provider.models?.length ?? 0),
-    0,
+export async function publishCatalog({
+  rootDir = defaultRoot,
+  argv = [],
+  fetchImpl = fetch,
+  now = Date.now(),
+  log = console.log,
+  githubOutput = process.env.GITHUB_OUTPUT,
+} = {}) {
+  const { dryRun, sourceFile } = parseArgs(argv);
+  const outputPath = path.join(rootDir, "models", "v1", "catalog.json");
+  const minVersion = fs.readFileSync(path.join(rootDir, "MIN_VERSION"), "utf8").trim();
+  const supplement = JSON.parse(
+    fs.readFileSync(path.join(rootDir, "sources", "clawpod-providers.json"), "utf8"),
   );
-}
-
-function readJsonIfExists(filePath) {
-  try {
-    return JSON.parse(fs.readFileSync(filePath, "utf8"));
-  } catch {
-    return null;
+  const upstream = sourceFile
+    ? parseSource(fs.readFileSync(path.resolve(sourceFile)))
+    : await fetchCatalog(fetchImpl);
+  const previous = readPrevious(outputPath);
+  const next = buildCatalog({ upstream, supplement, previous: previous.bundle, minVersion, now });
+  if (!next) {
+    log("upstream generatedAt is older than the last accepted upstream; nothing to do");
+    writeOutput(githubOutput, "changed", "false");
+    return { changed: false, reason: "stale-upstream" };
   }
-}
-
-function writeOutput(name, value) {
-  const target = process.env.GITHUB_OUTPUT;
-  if (!target) {
-    return;
+  const contents = serializeCatalog(next);
+  if (contents === previous.contents) {
+    log("published catalog is already current; nothing to do");
+    writeOutput(githubOutput, "changed", "false");
+    return { changed: false, reason: "unchanged" };
   }
-  fs.appendFileSync(target, `${name}=${value}\n`);
-}
-
-async function main() {
-  const { dryRun } = parseArgs(process.argv.slice(2));
-  const minVersion = fs.readFileSync(minVersionPath, "utf8").trim();
-  if (!minVersion) {
-    fail("MIN_VERSION file is empty");
-  }
-
-  const fetched = await fetchCatalog(DEFAULT_CATALOG_URL);
-  const parsed = bundleSchema.safeParse(fetched);
-  if (!parsed.success) {
-    fail(`catalog failed validation: ${parsed.error.issues[0]?.path?.join(".")}: ${parsed.error.issues[0]?.message}`);
-  }
-  const bundle = parsed.data;
-
-  for (const required of ["anthropic", "openai"]) {
-    if (!Object.hasOwn(bundle.providers, required)) {
-      fail(`catalog is missing the ${required} provider — refusing a truncated document`);
-    }
-  }
-  if (bundle.generatedAt > Date.now() + MAX_FUTURE_SKEW_MS) {
-    fail(`catalog generatedAt is more than 24h in the future (${bundle.generatedAt})`);
-  }
-
-  const previous = readJsonIfExists(outputPath);
-  if (previous?.generatedAt && bundle.generatedAt < previous.generatedAt) {
-    console.log(
-      `upstream generatedAt ${bundle.generatedAt} is older than published ${previous.generatedAt}; nothing to do`,
-    );
-    writeOutput("changed", "false");
-    return;
-  }
-
-  const { pricing: _pricing, ...rest } = stripTransportKeys(bundle);
-  const next = {
-    ...rest,
-    minVersion,
-    ...(bundle.minVersion ? { sourceMinVersion: bundle.minVersion } : {}),
-  };
-  const contents = `${JSON.stringify(next, null, 2)}\n`;
-
-  const current = (() => {
-    try {
-      return fs.readFileSync(outputPath, "utf8");
-    } catch {
-      return "";
-    }
-  })();
-  if (current === contents) {
-    console.log("published catalog is already current; nothing to do");
-    writeOutput("changed", "false");
-    return;
-  }
-
-  const previousProviders = new Set(Object.keys(previous?.providers ?? {}));
-  const nextProviders = new Set(Object.keys(next.providers ?? {}));
+  const previousProviders = new Set(Object.keys(previous.bundle?.providers ?? {}));
+  const nextProviders = new Set(Object.keys(next.providers));
   const addedProviders = [...nextProviders].filter((id) => !previousProviders.has(id));
   const removedProviders = [...previousProviders].filter((id) => !nextProviders.has(id));
-  const previousModels = previous ? countModels(previous) : 0;
+  const previousModels = countModels(previous.bundle);
   const nextModels = countModels(next);
   const modelDelta = nextModels - previousModels;
-
-  // Upstream-derived strings feed a commit message via the workflow; keep the
-  // summary to a safe charset so it can never smuggle shell or YAML syntax.
   const safe = (value) => String(value).replace(/[^\w.+\-]/g, "_");
   const summary = [
     `providers=${nextProviders.size} (+${addedProviders.length}/-${removedProviders.length})`,
     `models=${previousModels}->${nextModels} (${modelDelta >= 0 ? "+" : ""}${modelDelta})`,
-    `generatedAt=${previous?.generatedAt ?? "(none)"}->${bundle.generatedAt}`,
-    `minVersion=${safe(bundle.minVersion ?? "(none)")}->${safe(minVersion)}`,
+    `generatedAt=${previous.bundle?.generatedAt ?? "(none)"}->${next.generatedAt}`,
+    `sourceGeneratedAt=${next.sourceGeneratedAt}`,
+    `minVersion=${safe(upstream.minVersion ?? "(none)")}->${safe(minVersion)}`,
     `sourceCommit=${safe(next.sourceCommit ?? "(none)")}`,
+    `supplement=${next.supplementDigest.slice(0, 12)}`,
   ].join(" ");
-  console.log(summary);
-  if (addedProviders.length > 0) {
-    console.log(`added providers: ${addedProviders.join(", ")}`);
-  }
-  if (removedProviders.length > 0) {
-    console.log(`removed providers: ${removedProviders.join(", ")}`);
-  }
-  if (removedProviders.length > 0 || Math.abs(modelDelta) > LARGE_MODEL_DELTA_NOTICE) {
-    console.log(
+  log(summary);
+  if (addedProviders.length) log(`added providers: ${addedProviders.join(", ")}`);
+  if (removedProviders.length) log(`removed providers: ${removedProviders.join(", ")}`);
+  if (removedProviders.length || Math.abs(modelDelta) > LARGE_MODEL_DELTA_NOTICE) {
+    log(
       "notice: unusually large change (provider removal or model-count swing) — published anyway; compare the commit if this was unexpected",
     );
   }
-
   if (dryRun) {
-    console.log("dry-run: not writing models/v1/catalog.json");
+    log("dry-run: not writing models/v1/catalog.json");
   } else {
-    fs.writeFileSync(outputPath, contents);
+    const tempPath = `${outputPath}.${process.pid}.tmp`;
+    try {
+      fs.writeFileSync(tempPath, contents);
+      fs.renameSync(tempPath, outputPath);
+    } finally {
+      fs.rmSync(tempPath, { force: true });
+    }
   }
-  writeOutput("changed", "true");
-  writeOutput("summary", summary);
+  writeOutput(githubOutput, "changed", "true");
+  writeOutput(githubOutput, "summary", summary);
+  return { changed: true, dryRun, summary };
 }
 
-await main();
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  try {
+    await publishCatalog({ argv: process.argv.slice(2) });
+  } catch (error) {
+    console.error(`publish-catalog: ${error.message}`);
+    process.exitCode = 1;
+  }
+}
