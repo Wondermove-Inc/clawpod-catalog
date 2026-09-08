@@ -136,7 +136,8 @@ Publisher의 8MiB 검사는 streaming download/memory cap이 아닙니다. Consu
 ### 3. 보완 데이터 병합, sanitize와 정책 변환
 
 - [`sources/clawpod-providers.json`](sources/clawpod-providers.json)을 매 실행마다 읽어 provider/model ID 기준으로 병합
-- 같은 모델은 upstream 행 전체를 우선하며 보완 데이터로 덮어쓰지 않음
+- 같은 모델은 upstream 행 전체를 우선하고, 공식 근거와 정확한 기존 값 조건이 있는 `corrections`만 병합 후 적용
+- 할인 종료·모델 EOL의 `effectiveAt` 경계가 지나면 다음 정상 게시에서 전환 (provider API 자동 수집 없음)
 - provider API 또는 중복 모델의 유효 API가 충돌하면 게시 중단
 - 중첩된 `baseUrl`, `headers`, `apiKey`, `auth`, `authHeader` 제거
 - root `pricing` 제거
@@ -161,7 +162,7 @@ Schema 검증 실패, 필수 provider(`anthropic`, `openai`) 누락, API 충돌,
 
 2026-09-05부터 8회 연속 실패한 원인이 이 부분입니다. 당시에는 model 수 급변(274 -> 1003)이 review 경로로 routing됐고, 그 경로가 `gh pr create`를 호출했는데 조직 정책이 GitHub Actions의 PR 생성을 금지하고 있어 branch push 직후 run이 실패했습니다. Review 경로 자체를 제거해 해결했습니다.
 
-보완 파일 자체는 **수동 관리**합니다. 6시간 작업은 그 파일을 다시 병합할 뿐 provider API나 Clawpod-Agent 소스에서 보완 모델을 수집하지 않습니다. 수정 절차와 데이터 기준은 [sources/README.md](sources/README.md)를 참고하세요.
+보완 파일 자체는 **수동 관리**합니다. 6시간 작업은 그 파일을 다시 병합하고 검증된 보정·날짜 전환을 적용합니다. Provider API나 Clawpod-Agent 소스에서 보완 모델을 수집하지 않습니다. 수정 절차와 데이터 기준은 [sources/README.md](sources/README.md)를 참고하세요.
 
 Workflow는 nominal 6시간 cron(`17 */6 * * *`)과 수동 dispatch로 실행됩니다. 동일 concurrency group에서 동시에 하나만 실행하고 running run은 취소하지 않지만, 대기 중인 pending run은 새 pending run으로 대체될 수 있습니다.
 
@@ -270,6 +271,7 @@ node scripts/publish-catalog.mjs --source-file /path/to/upstream-catalog.json
 | [`scripts/catalog.mjs`](scripts/catalog.mjs) | 병합·검증·시각 정책 |
 | [`sources/clawpod-providers.json`](sources/clawpod-providers.json) | 수동 관리 보완 데이터와 출처 |
 | [`sources/README.md`](sources/README.md) | 보완 데이터 갱신 방법과 범위 |
+| [`sources/REVIEW.md`](sources/REVIEW.md) | 공식 자료 검토 근거, 가격 범위와 제외 목록 |
 | [`tests/catalog.test.mjs`](tests/catalog.test.mjs) | 오프라인 회귀 테스트 |
 | [`.github/workflows/test.yml`](.github/workflows/test.yml) | PR·main 테스트 |
 | [`.github/workflows/publish.yml`](.github/workflows/publish.yml) | Schedule·manual dispatch·commit automation |

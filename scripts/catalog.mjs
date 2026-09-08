@@ -67,6 +67,37 @@ const supplementalProviderSchema = z
     models: z.array(supplementalModelSchema).min(1),
   })
   .strict();
+const costPatchSchema = z
+  .object(
+    Object.fromEntries(Object.entries(costFields).map(([key, schema]) => [key, schema.optional()])),
+  )
+  .strict()
+  .refine((value) => Object.keys(value).length > 0, "empty cost patch");
+const correctionFields = {
+  provider: nonempty,
+  model: nonempty,
+  source: z.url(),
+  effectiveAt: timestamp.optional(),
+};
+const correctionSchema = z.discriminatedUnion("kind", [
+  z
+    .object({
+      ...correctionFields,
+      kind: z.literal("cost"),
+      expected: costPatchSchema,
+      set: costPatchSchema,
+    })
+    .strict(),
+  z
+    .object({
+      ...correctionFields,
+      kind: z.literal("status"),
+      from: z.enum(["active", "deprecated"]).nullable(),
+      to: z.enum(["deprecated", "disabled"]),
+      replacedBy: nonempty.optional(),
+    })
+    .strict(),
+]);
 export const supplementSchema = z
   .object({
     schemaVersion: z.literal(1),
@@ -82,6 +113,7 @@ export const supplementSchema = z
         .strict(),
     ),
     providers: z.record(z.string().regex(/^[a-z0-9][a-z0-9-]*$/), supplementalProviderSchema),
+    corrections: z.array(correctionSchema).optional(),
   })
   .strict();
 
@@ -107,7 +139,46 @@ export function validateSupplement(value) {
   ) {
     throw new Error("supplement provenance must cover exactly its providers");
   }
+  for (const correction of supplement.corrections ?? []) {
+    if (!supplement.providers[correction.provider]?.models.some((m) => m.id === correction.model)) {
+      throw new Error(
+        `correction target missing from supplement: ${correction.provider}/${correction.model}`,
+      );
+    }
+    if (
+      correction.kind === "cost" &&
+      Object.keys(correction.set).some((key) => !Object.hasOwn(correction.expected, key))
+    ) {
+      throw new Error("every corrected cost field requires an expected value");
+    }
+    if (correction.kind === "status" && correction.from === correction.to) {
+      throw new Error("status correction must change the status");
+    }
+  }
   return supplement;
+}
+
+// Reviewed exceptions only apply to the exact known-bad values. A newer upstream
+// value wins automatically. These rules never introduce a model or reactivate it.
+export function applyCorrections(providers, corrections = [], now = Date.now()) {
+  const result = structuredClone(providers);
+  for (const correction of corrections) {
+    if (correction.effectiveAt !== undefined && now < correction.effectiveAt) continue;
+    const model = result[correction.provider]?.models.find((m) => m.id === correction.model);
+    if (!model) continue;
+    if (correction.kind === "cost") {
+      if (
+        !model.cost ||
+        !Object.entries(correction.expected).every(([key, value]) => model.cost[key] === value)
+      )
+        continue;
+      Object.assign(model.cost, correction.set);
+    } else if ((model.status ?? null) === correction.from) {
+      model.status = correction.to;
+      if (correction.replacedBy) model.replacedBy = correction.replacedBy;
+    }
+  }
+  return result;
 }
 
 const forbiddenKeys = new Set(["baseUrl", "headers", "apiKey", "auth", "authHeader"]);
@@ -213,7 +284,11 @@ export function buildCatalog({
     schemaVersion: 1,
     minVersion: minVersion.trim(),
     ...(bundle.minVersion ? { sourceMinVersion: bundle.minVersion } : {}),
-    providers: mergeProviders(rest.providers, supplement.providers),
+    providers: applyCorrections(
+      mergeProviders(rest.providers, supplement.providers),
+      supplement.corrections,
+      now,
+    ),
     sourceGeneratedAt,
     supplementDigest: createHash("sha256").update(JSON.stringify(supplement)).digest("hex"),
   };

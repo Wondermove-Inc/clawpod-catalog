@@ -539,3 +539,169 @@ test("valid JSON with corrupt previous schema or provenance cannot disable rollb
   delete partial.sourceGeneratedAt;
   assert.throws(() => buildCatalog({ ...f, previous: partial }), /incomplete/);
 });
+
+test("reviewed cost corrections fix stale upstream fields and preserve newer values and metadata", () => {
+  const f = fixture();
+  f.upstream.providers.google = structuredClone(f.supplement.providers.google);
+  const upstreamModel = f.upstream.providers.google.models[0];
+  upstreamModel.cost.cacheRead = 0.1;
+  upstreamModel.compat = { preserved: true };
+  upstreamModel.status = "disabled";
+  f.supplement.corrections = [
+    {
+      kind: "cost",
+      provider: "google",
+      model: "local-model",
+      expected: { input: 1, output: 2 },
+      set: { input: 3, output: 4 },
+      source: "https://example.com/pricing",
+    },
+  ];
+  const before = structuredClone(f);
+  const next = buildCatalog(f);
+  assert.deepEqual(next.providers.google.models[0].cost, { input: 3, output: 4, cacheRead: 0.1 });
+  assert.equal(next.providers.google.models[0].status, "disabled");
+  assert.deepEqual(next.providers.google.models[0].compat, { preserved: true });
+  assert.equal(next.corrections, undefined);
+  assert.deepEqual(f, before);
+  upstreamModel.cost.output = 5;
+  assert.deepEqual(buildCatalog(f).providers.google.models[0].cost, upstreamModel.cost);
+  delete upstreamModel.cost;
+  assert.equal(buildCatalog(f).providers.google.models[0].cost, undefined);
+});
+
+test("dated corrections change publication at the exact boundary with unchanged upstream", () => {
+  const f = fixture();
+  f.supplement.corrections = [
+    {
+      kind: "cost",
+      provider: "google",
+      model: "local-model",
+      expected: { input: 1, output: 2 },
+      set: { input: 2, output: 4 },
+      effectiveAt: NOW + 1000,
+      source: "https://example.com/pricing",
+    },
+  ];
+  const first = buildCatalog({ ...f, now: NOW + 999 });
+  assert.equal(first.providers.google.models[0].cost.input, 1);
+  const second = buildCatalog({ ...f, previous: first, now: NOW + 1000 });
+  assert.equal(second.providers.google.models[0].cost.input, 2);
+  assert.equal(second.sourceGeneratedAt, first.sourceGeneratedAt);
+  assert.equal(second.supplementDigest, first.supplementDigest);
+  assert.ok(second.generatedAt > first.generatedAt);
+  assert.equal(
+    serializeCatalog(buildCatalog({ ...f, previous: second, now: NOW + 2000 })),
+    serializeCatalog(second),
+  );
+});
+
+test("lifecycle corrections preserve disabled rows and never replace other provider metadata", () => {
+  const f = fixture();
+  f.upstream.providers.google = structuredClone(f.supplement.providers.google);
+  f.supplement.corrections = [
+    {
+      kind: "status",
+      provider: "google",
+      model: "local-model",
+      from: null,
+      to: "deprecated",
+      source: "https://example.com/lifecycle",
+    },
+    {
+      kind: "status",
+      provider: "google",
+      model: "local-model",
+      from: "deprecated",
+      to: "disabled",
+      effectiveAt: NOW + 1000,
+      source: "https://example.com/lifecycle",
+    },
+  ];
+  assert.equal(buildCatalog(f).providers.google.models[0].status, "deprecated");
+  assert.equal(
+    buildCatalog({ ...f, now: NOW + 1000 }).providers.google.models[0].status,
+    "disabled",
+  );
+  f.upstream.providers.google.models[0].status = "disabled";
+  assert.equal(buildCatalog(f).providers.google.models[0].status, "disabled");
+  assert.deepEqual(buildCatalog(f).providers.openai, f.upstream.providers.openai);
+});
+
+test("corrections reject unsafe, unguarded, and missing targets", () => {
+  const f = fixture();
+  const valid = {
+    kind: "cost",
+    provider: "google",
+    model: "local-model",
+    expected: { input: 1 },
+    set: { input: 2 },
+    source: "https://example.com/pricing",
+  };
+  for (const bad of [
+    { ...valid, model: "missing" },
+    { ...valid, set: { output: 2 } },
+    { ...valid, expected: {} },
+    { ...valid, set: { input: -1 } },
+    { ...valid, set: { apiKey: "not-allowed" } },
+    { ...valid, effectiveAt: 0 },
+    { ...valid, source: "not-a-url" },
+    {
+      kind: "status",
+      provider: "google",
+      model: "local-model",
+      from: "disabled",
+      to: "active",
+      source: valid.source,
+    },
+  ])
+    assert.throws(() =>
+      buildCatalog({ ...f, supplement: { ...f.supplement, corrections: [bad] } }),
+    );
+});
+
+test("reviewed data publishes corrected prices, subscription unknowns, and retirement states", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const f = { ...fixture(), supplement };
+  f.upstream.providers.zai = {
+    api: "openai-completions",
+    models: [
+      {
+        ...localModel("glm-5.2"),
+        cost: { input: 0.966, output: 3.036, cacheRead: 0.1932, cacheWrite: 0 },
+      },
+      { ...localModel("glm-5.3"), cost: { input: 1.4, output: 4.4, cacheRead: 0.14 } },
+    ],
+  };
+  const next = buildCatalog(f);
+  const get = (p, id, bundle = next) => bundle.providers[p].models.find((m) => m.id === id);
+  assert.equal(get("zai", "glm-5.2").cost.input, 1.4);
+  assert.equal(get("zai", "glm-5.2").cost.output, 4.4);
+  assert.equal(get("zai", "glm-5.3").cost.cacheRead, 0.26);
+  assert.deepEqual(get("anthropic-vertex", "claude-sonnet-5").cost, {
+    input: 2,
+    output: 10,
+    cacheRead: 0.2,
+    cacheWrite: 2.5,
+  });
+  assert.equal(get("google-vertex", "gemini-3.8-flash").cost.input, 0.75);
+  assert.equal(get("openai-codex", "gpt-5.4").status, "disabled");
+  assert.equal(get("openai-codex", "gpt-5.4-mini").replacedBy, "gpt-5.6-luna");
+  assert.ok(next.providers["openai-codex"].models.every((m) => m.cost === undefined));
+  assert.ok(next.providers["minimax-portal"].models.every((m) => m.cost === undefined));
+  assert.equal(get("amazon-bedrock-mantle", "anthropic.claude-mythos-preview").cost, undefined);
+  assert.equal(get("openrouter", "deepseek/deepseek-chat").maxTokens, 16384);
+  assert.equal(get("openrouter", "openrouter/hunter-alpha"), undefined);
+  const expiry = Date.UTC(2026, 8, 9, 16);
+  assert.equal(
+    get("zai", "glm-5.3-flash", buildCatalog({ ...f, now: expiry - 1 })).cost.input,
+    0.075,
+  );
+  assert.equal(get("zai", "glm-5.3-flash", buildCatalog({ ...f, now: expiry })).cost.input, 0.15);
+  const later = buildCatalog({ ...f, now: Date.UTC(2027, 0, 1) });
+  assert.equal(get("google", "gemini-3.8-flash", later).cost.input, 1.5);
+  assert.equal(
+    get("amazon-bedrock", "anthropic.claude-3-haiku-20240307-v1:0", later).status,
+    "disabled",
+  );
+});
