@@ -20,8 +20,8 @@ on:
 # called `gh pr create` after pushing a branch — so a large upstream change
 # failed the run every six hours and left an orphan branch behind. Publishing
 # is unattended by design; correctness is enforced by the validation in
-# scripts/publish-catalog.mjs (schema, required providers, clock skew,
-# monotonic generatedAt), which fails the run instead of publishing a bad
+# scripts/publish-catalog.mjs (schema, required providers, merge conflicts,
+# clock skew and monotonic upstream/publication timestamps), which fails instead of publishing a bad
 # document.
 permissions:
   contents: write
@@ -43,7 +43,10 @@ jobs:
       - name: Install pinned dependencies
         run: npm ci
 
-      - name: Fetch, validate, and transform the upstream catalog
+      - name: Test publishing and supplemental data
+        run: npm test
+
+      - name: Fetch, merge local supplements, and validate the catalog
         id: publish
         run: |
           if [ "${{ inputs.dry_run }}" = "true" ]; then

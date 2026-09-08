@@ -4,7 +4,7 @@
 
 ClawPoD 에이전트 게이트웨이가 사용하는 **검증·변환된 OpenClaw 모델 카탈로그 미러**입니다.
 
-이 저장소는 upstream hosted catalog와 ClawPoD runtime 사이의 게시 경계입니다. 원본을 그대로 중계하지 않고, 게시 전에 구조를 확인하고 transport 관련 필드를 제거한 뒤 Git 이력으로 추적 가능한 snapshot을 제공합니다.
+이 저장소는 upstream hosted catalog와 ClawPoD runtime 사이의 게시 경계입니다. 원본을 그대로 중계하지 않고, 게시 전에 이 레포의 수동 관리 보완 데이터를 병합하고, 구조를 확인하고 transport 관련 필드를 제거한 뒤 Git 이력으로 추적 가능한 snapshot을 제공합니다.
 
 > 이 저장소는 모델 카탈로그 데이터와 게시 자동화만 담당합니다. 모델 요청을 proxy하지 않으며 provider endpoint, credential, runtime 설정을 배포하지 않습니다.
 
@@ -23,6 +23,7 @@ ClawPoD 에이전트 게이트웨이가 사용하는 **검증·변환된 OpenCla
 https://catalog.openclaw.ai/models/v1/catalog.json
                          │
                          │ fetch → publisher ingress 검증
+                         │ sources/clawpod-providers.json 병합
                          │ sanitize/transform → diff 분류
                          ▼
               models/v1/catalog.json
@@ -41,7 +42,8 @@ https://catalog.openclaw.ai/models/v1/catalog.json
 | 구성요소 | 책임 |
 | --- | --- |
 | Upstream catalog | 원본 모델 metadata와 추적 필드 제공 |
-| 이 저장소의 publisher | fetch, ingress 검증, sanitize, 정책 변환, 게시 경로 선택 |
+| 수동 관리 보완 JSON | upstream에 없는 provider/model 정의와 출처 기록 |
+| 이 저장소의 publisher | fetch, ingress 검증, 보완 데이터 병합, sanitize, 시각 정책, 게시 |
 | GitHub repository | mutable `main` artifact와 변경 이력 제공 |
 | `clawpod-agent` | HTTPS fetch, consumer gate, cache, build-stamp 비교, runtime 적용 결정 |
 
@@ -64,6 +66,8 @@ curl -fsSL "$CATALOG_URL" |
   jq '{
     schemaVersion,
     generatedAt,
+    sourceGeneratedAt,
+    supplementDigest,
     minVersion,
     sourceMinVersion,
     sourceCommit,
@@ -90,25 +94,27 @@ npm run publish-catalog:dry-run
 | 필드 | Publisher ingress | 현재 게시 artifact | Consumer 경계 |
 | --- | --- | --- | --- |
 | `schemaVersion` | 선택 필드이나 존재하면 `1` | `1` | 반드시 `1`이어야 함 |
-| `generatedAt` | 필수 양의 정수 | upstream 생성 시각 | 양의 정수, 과도한 미래 시각 거부, build stamp보다 최신일 때 overlay 후보 |
-| `minVersion` | 선택 문자열, 게시 시 [`MIN_VERSION`](MIN_VERSION) 값으로 재작성 | ClawPoD 게시 정책 값 | 선택 non-empty 문자열이며 정보용, runtime gate가 아님 |
-| `sourceMinVersion` | schema에 선언되지 않은 unknown field로 통과할 수 있음. Upstream `minVersion`이 truthy이면 게시 변환이 그 값으로 설정 | 현재 upstream 원본 `minVersion` 문자열 | 선택 필드이나 존재하면 non-empty 문자열, 정보용 |
-| `sourceCommit` | schema에 선언되지 않은 unknown field로 형식 검증 없이 통과·보존될 수 있음 | 현재 upstream 추적 문자열 | 선택 필드이나 존재하면 non-empty 문자열. 서명·검증된 provenance가 아님 |
-| `providers` | 필수 record이며 `anthropic`·`openai` 존재를 별도 확인. 각 `models`는 배열이나 ingress에서 비어 있을 수 있음 | provider별 API 유형과 model metadata | provider별 model 최소 1개, provider 내부 model id 중복 금지 |
+| `generatedAt` | 필수 양의 정수 | 실제 변경 시 갱신하는 단조 증가 게시 시각 | 양의 정수, 과도한 미래 시각 거부, build stamp보다 최신일 때 overlay 후보 |
+| `sourceGeneratedAt` | upstream 입력에는 허용하지 않음 | 마지막으로 수락한 upstream 생성 시각 | unknown root field로 제거됨 |
+| `supplementDigest` | upstream 입력에는 허용하지 않음 | 검증된 보완 입력의 SHA-256; 서명은 아님 | unknown root field로 제거됨 |
+| `minVersion` | 선택 non-empty 문자열, 게시 시 [`MIN_VERSION`](MIN_VERSION) 값으로 재작성 | ClawPoD 게시 정책 값 | 선택 non-empty 문자열이며 정보용, runtime gate가 아님 |
+| `sourceMinVersion` | 선택 non-empty 문자열. Upstream `minVersion`이 있으면 게시 변환이 그 값으로 설정 | 현재 upstream 원본 `minVersion` 문자열 | 선택 필드이나 존재하면 non-empty 문자열, 정보용 |
+| `sourceCommit` | 선택 non-empty 문자열; commit의 진위는 검증하지 않음 | 현재 upstream 추적 문자열 | 선택 필드이나 존재하면 non-empty 문자열. 서명·검증된 provenance가 아님 |
+| `providers` | 필수 record이며 `anthropic`·`openai` 존재를 별도 확인. 각 `models`는 비어 있으면 안 되며 provider 내부 중복 ID를 거부 | provider별 API 유형과 model metadata | provider별 model 최소 1개, provider 내부 model id 중복 금지 |
 
 Publisher ingress schema와 consumer acceptance schema는 동일하지 않습니다.
 
 | 단계 | 주요 동작 |
 | --- | --- |
-| Publisher ingress | Zod로 알려진 필드 형식을 검사합니다. `schemaVersion`은 ingress에서 선택이고 provider의 빈 model 배열 및 unknown field가 허용될 수 있습니다. `anthropic`과 `openai` provider 존재를 별도로 요구합니다. |
-| 게시 변환 | `baseUrl`·`headers`를 재귀 제거하고 root `pricing`을 제거합니다. `minVersion`을 재작성하고 가능한 경우 원본을 `sourceMinVersion`으로 보존합니다. |
+| Publisher ingress | Zod로 알려진 필드 형식을 검사합니다. `schemaVersion`은 ingress에서 선택이며 출력은 `1`로 정규화합니다. Unknown field는 허용하지만 빈 모델 배열과 중복 ID는 거부합니다. `anthropic`과 `openai` provider 존재를 별도로 요구합니다. |
+| 게시 변환 | 수동 보완 데이터를 병합하고 `baseUrl`·`headers`·`apiKey`·`auth`·`authHeader`를 재귀 제거합니다. Root `pricing`도 제거합니다. `minVersion`을 재작성하고 가능한 경우 원본을 `sourceMinVersion`으로 보존합니다. |
 | Consumer acceptance | `schemaVersion: 1`, provider별 model 최소 1개, provider 내부 중복 id 금지와 gate field를 검사합니다. 알 수 없는 provider/model payload field와 transport/pricing field는 제거합니다. |
 
 따라서 “publisher 검증 통과”만으로 consumer acceptance를 보장한다고 가정하면 안 됩니다. 최종 계약 집행자는 `clawpod-agent`입니다.
 
 ## 게시 파이프라인
 
-게시 구현은 [`scripts/publish-catalog.mjs`](scripts/publish-catalog.mjs), 자동화는 [`.github/workflows/publish.yml`](.github/workflows/publish.yml)에 있습니다.
+게시 명령은 [`scripts/publish-catalog.mjs`](scripts/publish-catalog.mjs), 병합·검증 로직은 [`scripts/catalog.mjs`](scripts/catalog.mjs), 자동화는 [`.github/workflows/publish.yml`](.github/workflows/publish.yml)에 있습니다.
 
 ### 1. Fetch
 
@@ -117,22 +123,29 @@ Publisher ingress schema와 consumer acceptance schema는 동일하지 않습니
 - 응답 전체를 읽은 뒤 8MiB를 초과하면 게시 전 거부
 - HTTP 오류와 JSON parse 오류는 fail closed
 
-Publisher의 8MiB 검사는 streaming download/memory cap이 아닙니다. Consumer의 4MiB streaming body limit와 목적·구현이 다릅니다.
+Publisher의 8MiB 검사는 streaming download/memory cap이 아닙니다. Consumer의 4MiB streaming body limit와 목적·구현이 다릅니다. 최종 직렬화한 게시 파일에는 별도로 4MiB 한도를 적용합니다.
 
 ### 2. Validate
 
 - Zod 기반 ingress 검사
 - `anthropic`, `openai` provider 존재 확인
 - `generatedAt`이 현재보다 24시간을 초과해 미래이면 거부
-- upstream `generatedAt`이 현재 게시본보다 과거이면 변경하지 않음
+- upstream `generatedAt`이 이전 `sourceGeneratedAt`보다 과거이면 변경하지 않음. 이전 형식의 게시본에는 `generatedAt`을 비교 기준으로 사용
+- 보완 입력은 허용된 필드·API 유형만 수락하며 빈 목록·중복 ID·출처 누락을 거부
 
-### 3. Sanitize와 정책 변환
+### 3. 보완 데이터 병합, sanitize와 정책 변환
 
-- 중첩된 `baseUrl`, `headers` 제거
+- [`sources/clawpod-providers.json`](sources/clawpod-providers.json)을 매 실행마다 읽어 provider/model ID 기준으로 병합
+- 같은 모델은 upstream 행 전체를 우선하며 보완 데이터로 덮어쓰지 않음
+- provider API 또는 중복 모델의 유효 API가 충돌하면 게시 중단
+- 중첩된 `baseUrl`, `headers`, `apiKey`, `auth`, `authHeader` 제거
 - root `pricing` 제거
 - [`MIN_VERSION`](MIN_VERSION) 값으로 `minVersion` 재작성
 - upstream `minVersion`을 `sourceMinVersion`으로 보존
 - upstream 유래 commit summary를 제한된 문자 집합으로 정규화
+- 원본 시각은 `sourceGeneratedAt`, 보완 입력 digest는 `supplementDigest`로 기록
+- 내용이 같으면 기존 `generatedAt`을 보존; 변경 시 현재 시각·upstream 시각·직전 게시 시각+1 중 최댓값을 사용
+- 전체 결과를 검증하고 임시 파일+rename으로 교체
 
 ### 4. 변경 경로 선택
 
@@ -144,9 +157,11 @@ Publisher의 8MiB 검사는 streaming download/memory cap이 아닙니다. Consu
 
 게시는 **무인 자동**입니다. 사람 검토를 요구하는 경로는 없습니다. Provider 삭제나 model 수 급변은 workflow log에 notice로 남을 뿐 게시를 막지 않습니다.
 
-게시를 막는 것은 문서가 **깨졌을 때**뿐입니다. Schema 검증 실패, 필수 provider(`anthropic`, `openai`) 누락, `generatedAt`이 24시간 이상 미래, 현재 게시본보다 과거인 `generatedAt`이 여기 해당하며 이 경우 run이 실패하고 기존 artifact가 유지됩니다.
+Schema 검증 실패, 필수 provider(`anthropic`, `openai`) 누락, API 충돌, 24시간을 초과한 미래 시각, 출력 크기 초과 또는 손상된 이전 artifact는 run을 실패시키고 기존 artifact를 유지합니다. 과거 upstream 시각은 실패 대신 변경 없이 종료합니다. 게시 시각이 upstream보다 앞서더라도 `sourceGeneratedAt` 기준으로 다음 정상 갱신을 수락합니다.
 
 2026-09-05부터 8회 연속 실패한 원인이 이 부분입니다. 당시에는 model 수 급변(274 -> 1003)이 review 경로로 routing됐고, 그 경로가 `gh pr create`를 호출했는데 조직 정책이 GitHub Actions의 PR 생성을 금지하고 있어 branch push 직후 run이 실패했습니다. Review 경로 자체를 제거해 해결했습니다.
+
+보완 파일 자체는 **수동 관리**합니다. 6시간 작업은 그 파일을 다시 병합할 뿐 provider API나 Clawpod-Agent 소스에서 보완 모델을 수집하지 않습니다. 수정 절차와 데이터 기준은 [sources/README.md](sources/README.md)를 참고하세요.
 
 Workflow는 nominal 6시간 cron(`17 */6 * * *`)과 수동 dispatch로 실행됩니다. 동일 concurrency group에서 동시에 하나만 실행하고 running run은 취소하지 않지만, 대기 중인 pending run은 새 pending run으로 대체될 수 있습니다.
 
@@ -176,9 +191,9 @@ Consumer 세부 구현은 [`clawpod-agent` model catalog 문서](https://github.
 
 | 계층 | 현재 방어 | 남는 위험 |
 | --- | --- | --- |
-| Publisher | ingress schema 검사, 필수 provider, 미래 skew·회귀 guard, transport key 제거 | loose unknown field, root 수준 `pricing` 제거, upstream 신뢰 |
-| Workflow | schedule/dispatch trigger, 명시된 `contents: write`·`pull-requests: write`, output의 env 전달, concurrency | approval 미강제, repository 설정 의존, workflow 자체의 write 권한 |
-| Actions toolchain | Node.js 22 설정, lockfile 기반 `npm ci` | `actions/*@v4` major-version ref, `ubuntu-latest` rolling runner, runner 제공 `gh`는 immutable pin이 아님 |
+| Publisher | ingress·보완 schema 검사, 필수 provider, API 충돌 검사, 미래 skew·회귀 guard, transport/auth key 제거, 출력 크기 제한 | loose unknown field, root 수준 `pricing` 제거, upstream 신뢰 |
+| Workflow | schedule/dispatch trigger, 게시 workflow의 `contents: write`, output의 env 전달, concurrency | approval 미강제, repository 설정 의존, workflow 자체의 write 권한 |
+| Actions toolchain | Node.js 22 설정, lockfile 기반 `npm ci` | `actions/*@v4` major-version ref, `ubuntu-latest` rolling runner |
 | Transport | GitHub HTTPS raw URL | mutable `main`, commit pin·checksum·signature 없음 |
 | Consumer | HTTPS, SSRF guard, timeout, streaming size limit, acceptance gate, sanitize, temp+rename | 동시 writer race, restart 전 미적용, 유효 cache 장기 유지, model metadata·목록이 planning에 미치는 영향 |
 
@@ -205,7 +220,17 @@ npm ci
 node scripts/publish-catalog.mjs
 ```
 
-이 명령은 실제 artifact를 씁니다. 실행 전 dry-run을 수행하고, 실행 후에는 **`models/v1/catalog.json` diff만** 검토하세요. Generated artifact를 손으로 편집하지 마세요.
+이 명령은 실제 artifact를 씁니다. 실행 전 dry-run을 수행하고, 실행 후에는 `models/v1/catalog.json` diff를 검토하세요. 보완 파일을 수정했다면 입력과 생성 결과를 함께 검토하세요. Generated artifact를 손으로 편집하지 마세요.
+
+### 오프라인 검증·재생성
+
+```bash
+npm test
+node scripts/publish-catalog.mjs --source-file /path/to/upstream-catalog.json --dry-run
+node scripts/publish-catalog.mjs --source-file /path/to/upstream-catalog.json
+```
+
+`--source-file`은 네트워크를 사용하지 않고 저장한 원본 upstream bundle을 입력으로 사용합니다. 보완 데이터 병합·시각 회귀 검사·크기 제한은 온라인 실행과 같습니다. 이미 보완된 최종 게시 파일을 입력으로 재사용하면 이전 수동 모델이 영구히 남는 문제가 생기므로 거부합니다. 원본보다 새로운 입력이 필요하면 upstream에서 다시 받아야 합니다.
 
 ### Rollback과 사고 대응
 
@@ -219,7 +244,7 @@ node scripts/publish-catalog.mjs
 
 | 증상 | 확인할 내용 |
 | --- | --- |
-| Dry-run 결과가 `nothing to do` | upstream `generatedAt`이 현재 게시본보다 과거인지, 변환 결과가 현재 artifact와 byte 단위로 같은지 확인 |
+| Dry-run 결과가 `nothing to do` | upstream `generatedAt`이 게시본의 `sourceGeneratedAt`보다 과거인지, 변환 결과가 현재 artifact와 byte 단위로 같은지 확인 |
 | Workflow가 `main`에 commit하지 않음 | 변경 유무(`changed`), `dry_run` 값, publish step의 검증 실패 여부 |
 | Consumer에 즉시 반영되지 않음 | 6시간 TTL, stored cache, build stamp, source URL, process restart 여부 |
 | Consumer가 vendored snapshot 사용 | cache 부재·손상, URL mismatch, build stamp 부재/신선도, refresh 비활성화, acceptance 오류 |
@@ -228,12 +253,13 @@ node scripts/publish-catalog.mjs
 ## 변경 관리
 
 - `models/v1/catalog.json`은 generated artifact입니다. 직접 편집하지 마세요.
+- 보완 모델 변경은 `sources/clawpod-providers.json`과 출처를 수정하고 재생성하세요. Upstream에도 있는 모델은 보완 파일에서 삭제해도 유지됩니다.
 - Publisher 동작 변경은 [`scripts/publish-catalog.mjs`](scripts/publish-catalog.mjs)와 consumer acceptance의 차이를 함께 검토해야 합니다.
 - Automation 변경은 [`.github/workflows/publish.yml`](.github/workflows/publish.yml)의 token 권한, untrusted input, trigger, concurrency를 검토해야 합니다.
 - `MIN_VERSION` 변경은 게시 artifact의 `minVersion` 정책을 바꿉니다. Consumer runtime gate를 바꾸는 것은 아닙니다.
 - README의 운영·보안 주장은 source와 함께 갱신하세요.
 
-현재 저장소에는 별도의 offline validator 또는 test script가 없습니다. 존재하지 않는 검증 명령을 문서화하지 마세요.
+`npm test`는 네트워크·인증 없이 병합, 시각 처리, 오류 시 보존, dry-run 및 보완 데이터를 검증합니다. PR 검증 workflow와 6시간 게시 workflow 모두 실행합니다.
 
 ## Repository 구조
 
@@ -241,7 +267,12 @@ node scripts/publish-catalog.mjs
 | --- | --- |
 | [`models/v1/catalog.json`](models/v1/catalog.json) | Consumer가 조회하는 게시 artifact |
 | [`scripts/publish-catalog.mjs`](scripts/publish-catalog.mjs) | Fetch·검증·변환·diff 분류 구현 |
-| [`.github/workflows/publish.yml`](.github/workflows/publish.yml) | Schedule·manual dispatch·commit/PR automation |
+| [`scripts/catalog.mjs`](scripts/catalog.mjs) | 병합·검증·시각 정책 |
+| [`sources/clawpod-providers.json`](sources/clawpod-providers.json) | 수동 관리 보완 데이터와 출처 |
+| [`sources/README.md`](sources/README.md) | 보완 데이터 갱신 방법과 범위 |
+| [`tests/catalog.test.mjs`](tests/catalog.test.mjs) | 오프라인 회귀 테스트 |
+| [`.github/workflows/test.yml`](.github/workflows/test.yml) | PR·main 테스트 |
+| [`.github/workflows/publish.yml`](.github/workflows/publish.yml) | Schedule·manual dispatch·commit automation |
 | [`MIN_VERSION`](MIN_VERSION) | 게시 artifact의 ClawPoD `minVersion` 정책 입력 |
 | [`package.json`](package.json) | Publisher와 dry-run command |
 | [`package-lock.json`](package-lock.json) | npm dependency lock |
