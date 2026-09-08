@@ -4,7 +4,7 @@
 
 ClawPoD 에이전트 게이트웨이가 사용하는 **검증·변환된 OpenClaw 모델 카탈로그 미러**입니다.
 
-이 저장소는 upstream hosted catalog와 ClawPoD runtime 사이의 게시 경계입니다. 원본을 그대로 중계하지 않고, 게시 전에 이 레포의 수동 관리 보완 데이터를 병합하고, 구조를 확인하고 transport 관련 필드를 제거한 뒤 Git 이력으로 추적 가능한 snapshot을 제공합니다.
+최종 카탈로그는 **upstream 원본 + 이 레포의 수동 보완 모델 + 조건부 가격·상태 보정**으로 만듭니다. 6시간 게시 작업이 원본을 다시 받아 같은 규칙을 적용합니다. Clawpod-Agent 소스와 provider API는 수동 데이터 검토에 참고하며, 게시할 때 자동 수집하거나 실행하지 않습니다.
 
 > 이 저장소는 모델 카탈로그 데이터와 게시 자동화만 담당합니다. 모델 요청을 proxy하지 않으며 provider endpoint, credential, runtime 설정을 배포하지 않습니다.
 
@@ -19,31 +19,24 @@ ClawPoD 에이전트 게이트웨이가 사용하는 **검증·변환된 OpenCla
 
 ## 아키텍처
 
-```text
-https://catalog.openclaw.ai/models/v1/catalog.json
-                         │
-                         │ fetch → publisher ingress 검증
-                         │ sources/clawpod-providers.json 병합
-                         │ sanitize/transform → diff 분류
-                         ▼
-              models/v1/catalog.json
-                         │
-                         │ GitHub raw main URL
-                         │ ETag / If-Modified-Since
-                         ▼
-                 clawpod-agent cache
-                         │
-                         │ consumer acceptance gate
-                         │ 다음 process restart에서 planning에 적용
-                         ▼
-                     models.json
+```mermaid
+flowchart TD
+    U["OpenClaw upstream catalog"] -->|"fetch"| V["입력 검증"]
+    S["sources/clawpod-providers.json<br/>수동 모델 · 출처 · corrections"] --> V
+    V --> T["upstream transport 필드·root pricing 제거"]
+    T --> M["provider/model ID 병합<br/>중복은 upstream 우선"]
+    M --> C["기존 값 조건과 effectiveAt 확인<br/>가격·상태 보정"]
+    C --> P["게시 시각 결정 · 최종 검증<br/>models/v1/catalog.json 생성"]
+    P -->|"변경 시 commit/push"| G["GitHub main raw URL"]
+    G -->|"소비자 검증 후 저장"| A["clawpod-agent cache"]
+    A -->|"다음 프로세스 시작의 planning"| R["models.json"]
 ```
 
 | 구성요소 | 책임 |
 | --- | --- |
 | Upstream catalog | 원본 모델 metadata와 추적 필드 제공 |
-| 수동 관리 보완 JSON | upstream에 없는 provider/model 정의와 출처 기록 |
-| 이 저장소의 publisher | fetch, ingress 검증, 보완 데이터 병합, sanitize, 시각 정책, 게시 |
+| 수동 관리 보완 JSON | 추가 provider/model 정의, 출처와 조건부 보정 규칙 기록 |
+| 이 저장소의 publisher | fetch, 검증, 병합, 조건부 보정·날짜 전환, sanitize, 시각 정책, 게시 |
 | GitHub repository | mutable `main` artifact와 변경 이력 제공 |
 | `clawpod-agent` | HTTPS fetch, consumer gate, cache, build-stamp 비교, runtime 적용 결정 |
 
@@ -107,8 +100,8 @@ Publisher ingress schema와 consumer acceptance schema는 동일하지 않습니
 | 단계 | 주요 동작 |
 | --- | --- |
 | Publisher ingress | Zod로 알려진 필드 형식을 검사합니다. `schemaVersion`은 ingress에서 선택이며 출력은 `1`로 정규화합니다. Unknown field는 허용하지만 빈 모델 배열과 중복 ID는 거부합니다. `anthropic`과 `openai` provider 존재를 별도로 요구합니다. |
-| 게시 변환 | 수동 보완 데이터를 병합하고 `baseUrl`·`headers`·`apiKey`·`auth`·`authHeader`를 재귀 제거합니다. Root `pricing`도 제거합니다. `minVersion`을 재작성하고 가능한 경우 원본을 `sourceMinVersion`으로 보존합니다. |
-| Consumer acceptance | `schemaVersion: 1`, provider별 model 최소 1개, provider 내부 중복 id 금지와 gate field를 검사합니다. 알 수 없는 provider/model payload field와 transport/pricing field는 제거합니다. |
+| 게시 변환 | 수동 보완 데이터 병합과 조건부 보정을 적용하고 `baseUrl`·`headers`·`apiKey`·`auth`·`authHeader`를 재귀 제거합니다. Root `pricing`은 제거하지만 모델의 `cost`는 유지합니다. `minVersion`을 재작성하고 가능한 경우 원본을 `sourceMinVersion`으로 보존합니다. |
+| Consumer acceptance | `schemaVersion: 1`, provider별 model 최소 1개, provider 내부 중복 id 금지와 gate field를 검사합니다. 알 수 없는 필드와 transport 설정은 제거하며, 지원하는 모델별 `cost` 필드는 소비합니다. |
 
 따라서 “publisher 검증 통과”만으로 consumer acceptance를 보장한다고 가정하면 안 됩니다. 최종 계약 집행자는 `clawpod-agent`입니다.
 
@@ -166,6 +159,73 @@ Schema 검증 실패, 필수 provider(`anthropic`, `openai`) 누락, API 충돌,
 
 Workflow는 nominal 6시간 cron(`17 */6 * * *`)과 수동 dispatch로 실행됩니다. 동일 concurrency group에서 동시에 하나만 실행하고 running run은 취소하지 않지만, 대기 중인 pending run은 새 pending run으로 대체될 수 있습니다.
 
+## 수동 보완 데이터가 반영되는 방식
+
+수동 입력은 [`sources/clawpod-providers.json`](sources/clawpod-providers.json) 한 파일입니다. `providers`는 모델 정의, `provenance`는 provider별 출처, `corrections`는 선택적인 보정 목록입니다. 모델 정의가 공개 artifact로 들어가며, 수동 입력의 출처·규칙 자체는 artifact에 복사하지 않습니다. `supplementDigest`에는 출처·규칙을 포함한 검증된 입력 전체가 반영됩니다.
+
+### 자동으로 하는 일과 수동으로 관리하는 일
+
+| 대상 | 관리 방식 |
+| --- | --- |
+| Upstream 모델 목록 | 매 게시 실행에서 원본을 다시 조회 |
+| 보완 모델의 추가·제외·스펙 | 공식 자료와 Agent 소스를 사람이 확인해 JSON 수정 |
+| 가격·상태 오류의 보정 | 사람이 근거 URL·기존 값·수정값을 기록하면 매 게시에서 조건 확인 |
+| 공지된 할인 종료·EOL | 사람이 기록한 `effectiveAt`을 매 게시에서 평가 |
+| 새로운 모델·가격 변경·할인 연장 발견 | 자동 탐지하지 않음. 수동 재검토 필요 |
+
+### 병합 우선순위와 삭제
+
+| 입력 상태 | 게시 결과 |
+| --- | --- |
+| Upstream에 provider가 없음 | 보완 provider와 모델 목록을 추가 |
+| 같은 provider에 model ID가 없음 | 보완 모델을 추가 |
+| 같은 provider/model ID가 양쪽에 있음 | upstream 행 전체를 우선하고 이후 조건부 보정 적용 |
+| Provider API 또는 중복 모델의 유효 API가 다름 | 오류로 게시 중단 |
+| 보완에만 있던 모델을 보완 파일에서 삭제 | 다음 재생성에서 제외 |
+| Upstream에도 있는 모델을 보완 파일에서 삭제 | upstream 모델은 유지 |
+| Upstream에서 삭제했지만 보완에 남아 있는 모델 | 보완 모델이 다시 추가될 수 있음 |
+
+판별 기준은 모델 이름이 아닌 **provider ID + model ID**입니다. 따라서 수동 목록을 줄이는 것은 전역 차단이 아닙니다. 폐기·지원 종료 여부를 관리하려면 모델의 `status`도 별도로 검토해야 합니다. 보완 모델을 삭제할 때 해당 모델을 대상으로 하는 `corrections`도 함께 정리해야 하며, 없는 대상을 참조하는 규칙은 검증 오류입니다.
+
+2026-09-08 검토에서는 OpenRouter 공개 목록에 없던 74개와 xAI 미확인 구형 4개를 수동 목록에서 제외했습니다. **78개 모두의 서비스 종료나 호출 불가를 확인한 것은 아니며, 자동 삭제 기능을 만든 것도 아닙니다.** 당시 제외 이유와 전체 ID는 [검토 기록](sources/REVIEW.md)에 있습니다. 이 변경으로 upstream의 기존 모델 ID를 삭제하지 않았습니다.
+
+### `corrections`: 확인된 구값에만 적용
+
+보완 모델에 올바른 가격을 적어도 같은 ID의 upstream 가격은 일반 병합에서 우선합니다. 이 경우 공식 근거가 있는 예외만 `corrections`에 기록합니다. 다음은 현재 입력에 있는 zAI 캐시 읽기 가격 보정 예입니다.
+
+```json
+{
+  "kind": "cost",
+  "provider": "zai",
+  "model": "glm-5.3",
+  "expected": { "cacheRead": 0.14 },
+  "set": { "cacheRead": 0.26 },
+  "source": "https://docs.z.ai/guides/overview/pricing"
+}
+```
+
+병합 후 값이 `0.14`이면 `0.26`으로 고칩니다. 이미 `0.26`이거나 다른 값이면 그대로 둡니다. `expected`가 여러 필드이면 **모두 정확히 일치해야** 적용하며, 수정할 필드는 각각 기존 값 조건을 가져야 합니다. 비용 객체가 없으면 새로 만들지 않고 건너뜁니다. 다른 모델 필드와 비용 필드는 유지합니다.
+
+상태 보정은 `kind: "status"`, `from`, `to`를 사용합니다. `from: null`은 상태 미기재를 뜻하고, `to`는 `deprecated` 또는 `disabled`만 허용합니다. 규칙은 배열 순서대로 실행하며, 모델을 새로 만들거나 활성 상태로 되돌리지 않습니다. `source` URL은 검토 근거를 기록하는 필드로, publisher가 매번 해당 문서를 조회해 진위를 검증하지는 않습니다.
+
+### 날짜 전환과 게시 시각
+
+`effectiveAt`은 UTC epoch 밀리초입니다. 없으면 즉시 조건을 평가하고, 있으면 실행 시각이 해당 값 이상일 때부터 평가합니다. 가격 할인 종료는 비용 보정으로, Legacy에서 EOL로 전환하는 상태는 순서가 있는 상태 보정으로 기록합니다.
+
+- 경계 시각에 별도 작업을 예약하지 않습니다. **경계 후 첫 정상 게시 실행**에서 반영되며, 작업 지연·실패에 따라 반영도 늦어집니다.
+- `sourceGeneratedAt`은 그대로여도 보정 결과가 달라지면 `generatedAt`이 증가합니다. 같은 입력과 같은 적용 결과를 다시 실행하면 파일은 바뀌지 않습니다.
+- `supplementDigest`는 입력 내용의 해시입니다. 날짜만 지나 보정이 적용되면 digest는 같고 게시 결과와 `generatedAt`만 달라질 수 있습니다.
+- Upstream이 마지막으로 수락한 원본보다 오래됐거나 조회·검증에 실패하면 기존 artifact를 유지합니다. 이때 보완 데이터·날짜 전환만 별도로 게시하지 않습니다.
+- 공급자가 종료를 연장하거나 인상을 취소하면 사람이 규칙을 수정해야 합니다. 날짜만 공지된 Google/AWS 규칙은 UTC 자정을 게시 기준으로 사용하며 실제 서비스 전환 시각을 보장하지 않습니다.
+
+### 비용과 상태 필드의 의미
+
+`cost`는 기본적으로 USD/백만 토큰의 표준 기본 요금입니다. 구독 비용이나 미확인 가격은 보완 입력에서 `cost`를 생략합니다. `0`은 미확인의 대체값으로 쓰지 않습니다. Upstream에 별도의 비용이 있으면 일반 병합 규칙에 따라 그 값은 남을 수 있습니다.
+
+기본 비용은 지역·장문·Priority·Batch·캐시 TTL 등 모든 조건을 표현하지 않습니다. Codex의 context 운영 예산, xAI·MiniMax의 출력 기본값, Mantle의 transport 호환성 설정도 공식 최대 사양과 구분해야 합니다. 적용 범위는 [검토 기록](sources/REVIEW.md)에 기록합니다.
+
+`status: deprecated/disabled`는 카탈로그 상태입니다. 현재 Agent overlay는 이런 모델을 새로 추가하지 않지만, 이미 로컬에 구성된 모델은 메타데이터를 갱신하며 유지할 수 있습니다. `replacedBy`는 대체 모델 안내이며 이 publisher나 overlay가 사용자 설정을 자동으로 이전하지 않습니다. 모델 목록에서의 제외도 원격 API 호출을 강제로 차단하는 기능은 아닙니다.
+
 ## Consumer lifecycle
 
 `clawpod-agent`의 기본 source는 이 저장소의 raw URL입니다.
@@ -216,12 +276,22 @@ Credential, token, internal endpoint 또는 secret을 catalog와 workflow output
 
 ### 수동 갱신
 
+모델·가격·상태를 수정할 때는 다음 순서로 작업합니다.
+
+1. `sources/clawpod-providers.json`의 모델 정의와 출처를 수정합니다. 중복 upstream의 구값을 고쳐야 하면 기존 값 조건과 공식 근거를 가진 `corrections`를 추가합니다.
+2. 가격의 적용 조건·종료 시각과 모델 제외 이유를 `sources/REVIEW.md`에 기록합니다. 규칙을 바꿀 때는 경계 전후와 upstream 값이 달라진 경우도 확인합니다.
+3. Node.js 22에서 의존성을 설치하고 테스트·dry-run을 실행합니다.
+
 ```bash
 npm ci
-node scripts/publish-catalog.mjs
+npm test
+npm run publish-catalog:dry-run
+npm run publish-catalog
 ```
 
-이 명령은 실제 artifact를 씁니다. 실행 전 dry-run을 수행하고, 실행 후에는 `models/v1/catalog.json` diff를 검토하세요. 보완 파일을 수정했다면 입력과 생성 결과를 함께 검토하세요. Generated artifact를 손으로 편집하지 마세요.
+마지막 명령은 실제 artifact를 씁니다. 입력·검토 기록·생성된 `models/v1/catalog.json`의 diff를 함께 검토하고 커밋합니다. Generated artifact는 직접 편집하지 않습니다. 테스트는 구조와 게시 동작을 확인하며 공식 가격·가용성의 최신성을 대신 검증하지 않습니다.
+
+작업 브랜치를 푸시한 것만으로 공개 `main` raw URL이 바뀌지는 않습니다. 변경을 `main`에 병합한 뒤 공개 artifact와 게시 workflow를 확인해야 합니다. 로컬 게시 명령은 Git commit/push를 수행하지 않으며, 자동 게시 workflow의 commit 단계가 그 작업을 담당합니다.
 
 ### 오프라인 검증·재생성
 
@@ -250,6 +320,9 @@ node scripts/publish-catalog.mjs --source-file /path/to/upstream-catalog.json
 | Consumer에 즉시 반영되지 않음 | 6시간 TTL, stored cache, build stamp, source URL, process restart 여부 |
 | Consumer가 vendored snapshot 사용 | cache 부재·손상, URL mismatch, build stamp 부재/신선도, refresh 비활성화, acceptance 오류 |
 | Fetch 실패 후 이전 결과가 계속 보임 | 기존 valid cache가 유지될 수 있으며 최대 보존 기간이 없음 |
+| 보완 가격을 고쳤는데 최종 가격은 그대로 | 같은 ID가 upstream에도 있는지와 `corrections.expected`가 병합 후 값에 일치하는지 확인 |
+| 할인 종료일이 지났는데 이전 가격이 보임 | `effectiveAt`의 UTC 밀리초, 경계 후 정상 게시 여부, 원본 회귀·조회 실패, 규칙의 기존 값 조건 확인 |
+| 삭제한 보완 모델이 계속 보임 | upstream에도 있는지 또는 Agent 로컬 설정에 남아 있는지 확인 |
 
 ## 변경 관리
 
