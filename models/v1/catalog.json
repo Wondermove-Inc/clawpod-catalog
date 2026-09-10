@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1789022560544,
+  "generatedAt": 1789043941292,
   "minVersion": "2026.4.11",
-  "sourceCommit": "780b04f43877820f885db53729011fdea5dacbd6",
+  "sourceCommit": "cb3cc63432bda4421d183271d4ebaa900f608537",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -4529,12 +4529,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "contextWindow": 1024000,
+          "maxTokens": 128000,
           "cost": {
-            "input": 1.092,
-            "output": 3.432,
-            "cacheRead": 0.20279999999999998,
+            "input": 1.085,
+            "output": 3.41,
+            "cacheRead": 0.20149999999999998,
             "cacheWrite": 0
           }
         },
@@ -5454,6 +5454,23 @@
             "input": 1.0494,
             "output": 3.1482,
             "cacheRead": 0.03498,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "deepseek/deepseek-v4.1-flash",
+          "name": "DeepSeek V4.1 Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 384000,
+          "cost": {
+            "input": 0.3,
+            "output": 1.2,
+            "cacheRead": 0.006,
             "cacheWrite": 0
           }
         },
@@ -16944,9 +16961,9 @@
           "contextWindow": 260000,
           "maxTokens": 65536,
           "cost": {
-            "input": 0.25,
-            "output": 0.9375,
-            "cacheRead": 0.025,
+            "input": 0.04999999999999999,
+            "output": 0.18749999999999994,
+            "cacheRead": 0.004999999999999999,
             "cacheWrite": 0
           }
         },
@@ -24416,6 +24433,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1789014832759,
+  "sourceGeneratedAt": 1789029459978,
   "supplementDigest": "041b0dc647b66a51855b058c3a9901b51c85c7a04305719742663ea4811c7d91"
 }
