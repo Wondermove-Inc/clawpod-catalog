@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1789130298157,
+  "generatedAt": 1789151501027,
   "minVersion": "2026.4.11",
-  "sourceCommit": "bb221a85658ce9d8798f1c2f9e8f6de4391f6512",
+  "sourceCommit": "454467457f3ba31f7ba2b854bd17d0bf7bb4d249",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -464,6 +464,17 @@
           "reasoning": true,
           "contextWindow": 1048576,
           "maxTokens": 262144
+        },
+        {
+          "id": "deepseek-ai/DeepSeek-V4.1-Flash",
+          "name": "DeepSeek V4.1 Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 32768
         },
         {
           "id": "moonshotai/Kimi-K2.5",
@@ -2477,9 +2488,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.06999999999999999,
-            "output": 0.29,
-            "cacheRead": 0.017499999999999998,
+            "input": 0.13999999999999999,
+            "output": 0.58,
+            "cacheRead": 0.034999999999999996,
             "cacheWrite": 0
           }
         },
@@ -2696,9 +2707,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.088606,
-            "output": 0.177212,
-            "cacheRead": 0.017721200000000003,
+            "input": 0.08624,
+            "output": 0.17248,
+            "cacheRead": 0.017248,
             "cacheWrite": 0
           },
           "compat": {
@@ -2741,9 +2752,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.9552599999999999,
-            "output": 1.9105199999999998,
-            "cacheRead": 0.07960500000000001,
+            "input": 0.859908,
+            "output": 1.719816,
+            "cacheRead": 0.071659,
             "cacheWrite": 0
           },
           "compat": {
@@ -4470,8 +4481,104 @@
           }
         },
         {
-          "id": "~openai/gpt-latest",
-          "name": "OpenAI GPT Latest",
+          "id": "~openai/gpt-astra-latest",
+          "name": "OpenAI GPT Astra Latest ($$$$)",
+          "input": [
+            "document",
+            "image",
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1050000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 10,
+            "output": 50,
+            "cacheRead": 1,
+            "cacheWrite": 12.5,
+            "tieredPricing": [
+              {
+                "cacheRead": 1,
+                "cacheWrite": 12.5,
+                "input": 10,
+                "output": 50,
+                "range": [
+                  0,
+                  272001
+                ]
+              },
+              {
+                "cacheRead": 2,
+                "cacheWrite": 25,
+                "input": 20,
+                "output": 75,
+                "range": [
+                  272001
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "~openai/gpt-luna-latest",
+          "name": "OpenAI GPT Luna Latest",
+          "input": [
+            "document",
+            "image",
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1050000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 0.19999999999999998,
+            "output": 1.2,
+            "cacheRead": 0.02,
+            "cacheWrite": 0.25,
+            "tieredPricing": [
+              {
+                "cacheRead": 0.02,
+                "cacheWrite": 0.25,
+                "input": 0.19999999999999998,
+                "output": 1.2,
+                "range": [
+                  0,
+                  272001
+                ]
+              },
+              {
+                "cacheRead": 0.04,
+                "cacheWrite": 0.5,
+                "input": 0.39999999999999997,
+                "output": 1.7999999999999998,
+                "range": [
+                  272001
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "~openai/gpt-mini-latest",
+          "name": "OpenAI GPT Mini Latest",
+          "input": [
+            "document",
+            "image",
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 400000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 0.75,
+            "output": 4.5,
+            "cacheRead": 0.075,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "~openai/gpt-sol-latest",
+          "name": "OpenAI GPT Sol Latest",
           "input": [
             "document",
             "image",
@@ -4509,21 +4616,42 @@
           }
         },
         {
-          "id": "~openai/gpt-mini-latest",
-          "name": "OpenAI GPT Mini Latest",
+          "id": "~openai/gpt-terra-latest",
+          "name": "OpenAI GPT Terra Latest",
           "input": [
             "document",
             "image",
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 400000,
+          "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.75,
-            "output": 4.5,
-            "cacheRead": 0.075,
-            "cacheWrite": 0
+            "input": 2,
+            "output": 12,
+            "cacheRead": 0.19999999999999998,
+            "cacheWrite": 2.5,
+            "tieredPricing": [
+              {
+                "cacheRead": 0.19999999999999998,
+                "cacheWrite": 2.5,
+                "input": 2,
+                "output": 12,
+                "range": [
+                  0,
+                  272001
+                ]
+              },
+              {
+                "cacheRead": 0.39999999999999997,
+                "cacheWrite": 5,
+                "input": 4,
+                "output": 18,
+                "range": [
+                  272001
+                ]
+              }
+            ]
           }
         },
         {
@@ -4592,9 +4720,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.9700000000000001,
-            "output": 3.3077,
-            "cacheRead": 0.19399999999999998,
+            "input": 0.8727,
+            "output": 3.36,
+            "cacheRead": 0.16390000000000002,
             "cacheWrite": 0
           }
         },
@@ -5446,9 +5574,9 @@
           "contextWindow": 1024000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.088606,
-            "output": 0.177212,
-            "cacheRead": 0.017721200000000003,
+            "input": 0.08624,
+            "output": 0.17248,
+            "cacheRead": 0.017248,
             "cacheWrite": 0
           }
         },
@@ -5495,9 +5623,9 @@
           "contextWindow": 1024000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.9552599999999999,
-            "output": 1.9105199999999998,
-            "cacheRead": 0.07960500000000001,
+            "input": 0.859908,
+            "output": 1.719816,
+            "cacheRead": 0.071659,
             "cacheWrite": 0
           }
         },
@@ -5508,12 +5636,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "contextWindow": 1024000,
+          "maxTokens": 384000,
           "cost": {
-            "input": 0.66,
-            "output": 1.9800000000000002,
-            "cacheRead": 0.06599999999999999,
+            "input": 0.57948,
+            "output": 1.73844,
+            "cacheRead": 0.019316,
             "cacheWrite": 0
           }
         },
@@ -5528,9 +5656,9 @@
           "contextWindow": 1048576,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.3,
-            "output": 1.2,
-            "cacheRead": 0.006,
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.003,
             "cacheWrite": 0
           }
         },
@@ -6107,6 +6235,23 @@
           "maxTokens": 32768
         },
         {
+          "id": "inclusionai/ling-3.0-flash-vl",
+          "name": "inclusionAI: Ling 3.0 Flash VL",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 131072,
+          "maxTokens": 32768,
+          "cost": {
+            "input": 0.06,
+            "output": 0.18,
+            "cacheRead": 0.012,
+            "cacheWrite": 0
+          }
+        },
+        {
           "id": "inclusionai/ling-3.0-flash-vl:free",
           "name": "inclusionAI: Ling 3.0 Flash VL (free)",
           "input": [
@@ -6244,10 +6389,10 @@
           ],
           "reasoning": false,
           "contextWindow": 131072,
-          "maxTokens": 8192,
+          "maxTokens": 16384,
           "cost": {
-            "input": 0.72,
-            "output": 0.72,
+            "input": 0.39999999999999997,
+            "output": 0.39999999999999997,
             "cacheRead": 0,
             "cacheWrite": 0
           }
@@ -6481,12 +6626,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 204800,
-          "maxTokens": 131072,
+          "contextWindow": 200000,
+          "maxTokens": 128000,
           "cost": {
-            "input": 0.3,
-            "output": 1.2,
-            "cacheRead": 0.03,
+            "input": 0.27,
+            "output": 1.08,
+            "cacheRead": 0.027,
             "cacheWrite": 0
           }
         },
@@ -9778,9 +9923,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.13199999999999998,
-            "output": 0.5279999999999999,
-            "cacheRead": 0.032999999999999995,
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625,
             "cacheWrite": 0
           }
         },
@@ -13248,6 +13393,17 @@
             "supportsTools": true,
             "supportsUsageInStreaming": true
           }
+        },
+        {
+          "id": "deepseek-v4.1-flash",
+          "name": "DeepSeek V4.1 Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 384000
         },
         {
           "id": "gemma4",
@@ -18775,6 +18931,18 @@
           "maxTokens": 131072
         },
         {
+          "id": "glm-5.3-flash",
+          "name": "GLM-5.3-Flash",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072
+        },
+        {
           "id": "kimi-k2.7-code",
           "name": "Kimi K2.7 Code",
           "input": [
@@ -18784,6 +18952,17 @@
           "reasoning": true,
           "contextWindow": 262144,
           "maxTokens": 262144
+        },
+        {
+          "id": "kimi-k3",
+          "name": "Kimi K3",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 131072
         },
         {
           "id": "minimax-m3",
@@ -24567,6 +24746,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1789115802838,
+  "sourceGeneratedAt": 1789144313555,
   "supplementDigest": "041b0dc647b66a51855b058c3a9901b51c85c7a04305719742663ea4811c7d91"
 }
