@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1789065026863,
+  "generatedAt": 1789088370564,
   "minVersion": "2026.4.11",
-  "sourceCommit": "a0f2309c3adb89bc2bec2f64696eb320318bb2cd",
+  "sourceCommit": "7444f28d2dc5da94fc7e52c4e240ae980968d29e",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -2686,9 +2686,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.08707999999999999,
-            "output": 0.17415999999999998,
-            "cacheRead": 0.017415999999999997,
+            "input": 0.08399999999999999,
+            "output": 0.16799999999999998,
+            "cacheRead": 0.016800000000000002,
             "cacheWrite": 0
           },
           "compat": {
@@ -2805,6 +2805,17 @@
           "name": "DeepSeek V4 Pro 0813",
           "input": [
             "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 384000
+        },
+        {
+          "id": "accounts/fireworks/models/deepseek-v4p1-flash",
+          "name": "DeepSeek V4.1 Flash",
+          "input": [
+            "text",
+            "image"
           ],
           "reasoning": true,
           "contextWindow": 1000000,
@@ -5425,9 +5436,9 @@
           "contextWindow": 1024000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.08707999999999999,
-            "output": 0.17415999999999998,
-            "cacheRead": 0.017415999999999997,
+            "input": 0.08399999999999999,
+            "output": 0.16799999999999998,
+            "cacheRead": 0.016800000000000002,
             "cacheWrite": 0
           }
         },
@@ -6086,6 +6097,17 @@
           "maxTokens": 32768
         },
         {
+          "id": "inclusionai/ling-3.0-flash-vl:free",
+          "name": "inclusionAI: Ling 3.0 Flash VL (free)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
           "id": "kilo-auto/balanced",
           "name": "Auto Balanced",
           "input": [
@@ -6449,12 +6471,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 204800,
-          "maxTokens": 131072,
+          "contextWindow": 200000,
+          "maxTokens": 128000,
           "cost": {
-            "input": 0.3,
-            "output": 1.2,
-            "cacheRead": 0.03,
+            "input": 0.27,
+            "output": 1.08,
+            "cacheRead": 0.027,
             "cacheWrite": 0
           }
         },
@@ -9181,11 +9203,11 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 32768,
+          "maxTokens": 235929,
           "cost": {
-            "input": 0.049999999999999996,
-            "output": 0.7,
-            "cacheRead": 0,
+            "input": 0.09999999999999999,
+            "output": 0.8999999999999999,
+            "cacheRead": 0.049999999999999996,
             "cacheWrite": 0
           }
         },
@@ -15464,17 +15486,6 @@
             "max": "xhigh",
             "minimal": "low"
           }
-        },
-        {
-          "id": "qwen3.8-max-preview",
-          "name": "Qwen3.8 Max Preview",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 1000000,
-          "maxTokens": 131072
         }
       ]
     },
@@ -24489,6 +24500,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1789057769381,
+  "sourceGeneratedAt": 1789072091568,
   "supplementDigest": "041b0dc647b66a51855b058c3a9901b51c85c7a04305719742663ea4811c7d91"
 }
