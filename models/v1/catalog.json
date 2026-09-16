@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1789497054136,
+  "generatedAt": 1789520505874,
   "minVersion": "2026.4.11",
-  "sourceCommit": "22a07e0abe7f885c1ece6a6c7676065a2e4813c7",
+  "sourceCommit": "be735080d2a884116b705b78576811d535494871",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -2724,9 +2724,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.08553999999999999,
-            "output": 0.17107999999999998,
-            "cacheRead": 0.017108,
+            "input": 0.07938,
+            "output": 0.15876,
+            "cacheRead": 0.015875999999999998,
             "cacheWrite": 0
           },
           "compat": {
@@ -2833,6 +2833,16 @@
           "input": [
             "text",
             "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 384000
+        },
+        {
+          "id": "accounts/fireworks/models/deepseek-v4-pro",
+          "name": "DeepSeek V4 Pro",
+          "input": [
+            "text"
           ],
           "reasoning": true,
           "contextWindow": 1000000,
@@ -2951,6 +2961,16 @@
           "maxTokens": 131072
         },
         {
+          "id": "accounts/fireworks/models/minimax-m2p7",
+          "name": "MiniMax-M2.7",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 196608,
+          "maxTokens": 131072
+        },
+        {
           "id": "accounts/fireworks/models/minimax-m3",
           "name": "MiniMax-M3",
           "input": [
@@ -3035,6 +3055,27 @@
           "maxTokens": 131072
         },
         {
+          "id": "accounts/fireworks/routers/deepseek-flash-latest",
+          "name": "DeepSeek Flash Latest",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 384000
+        },
+        {
+          "id": "accounts/fireworks/routers/deepseek-pro-latest",
+          "name": "DeepSeek Pro Latest",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 384000
+        },
+        {
           "id": "accounts/fireworks/routers/glm-5p2-fast",
           "name": "GLM 5.2 Fast",
           "input": [
@@ -3059,6 +3100,48 @@
           "reasoning": true,
           "contextWindow": 1048572,
           "maxTokens": 262144
+        },
+        {
+          "id": "accounts/fireworks/routers/glm-fast-latest",
+          "name": "GLM 5.3 Fast (Latest)",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048572,
+          "maxTokens": 262144
+        },
+        {
+          "id": "accounts/fireworks/routers/glm-flash-latest",
+          "name": "GLM Flash Latest (GLM 5.3 Flash)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048573,
+          "maxTokens": 131072
+        },
+        {
+          "id": "accounts/fireworks/routers/glm-latest",
+          "name": "GLM Latest",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048573,
+          "maxTokens": 262144
+        },
+        {
+          "id": "accounts/fireworks/routers/kimi-fast-latest",
+          "name": "Kimi Fast Latest",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 131072
         },
         {
           "id": "accounts/fireworks/routers/kimi-k2p6-turbo",
@@ -3092,6 +3175,27 @@
           "reasoning": true,
           "contextWindow": 1048576,
           "maxTokens": 131072
+        },
+        {
+          "id": "accounts/fireworks/routers/kimi-latest",
+          "name": "Kimi Latest",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 131072
+        },
+        {
+          "id": "accounts/fireworks/routers/minimax-latest",
+          "name": "MiniMax Latest",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 512000,
+          "maxTokens": 512000
         }
       ],
       "defaultModel": "accounts/fireworks/routers/glm-5p2-fast"
@@ -5608,9 +5712,9 @@
           "contextWindow": 1024000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.08553999999999999,
-            "output": 0.17107999999999998,
-            "cacheRead": 0.017108,
+            "input": 0.07938,
+            "output": 0.15876,
+            "cacheRead": 0.015875999999999998,
             "cacheWrite": 0
           }
         },
@@ -15456,6 +15560,17 @@
           "maxTokens": 384000
         },
         {
+          "id": "deepseek-v4.1-flash",
+          "name": "DeepSeek V4.1 Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 384000
+        },
+        {
           "id": "glm-5",
           "name": "glm-5",
           "input": [
@@ -24738,6 +24853,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1789489977234,
+  "sourceGeneratedAt": 1789504321365,
   "supplementDigest": "041b0dc647b66a51855b058c3a9901b51c85c7a04305719742663ea4811c7d91"
 }
