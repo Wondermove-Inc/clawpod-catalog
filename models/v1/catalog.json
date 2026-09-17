@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1789648765028,
+  "generatedAt": 1789670023566,
   "minVersion": "2026.4.11",
-  "sourceCommit": "4c8032aaba1c127598836bfffb9e776a3f1affae",
+  "sourceCommit": "bbb65802dc880fc84c121b709e7d156a2cc831d1",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -2805,9 +2805,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.088606,
-            "output": 0.177212,
-            "cacheRead": 0.017721200000000003,
+            "input": 0.07,
+            "output": 0.14,
+            "cacheRead": 0.014,
             "cacheWrite": 0
           },
           "compat": {
@@ -4501,8 +4501,8 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "contextWindow": 1000000,
+          "maxTokens": 393216,
           "cost": {
             "input": 0.15,
             "output": 0.6,
@@ -4518,11 +4518,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 384000,
+          "maxTokens": 393216,
           "cost": {
-            "input": 0.7,
-            "output": 2.96,
-            "cacheRead": 0.032999999999999995,
+            "input": 0.57948,
+            "output": 1.73844,
+            "cacheRead": 0.018438,
             "cacheWrite": 0
           }
         },
@@ -5710,9 +5710,9 @@
           "contextWindow": 1024000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.088606,
-            "output": 0.177212,
-            "cacheRead": 0.017721200000000003,
+            "input": 0.07,
+            "output": 0.14,
+            "cacheRead": 0.014,
             "cacheWrite": 0
           }
         },
@@ -5773,11 +5773,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 384000,
+          "maxTokens": 393216,
           "cost": {
-            "input": 1.32,
-            "output": 3.9600000000000004,
-            "cacheRead": 0.044,
+            "input": 0.57948,
+            "output": 1.73844,
+            "cacheRead": 0.018438,
             "cacheWrite": 0
           }
         },
@@ -5792,9 +5792,9 @@
           "contextWindow": 1048576,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.3,
-            "output": 1.2,
-            "cacheRead": 0.006,
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.003,
             "cacheWrite": 0
           }
         },
@@ -6572,8 +6572,8 @@
           "contextWindow": 131072,
           "maxTokens": 117964,
           "cost": {
-            "input": 0.35,
-            "output": 1.5,
+            "input": 0.3,
+            "output": 1.1,
             "cacheRead": 0.04,
             "cacheWrite": 0
           }
@@ -10014,9 +10014,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.13199999999999998,
-            "output": 0.5279999999999999,
-            "cacheRead": 0.032999999999999995,
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625,
             "cacheWrite": 0
           }
         },
@@ -10413,12 +10413,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 202752,
-          "maxTokens": 131072,
+          "contextWindow": 198000,
+          "maxTokens": 16384,
           "cost": {
-            "input": 0.5,
-            "output": 2,
-            "cacheRead": 0.09999999999999999,
+            "input": 0.43,
+            "output": 1.75,
+            "cacheRead": 0.08,
             "cacheWrite": 0
           }
         },
@@ -15608,6 +15608,16 @@
           "maxTokens": 131072
         },
         {
+          "id": "glm-5.3",
+          "name": "GLM-5.3",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072
+        },
+        {
           "id": "kimi-k2.5",
           "name": "kimi-k2.5",
           "input": [
@@ -19423,9 +19433,9 @@
           "contextWindow": 204800,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.5,
-            "output": 2,
-            "cacheRead": 0.09999999999999999,
+            "input": 0.43,
+            "output": 1.75,
+            "cacheRead": 0.08,
             "cacheWrite": 0
           }
         },
@@ -24849,6 +24859,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1789634374778,
+  "sourceGeneratedAt": 1789662790416,
   "supplementDigest": "041b0dc647b66a51855b058c3a9901b51c85c7a04305719742663ea4811c7d91"
 }
