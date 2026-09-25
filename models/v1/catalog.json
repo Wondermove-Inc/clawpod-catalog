@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1790340010922,
+  "generatedAt": 1790361158304,
   "minVersion": "2026.4.11",
-  "sourceCommit": "74b9103096c6b2f99783fbceab0e2de06bd6ec52",
+  "sourceCommit": "368163b4c14896c99b99dffe6a1c42584a6e3c4e",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -5018,9 +5018,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.04,
-            "output": 0.49,
-            "cacheRead": 0.01,
+            "input": 0.075,
+            "output": 0.3,
+            "cacheRead": 0.0015,
             "cacheWrite": 0
           }
         },
@@ -5034,8 +5034,8 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.09984,
-            "output": 2.88,
+            "input": 0.2528,
+            "output": 1.9584,
             "cacheRead": 0.08832,
             "cacheWrite": 0
           }
@@ -6080,7 +6080,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 393216,
+          "maxTokens": 943718,
           "cost": {
             "input": 0.3,
             "output": 1.2,
@@ -6562,7 +6562,7 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 131072,
+          "contextWindow": 262144,
           "maxTokens": 32768,
           "cost": {
             "input": 0.075,
@@ -7405,28 +7405,6 @@
           }
         },
         {
-          "id": "nex-agi/nex-n2.5-mini:free",
-          "name": "Nex AGI: Nex-N2.5-Mini (free)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 235929
-        },
-        {
-          "id": "nex-agi/nex-n2.5-pro:free",
-          "name": "Nex AGI: Nex-N2.5-Pro (free)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 235929
-        },
-        {
           "id": "nvidia/nemotron-3-nano-30b-a3b",
           "name": "Nemotron 3 Nano 30B A3B",
           "input": [
@@ -7513,7 +7491,7 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 131072,
+          "maxTokens": 235929,
           "cost": {
             "input": 0.065,
             "output": 0.18,
@@ -8703,7 +8681,7 @@
         },
         {
           "id": "qwen/qwen-plus-2025-07-28",
-          "name": "Qwen: Qwen Plus 0728",
+          "name": "Qwen: Qwen Plus 0728 (retires Oct 9)",
           "input": [
             "text"
           ],
@@ -8767,7 +8745,7 @@
         },
         {
           "id": "qwen/qwen3-235b-a22b-thinking-2507",
-          "name": "Qwen: Qwen3 235B A22B Thinking 2507",
+          "name": "Qwen: Qwen3 235B A22B Thinking 2507 (retires Oct 9)",
           "input": [
             "text"
           ],
@@ -8815,7 +8793,7 @@
         },
         {
           "id": "qwen/qwen3-30b-a3b-thinking-2507",
-          "name": "Qwen: Qwen3 30B A3B Thinking 2507",
+          "name": "Qwen: Qwen3 30B A3B Thinking 2507 (retires Oct 9)",
           "input": [
             "text"
           ],
@@ -8847,7 +8825,7 @@
         },
         {
           "id": "qwen/qwen3-8b",
-          "name": "Qwen: Qwen3 8B",
+          "name": "Qwen: Qwen3 8B (retires Oct 9)",
           "input": [
             "text"
           ],
@@ -8959,7 +8937,7 @@
         },
         {
           "id": "qwen/qwen3-max-thinking",
-          "name": "Qwen: Qwen3 Max Thinking",
+          "name": "Qwen: Qwen3 Max Thinking (retires Oct 9)",
           "input": [
             "text"
           ],
@@ -9058,7 +9036,7 @@
         },
         {
           "id": "qwen/qwen3-vl-30b-a3b-thinking",
-          "name": "Qwen: Qwen3 VL 30B A3B Thinking",
+          "name": "Qwen: Qwen3 VL 30B A3B Thinking (retires Oct 9)",
           "input": [
             "text",
             "image"
@@ -9075,7 +9053,7 @@
         },
         {
           "id": "qwen/qwen3-vl-32b-instruct",
-          "name": "Qwen: Qwen3 VL 32B Instruct",
+          "name": "Qwen: Qwen3 VL 32B Instruct (retires Oct 9)",
           "input": [
             "text",
             "image"
@@ -9092,7 +9070,7 @@
         },
         {
           "id": "qwen/qwen3-vl-8b-instruct",
-          "name": "Qwen: Qwen3 VL 8B Instruct",
+          "name": "Qwen: Qwen3 VL 8B Instruct (retires Oct 9)",
           "input": [
             "image",
             "text"
@@ -9109,7 +9087,7 @@
         },
         {
           "id": "qwen/qwen3-vl-8b-thinking",
-          "name": "Qwen: Qwen3 VL 8B Thinking",
+          "name": "Qwen: Qwen3 VL 8B Thinking (retires Oct 9)",
           "input": [
             "image",
             "text"
@@ -9717,7 +9695,7 @@
         },
         {
           "id": "stealth/space-bunny-alpha",
-          "name": "Space Bunny Alpha",
+          "name": "Space Bunny Alpha (new)",
           "input": [
             "text",
             "image"
@@ -9780,9 +9758,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.13,
-            "output": 0.53,
-            "cacheRead": 0.033,
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625,
             "cacheWrite": 0
           }
         },
@@ -25927,6 +25905,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1790325566474,
+  "sourceGeneratedAt": 1790354092584,
   "supplementDigest": "041b0dc647b66a51855b058c3a9901b51c85c7a04305719742663ea4811c7d91"
 }
