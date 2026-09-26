@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1790404903186,
+  "generatedAt": 1790426174703,
   "minVersion": "2026.4.11",
-  "sourceCommit": "b458b9f1c6bc60389c7f88161262e5d39e23dcce",
+  "sourceCommit": "51b995e18df4ebb6dd549c02b7d595522f21f39a",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -2803,9 +2803,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.13299999999999998,
-            "output": 0.26599999999999996,
-            "cacheRead": 0.0026599999999999996,
+            "input": 0.126,
+            "output": 0.252,
+            "cacheRead": 0.00252,
             "cacheWrite": 0
           }
         },
@@ -2820,9 +2820,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.41325,
-            "output": 0.8265,
-            "cacheRead": 0.003419999145,
+            "input": 0.3915,
+            "output": 0.783,
+            "cacheRead": 0.00323999919,
             "cacheWrite": 0
           }
         },
@@ -5228,9 +5228,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.4746,
-            "output": 1.4916,
-            "cacheRead": 0.08814,
+            "input": 0.3794,
+            "output": 1.1924,
+            "cacheRead": 0.07046,
             "cacheWrite": 0
           }
         },
@@ -6046,7 +6046,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "maxTokens": 943718,
           "cost": {
             "input": 0.3,
             "output": 1.2,
@@ -10308,8 +10308,8 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 1048575,
-          "maxTokens": 943717,
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
           "cost": {
             "input": 1.4,
             "output": 4.4,
@@ -25888,6 +25888,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1790397250962,
+  "sourceGeneratedAt": 1790411754160,
   "supplementDigest": "041b0dc647b66a51855b058c3a9901b51c85c7a04305719742663ea4811c7d91"
 }
