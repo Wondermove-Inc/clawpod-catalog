@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1790384455133,
+  "generatedAt": 1790404903186,
   "minVersion": "2026.4.11",
-  "sourceCommit": "169da0025a2f9edb677790b572b9ff9e10a4aaa3",
+  "sourceCommit": "b458b9f1c6bc60389c7f88161262e5d39e23dcce",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -2803,9 +2803,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.13999999999999999,
-            "output": 0.27999999999999997,
-            "cacheRead": 0.0028,
+            "input": 0.13299999999999998,
+            "output": 0.26599999999999996,
+            "cacheRead": 0.0026599999999999996,
             "cacheWrite": 0
           }
         },
@@ -2820,9 +2820,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.435,
-            "output": 0.87,
-            "cacheRead": 0.0035999990999999996,
+            "input": 0.41325,
+            "output": 0.8265,
+            "cacheRead": 0.003419999145,
             "cacheWrite": 0
           }
         },
@@ -3311,22 +3311,6 @@
             "input": 0.22,
             "output": 0.66,
             "cacheRead": 0.007,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "accounts/fireworks/routers/deepseek-pro-latest",
-          "name": "DeepSeek Pro Latest",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 1000000,
-          "maxTokens": 384000,
-          "cost": {
-            "input": 1.32,
-            "output": 3.96,
-            "cacheRead": 0.044,
             "cacheWrite": 0
           }
         },
@@ -5015,12 +4999,12 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "contextWindow": 1040000,
+          "maxTokens": 384000,
           "cost": {
-            "input": 0.099,
-            "output": 0.6,
-            "cacheRead": 0.06,
+            "input": 0.035,
+            "output": 0.29,
+            "cacheRead": 0.001,
             "cacheWrite": 0
           }
         },
@@ -5050,7 +5034,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.03,
+            "input": 0.021,
             "output": 0.32,
             "cacheRead": 0.016,
             "cacheWrite": 0
@@ -5103,8 +5087,8 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 1.2,
-            "output": 10.5346,
+            "input": 1.0301,
+            "output": 9.043,
             "cacheRead": 0.3,
             "cacheWrite": 0
           }
@@ -5226,11 +5210,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 128000,
+          "maxTokens": 131072,
           "cost": {
-            "input": 0.045,
-            "output": 0.14,
-            "cacheRead": 0.01,
+            "input": 0.04,
+            "output": 0.5,
+            "cacheRead": 0.015,
             "cacheWrite": 0
           }
         },
@@ -5244,9 +5228,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.5614,
-            "output": 1.7644,
-            "cacheRead": 0.10426,
+            "input": 0.4746,
+            "output": 1.4916,
+            "cacheRead": 0.08814,
             "cacheWrite": 0
           }
         },
@@ -5413,24 +5397,6 @@
             "output": 3.2,
             "cacheRead": 0,
             "cacheWrite": 0
-          }
-        },
-        {
-          "id": "anthropic/claude-3-haiku",
-          "name": "Anthropic: Claude 3 Haiku",
-          "input": [
-            "text",
-            "image",
-            "document"
-          ],
-          "reasoning": false,
-          "contextWindow": 200000,
-          "maxTokens": 4096,
-          "cost": {
-            "input": 0.25,
-            "output": 1.25,
-            "cacheRead": 0.03,
-            "cacheWrite": 0.3
           }
         },
         {
@@ -6080,7 +6046,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 131072,
           "cost": {
             "input": 0.3,
             "output": 1.2,
@@ -7491,7 +7457,7 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 235929,
+          "maxTokens": 131072,
           "cost": {
             "input": 0.065,
             "output": 0.18,
@@ -9264,7 +9230,7 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 262140,
+          "maxTokens": 81920,
           "cost": {
             "input": 0.45,
             "output": 2.7,
@@ -9775,9 +9741,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.0825,
-            "output": 0.33,
-            "cacheRead": 0.020625,
+            "input": 0.13,
+            "output": 0.53,
+            "cacheRead": 0.033,
             "cacheWrite": 0
           }
         },
@@ -10136,7 +10102,7 @@
           "cost": {
             "input": 0.435,
             "output": 0.87,
-            "cacheRead": 0.0036,
+            "cacheRead": 0.004,
             "cacheWrite": 0
           }
         },
@@ -10360,7 +10326,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 128000,
+          "maxTokens": 131072,
           "cost": {
             "input": 0.15,
             "output": 0.5,
@@ -25922,6 +25888,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1790368233816,
+  "sourceGeneratedAt": 1790397250962,
   "supplementDigest": "041b0dc647b66a51855b058c3a9901b51c85c7a04305719742663ea4811c7d91"
 }
