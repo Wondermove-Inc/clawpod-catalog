@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1790620600460,
+  "generatedAt": 1790644079024,
   "minVersion": "2026.4.11",
-  "sourceCommit": "8b3f9bd1d69059f1ba8cbcdfb788cfa21bc24c13",
+  "sourceCommit": "dcafd64abcc2db7fd5694de7aa186bcc80aa0014",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -460,6 +460,24 @@
           "thinkingLevelMap": {
             "max": "max",
             "xhigh": "xhigh"
+          }
+        },
+        {
+          "id": "claude-sonnet-5-5",
+          "name": "Claude Sonnet 5.5",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.2,
+            "cacheWrite": 2.5
           }
         }
       ],
@@ -5017,9 +5035,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.021,
-            "output": 0.32,
-            "cacheRead": 0.016,
+            "input": 0.019,
+            "output": 0.3,
+            "cacheRead": 0.014,
             "cacheWrite": 0
           }
         },
@@ -5070,9 +5088,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 1,
-            "output": 9,
-            "cacheRead": 0.3,
+            "input": 0.875,
+            "output": 11.2,
+            "cacheRead": 0.29,
             "cacheWrite": 0
           }
         },
@@ -5178,9 +5196,9 @@
           "contextWindow": 500000,
           "maxTokens": 450000,
           "cost": {
-            "input": 1.6,
-            "output": 4.8,
-            "cacheRead": 0.4,
+            "input": 2,
+            "output": 6,
+            "cacheRead": 0.5,
             "cacheWrite": 0
           }
         },
@@ -5209,11 +5227,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 131072,
           "cost": {
-            "input": 0.1785,
-            "output": 2.805,
-            "cacheRead": 0.146625,
+            "input": 0.15,
+            "output": 3.3,
+            "cacheRead": 0.1,
             "cacheWrite": 0
           }
         },
@@ -5635,6 +5653,24 @@
           }
         },
         {
+          "id": "anthropic/claude-sonnet-5.5",
+          "name": "Claude Sonnet 5.5",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.2,
+            "cacheWrite": 2.5
+          }
+        },
+        {
           "id": "arcee-ai/trinity-large-thinking",
           "name": "Trinity Large Thinking",
           "input": [
@@ -5853,9 +5889,9 @@
           "contextWindow": 163840,
           "maxTokens": 32768,
           "cost": {
-            "input": 0.27,
-            "output": 1,
-            "cacheRead": 0.135,
+            "input": 0.25,
+            "output": 0.95,
+            "cacheRead": 0.13,
             "cacheWrite": 0
           }
         },
@@ -5893,17 +5929,17 @@
         },
         {
           "id": "deepseek/deepseek-v3.1-terminus",
-          "name": "DeepSeek: DeepSeek V3.1 Terminus (retires Sep 28)",
+          "name": "DeepSeek: DeepSeek V3.1 Terminus",
           "input": [
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 131072,
-          "maxTokens": 32768,
+          "contextWindow": 163840,
+          "maxTokens": 147456,
           "cost": {
             "input": 0.27,
             "output": 1,
-            "cacheRead": 0.135,
+            "cacheRead": 0,
             "cacheWrite": 0
           }
         },
@@ -5917,25 +5953,25 @@
           "contextWindow": 131072,
           "maxTokens": 65536,
           "cost": {
-            "input": 0.269,
-            "output": 0.4,
-            "cacheRead": 0.1345,
+            "input": 0.28,
+            "output": 0.42,
+            "cacheRead": 0.028,
             "cacheWrite": 0
           }
         },
         {
           "id": "deepseek/deepseek-v3.2-exp",
-          "name": "DeepSeek: DeepSeek V3.2 Exp (retires Sep 28)",
+          "name": "DeepSeek: DeepSeek V3.2 Exp",
           "input": [
             "text"
           ],
           "reasoning": true,
           "contextWindow": 163840,
-          "maxTokens": 65536,
+          "maxTokens": 147456,
           "cost": {
-            "input": 0.27,
-            "output": 0.41,
-            "cacheRead": 0,
+            "input": 0.1344,
+            "output": 0.2016,
+            "cacheRead": 0.0672,
             "cacheWrite": 0
           }
         },
@@ -6028,8 +6064,8 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1040000,
-          "maxTokens": 384000,
+          "contextWindow": 1048576,
+          "maxTokens": 943718,
           "cost": {
             "input": 0.3,
             "output": 1.2,
@@ -6477,21 +6513,11 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.06,
-            "output": 0.18,
-            "cacheRead": 0.012,
+            "input": 0.075,
+            "output": 0.22,
+            "cacheRead": 0.015,
             "cacheWrite": 0
           }
-        },
-        {
-          "id": "inclusionai/ling-3.0-flash-fin:free",
-          "name": "inclusionAI: Ling 3.0 Flash Fin (free)",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 32768
         },
         {
           "id": "inclusionai/ling-3.0-flash-sante:free",
@@ -7354,6 +7380,23 @@
           }
         },
         {
+          "id": "nex-agi/nex-n2.5-pro",
+          "name": "Nex AGI: Nex-N2.5-Pro",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 235929,
+          "cost": {
+            "input": 0.075,
+            "output": 0.25,
+            "cacheRead": 0.015,
+            "cacheWrite": 0
+          }
+        },
+        {
           "id": "nvidia/nemotron-3-nano-30b-a3b",
           "name": "Nemotron 3 Nano 30B A3B",
           "input": [
@@ -7440,7 +7483,7 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 131072,
+          "maxTokens": 32768,
           "cost": {
             "input": 0.039,
             "output": 0.18,
@@ -9724,9 +9767,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.13,
-            "output": 0.53,
-            "cacheRead": 0.033,
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625,
             "cacheWrite": 0
           }
         },
@@ -9956,9 +9999,9 @@
           "contextWindow": 500000,
           "maxTokens": 450000,
           "cost": {
-            "input": 1.6,
-            "output": 4.8,
-            "cacheRead": 0.4,
+            "input": 2,
+            "output": 6,
+            "cacheRead": 0.5,
             "cacheWrite": 0
           }
         },
@@ -10066,9 +10109,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.07,
-            "output": 0.14,
-            "cacheRead": 0.007,
+            "input": 0.12,
+            "output": 1.28,
+            "cacheRead": 0.04,
             "cacheWrite": 0
           }
         },
@@ -10083,9 +10126,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.435,
+            "input": 0.43,
             "output": 0.87,
-            "cacheRead": 0.004,
+            "cacheRead": 0.0036,
             "cacheWrite": 0
           }
         },
@@ -16558,6 +16601,23 @@
           }
         },
         {
+          "id": "claude-opus-5-5-fast",
+          "name": "Claude Opus 5.5 Fast",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 9.6,
+            "output": 48,
+            "cacheRead": 0.48,
+            "cacheWrite": 12
+          }
+        },
+        {
           "id": "claude-opus-5-fast",
           "name": "Claude Opus 5 Fast",
           "input": [
@@ -16626,6 +16686,23 @@
             "output": 15,
             "cacheRead": 0.3,
             "cacheWrite": 3.75
+          }
+        },
+        {
+          "id": "claude-sonnet-5-5",
+          "name": "Claude Sonnet 5.5",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 3.75,
+            "output": 18.75,
+            "cacheRead": 0.375,
+            "cacheWrite": 4.6875
           }
         },
         {
@@ -18482,6 +18559,23 @@
             "input": 0.4,
             "output": 2,
             "cacheRead": 0.08,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "xiaomi-mimo-v2-6-flash",
+          "name": "MiMo-V2.6-Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0.175,
+            "output": 0.35,
+            "cacheRead": 0.00375,
             "cacheWrite": 0
           }
         },
@@ -25547,6 +25641,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1790599678875,
+  "sourceGeneratedAt": 1790627547111,
   "supplementDigest": "041b0dc647b66a51855b058c3a9901b51c85c7a04305719742663ea4811c7d91"
 }
