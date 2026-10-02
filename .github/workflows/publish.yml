@@ -2,7 +2,8 @@
 #
 # We run OpenClaw's own generator (scripts/publish-model-catalog.mts) here instead of
 # mirroring catalog.openclaw.ai, so an outage in OpenClaw's publish job no longer
-# freezes this catalog.
+# freezes this catalog. The openrouter provider comes from OpenRouter's public
+# /api/v1/models list, fetched on every run.
 #
 # Triggers are limited to schedule + workflow_dispatch on purpose:
 # pull_request_target is the one trigger that would hand a fork PR this
@@ -72,12 +73,17 @@ jobs:
           pnpm install --frozen-lockfile
 
       - name: Generate OpenClaw catalog
-        run: scripts/generate-openclaw-catalog.sh openclaw "$RUNNER_TEMP/openclaw-catalog.json"
+        run: scripts/generate-openclaw-catalog.sh openclaw "$RUNNER_TEMP/sources/openclaw-catalog.json"
+
+      - name: Fetch OpenRouter model list
+        run: node scripts/fetch-openrouter.mjs --out "$RUNNER_TEMP/sources/openrouter-models.json"
 
       - uses: actions/upload-artifact@v4
         with:
-          name: openclaw-catalog
-          path: ${{ runner.temp }}/openclaw-catalog.json
+          name: catalog-sources
+          path: |
+            ${{ runner.temp }}/sources/openclaw-catalog.json
+            ${{ runner.temp }}/sources/openrouter-models.json
           if-no-files-found: error
           retention-days: 7
 
@@ -101,16 +107,18 @@ jobs:
 
       - uses: actions/download-artifact@v4
         with:
-          name: openclaw-catalog
-          path: ${{ runner.temp }}/openclaw
+          name: catalog-sources
+          path: ${{ runner.temp }}/sources
 
-      - name: Merge local supplements and validate the catalog
+      - name: Merge OpenRouter and local supplements, then validate the catalog
         id: publish
         run: |
+          args=(--source-file "$RUNNER_TEMP/sources/openclaw-catalog.json"
+                --openrouter-file "$RUNNER_TEMP/sources/openrouter-models.json")
           if [ "${{ inputs.dry_run }}" = "true" ]; then
-            node scripts/publish-catalog.mjs --source-file "$RUNNER_TEMP/openclaw/openclaw-catalog.json" --dry-run
+            node scripts/publish-catalog.mjs "${args[@]}" --dry-run
           else
-            node scripts/publish-catalog.mjs --source-file "$RUNNER_TEMP/openclaw/openclaw-catalog.json"
+            node scripts/publish-catalog.mjs "${args[@]}"
           fi
 
       - name: Commit and push

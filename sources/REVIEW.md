@@ -151,3 +151,43 @@
   서비스 최대 context나 구독 비용을 새로 측정한 값이 아니다.
 - `gpt-5.6-sol`·`gpt-5.6-terra`·`gpt-5.6-luna`는 문서상 롤아웃 기간 동안 유지되므로 그대로 둔다.
 - `gpt-5.5-mini`, `gpt-5.1` 계열, `gpt-5.2-codex`는 문서에 언급이 없어 이번에 상태를 바꾸지 않았다.
+
+# 2026-10-02 provider 누락 모델 재검토
+
+models.dev와 OpenRouter 공개 API로 누락 후보를 찾은 뒤, 아래 공식 자료로 확인해 추가했다.
+계정 접근권·실제 호출은 검증하지 않았다. 비용 단위는 USD / 백만 토큰이다.
+
+| 대상 | 추가·수정 | 공식 근거 |
+| --- | --- | --- |
+| `anthropic-vertex` | `claude-opus-5-5`(4/20/0.2/5), `claude-sonnet-5-5`(2/10/0.2/2.5). 1M context, 128K 출력. Global 가격 | [Opus 5.5](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude/opus-5-5), [Sonnet 5.5](https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/partner-models/claude/sonnet-5-5), [Vertex 가격](https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing) |
+| `amazon-bedrock-mantle` | Opus 5.5, Sonnet 5.5, Fable 5, Fable 5.1, Opus 4.8 추가. 모든 행 가격을 AWS Geo/In-region 가격으로 통일(기존 Opus 5·Mythos 5·Opus 4.7 포함), 미확인이던 Sonnet 5·Mythos Preview 가격 채움 | [AWS 모델 카드](https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-opus-5-5.html), [AWS 가격](https://aws.amazon.com/bedrock/pricing/) |
+| `minimax-portal` | `MiniMax-M3.1-Flash-Preview` (M Plan 전용, 비용 생략) | [텍스트 생성](https://platform.minimax.io/docs/guides/text-generation) |
+| `amazon-bedrock` | 57행: Claude Opus 4.7/4.8, Sonnet 5, Fable 5/5.1, Opus 5/5.5, Sonnet 5.5; GPT-5.6 Sol/Terra/Luna, GPT-6 Astra/Sol/Luna, GPT-6.1 Sol; Grok 4.6/4.7; Kimi K3 | AWS 모델 카드, [AWS 가격](https://aws.amazon.com/bedrock/pricing/) |
+| `openrouter` | 수동 목록 대신 매 게시마다 공개 API로 자동 갱신. 수동 파일에는 `auto` 별칭만 유지 | [모델 API](https://openrouter.ai/api/v1/models) |
+
+## 판단과 한계
+
+- **Mantle 가격 기준:** Mantle 모델 ID는 지역(in-Region) 전용이고, AWS는 runtime과 mantle의 토큰 가격이 같다고 밝힌다.
+  그래서 Geo/In-region 가격(Global 대비 +10%)을 적용했다. 2026-09-08 기록의 "Mantle 미확인 비용 생략"은 이 검토로 대체한다.
+- **Bedrock 가격:** 새 행은 AWS 기준을 따른다. us./eu./jp./au./in. 및 base ID는 +10%, global.은 기본가다.
+  Global 표에 가격이 없는 global 행(Opus 4.7/4.8, Sonnet 5, Fable 5/5.1, Opus 5)은 비용을 생략했다.
+- **기존 87행 가격 감사:** AWS Price List feed와 가격 페이지로 87행을 모두 대조해 64행 일치, 23행 수정했다.
+  - Claude Sonnet 4.5/4.6, Haiku 4.5, Opus 4.5/4.6의 base·us.·eu. ID 15행: +10% (global.은 이미 일치).
+    지역 할증은 Claude 4.5 이후·Nova 2·Grok 4.6/4.7·Kimi K3에만 있고, Sonnet 4·Opus 4/4.1·Claude 3.x·Nova 1·오픈 웨이트 모델에는 없다.
+  - Nova 2 Lite·Nova Premier cacheRead, Qwen3 4종, Gemma 3 27B, Voxtral Small 가격 갱신.
+    Qwen3 Next 80B 입력은 가격 페이지 $0.15를 썼다(feed의 표준 SKU는 Mantle 엔드포인트 $0.14).
+  - Llama 3.1 405B, DeepSeek V3.1, Qwen3 235B, Qwen3 Coder 480B는 us-east-1 가격이 없어 us-west-2 가격 기준이다.
+  - AWS에 캐시 가격이 없는데 0으로 적힌 기존 cache 필드는 이번에 정리하지 않았다.
+  - Opus 4.1은 2026-10-08부터 공개 연장 지원 가격으로 바뀔 예정이라 다시 확인이 필요하다.
+- **Bedrock ID 범위:** AWS 카드가 in-Region runtime endpoint를 명시한 경우에만 base ID를 넣었다(Sonnet 5, Opus 5, Opus 5.5).
+  `jp.` Sonnet 5, `jp.` Opus 5, `eu.` Fable 5는 AWS 카드에 없어 제외했다.
+- **Mantle 전용 모델:** `openai.gpt-5.5`, `xai.grok-4.3`, Gemma 4 3종은 bedrock-mantle에서만 제공되어 Converse(`amazon-bedrock`) 대신
+  `amazon-bedrock-mantle`에 기본 API(`openai-completions`)로 추가했다. 가격은 AWS feed(GPT-5.5는 Marketplace 판매라 모델 카드) 기준이다.
+  **AWS 카드는 이 모델들을 `/openai/v1` 경로로 제공한다고 하는데 Agent는 `/v1`을 쓴다. 실제 호출은 확인하지 않았다.**
+  Grok 4.3·Gemma 4의 maxTokens는 공식 값이 없어 xAI upstream·models.dev 값을 썼다. GPT-5.5는 272K 초과 입력 할증을 표현하지 않았다.
+- **reasoning:** Mantle Opus 4.8은 Opus 4.7과 같은 Agent 전송 정책으로 `false`. Bedrock Converse 행은 AWS 문서대로 `true`.
+- **AWS나 xAI가 밝히지 않은 값:** Grok 4.6/4.7의 maxTokens 64000은 upstream xAI 행을 따랐고,
+  Kimi K3의 131072는 운영 기본값이다. 둘 다 공식 최대치가 아니다.
+- **기타:** GPT-6.1 Sol은 AWS가 명시적 캐싱 미지원이라고 밝혀 cacheWrite를 생략했다. AWS 기준 한도(1M/131072)가 OpenAI 기준(1.05M/128K)과 다르다.
+  Kimi K3는 AWS가 Converse에서 이전 reasoning 블록을 재전송하면 실패할 수 있다고 경고한다.
+  OpenAI·xAI의 장문(272K/200K 초과) 가격, AWS 1시간 cache write 가격은 행 형식으로 표현하지 않았다.

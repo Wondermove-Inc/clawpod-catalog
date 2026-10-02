@@ -3,6 +3,8 @@
 `clawpod-providers.json`은 이 레포가 직접 관리하는 추가 모델 입력입니다.
 6시간 게시 작업은 OpenClaw 생성기로 직접 만든 upstream 원본과 이 파일을 병합합니다. **Clawpod-Agent를
 clone하거나 실행하지 않으며, provider API에서 이 파일을 자동 수집하지 않습니다.**
+`openrouter`만 예외로, 게시 작업이 OpenRouter 공개 API에서 직접 받습니다. 이 파일에는 Agent 전용
+별칭 `auto`만 남아 있습니다(루트 README의 "1-1. OpenRouter" 참고).
 
 ## 데이터의 기준과 공식 자료 재검토
 
@@ -21,11 +23,12 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 | `google`                    |           12 | 플러그인 정적 Gemini 목록; preview 포함                               |
 | `google-vertex`             |           12 | Vertex builder와 같이 Google 모델 목록 공유                           |
 | `xai`                       |           10 | 현행 7개 + 공식 전환 안내가 있는 별칭 3개                             |
-| `minimax`, `minimax-portal` |       각각 3 | 플러그인의 text 모델 목록                                             |
-| `amazon-bedrock`            |           87 | SDK의 모델·inference profile ID 목록                                  |
-| `amazon-bedrock-mantle`     |            5 | 소스에 명시된 Claude 모델만 포함; 동적 탐색 목록은 미수집             |
-| `anthropic-vertex`          |           11 | `global` 지역, 2026-09-08 기준 표준 가격                              |
-| `openrouter`                |          181 | 공개 API에 있는 기존 180개 + Agent auto 별칭                          |
+| `minimax`                   |            3 | 플러그인의 text 모델 목록                                             |
+| `minimax-portal`            |            4 | 위 3개 + M Plan 전용 `MiniMax-M3.1-Flash-Preview` (2026-10-02)         |
+| `amazon-bedrock`            |          144 | SDK 목록 87개 + 2026-10-02 AWS 문서로 추가한 57개                     |
+| `amazon-bedrock-mantle`     |           15 | Claude 10개 + Mantle 전용 GPT-5.5·Grok 4.3·Gemma 4 (2026-10-02)       |
+| `anthropic-vertex`          |           13 | `global` 지역 표준 가격 (2026-10-02 Opus/Sonnet 5.5 추가)             |
+| `openrouter`                |            1 | Agent `auto` 별칭만. 나머지는 게시 때 공개 API에서 자동 갱신          |
 | `zai`                       |            6 | 에이전트 내장 JSON의 기준 목록; upstream에는 이미 더 많은 모델이 있음 |
 
 숫자는 **현재 보완 입력**의 규모입니다. 최종 artifact의 목록·개수는 upstream과
@@ -34,8 +37,8 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 - Google 비용은 공식 표준 text/image 기본 가격으로 교체했습니다. Vertex는 global 기준입니다.
 - Codex·MiniMax Portal의 USD/token 구독 비용과 Mantle의 미확인 비용은 생략했습니다.
   비용 미상을 0원으로 게시하지 않습니다.
-- OpenRouter `openrouter/auto`의 음수 가격 sentinel은 변환 시 `cost` 전체를 생략했습니다.
-  가격 미상을 0원으로 바꾸지 않습니다. `auto`와 `openrouter/auto`는 소스에 각각 있는 ID입니다.
+- OpenRouter `openrouter/auto`처럼 음수 가격 sentinel이 있는 행은 자동 변환 시 `cost` 전체를 생략합니다.
+  가격 미상을 0원으로 바꾸지 않습니다. `auto`(이 파일)와 `openrouter/auto`(API)는 각각 있는 ID입니다.
 - Codex 최신 모델의 272K context window는 플러그인의 운영 예산이며 서비스 최대 한도를
   새로 측정한 값이 아닙니다. 기존 SDK의 일반 API 가격도 Codex 구독 비용으로 사용하지 않습니다.
 - xAI의 일부 최대 출력 길이는 원본이 명시적으로 사용하는 보수적 fallback입니다.
@@ -52,8 +55,9 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 ## 수정 절차
 
 1. `providers.<provider>.models`를 수정하고 같은 provider의 `provenance`를 갱신합니다.
-2. `scripts/generate-openclaw-catalog.sh`로 원본을 생성한 뒤(루트 README의 "게시 dry-run" 참고), `npm run publish-catalog:dry-run -- --source-file <생성 파일>`로 입력 검증과 병합 결과를 확인합니다.
-3. `npm run publish-catalog -- --source-file <생성 파일>`로 생성합니다.
+2. `scripts/generate-openclaw-catalog.sh`로 원본을 생성한 뒤(루트 README의 "게시 dry-run" 참고), `node scripts/fetch-openrouter.mjs --out <OpenRouter 파일>`로 OpenRouter 목록을 받은 뒤,
+   `npm run publish-catalog:dry-run -- --source-file <생성 파일> --openrouter-file <OpenRouter 파일>`로 입력 검증과 병합 결과를 확인합니다.
+3. `npm run publish-catalog -- --source-file <생성 파일> --openrouter-file <OpenRouter 파일>`로 생성합니다.
 4. `npm test`를 실행하고 입력·출력 diff를 함께 검토합니다. 테스트는 생성 파일에 보완 모델이 모두 반영됐는지도 확인합니다.
 5. 보완 JSON, 출처 문서, 생성된 `models/v1/catalog.json`을 함께 커밋합니다.
 
@@ -100,7 +104,7 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
   않으므로 cron 간격만큼 지연될 수 있습니다. 원본 시각이 같아도 결과가 바뀌면 게시합니다.
 - 날짜가 지나면 CI가 임의로 실패하는 방식이 아닙니다. 외부 정책 변경·할인 연장·인상 취소는
   여전히 수동으로 확인해야 합니다. Google/AWS가 날짜만 공지한 경우 UTC 자정을 게시 기준으로 씁니다.
-- 규칙은 공급자 API를 자동 수집하지 않습니다. 일반 API 가격을 구독 요금으로 환산하지 않습니다.
+- 규칙은 공급자 API를 자동 수집하지 않습니다(OpenRouter 목록 자체는 별도로 자동 갱신). 일반 API 가격을 구독 요금으로 환산하지 않습니다.
 
 비용은 기본 표준 요금입니다. Gemini Pro의 장문 가격, MiniMax M3의 512K 초과 요금,
 xAI 장문 요금, Priority 및 지역별 차이는 단일 기본 `cost`만으로 표현하지 않습니다.

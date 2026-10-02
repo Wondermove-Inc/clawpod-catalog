@@ -12,6 +12,7 @@ import {
   validateSupplement,
   MAX_PUBLISHED_BYTES,
 } from "../scripts/catalog.mjs";
+import { MIN_OPENROUTER_MODELS } from "../scripts/openrouter.mjs";
 import { publishCatalog } from "../scripts/publish-catalog.mjs";
 
 const NOW = Date.UTC(2026, 8, 8);
@@ -322,15 +323,32 @@ function workspace(t) {
   fs.writeFileSync(path.join(dir, "sources/clawpod-providers.json"), JSON.stringify(f.supplement));
   const source = path.join(dir, "upstream.json");
   fs.writeFileSync(source, JSON.stringify(f.upstream));
-  return { dir, source, output: path.join(dir, "models/v1/catalog.json"), f };
+  const openRouter = path.join(dir, "openrouter.json");
+  fs.writeFileSync(openRouter, JSON.stringify(openRouterResponse()));
+  const inputs = ["--source-file", source, "--openrouter-file", openRouter];
+  return { dir, source, openRouter, inputs, output: path.join(dir, "models/v1/catalog.json"), f };
+}
+
+function openRouterResponse(count = MIN_OPENROUTER_MODELS) {
+  return {
+    data: Array.from({ length: count }, (_, i) => ({
+      id: `vendor/model-${i}`,
+      name: `Model ${i}`,
+      context_length: 128_000,
+      architecture: { input_modalities: ["text"], output_modalities: ["text"] },
+      pricing: { prompt: "0.000001", completion: "0.000002" },
+      top_provider: { context_length: 128_000, max_completion_tokens: 16_384 },
+      supported_parameters: ["tools"],
+    })),
+  };
 }
 
 test("offline CLI dry-run, write, repeat, and source-only changes obey persistence and outputs", async (t) => {
-  const { dir, source, output, f } = workspace(t);
+  const { dir, inputs, output, f } = workspace(t);
   const githubOutput = path.join(dir, "github-output");
   const options = {
     rootDir: dir,
-    argv: ["--source-file", source],
+    argv: inputs,
     now: NOW,
     log: () => {},
     githubOutput,
@@ -356,19 +374,35 @@ test("offline CLI dry-run, write, repeat, and source-only changes obey persisten
 });
 
 test("unreadable, malformed, invalid or oversized source files leave the artifact untouched", async (t) => {
-  const { dir, source, output } = workspace(t);
+  const { dir, source, openRouter, inputs, output } = workspace(t);
   const options = { rootDir: dir, now: NOW, log: () => {}, githubOutput: null };
-  await publishCatalog({ ...options, argv: ["--source-file", source] });
+  await publishCatalog({ ...options, argv: inputs });
   const before = fs.readFileSync(output, "utf8");
   const bad = path.join(dir, "bad.json");
   for (const contents of [undefined, "not JSON", "{}", "x".repeat(8 * 1024 * 1024 + 1)]) {
     fs.rmSync(bad, { force: true });
     if (contents !== undefined) fs.writeFileSync(bad, contents);
-    await assert.rejects(publishCatalog({ ...options, argv: ["--source-file", bad] }));
+    await assert.rejects(
+      publishCatalog({ ...options, argv: ["--source-file", bad, "--openrouter-file", openRouter] }),
+    );
+    assert.equal(fs.readFileSync(output, "utf8"), before);
+  }
+  for (const contents of [
+    undefined,
+    "not JSON",
+    "{}",
+    JSON.stringify(openRouterResponse(MIN_OPENROUTER_MODELS - 1)),
+    "x".repeat(16 * 1024 * 1024 + 1),
+  ]) {
+    fs.rmSync(bad, { force: true });
+    if (contents !== undefined) fs.writeFileSync(bad, contents);
+    await assert.rejects(
+      publishCatalog({ ...options, argv: ["--source-file", source, "--openrouter-file", bad] }),
+    );
     assert.equal(fs.readFileSync(output, "utf8"), before);
   }
   fs.writeFileSync(output, "corrupt previous file");
-  await assert.rejects(publishCatalog({ ...options, argv: ["--source-file", source] }));
+  await assert.rejects(publishCatalog({ ...options, argv: inputs }));
   assert.equal(fs.readFileSync(output, "utf8"), "corrupt previous file");
 });
 
@@ -381,6 +415,9 @@ test("invalid or missing command arguments fail before write", async (t) => {
     ["--source-file"],
     ["--source-file", "--dry-run"],
     ["--source-file", "a", "--source-file", "b"],
+    ["--source-file", "a"],
+    ["--source-file", "a", "--openrouter-file"],
+    ["--source-file", "a", "--openrouter-file", "b", "--openrouter-file", "c"],
   ]) {
     await assert.rejects(publishCatalog({ rootDir: dir, argv }), /argument|once/);
   }
@@ -408,16 +445,19 @@ test("committed supplemental data covers the requested providers and preserves p
   const codex = s.providers["openai-codex"].models.find((m) => m.id === "gpt-6-astra");
   assert.equal(codex.contextWindow, 272_000);
   assert.equal(s.providers["google-vertex"].api, "google-vertex");
+  // Claude rows use the Messages API; Mantle-only models inherit openai-completions.
   assert.ok(
-    s.providers["amazon-bedrock-mantle"].models.every((m) => m.api === "anthropic-messages"),
+    s.providers["amazon-bedrock-mantle"].models.every((m) =>
+      m.id.startsWith("anthropic.") ? m.api === "anthropic-messages" : m.api === undefined,
+    ),
   );
   assert.ok(
     s.providers["anthropic-vertex"].models.some((m) => m.id === "claude-haiku-4-5@20251001"),
   );
-  assert.ok(s.providers.openrouter.models.some((m) => m.id.startsWith("anthropic/")));
-  assert.equal(
-    s.providers.openrouter.models.find((m) => m.id === "openrouter/auto").cost,
-    undefined,
+  // Everything else comes from the OpenRouter API on each publish run.
+  assert.deepEqual(
+    s.providers.openrouter.models.map((m) => m.id),
+    ["auto"],
   );
   const f = fixture();
   const next = buildCatalog({ ...f, supplement: s });
@@ -444,13 +484,13 @@ test("policy-only changes and permitted clock skew keep publication monotonic", 
 });
 
 test("missing or malformed supplement fails without changing output", async (t) => {
-  const { dir, source, output } = workspace(t);
+  const { dir, inputs, output } = workspace(t);
   const options = {
     rootDir: dir,
     now: NOW,
     log: () => {},
     githubOutput: null,
-    argv: ["--source-file", source],
+    argv: inputs,
   };
   await publishCatalog(options);
   const before = fs.readFileSync(output, "utf8");
@@ -656,9 +696,14 @@ test("reviewed data publishes corrected prices, subscription unknowns, and retir
   assert.equal(get("openai-codex", "gpt-5.4-mini").replacedBy, "gpt-5.6-luna");
   assert.ok(next.providers["openai-codex"].models.every((m) => m.cost === undefined));
   assert.ok(next.providers["minimax-portal"].models.every((m) => m.cost === undefined));
-  assert.equal(get("amazon-bedrock-mantle", "anthropic.claude-mythos-preview").cost, undefined);
-  assert.equal(get("openrouter", "deepseek/deepseek-chat").maxTokens, 16384);
-  assert.equal(get("openrouter", "openrouter/hunter-alpha"), undefined);
+  // Mantle IDs are in-Region only, so AWS Geo/In-region prices apply (reviewed 2026-10-02).
+  assert.deepEqual(get("amazon-bedrock-mantle", "anthropic.claude-mythos-preview").cost, {
+    input: 27.5,
+    output: 137.5,
+    cacheRead: 2.75,
+    cacheWrite: 34.375,
+  });
+  assert.equal(get("amazon-bedrock-mantle", "anthropic.claude-opus-4-8").reasoning, false);
   const expiry = Date.UTC(2026, 8, 9, 16);
   assert.equal(
     get("zai", "glm-5.3-flash", buildCatalog({ ...f, now: expiry - 1 })).cost.input,

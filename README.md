@@ -4,7 +4,7 @@
 
 ClawPoD 에이전트 게이트웨이가 사용하는 **OpenClaw 생성기로 직접 만들어 검증·변환한 모델 카탈로그**입니다.
 
-최종 카탈로그는 **upstream 원본 + 이 레포의 수동 보완 모델 + 조건부 가격·상태 보정**으로 만듭니다. 여기서 upstream 원본은 `catalog.openclaw.ai`에서 받지 않고, 6시간 게시 작업이 `openclaw/openclaw`의 `scripts/publish-model-catalog.mts`를 직접 실행해 생성합니다. 그 뒤 같은 규칙을 적용합니다. Clawpod-Agent 소스와 provider API는 수동 데이터 검토에 참고하며, 게시할 때 자동 수집하거나 실행하지 않습니다.
+최종 카탈로그는 **upstream 원본 + OpenRouter 공개 모델 목록 + 이 레포의 수동 보완 모델 + 조건부 가격·상태 보정**으로 만듭니다. 여기서 upstream 원본은 `catalog.openclaw.ai`에서 받지 않고, 6시간 게시 작업이 `openclaw/openclaw`의 `scripts/publish-model-catalog.mts`를 직접 실행해 생성합니다. `openrouter` provider는 매 게시 작업마다 OpenRouter 공식 API(`https://openrouter.ai/api/v1/models`)에서 받아 자동 갱신합니다. 그 뒤 같은 규칙을 적용합니다. 그 밖의 provider API와 Clawpod-Agent 소스는 수동 데이터 검토에 참고만 하며, 게시할 때 자동 수집하거나 실행하지 않습니다.
 
 > 이 저장소는 모델 카탈로그 데이터와 게시 자동화만 담당합니다. 모델 요청을 proxy하지 않으며 provider endpoint, credential, runtime 설정을 배포하지 않습니다.
 
@@ -23,6 +23,7 @@ ClawPoD 에이전트 게이트웨이가 사용하는 **OpenClaw 생성기로 직
 flowchart TD
     O["openclaw/openclaw<br/>publish-model-catalog.mts"] -->|"CI에서 생성"| U["upstream 원본 (v1)"]
     U --> V["입력 검증"]
+    OR["OpenRouter /api/v1/models"] -->|"CI에서 받기 · 변환"| V
     S["sources/clawpod-providers.json<br/>수동 모델 · 출처 · corrections"] --> V
     V --> T["upstream transport 필드·root pricing 제거"]
     T --> M["provider/model ID 병합<br/>중복은 upstream 우선"]
@@ -79,7 +80,8 @@ npm ci
 git clone --depth 1 https://github.com/openclaw/openclaw /tmp/openclaw
 (cd /tmp/openclaw && corepack enable && pnpm install --frozen-lockfile)
 scripts/generate-openclaw-catalog.sh /tmp/openclaw /tmp/openclaw-catalog.json
-npm run publish-catalog:dry-run -- --source-file /tmp/openclaw-catalog.json
+node scripts/fetch-openrouter.mjs --out /tmp/openrouter-models.json
+npm run publish-catalog:dry-run -- --source-file /tmp/openclaw-catalog.json --openrouter-file /tmp/openrouter-models.json
 ```
 
 `npm ci`는 local `node_modules`를 변경합니다. 생성 스크립트는 models.dev 등 가격 출처를 실제로 조회하고, 지정한 OpenClaw checkout의 파일을 수정합니다(아래 [1. Generate](#1-generate) 참고). 그래서 전용 clone을 사용하세요. 이어지는 publisher `--dry-run`은 검증·diff 판단을 수행하지만 `models/v1/catalog.json`은 쓰지 않습니다. 이 명령은 offline validator나 test suite가 아닙니다.
@@ -122,6 +124,13 @@ Publisher ingress schema와 consumer acceptance schema는 동일하지 않습니
 - 생성 실패(외부 출처 장애, OpenClaw 변경 등)는 run을 실패시키고 기존 artifact를 유지합니다.
 - 생성 파일이 8MiB를 초과하면 게시 전 거부, JSON parse 오류는 fail closed
 
+### 1-1. OpenRouter
+
+- 원본: `https://openrouter.ai/api/v1/models` (공식 공개 목록, 인증 불필요). `generate` job의 [`scripts/fetch-openrouter.mjs`](scripts/fetch-openrouter.mjs)가 받고, publisher가 `--openrouter-file`로 읽어 [`scripts/openrouter.mjs`](scripts/openrouter.mjs)로 변환합니다.
+- 변환 규칙은 OpenClaw의 OpenRouter live discovery와 같습니다: 텍스트 출력 모델만, `reasoning`/`include_reasoning` 지원 시 reasoning, 이미지 입력 시 `["text","image"]`, `top_provider` 한도 우선, 최대 출력 미상이면 8192, 가격은 USD/백만 토큰. 음수 가격(라우터의 가격 미상 표시)이나 입력·출력 가격이 없으면 `cost`를 생략하고 0원으로 쓰지 않습니다. `:free`·`:batch` 등 OpenRouter가 제공하는 변형 ID도 그대로 포함합니다.
+- OpenRouter 행은 upstream과 같은 우선순위입니다. 수동 보완 파일에는 Agent 전용 별칭 `auto`만 남깁니다. OpenRouter 목록에서 빠진 모델은 다음 게시에서 catalog에서도 빠집니다.
+- 응답이 30초 timeout·16MiB를 넘거나, 사용 가능한 모델이 100개 미만이면(부분 응답 방지) run을 실패시키고 기존 artifact를 유지합니다.
+
 Publisher의 8MiB 검사는 streaming download/memory cap이 아닙니다. Consumer의 4MiB streaming body limit와 목적·구현이 다릅니다. 최종 직렬화한 게시 파일에는 별도로 4MiB 한도를 적용합니다.
 
 ### 2. Validate
@@ -161,7 +170,7 @@ Schema 검증 실패, 필수 provider(`anthropic`, `openai`) 누락, API 충돌,
 
 2026-09-05부터 8회 연속 실패한 원인이 이 부분입니다. 당시에는 model 수 급변(274 -> 1003)이 review 경로로 routing됐고, 그 경로가 `gh pr create`를 호출했는데 조직 정책이 GitHub Actions의 PR 생성을 금지하고 있어 branch push 직후 run이 실패했습니다. Review 경로 자체를 제거해 해결했습니다.
 
-보완 파일 자체는 **수동 관리**합니다. 6시간 작업은 그 파일을 다시 병합하고 검증된 보정·날짜 전환을 적용합니다. Provider API나 Clawpod-Agent 소스에서 보완 모델을 수집하지 않습니다. 수정 절차와 데이터 기준은 [sources/README.md](sources/README.md)를 참고하세요.
+보완 파일 자체는 **수동 관리**합니다. 6시간 작업은 그 파일을 다시 병합하고 검증된 보정·날짜 전환을 적용합니다. OpenRouter를 제외한 provider API나 Clawpod-Agent 소스에서 보완 모델을 수집하지 않습니다. 수정 절차와 데이터 기준은 [sources/README.md](sources/README.md)를 참고하세요.
 
 Workflow는 nominal 6시간 cron(`17 */6 * * *`)과 수동 dispatch로 실행됩니다. 동일 concurrency group에서 동시에 하나만 실행하고 running run은 취소하지 않지만, 대기 중인 pending run은 새 pending run으로 대체될 수 있습니다.
 
@@ -193,7 +202,7 @@ Workflow는 nominal 6시간 cron(`17 */6 * * *`)과 수동 dispatch로 실행됩
 
 판별 기준은 모델 이름이 아닌 **provider ID + model ID**입니다. 따라서 수동 목록을 줄이는 것은 전역 차단이 아닙니다. 폐기·지원 종료 여부를 관리하려면 모델의 `status`도 별도로 검토해야 합니다. 보완 모델을 삭제할 때 해당 모델을 대상으로 하는 `corrections`도 함께 정리해야 하며, 없는 대상을 참조하는 규칙은 검증 오류입니다.
 
-2026-09-08 검토에서는 OpenRouter 공개 목록에 없던 74개와 xAI 미확인 구형 4개를 수동 목록에서 제외했습니다. **78개 모두의 서비스 종료나 호출 불가를 확인한 것은 아니며, 자동 삭제 기능을 만든 것도 아닙니다.** 당시 제외 이유와 전체 ID는 [검토 기록](sources/REVIEW.md)에 있습니다. 이 변경으로 upstream의 기존 모델 ID를 삭제하지 않았습니다.
+2026-10-02부터 OpenRouter는 공개 API로 자동 갱신하므로 아래 OpenRouter 수동 제외 기록은 이력으로만 남습니다. 2026-09-08 검토에서는 OpenRouter 공개 목록에 없던 74개와 xAI 미확인 구형 4개를 수동 목록에서 제외했습니다. **78개 모두의 서비스 종료나 호출 불가를 확인한 것은 아니며, 자동 삭제 기능을 만든 것도 아닙니다.** 당시 제외 이유와 전체 ID는 [검토 기록](sources/REVIEW.md)에 있습니다. 이 변경으로 upstream의 기존 모델 ID를 삭제하지 않았습니다.
 
 ### `corrections`: 확인된 구값에만 적용
 
@@ -303,11 +312,11 @@ npm run publish-catalog
 
 ```bash
 npm test
-node scripts/publish-catalog.mjs --source-file /path/to/openclaw-catalog.json --dry-run
-node scripts/publish-catalog.mjs --source-file /path/to/openclaw-catalog.json
+node scripts/publish-catalog.mjs --source-file /path/to/openclaw-catalog.json --openrouter-file /path/to/openrouter-models.json --dry-run
+node scripts/publish-catalog.mjs --source-file /path/to/openclaw-catalog.json --openrouter-file /path/to/openrouter-models.json
 ```
 
-`--source-file`은 필수이며, publisher는 네트워크를 사용하지 않고 생성해 둔 원본 bundle을 입력으로 사용합니다. 보완 데이터 병합·시각 회귀 검사·크기 제한은 CI 실행과 같습니다. 이미 보완된 최종 게시 파일을 입력으로 재사용하면 이전 수동 모델이 영구히 남는 문제가 생기므로 거부합니다. 더 새로운 입력이 필요하면 `scripts/generate-openclaw-catalog.sh`로 다시 생성합니다.
+`--source-file`과 `--openrouter-file`은 필수이며, publisher는 네트워크를 사용하지 않고 생성해 둔 원본 bundle을 입력으로 사용합니다. 보완 데이터 병합·시각 회귀 검사·크기 제한은 CI 실행과 같습니다. 이미 보완된 최종 게시 파일을 입력으로 재사용하면 이전 수동 모델이 영구히 남는 문제가 생기므로 거부합니다. 더 새로운 입력이 필요하면 `scripts/generate-openclaw-catalog.sh`로 다시 생성합니다.
 
 ### Rollback과 사고 대응
 
@@ -323,6 +332,7 @@ node scripts/publish-catalog.mjs --source-file /path/to/openclaw-catalog.json
 | --- | --- |
 | Dry-run 결과가 `nothing to do` | upstream `generatedAt`이 게시본의 `sourceGeneratedAt`보다 과거인지, 변환 결과가 현재 artifact와 byte 단위로 같은지 확인 |
 | Workflow가 `main`에 commit하지 않음 | 변경 유무(`changed`), `dry_run` 값, publish step의 검증 실패 여부 |
+| `Fetch OpenRouter model list` 단계 실패 | OpenRouter API 장애·응답 형식 변경·모델 수 100개 미만 여부. 장애가 풀리면 다음 실행에서 자동 복구 |
 | `Generate OpenClaw catalog` 단계 실패 | 로그의 OpenClaw 에러 메시지(외부 출처 장애·형식 변경 등), `MAX_PRICING_CATALOG_BYTES` 패치 경고, 필요하면 `openclaw_ref`로 정상 동작하던 commit을 지정해 수동 실행 |
 | Consumer에 즉시 반영되지 않음 | 6시간 TTL, stored cache, build stamp, source URL, process restart 여부 |
 | Consumer가 vendored snapshot 사용 | cache 부재·손상, URL mismatch, build stamp 부재/신선도, refresh 비활성화, acceptance 오류 |
