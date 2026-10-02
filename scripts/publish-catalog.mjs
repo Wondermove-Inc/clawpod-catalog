@@ -1,12 +1,14 @@
-// Publish a locally generated OpenClaw catalog plus this repository's manually
-// maintained models. The source file comes from running OpenClaw's
-// scripts/publish-model-catalog.mts in CI (see .github/workflows/publish.yml);
-// nothing is fetched from catalog.openclaw.ai. This command has no dependency on
-// clawpod-agent or provider credentials.
+// Publish a locally generated OpenClaw catalog plus OpenRouter's public model list and
+// this repository's manually maintained models. Both input files are produced in CI
+// (see .github/workflows/publish.yml): the source file by OpenClaw's
+// scripts/publish-model-catalog.mts, the OpenRouter file by scripts/fetch-openrouter.mjs.
+// This command itself does not use the network and has no dependency on clawpod-agent
+// or provider credentials.
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildCatalog, countModels, MAX_CATALOG_BYTES, serializeCatalog } from "./catalog.mjs";
+import { convertOpenRouterModels, parseOpenRouterResponse, withOpenRouter } from "./openrouter.mjs";
 
 const LARGE_MODEL_DELTA_NOTICE = 50;
 const defaultRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -14,18 +16,26 @@ const defaultRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "
 function parseArgs(argv) {
   let dryRun = false;
   let sourceFile;
+  let openRouterFile;
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === "--dry-run") {
       dryRun = true;
     } else if (argv[i] === "--source-file" && argv[i + 1] && !argv[i + 1].startsWith("--")) {
       if (sourceFile) throw new Error("--source-file may only be specified once");
       sourceFile = argv[++i];
+    } else if (argv[i] === "--openrouter-file" && argv[i + 1] && !argv[i + 1].startsWith("--")) {
+      if (openRouterFile) throw new Error("--openrouter-file may only be specified once");
+      openRouterFile = argv[++i];
     } else {
       throw new Error(`unknown or incomplete argument: ${argv[i]}`);
     }
   }
   if (!sourceFile) throw new Error("missing required argument: --source-file <generated catalog>");
-  return { dryRun, sourceFile };
+  // Required so a forgotten flag cannot publish the openrouter provider without its models.
+  if (!openRouterFile) {
+    throw new Error("missing required argument: --openrouter-file <OpenRouter /api/v1/models response>");
+  }
+  return { dryRun, sourceFile, openRouterFile };
 }
 
 function parseSource(body) {
@@ -57,13 +67,19 @@ export async function publishCatalog({
   log = console.log,
   githubOutput = process.env.GITHUB_OUTPUT,
 } = {}) {
-  const { dryRun, sourceFile } = parseArgs(argv);
+  const { dryRun, sourceFile, openRouterFile } = parseArgs(argv);
   const outputPath = path.join(rootDir, "models", "v1", "catalog.json");
   const minVersion = fs.readFileSync(path.join(rootDir, "MIN_VERSION"), "utf8").trim();
   const supplement = JSON.parse(
     fs.readFileSync(path.join(rootDir, "sources", "clawpod-providers.json"), "utf8"),
   );
-  const upstream = parseSource(fs.readFileSync(path.resolve(sourceFile)));
+  const openRouter = convertOpenRouterModels(
+    parseOpenRouterResponse(fs.readFileSync(path.resolve(openRouterFile))),
+  );
+  const upstream = withOpenRouter(
+    parseSource(fs.readFileSync(path.resolve(sourceFile))),
+    openRouter,
+  );
   const previous = readPrevious(outputPath);
   const next = buildCatalog({ upstream, supplement, previous: previous.bundle, minVersion, now });
   if (!next) {
