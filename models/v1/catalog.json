@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1790707025403,
+  "generatedAt": 1790908011943,
   "minVersion": "2026.4.11",
-  "sourceCommit": "1d0efa48d3a842cf0a86164cf6e37f4db2e457ae",
+  "sourceCommit": "6b1cdc4785e336d2e64bd7d51f12bfb4808c9d0f",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -593,6 +593,23 @@
             "input": 0.3,
             "output": 1.2,
             "cacheRead": 0.03,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "deepseek-ai/DeepSeek-V4.1-Flash-Fast",
+          "name": "deepseek-ai/DeepSeek-V4.1-Flash-Fast",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 32768,
+          "cost": {
+            "input": 0.6,
+            "output": 2.4,
+            "cacheRead": 0,
             "cacheWrite": 0
           }
         },
@@ -1891,6 +1908,46 @@
             "supportsStore": false,
             "supportsUsageInStreaming": false
           }
+        },
+        {
+          "id": "tiny-aya-earth",
+          "name": "Tiny Aya Earth",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 8000,
+          "maxTokens": 8000
+        },
+        {
+          "id": "tiny-aya-fire",
+          "name": "Tiny Aya Fire",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 8000,
+          "maxTokens": 8000
+        },
+        {
+          "id": "tiny-aya-global",
+          "name": "Tiny Aya Global",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 8000,
+          "maxTokens": 8000
+        },
+        {
+          "id": "tiny-aya-water",
+          "name": "Tiny Aya Water",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 8000,
+          "maxTokens": 8000
         }
       ],
       "defaultModel": "command-a-plus-05-2026"
@@ -1960,22 +2017,6 @@
             "input": 0.32,
             "output": 0.8899999999999999,
             "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "deepseek-ai/DeepSeek-V3-0324",
-          "name": "DeepSeek V3 0324",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 163840,
-          "maxTokens": 163840,
-          "cost": {
-            "input": 0.24000000000000002,
-            "output": 0.9,
-            "cacheRead": 0.135,
             "cacheWrite": 0
           }
         },
@@ -2201,25 +2242,8 @@
           "contextWindow": 262144,
           "maxTokens": 32768,
           "cost": {
-            "input": 0.13,
-            "output": 0.38,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "google/gemma-4-E4B-it",
-          "name": "Gemma 4 E4B IT",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 131072,
-          "maxTokens": 8192,
-          "cost": {
-            "input": 0.02,
-            "output": 0.1,
+            "input": 0.15,
+            "output": 0.4,
             "cacheRead": 0,
             "cacheWrite": 0
           }
@@ -2548,23 +2572,6 @@
           }
         },
         {
-          "id": "Qwen/Qwen3.5-122B-A10B",
-          "name": "Qwen3.5 122B-A10B",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 65536,
-          "cost": {
-            "input": 0.29,
-            "output": 2.4,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
           "id": "Qwen/Qwen3.5-27B",
           "name": "Qwen3.5 27B",
           "input": [
@@ -2852,39 +2859,6 @@
           }
         },
         {
-          "id": "XiaomiMiMo/MiMo-V2.5",
-          "name": "MiMo-V2.5",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 16384,
-          "cost": {
-            "input": 0.13299999999999998,
-            "output": 0.26599999999999996,
-            "cacheRead": 0.0026599999999999996,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "XiaomiMiMo/MiMo-V2.5-Pro",
-          "name": "MiMo-V2.5-Pro",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 16384,
-          "cost": {
-            "input": 0.39,
-            "output": 1.17,
-            "cacheRead": 0.07800000000000001,
-            "cacheWrite": 0
-          }
-        },
-        {
           "id": "XiaomiMiMo/MiMo-V2.6-Flash",
           "name": "MiMo-V2.6-Flash",
           "input": [
@@ -2895,9 +2869,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.11899999999999998,
-            "output": 0.23799999999999996,
-            "cacheRead": 0.0023799999999999997,
+            "input": 0.13999999999999999,
+            "output": 0.27999999999999997,
+            "cacheRead": 0.0028,
             "cacheWrite": 0
           }
         },
@@ -3168,9 +3142,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.22,
-            "output": 0.66,
-            "cacheRead": 0.007,
+            "input": 0.3,
+            "output": 1.2,
+            "cacheRead": 0.006,
             "cacheWrite": 0
           }
         },
@@ -3383,9 +3357,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.22,
-            "output": 0.66,
-            "cacheRead": 0.007,
+            "input": 0.3,
+            "output": 1.2,
+            "cacheRead": 0.006,
             "cacheWrite": 0
           }
         },
@@ -3654,6 +3628,35 @@
           }
         },
         {
+          "id": "claude-opus-5.5",
+          "name": "Claude Opus 5.5",
+          "api": "anthropic-messages",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 4,
+            "output": 20,
+            "cacheRead": 0.2,
+            "cacheWrite": 5
+          },
+          "compat": {
+            "codeMode": "capable",
+            "supportedReasoningEfforts": [
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "supportsReasoningEffort": true
+          }
+        },
+        {
           "id": "claude-sonnet-4.6",
           "name": "Claude Sonnet 4.6",
           "api": "anthropic-messages",
@@ -3676,6 +3679,27 @@
         {
           "id": "claude-sonnet-5",
           "name": "Claude Sonnet 5",
+          "api": "anthropic-messages",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.2,
+            "cacheWrite": 2.5
+          },
+          "compat": {
+            "codeMode": "capable"
+          }
+        },
+        {
+          "id": "claude-sonnet-5.5",
+          "name": "Claude Sonnet 5.5",
           "api": "anthropic-messages",
           "input": [
             "text",
@@ -4441,6 +4465,41 @@
           }
         },
         {
+          "id": "Qwen/Qwen3.8-Flash",
+          "name": "Qwen3.8 Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048575,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0.16,
+            "output": 0.47,
+            "cacheRead": 0.016,
+            "cacheWrite": 0.2
+          }
+        },
+        {
+          "id": "Qwen/Qwen3.8-Max",
+          "name": "Qwen3.8 Max",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 2,
+            "output": 6,
+            "cacheRead": 0.25,
+            "cacheWrite": 2.5
+          }
+        },
+        {
           "id": "zai-org/GLM-5-FP8",
           "name": "GLM-5",
           "input": [
@@ -5061,9 +5120,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.02,
+            "input": 0.027,
             "output": 0.6,
-            "cacheRead": 0.02,
+            "cacheRead": 0.027,
             "cacheWrite": 0
           }
         },
@@ -5077,9 +5136,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.15,
+            "input": 0.1431,
             "output": 3.5,
-            "cacheRead": 0.15,
+            "cacheRead": 0.1431,
             "cacheWrite": 0
           }
         },
@@ -5093,9 +5152,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.012,
-            "output": 1.25,
-            "cacheRead": 0.01,
+            "input": 0.0108,
+            "output": 1.28,
+            "cacheRead": 0.0108,
             "cacheWrite": 0
           }
         },
@@ -5146,9 +5205,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.4,
-            "output": 9,
-            "cacheRead": 0.4,
+            "input": 0.3537,
+            "output": 10,
+            "cacheRead": 0.3537,
             "cacheWrite": 0
           }
         },
@@ -5220,7 +5279,7 @@
           "cost": {
             "input": 2,
             "output": 10,
-            "cacheRead": 0.2,
+            "cacheRead": 0.1,
             "cacheWrite": 2.5
           }
         },
@@ -5272,7 +5331,7 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.02,
-            "output": 0.3,
+            "output": 0.55,
             "cacheRead": 0.01,
             "cacheWrite": 0
           }
@@ -5285,11 +5344,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.19,
-            "output": 2.04,
-            "cacheRead": 0.102,
+            "input": 0.106,
+            "output": 2.653,
+            "cacheRead": 0.176,
             "cacheWrite": 0
           }
         },
@@ -5729,6 +5788,16 @@
           }
         },
         {
+          "id": "apodex/apodex-1.1-mini:free",
+          "name": "Apodex: Apodex 1.1 Mini (free)",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 235929
+        },
+        {
           "id": "arcee-ai/trinity-large-thinking",
           "name": "Trinity Large Thinking",
           "input": [
@@ -5928,8 +5997,8 @@
             "text"
           ],
           "reasoning": false,
-          "contextWindow": 163840,
-          "maxTokens": 147456,
+          "contextWindow": 128000,
+          "maxTokens": 115200,
           "cost": {
             "input": 0.29,
             "output": 1.14,
@@ -6040,8 +6109,8 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "contextWindow": 1024000,
+          "maxTokens": 384000,
           "cost": {
             "input": 0.14,
             "output": 0.28,
@@ -6106,7 +6175,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 393216,
           "cost": {
             "input": 1.32,
             "output": 3.96,
@@ -6491,8 +6560,8 @@
           "contextWindow": 262144,
           "maxTokens": 16384,
           "cost": {
-            "input": 0.08,
-            "output": 0.3,
+            "input": 0.09,
+            "output": 0.34,
             "cacheRead": 0.05,
             "cacheWrite": 0
           }
@@ -6817,7 +6886,7 @@
           ],
           "reasoning": true,
           "contextWindow": 131072,
-          "maxTokens": 16384,
+          "maxTokens": 117964,
           "cost": {
             "input": 0.3,
             "output": 1.1,
@@ -7397,9 +7466,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.65,
-            "output": 3.41,
-            "cacheRead": 0.15,
+            "input": 0.43415,
+            "output": 1.828,
+            "cacheRead": 0.07312,
             "cacheWrite": 0
           }
         },
@@ -7414,8 +7483,8 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.6562,
-            "output": 3.3,
+            "input": 0.6712,
+            "output": 3.35,
             "cacheRead": 0.18,
             "cacheWrite": 0
           }
@@ -7431,9 +7500,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 3,
-            "output": 15,
-            "cacheRead": 0.3,
+            "input": 0.3537,
+            "output": 10,
+            "cacheRead": 0.3537,
             "cacheWrite": 0
           }
         },
@@ -7514,8 +7583,8 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 202800,
-          "maxTokens": 182520,
+          "contextWindow": 262144,
+          "maxTokens": 16384,
           "cost": {
             "input": 0.5,
             "output": 2.2,
@@ -8366,6 +8435,42 @@
           }
         },
         {
+          "id": "openai/gpt-6.1-sol",
+          "name": "GPT-6.1 Sol",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1050000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.1,
+            "cacheWrite": 2.5
+          }
+        },
+        {
+          "id": "openai/gpt-6.1-sol-pro",
+          "name": "OpenAI: GPT-6.1 Sol Pro",
+          "input": [
+            "document",
+            "image",
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1050000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.1,
+            "cacheWrite": 2.5
+          }
+        },
+        {
           "id": "openai/gpt-audio",
           "name": "OpenAI: GPT Audio",
           "input": [
@@ -8849,8 +8954,8 @@
             "text"
           ],
           "reasoning": false,
-          "contextWindow": 128000,
-          "maxTokens": 32000,
+          "contextWindow": 262144,
+          "maxTokens": 235929,
           "cost": {
             "input": 0.13,
             "output": 0.52,
@@ -9463,8 +9568,8 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 235929,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
           "cost": {
             "input": 0.425,
             "output": 2.55,
@@ -9762,7 +9867,7 @@
         },
         {
           "id": "stealth/space-bunny-alpha",
-          "name": "Space Bunny Alpha (new)",
+          "name": "Space Bunny Alpha (retires Oct 5)",
           "input": [
             "text",
             "image"
@@ -9825,9 +9930,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.0825,
-            "output": 0.33,
-            "cacheRead": 0.020625,
+            "input": 0.13,
+            "output": 0.53,
+            "cacheRead": 0.033,
             "cacheWrite": 0
           }
         },
@@ -9872,7 +9977,7 @@
           ],
           "reasoning": true,
           "contextWindow": 524288,
-          "maxTokens": 471859,
+          "maxTokens": 262144,
           "cost": {
             "input": 0.95,
             "output": 4.05,
@@ -9922,6 +10027,23 @@
             "input": 2.5,
             "output": 7.5,
             "cacheRead": 0.25,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "unbiased/pareto-26.10-preview",
+          "name": "Pareto 26.10 Preview",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": false,
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0.8,
+            "output": 3.2,
+            "cacheRead": 0.03,
             "cacheWrite": 0
           }
         },
@@ -10167,9 +10289,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.08,
-            "output": 1.28,
-            "cacheRead": 0.08,
+            "input": 0.07,
+            "output": 0.28,
+            "cacheRead": 0.002,
             "cacheWrite": 0
           }
         },
@@ -10184,9 +10306,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.43,
+            "input": 0.435,
             "output": 0.87,
-            "cacheRead": 0.0036,
+            "cacheRead": 0.004,
             "cacheWrite": 0
           }
         },
@@ -10392,8 +10514,8 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 1048575,
-          "maxTokens": 943717,
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
           "cost": {
             "input": 1.4,
             "output": 4.4,
@@ -12572,6 +12694,28 @@
           }
         },
         {
+          "id": "deepseek-ai/deepseek-v4.1-flash",
+          "name": "DeepSeek V4.1 Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 384000
+        },
+        {
+          "id": "google/diffusiongemma-26b-a4b-it",
+          "name": "DiffusionGemma 26B A4B IT",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 250000,
+          "maxTokens": 32768
+        },
+        {
           "id": "google/gemma-3-12b-it",
           "name": "Gemma 3 12B IT",
           "input": [
@@ -12688,36 +12832,6 @@
           "reasoning": false,
           "contextWindow": 65536,
           "maxTokens": 65536
-        },
-        {
-          "id": "mistralai/mistral-nemotron",
-          "name": "mistral-nemotron",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 128000,
-          "maxTokens": 8192
-        },
-        {
-          "id": "mistralai/mixtral-8x22b-instruct",
-          "name": "Mistral: Mixtral 8x22B Instruct",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 65536,
-          "maxTokens": 13108
-        },
-        {
-          "id": "mistralai/mixtral-8x7b-instruct",
-          "name": "Mistral: Mixtral 8x7B Instruct",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 32768,
-          "maxTokens": 16384
         },
         {
           "id": "moonshotai/kimi-k2.5",
@@ -14272,15 +14386,72 @@
           }
         },
         {
+          "id": "gpt-6.1-sol",
+          "name": "GPT-6.1 Sol",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1050000,
+          "contextTokens": 272000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.1,
+            "cacheWrite": 2.5,
+            "tieredPricing": [
+              {
+                "cacheRead": 0.1,
+                "cacheWrite": 2.5,
+                "input": 2,
+                "output": 10,
+                "range": [
+                  0,
+                  272000
+                ]
+              },
+              {
+                "cacheRead": 0.2,
+                "cacheWrite": 5,
+                "input": 4,
+                "output": 15,
+                "range": [
+                  272000
+                ]
+              }
+            ]
+          },
+          "compat": {
+            "codeMode": "preferred",
+            "supportedReasoningEfforts": [
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "supportsReasoningEffort": true,
+            "supportsTemperature": false
+          },
+          "thinkingLevelMap": {
+            "max": "max",
+            "minimal": "low",
+            "off": null,
+            "xhigh": "xhigh"
+          }
+        },
+        {
           "id": "gpt-daybreak-blue-latest",
           "name": "Daybreak Blue",
           "input": [
             "text",
-            "image",
-            "document"
+            "image"
           ],
           "reasoning": true,
           "contextWindow": 1050000,
+          "contextTokens": 272000,
           "maxTokens": 128000,
           "cost": {
             "input": 4,
@@ -14308,6 +14479,23 @@
                 ]
               }
             ]
+          },
+          "compat": {
+            "supportedReasoningEfforts": [
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "supportsReasoningEffort": true,
+            "supportsTemperature": false
+          },
+          "thinkingLevelMap": {
+            "max": "max",
+            "minimal": "low",
+            "off": null,
+            "xhigh": "xhigh"
           }
         },
         {
@@ -14319,12 +14507,31 @@
           ],
           "reasoning": true,
           "contextWindow": 400000,
+          "contextTokens": 272000,
           "maxTokens": 128000,
           "cost": {
             "input": 12.5,
             "output": 75,
             "cacheRead": 1.25,
             "cacheWrite": 15.625
+          },
+          "compat": {
+            "supportedReasoningEfforts": [
+              "none",
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "supportsReasoningEffort": true,
+            "supportsTemperature": false
+          },
+          "thinkingLevelMap": {
+            "max": "max",
+            "minimal": "low",
+            "off": "none",
+            "xhigh": "xhigh"
           }
         },
         {
@@ -16114,23 +16321,6 @@
           }
         },
         {
-          "id": "google/gemma-4-31B-it",
-          "name": "Gemma 4 31B Instruct",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 131072,
-          "cost": {
-            "input": 0.39,
-            "output": 0.97,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
           "id": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
           "name": "Llama 3.3 70B Instruct Turbo",
           "input": [
@@ -16241,22 +16431,6 @@
           "cost": {
             "input": 0.15,
             "output": 0.6,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "openai/gpt-oss-20b",
-          "name": "GPT OSS 20B",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 131072,
-          "maxTokens": 131072,
-          "cost": {
-            "input": 0.05,
-            "output": 0.2,
             "cacheRead": 0,
             "cacheWrite": 0
           }
@@ -16401,6 +16575,22 @@
     "venice": {
       "api": "openai-completions",
       "models": [
+        {
+          "id": "abliteration-abliterated-model-large-v2",
+          "name": "Abliterated Large V2",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 32768,
+          "cost": {
+            "input": 3,
+            "output": 5,
+            "cacheRead": 0.3,
+            "cacheWrite": 0
+          }
+        },
         {
           "id": "aion-labs-aion-3-0",
           "name": "Aion 3.0",
@@ -17463,9 +17653,9 @@
           "contextWindow": 260000,
           "maxTokens": 65536,
           "cost": {
-            "input": 0.04999999999999999,
-            "output": 0.18749999999999994,
-            "cacheRead": 0.004999999999999999,
+            "input": 0.25,
+            "output": 0.9375,
+            "cacheRead": 0.025,
             "cacheWrite": 0
           }
         },
@@ -18150,6 +18340,44 @@
               },
               {
                 "cacheRead": 0.5,
+                "cacheWrite": 6.25,
+                "input": 5,
+                "output": 18.75,
+                "range": [
+                  272001
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "openai-gpt-61-sol",
+          "name": "GPT-6.1 Sol",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1050000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 2.5,
+            "output": 12.5,
+            "cacheRead": 0.125,
+            "cacheWrite": 3.125,
+            "tieredPricing": [
+              {
+                "cacheRead": 0.125,
+                "cacheWrite": 3.125,
+                "input": 2.5,
+                "output": 12.5,
+                "range": [
+                  0,
+                  272001
+                ]
+              },
+              {
+                "cacheRead": 0.25,
                 "cacheWrite": 6.25,
                 "input": 5,
                 "output": 18.75,
@@ -25667,6 +25895,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1790699820435,
+  "sourceGeneratedAt": 1790907998512,
   "supplementDigest": "041b0dc647b66a51855b058c3a9901b51c85c7a04305719742663ea4811c7d91"
 }
