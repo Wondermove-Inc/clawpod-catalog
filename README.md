@@ -2,9 +2,9 @@
 
 [![publish-catalog](https://github.com/Wondermove-Inc/clawpod-catalog/actions/workflows/publish.yml/badge.svg)](https://github.com/Wondermove-Inc/clawpod-catalog/actions/workflows/publish.yml)
 
-ClawPoD 에이전트 게이트웨이가 사용하는 **검증·변환된 OpenClaw 모델 카탈로그 미러**입니다.
+ClawPoD 에이전트 게이트웨이가 사용하는 **OpenClaw 생성기로 직접 만들어 검증·변환한 모델 카탈로그**입니다.
 
-최종 카탈로그는 **upstream 원본 + 이 레포의 수동 보완 모델 + 조건부 가격·상태 보정**으로 만듭니다. 6시간 게시 작업이 원본을 다시 받아 같은 규칙을 적용합니다. Clawpod-Agent 소스와 provider API는 수동 데이터 검토에 참고하며, 게시할 때 자동 수집하거나 실행하지 않습니다.
+최종 카탈로그는 **upstream 원본 + 이 레포의 수동 보완 모델 + 조건부 가격·상태 보정**으로 만듭니다. 여기서 upstream 원본은 `catalog.openclaw.ai`에서 받지 않고, 6시간 게시 작업이 `openclaw/openclaw`의 `scripts/publish-model-catalog.mts`를 직접 실행해 생성합니다. 그 뒤 같은 규칙을 적용합니다. Clawpod-Agent 소스와 provider API는 수동 데이터 검토에 참고하며, 게시할 때 자동 수집하거나 실행하지 않습니다.
 
 > 이 저장소는 모델 카탈로그 데이터와 게시 자동화만 담당합니다. 모델 요청을 proxy하지 않으며 provider endpoint, credential, runtime 설정을 배포하지 않습니다.
 
@@ -21,7 +21,8 @@ ClawPoD 에이전트 게이트웨이가 사용하는 **검증·변환된 OpenCla
 
 ```mermaid
 flowchart TD
-    U["OpenClaw upstream catalog"] -->|"fetch"| V["입력 검증"]
+    O["openclaw/openclaw<br/>publish-model-catalog.mts"] -->|"CI에서 생성"| U["upstream 원본 (v1)"]
+    U --> V["입력 검증"]
     S["sources/clawpod-providers.json<br/>수동 모델 · 출처 · corrections"] --> V
     V --> T["upstream transport 필드·root pricing 제거"]
     T --> M["provider/model ID 병합<br/>중복은 upstream 우선"]
@@ -34,9 +35,9 @@ flowchart TD
 
 | 구성요소 | 책임 |
 | --- | --- |
-| Upstream catalog | 원본 모델 metadata와 추적 필드 제공 |
+| OpenClaw 생성기 | models.dev·가격 출처에서 원본 모델 metadata와 추적 필드 생성 (`openclaw/openclaw` checkout에서 실행) |
 | 수동 관리 보완 JSON | 추가 provider/model 정의, 출처와 조건부 보정 규칙 기록 |
-| 이 저장소의 publisher | fetch, 검증, 병합, 조건부 보정·날짜 전환, sanitize, 시각 정책, 게시 |
+| 이 저장소의 publisher | 생성 파일 입력, 검증, 병합, 조건부 보정·날짜 전환, sanitize, 시각 정책, 게시 |
 | GitHub repository | mutable `main` artifact와 변경 이력 제공 |
 | `clawpod-agent` | HTTPS fetch, consumer gate, cache, build-stamp 비교, runtime 적용 결정 |
 
@@ -75,10 +76,13 @@ curl -fsSL "$CATALOG_URL" |
 
 ```bash
 npm ci
-npm run publish-catalog:dry-run
+git clone --depth 1 https://github.com/openclaw/openclaw /tmp/openclaw
+(cd /tmp/openclaw && corepack enable && pnpm install --frozen-lockfile)
+scripts/generate-openclaw-catalog.sh /tmp/openclaw /tmp/openclaw-catalog.json
+npm run publish-catalog:dry-run -- --source-file /tmp/openclaw-catalog.json
 ```
 
-`npm ci`는 local `node_modules`를 변경합니다. 이어지는 publisher `--dry-run`은 upstream을 실제로 조회하고 검증·diff 판단을 수행하지만 `models/v1/catalog.json`은 쓰지 않습니다. 이 명령은 offline validator나 test suite가 아닙니다.
+`npm ci`는 local `node_modules`를 변경합니다. 생성 스크립트는 models.dev 등 가격 출처를 실제로 조회하고, 지정한 OpenClaw checkout의 파일을 수정합니다(아래 [1. Generate](#1-generate) 참고). 그래서 전용 clone을 사용하세요. 이어지는 publisher `--dry-run`은 검증·diff 판단을 수행하지만 `models/v1/catalog.json`은 쓰지 않습니다. 이 명령은 offline validator나 test suite가 아닙니다.
 
 ## Artifact 계약
 
@@ -109,12 +113,14 @@ Publisher ingress schema와 consumer acceptance schema는 동일하지 않습니
 
 게시 명령은 [`scripts/publish-catalog.mjs`](scripts/publish-catalog.mjs), 병합·검증 로직은 [`scripts/catalog.mjs`](scripts/catalog.mjs), 자동화는 [`.github/workflows/publish.yml`](.github/workflows/publish.yml)에 있습니다.
 
-### 1. Fetch
+### 1. Generate
 
-- 원본: `https://catalog.openclaw.ai/models/v1/catalog.json`
-- timeout: 30초
-- 응답 전체를 읽은 뒤 8MiB를 초과하면 게시 전 거부
-- HTTP 오류와 JSON parse 오류는 fail closed
+- 생성기: `openclaw/openclaw`의 `scripts/publish-model-catalog.mts --pricing` (기본 `main`, 수동 실행 시 `openclaw_ref` 입력으로 변경 가능)
+- 실행: [`scripts/generate-openclaw-catalog.sh`](scripts/generate-openclaw-catalog.sh)가 생성 후 결과 파일을 `publish-catalog.mjs --source-file`에 넘깁니다. `catalog.openclaw.ai`는 조회하지 않습니다.
+- 로컬 패치: OpenClaw는 가격 출처 응답을 5MiB로 제한하는데, 2026-09-29 models.dev가 이를 넘어 OpenClaw 자체 게시가 멈췄습니다. 스크립트가 이 한도를 32MiB로 올립니다. upstream에서 해당 줄이 바뀌면 패치하지 않고 경고만 남깁니다.
+- OpenClaw 코드와 npm 의존성은 외부 코드이므로 읽기 권한만 있는 `generate` job에서 실행합니다. 쓰기 권한이 있는 `publish` job에는 생성된 JSON 파일만 넘어가고, publisher가 그 파일을 검증합니다.
+- 생성 실패(외부 출처 장애, OpenClaw 변경 등)는 run을 실패시키고 기존 artifact를 유지합니다.
+- 생성 파일이 8MiB를 초과하면 게시 전 거부, JSON parse 오류는 fail closed
 
 Publisher의 8MiB 검사는 streaming download/memory cap이 아닙니다. Consumer의 4MiB streaming body limit와 목적·구현이 다릅니다. 최종 직렬화한 게시 파일에는 별도로 4MiB 한도를 적용합니다.
 
@@ -297,11 +303,11 @@ npm run publish-catalog
 
 ```bash
 npm test
-node scripts/publish-catalog.mjs --source-file /path/to/upstream-catalog.json --dry-run
-node scripts/publish-catalog.mjs --source-file /path/to/upstream-catalog.json
+node scripts/publish-catalog.mjs --source-file /path/to/openclaw-catalog.json --dry-run
+node scripts/publish-catalog.mjs --source-file /path/to/openclaw-catalog.json
 ```
 
-`--source-file`은 네트워크를 사용하지 않고 저장한 원본 upstream bundle을 입력으로 사용합니다. 보완 데이터 병합·시각 회귀 검사·크기 제한은 온라인 실행과 같습니다. 이미 보완된 최종 게시 파일을 입력으로 재사용하면 이전 수동 모델이 영구히 남는 문제가 생기므로 거부합니다. 원본보다 새로운 입력이 필요하면 upstream에서 다시 받아야 합니다.
+`--source-file`은 필수이며, publisher는 네트워크를 사용하지 않고 생성해 둔 원본 bundle을 입력으로 사용합니다. 보완 데이터 병합·시각 회귀 검사·크기 제한은 CI 실행과 같습니다. 이미 보완된 최종 게시 파일을 입력으로 재사용하면 이전 수동 모델이 영구히 남는 문제가 생기므로 거부합니다. 더 새로운 입력이 필요하면 `scripts/generate-openclaw-catalog.sh`로 다시 생성합니다.
 
 ### Rollback과 사고 대응
 
@@ -317,6 +323,7 @@ node scripts/publish-catalog.mjs --source-file /path/to/upstream-catalog.json
 | --- | --- |
 | Dry-run 결과가 `nothing to do` | upstream `generatedAt`이 게시본의 `sourceGeneratedAt`보다 과거인지, 변환 결과가 현재 artifact와 byte 단위로 같은지 확인 |
 | Workflow가 `main`에 commit하지 않음 | 변경 유무(`changed`), `dry_run` 값, publish step의 검증 실패 여부 |
+| `Generate OpenClaw catalog` 단계 실패 | 로그의 OpenClaw 에러 메시지(외부 출처 장애·형식 변경 등), `MAX_PRICING_CATALOG_BYTES` 패치 경고, 필요하면 `openclaw_ref`로 정상 동작하던 commit을 지정해 수동 실행 |
 | Consumer에 즉시 반영되지 않음 | 6시간 TTL, stored cache, build stamp, source URL, process restart 여부 |
 | Consumer가 vendored snapshot 사용 | cache 부재·손상, URL mismatch, build stamp 부재/신선도, refresh 비활성화, acceptance 오류 |
 | Fetch 실패 후 이전 결과가 계속 보임 | 기존 valid cache가 유지될 수 있으며 최대 보존 기간이 없음 |
