@@ -135,3 +135,19 @@
 - `grok-3-mini`
 - `grok-3-mini-fast`
 - `grok-4-fast`
+
+# 2026-10-02 Codex 모델 재검토
+
+근거: [Codex 모델](https://learn.chatgpt.com/docs/models) (ChatGPT 로그인 기준). 계정 접근권·실제 호출은 검증하지 않았다.
+
+| 모델 | 공식 문서 | 반영 |
+| --- | --- | --- |
+| `gpt-6.1-sol` | 현행. Plus·Pro·Business·Enterprise·Edu 순차 제공 | 추가 |
+| `gpt-6-sol`, `gpt-6-luna` | Work와 Codex에서 사용 가능 | 추가 |
+| `gpt-5.3-codex-spark` | 2026-09-14 종료 | `disabled` (공식 대체 ID 미기재로 `replacedBy` 생략) |
+| `gpt-5.5` | 2026-10-14 모든 플랜에서 종료 예정 | 지금 `deprecated`, `effectiveAt` 2026-10-14 00:00 UTC 규칙으로 `disabled` |
+
+- 새 모델은 `gpt-6-astra`와 같이 272K 운영 예산, 128000 maxTokens, text+image 입력으로 둔다.
+  서비스 최대 context나 구독 비용을 새로 측정한 값이 아니다.
+- `gpt-5.6-sol`·`gpt-5.6-terra`·`gpt-5.6-luna`는 문서상 롤아웃 기간 동안 유지되므로 그대로 둔다.
+- `gpt-5.5-mini`, `gpt-5.1` 계열, `gpt-5.2-codex`는 문서에 언급이 없어 이번에 상태를 바꾸지 않았다.

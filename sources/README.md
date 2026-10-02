@@ -17,7 +17,7 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 
 | Provider                    | 보완 모델 수 | 데이터 기준                                                           |
 | --------------------------- | -----------: | --------------------------------------------------------------------- |
-| `openai-codex`              |           15 | SDK 9개 + 플러그인 augmentation. 중복은 플러그인 우선                 |
+| `openai-codex`              |           18 | SDK 9개 + 플러그인 augmentation. 중복은 플러그인 우선                 |
 | `google`                    |           12 | 플러그인 정적 Gemini 목록; preview 포함                               |
 | `google-vertex`             |           12 | Vertex builder와 같이 Google 모델 목록 공유                           |
 | `xai`                       |           10 | 현행 7개 + 공식 전환 안내가 있는 별칭 3개                             |
@@ -45,6 +45,8 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
   모델별 `anthropic-messages` API를 가진 Mantle 행도 그대로 유지합니다.
 - `gpt-5.2`와 `gpt-5.3-codex`의 deprecated 표시는 유지합니다. ChatGPT 로그인용
   `gpt-5.4`/`gpt-5.4-mini`는 종료되어 disabled 및 공식 대체 모델을 기록했습니다.
+- 2026-10-02 Codex 재검토: `gpt-6-sol`·`gpt-6.1-sol`·`gpt-6-luna` 추가, 9/14 종료된
+  `gpt-5.3-codex-spark`는 disabled, 10/14 종료 예정인 `gpt-5.5`는 deprecated 후 날짜 규칙으로 disabled 전환.
 - 카탈로그 추가만으로 provider 인증이나 활성화를 설정하지는 않습니다.
 
 ## 수정 절차
