@@ -89,7 +89,7 @@
         "extensions/openai/openai-codex-provider.ts",
         "extensions/openai/openai-codex-catalog.ts"
       ],
-      "notes": "Reviewed 2026-09-08: ChatGPT sign-in GPT-5.4/mini retired 2026-08-31; replacements follow official Codex documentation. Subscription USD/token costs omitted, including legacy SDK API prices. Preserve Agent 272K operating budget and existing lifecycle labels. sources/REVIEW.md."
+      "notes": "Reviewed 2026-09-08: ChatGPT sign-in GPT-5.4/mini retired 2026-08-31; replacements follow official Codex documentation. Subscription USD/token costs omitted, including legacy SDK API prices. Preserve Agent 272K operating budget and existing lifecycle labels. Reviewed 2026-10-02: added gpt-6-sol, gpt-6.1-sol, gpt-6-luna; gpt-5.3-codex-spark retired 2026-09-14; gpt-5.5 retires 2026-10-14. sources/REVIEW.md."
     },
     "zai": {
       "source": "Wondermove-Inc/clawpod-agent",
@@ -5600,7 +5600,8 @@
           ],
           "reasoning": true,
           "contextWindow": 128000,
-          "maxTokens": 128000
+          "maxTokens": 128000,
+          "status": "disabled"
         },
         {
           "id": "gpt-5.4",
@@ -5640,7 +5641,8 @@
           ],
           "reasoning": true,
           "contextWindow": 272000,
-          "maxTokens": 128000
+          "maxTokens": 128000,
+          "status": "deprecated"
         },
         {
           "id": "gpt-5.5-mini",
@@ -5693,6 +5695,42 @@
         {
           "id": "gpt-6-astra",
           "name": "gpt-6-astra",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "gpt-6-sol",
+          "name": "gpt-6-sol",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "gpt-6.1-sol",
+          "name": "gpt-6.1-sol",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "gpt-6-luna",
+          "name": "gpt-6-luna",
           "api": "openai-codex-responses",
           "input": [
             "text",
@@ -5954,6 +5992,15 @@
       "to": "disabled",
       "source": "https://learn.chatgpt.com/docs/models",
       "replacedBy": "gpt-5.6-luna"
+    },
+    {
+      "kind": "status",
+      "provider": "openai-codex",
+      "model": "gpt-5.5",
+      "from": "deprecated",
+      "to": "disabled",
+      "source": "https://learn.chatgpt.com/docs/models",
+      "effectiveAt": 1791936000000
     },
     {
       "kind": "cost",
