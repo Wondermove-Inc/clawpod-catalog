@@ -75,6 +75,9 @@ jobs:
       - name: Generate OpenClaw catalog
         run: scripts/generate-openclaw-catalog.sh openclaw "$RUNNER_TEMP/sources/openclaw-catalog.json"
 
+      - name: Install pinned dependencies
+        run: npm ci
+
       - name: Fetch OpenRouter model list
         run: node scripts/fetch-openrouter.mjs --out "$RUNNER_TEMP/sources/openrouter-models.json"
 
