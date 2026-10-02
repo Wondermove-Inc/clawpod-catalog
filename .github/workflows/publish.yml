@@ -1,4 +1,8 @@
-# Mirror the upstream OpenClaw model catalog.
+# Generate the OpenClaw model catalog ourselves and publish it with local supplements.
+#
+# We run OpenClaw's own generator (scripts/publish-model-catalog.mts) here instead of
+# mirroring catalog.openclaw.ai, so an outage in OpenClaw's publish job no longer
+# freezes this catalog.
 #
 # Triggers are limited to schedule + workflow_dispatch on purpose:
 # pull_request_target is the one trigger that would hand a fork PR this
@@ -14,6 +18,10 @@ on:
         description: "Validate and diff only; do not write or push"
         type: boolean
         default: false
+      openclaw_ref:
+        description: "openclaw/openclaw ref to generate from"
+        type: string
+        default: "main"
 
 # No pull-requests scope: this workflow never opens a PR. The organization
 # forbids GitHub Actions from creating pull requests, and the old review path
@@ -23,22 +31,67 @@ on:
 # scripts/publish-catalog.mjs (schema, required providers, merge conflicts,
 # clock skew and monotonic upstream/publication timestamps), which fails instead of publishing a bad
 # document.
+#
+# OpenClaw's generator and its npm dependencies are third-party code, so they run
+# in a separate read-only job; only the artifact (a JSON file) crosses into the
+# job that holds the write token, and our publisher validates it there.
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: publish-catalog
   cancel-in-progress: false
 
 jobs:
-  publish:
+  generate:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - name: Checkout OpenClaw generator
+        uses: actions/checkout@v4
+        with:
+          repository: openclaw/openclaw
+          ref: ${{ inputs.openclaw_ref || 'main' }}
+          path: openclaw
+          fetch-depth: 1
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Install OpenClaw dependencies
+        working-directory: openclaw
+        run: |
+          corepack enable
+          pnpm install --frozen-lockfile
+
+      - name: Generate OpenClaw catalog
+        run: scripts/generate-openclaw-catalog.sh openclaw "$RUNNER_TEMP/openclaw-catalog.json"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: openclaw-catalog
+          path: ${{ runner.temp }}/openclaw-catalog.json
+          if-no-files-found: error
+          retention-days: 7
+
+  publish:
+    needs: generate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
         with:
-          node-version: "22"
+          node-version: "24"
 
       - name: Install pinned dependencies
         run: npm ci
@@ -46,13 +99,18 @@ jobs:
       - name: Test publishing and supplemental data
         run: npm test
 
-      - name: Fetch, merge local supplements, and validate the catalog
+      - uses: actions/download-artifact@v4
+        with:
+          name: openclaw-catalog
+          path: ${{ runner.temp }}/openclaw
+
+      - name: Merge local supplements and validate the catalog
         id: publish
         run: |
           if [ "${{ inputs.dry_run }}" = "true" ]; then
-            node scripts/publish-catalog.mjs --dry-run
+            node scripts/publish-catalog.mjs --source-file "$RUNNER_TEMP/openclaw/openclaw-catalog.json" --dry-run
           else
-            node scripts/publish-catalog.mjs
+            node scripts/publish-catalog.mjs --source-file "$RUNNER_TEMP/openclaw/openclaw-catalog.json"
           fi
 
       - name: Commit and push

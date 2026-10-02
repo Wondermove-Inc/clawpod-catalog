@@ -334,9 +334,6 @@ test("offline CLI dry-run, write, repeat, and source-only changes obey persisten
     now: NOW,
     log: () => {},
     githubOutput,
-    fetchImpl: () => {
-      throw new Error("must not fetch");
-    },
   };
   const dry = await publishCatalog({ ...options, argv: [...options.argv, "--dry-run"] });
   assert.equal(dry.changed, true);
@@ -358,40 +355,16 @@ test("offline CLI dry-run, write, repeat, and source-only changes obey persisten
   );
 });
 
-test("scheduled online path merges the local file and sends bounded fetch options", async (t) => {
-  const { dir, output, f } = workspace(t);
-  let calls = 0;
-  await publishCatalog({
-    rootDir: dir,
-    now: NOW,
-    log: () => {},
-    githubOutput: null,
-    fetchImpl: async (url, options) => {
-      calls++;
-      assert.equal(url, "https://catalog.openclaw.ai/models/v1/catalog.json");
-      assert.ok(options.signal instanceof AbortSignal);
-      return new Response(JSON.stringify(f.upstream));
-    },
-  });
-  assert.equal(calls, 1);
-  assert.equal(read(output).providers.google.models.length, 1);
-});
-
-test("HTTP, JSON and validation failures leave the artifact untouched", async (t) => {
+test("unreadable, malformed, invalid or oversized source files leave the artifact untouched", async (t) => {
   const { dir, source, output } = workspace(t);
   const options = { rootDir: dir, now: NOW, log: () => {}, githubOutput: null };
   await publishCatalog({ ...options, argv: ["--source-file", source] });
   const before = fs.readFileSync(output, "utf8");
-  for (const fetchImpl of [
-    async () => new Response("bad", { status: 503 }),
-    async () => new Response("not JSON"),
-    async () => new Response("{}"),
-    async () => {
-      throw new Error("timeout");
-    },
-    async () => new Response("x".repeat(8 * 1024 * 1024 + 1)),
-  ]) {
-    await assert.rejects(publishCatalog({ ...options, fetchImpl }));
+  const bad = path.join(dir, "bad.json");
+  for (const contents of [undefined, "not JSON", "{}", "x".repeat(8 * 1024 * 1024 + 1)]) {
+    fs.rmSync(bad, { force: true });
+    if (contents !== undefined) fs.writeFileSync(bad, contents);
+    await assert.rejects(publishCatalog({ ...options, argv: ["--source-file", bad] }));
     assert.equal(fs.readFileSync(output, "utf8"), before);
   }
   fs.writeFileSync(output, "corrupt previous file");
@@ -399,25 +372,19 @@ test("HTTP, JSON and validation failures leave the artifact untouched", async (t
   assert.equal(fs.readFileSync(output, "utf8"), "corrupt previous file");
 });
 
-test("invalid command arguments fail before fetch or write", async (t) => {
-  const { dir } = workspace(t);
+test("invalid or missing command arguments fail before write", async (t) => {
+  const { dir, output } = workspace(t);
   for (const argv of [
+    [],
+    ["--dry-run"],
     ["--unknown"],
     ["--source-file"],
     ["--source-file", "--dry-run"],
     ["--source-file", "a", "--source-file", "b"],
   ]) {
-    await assert.rejects(
-      publishCatalog({
-        rootDir: dir,
-        argv,
-        fetchImpl: () => {
-          assert.fail("must not fetch");
-        },
-      }),
-      /argument|once/,
-    );
+    await assert.rejects(publishCatalog({ rootDir: dir, argv }), /argument|once/);
   }
+  assert.equal(fs.existsSync(output), false);
 });
 
 test("committed supplemental data covers the requested providers and preserves provider-specific metadata", () => {
@@ -476,7 +443,7 @@ test("policy-only changes and permitted clock skew keep publication monotonic", 
   );
 });
 
-test("missing or malformed supplement fails without fetching or changing output", async (t) => {
+test("missing or malformed supplement fails without changing output", async (t) => {
   const { dir, source, output } = workspace(t);
   const options = {
     rootDir: dir,

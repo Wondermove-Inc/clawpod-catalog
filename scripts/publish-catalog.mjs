@@ -1,12 +1,13 @@
-// Publish the upstream mirror plus this repository's manually maintained models.
-// This command has no dependency on clawpod-agent or provider credentials.
+// Publish a locally generated OpenClaw catalog plus this repository's manually
+// maintained models. The source file comes from running OpenClaw's
+// scripts/publish-model-catalog.mts in CI (see .github/workflows/publish.yml);
+// nothing is fetched from catalog.openclaw.ai. This command has no dependency on
+// clawpod-agent or provider credentials.
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildCatalog, countModels, MAX_CATALOG_BYTES, serializeCatalog } from "./catalog.mjs";
 
-const DEFAULT_CATALOG_URL = "https://catalog.openclaw.ai/models/v1/catalog.json";
-const FETCH_TIMEOUT_MS = 30_000;
 const LARGE_MODEL_DELTA_NOTICE = 50;
 const defaultRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 
@@ -23,6 +24,7 @@ function parseArgs(argv) {
       throw new Error(`unknown or incomplete argument: ${argv[i]}`);
     }
   }
+  if (!sourceFile) throw new Error("missing required argument: --source-file <generated catalog>");
   return { dryRun, sourceFile };
 }
 
@@ -31,15 +33,6 @@ function parseSource(body) {
     throw new Error(`catalog exceeds ${MAX_CATALOG_BYTES} bytes (${body.byteLength})`);
   }
   return JSON.parse(body.toString("utf8"));
-}
-
-async function fetchCatalog(fetchImpl) {
-  const response = await fetchImpl(DEFAULT_CATALOG_URL, {
-    headers: { Accept: "application/json" },
-    signal: AbortSignal.timeout(FETCH_TIMEOUT_MS),
-  });
-  if (!response.ok) throw new Error(`catalog request failed: HTTP ${response.status}`);
-  return parseSource(Buffer.from(await response.arrayBuffer()));
 }
 
 function readPrevious(filePath) {
@@ -60,7 +53,6 @@ function writeOutput(target, name, value) {
 export async function publishCatalog({
   rootDir = defaultRoot,
   argv = [],
-  fetchImpl = fetch,
   now = Date.now(),
   log = console.log,
   githubOutput = process.env.GITHUB_OUTPUT,
@@ -71,9 +63,7 @@ export async function publishCatalog({
   const supplement = JSON.parse(
     fs.readFileSync(path.join(rootDir, "sources", "clawpod-providers.json"), "utf8"),
   );
-  const upstream = sourceFile
-    ? parseSource(fs.readFileSync(path.resolve(sourceFile)))
-    : await fetchCatalog(fetchImpl);
+  const upstream = parseSource(fs.readFileSync(path.resolve(sourceFile)));
   const previous = readPrevious(outputPath);
   const next = buildCatalog({ upstream, supplement, previous: previous.bundle, minVersion, now });
   if (!next) {

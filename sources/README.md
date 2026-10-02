@@ -1,7 +1,7 @@
 # 수동 관리 보완 카탈로그
 
 `clawpod-providers.json`은 이 레포가 직접 관리하는 추가 모델 입력입니다.
-6시간 게시 작업은 OpenClaw upstream과 이 파일을 병합합니다. **Clawpod-Agent를
+6시간 게시 작업은 OpenClaw 생성기로 직접 만든 upstream 원본과 이 파일을 병합합니다. **Clawpod-Agent를
 clone하거나 실행하지 않으며, provider API에서 이 파일을 자동 수집하지 않습니다.**
 
 ## 데이터의 기준과 공식 자료 재검토
@@ -50,12 +50,12 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 ## 수정 절차
 
 1. `providers.<provider>.models`를 수정하고 같은 provider의 `provenance`를 갱신합니다.
-2. `npm run publish-catalog:dry-run`으로 입력 검증과 병합 결과를 확인합니다.
-3. `npm run publish-catalog`로 생성합니다.
+2. `scripts/generate-openclaw-catalog.sh`로 원본을 생성한 뒤(루트 README의 "게시 dry-run" 참고), `npm run publish-catalog:dry-run -- --source-file <생성 파일>`로 입력 검증과 병합 결과를 확인합니다.
+3. `npm run publish-catalog -- --source-file <생성 파일>`로 생성합니다.
 4. `npm test`를 실행하고 입력·출력 diff를 함께 검토합니다. 테스트는 생성 파일에 보완 모델이 모두 반영됐는지도 확인합니다.
 5. 보완 JSON, 출처 문서, 생성된 `models/v1/catalog.json`을 함께 커밋합니다.
 
-원본 upstream을 저장해 두었다면 `--source-file /path/to/upstream.json`으로
+생성한 원본을 저장해 두었다면 같은 `--source-file`로
 오프라인 재생성이 가능합니다. 새 형식의 **최종 artifact를 upstream 입력으로
 재사용할 수 없습니다.** 이미 병합된 수동 모델이 삭제되지 않고 남는 것을 막기 위함입니다.
 
