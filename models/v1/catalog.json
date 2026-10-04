@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1791123449603,
+  "generatedAt": 1791142175437,
   "minVersion": "2026.4.11",
-  "sourceCommit": "2851e89750f52d89c3233dc0d7ed589be54d06ed",
+  "sourceCommit": "f0b38edab5da3f9b9d827e319826c75258619b05",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -5200,7 +5200,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.5964,
+            "input": 0.6381,
             "output": 13,
             "cacheRead": 0.45,
             "cacheWrite": 0
@@ -5327,7 +5327,7 @@
           "cost": {
             "input": 0.0352,
             "output": 0.5,
-            "cacheRead": 0.0352,
+            "cacheRead": 0.0232,
             "cacheWrite": 0
           }
         },
@@ -5341,9 +5341,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.05,
+            "input": 0.06,
             "output": 5,
-            "cacheRead": 0.04,
+            "cacheRead": 0.05,
             "cacheWrite": 0
           }
         },
@@ -9935,9 +9935,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.13,
-            "output": 0.53,
-            "cacheRead": 0.033,
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625,
             "cacheWrite": 0
           }
         },
@@ -9967,9 +9967,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042,
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378,
             "cacheWrite": 0
           }
         },
@@ -20832,7 +20832,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.5964,
+            "input": 0.6381,
             "output": 13,
             "cacheRead": 0.45
           }
@@ -20950,7 +20950,7 @@
           "cost": {
             "input": 0.0352,
             "output": 0.5,
-            "cacheRead": 0.0352
+            "cacheRead": 0.0232
           }
         },
         {
@@ -20963,9 +20963,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.05,
+            "input": 0.06,
             "output": 5,
-            "cacheRead": 0.04
+            "cacheRead": 0.05
           }
         },
         {
@@ -22075,9 +22075,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.55,
-            "output": 4.2,
-            "cacheRead": 0.45
+            "input": 0.85,
+            "output": 5,
+            "cacheRead": 0.7
           }
         },
         {
@@ -27118,9 +27118,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625
           }
         },
         {
@@ -27148,9 +27148,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378
           }
         },
         {
@@ -27743,9 +27743,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.064,
+            "input": 0.104,
             "output": 8,
-            "cacheRead": 0.064
+            "cacheRead": 0.1
           }
         },
         {
@@ -31400,6 +31400,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1791123436131,
+  "sourceGeneratedAt": 1791142160591,
   "supplementDigest": "68a6db55f2db4b3af5bd74b8a7df4a86b0363ac689043ce2b5470255d20f3fad"
 }
