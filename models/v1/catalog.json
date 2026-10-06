@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1791290662322,
+  "generatedAt": 1791311920306,
   "minVersion": "2026.4.11",
-  "sourceCommit": "38ed3ed9ab4217674e24bda68c006723293fc982",
+  "sourceCommit": "69ccd1e6b7ba902ec2320ccb548023abb8bcee03",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -5115,7 +5115,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.011421,
+            "input": 0.045,
             "output": 1.2,
             "cacheRead": 0.015,
             "cacheWrite": 0
@@ -5131,9 +5131,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.152,
+            "input": 0.2399,
             "output": 4.2,
-            "cacheRead": 0.15,
+            "cacheRead": 0.24,
             "cacheWrite": 0
           }
         },
@@ -5147,9 +5147,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0118,
+            "input": 0.0134,
             "output": 1.28,
-            "cacheRead": 0.0118,
+            "cacheRead": 0.0134,
             "cacheWrite": 0
           }
         },
@@ -5325,9 +5325,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.0244,
+            "input": 0.036,
             "output": 0.5,
-            "cacheRead": 0.0244,
+            "cacheRead": 0.036,
             "cacheWrite": 0
           }
         },
@@ -6494,6 +6494,24 @@
           }
         },
         {
+          "id": "google/gemini-nano-banana-2.1",
+          "name": "Google: Nano Banana 2.1",
+          "input": [
+            "image",
+            "text",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 65536,
+          "maxTokens": 58982,
+          "cost": {
+            "input": 1.5,
+            "output": 7.5,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
           "id": "google/gemma-3-12b-it",
           "name": "Gemma 3 12B IT",
           "input": [
@@ -6860,7 +6878,7 @@
           "cost": {
             "input": 0.1875,
             "output": 0.6525,
-            "cacheRead": 0,
+            "cacheRead": 0.05,
             "cacheWrite": 0
           }
         },
@@ -7220,6 +7238,23 @@
             "input": 0.5,
             "output": 1.5,
             "cacheRead": 0.05,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "mistralai/mistral-large-4-0",
+          "name": "Mistral: Mistral Large 4",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 524288,
+          "maxTokens": 262144,
+          "cost": {
+            "input": 1.36,
+            "output": 4.18,
+            "cacheRead": 0.14,
             "cacheWrite": 0
           }
         },
@@ -9913,9 +9948,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.13,
-            "output": 0.53,
-            "cacheRead": 0.033,
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625,
             "cacheWrite": 0
           }
         },
@@ -9945,9 +9980,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042,
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378,
             "cacheWrite": 0
           }
         },
@@ -10944,10 +10979,11 @@
           "id": "ministral-3b-latest",
           "name": "Ministral 3B (latest)",
           "input": [
-            "text"
+            "text",
+            "image"
           ],
           "reasoning": false,
-          "contextWindow": 128000,
+          "contextWindow": 131072,
           "maxTokens": 128000,
           "cost": {
             "input": 0.04,
@@ -10960,10 +10996,11 @@
           "id": "ministral-8b-latest",
           "name": "Ministral 8B (latest)",
           "input": [
-            "text"
+            "text",
+            "image"
           ],
           "reasoning": false,
-          "contextWindow": 128000,
+          "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
             "input": 0.1,
@@ -11002,6 +11039,23 @@
             "input": 0.5,
             "output": 1.5,
             "cacheRead": 0.05,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "mistral-large-4",
+          "name": "Mistral Large 4",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 524288,
+          "maxTokens": 262144,
+          "cost": {
+            "input": 0.68,
+            "output": 2.09,
+            "cacheRead": 0.07,
             "cacheWrite": 0
           }
         },
@@ -11265,7 +11319,7 @@
             "text"
           ],
           "reasoning": false,
-          "contextWindow": 32000,
+          "contextWindow": 32768,
           "maxTokens": 32000,
           "cost": {
             "input": 0.1,
@@ -11281,7 +11335,7 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 1000000,
+          "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
             "input": 1.4,
@@ -11297,7 +11351,7 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 1000000,
+          "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
             "input": 1.4,
@@ -20730,7 +20784,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.011421,
+            "input": 0.019474,
             "output": 1.2,
             "cacheRead": 0.015
           }
@@ -20745,7 +20799,7 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.2541,
+            "input": 0.2514,
             "output": 4.2,
             "cacheRead": 0.25
           }
@@ -20760,9 +20814,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0118,
+            "input": 0.0079,
             "output": 1.28,
-            "cacheRead": 0.0118
+            "cacheRead": 0.0079
           }
         },
         {
@@ -20810,7 +20864,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.83,
+            "input": 0.68,
             "output": 13,
             "cacheRead": 0.45
           }
@@ -21993,9 +22047,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0106,
+            "input": 0.0005,
             "output": 1.28,
-            "cacheRead": 0.0106
+            "cacheRead": 0.0005
           }
         },
         {
@@ -22008,9 +22062,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0118,
+            "input": 0.0079,
             "output": 1.28,
-            "cacheRead": 0.0118
+            "cacheRead": 0.0079
           }
         },
         {
@@ -22070,9 +22124,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.012563,
-            "output": 1.32,
-            "cacheRead": 0.012563
+            "input": 0.019474,
+            "output": 1.2,
+            "cacheRead": 0.015
           }
         },
         {
@@ -22634,6 +22688,21 @@
           }
         },
         {
+          "id": "google/gemini-nano-banana-2.1",
+          "name": "Google: Nano Banana 2.1",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 65536,
+          "maxTokens": 58982,
+          "cost": {
+            "input": 1.5,
+            "output": 7.5
+          }
+        },
+        {
           "id": "google/gemma-2-27b-it",
           "name": "Google: Gemma 2 27B",
           "input": [
@@ -23104,7 +23173,8 @@
           "maxTokens": 16384,
           "cost": {
             "input": 0.1875,
-            "output": 0.6525
+            "output": 0.6525,
+            "cacheRead": 0.05
           }
         },
         {
@@ -23552,6 +23622,22 @@
           }
         },
         {
+          "id": "mistralai/mistral-large-4-0",
+          "name": "Mistral: Mistral Large 4",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 524288,
+          "maxTokens": 262144,
+          "cost": {
+            "input": 0.68,
+            "output": 2.09,
+            "cacheRead": 0.07
+          }
+        },
+        {
           "id": "mistralai/mistral-medium-3",
           "name": "Mistral: Mistral Medium 3",
           "input": [
@@ -23865,9 +23951,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.95,
-            "output": 14,
-            "cacheRead": 0.31
+            "input": 0.69,
+            "output": 15,
+            "cacheRead": 0.23
           }
         },
         {
@@ -27067,9 +27153,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625
           }
         },
         {
@@ -27097,9 +27183,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378
           }
         },
         {
@@ -31349,6 +31435,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1791290647775,
+  "sourceGeneratedAt": 1791311902070,
   "supplementDigest": "68a6db55f2db4b3af5bd74b8a7df4a86b0363ac689043ce2b5470255d20f3fad"
 }
