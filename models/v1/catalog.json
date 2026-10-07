@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1791335504556,
+  "generatedAt": 1791355787529,
   "minVersion": "2026.4.11",
-  "sourceCommit": "7b66485dcd9b04672d5b44d74d6aee000b6f0e7e",
+  "sourceCommit": "2c38d132e031de010e16039b0ba73cf8b23888a5",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -5112,12 +5112,12 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1040000,
-          "maxTokens": 393216,
+          "contextWindow": 1048576,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.039,
-            "output": 0.3,
-            "cacheRead": 0.012,
+            "input": 0.05,
+            "output": 1.2,
+            "cacheRead": 0.02,
             "cacheWrite": 0
           }
         },
@@ -5131,7 +5131,7 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.3,
+            "input": 0.2999,
             "output": 4.2,
             "cacheRead": 0.3,
             "cacheWrite": 0
@@ -5200,7 +5200,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.68,
+            "input": 0.61,
             "output": 13,
             "cacheRead": 0.45,
             "cacheWrite": 0
@@ -5341,8 +5341,8 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.06,
-            "output": 4.4,
+            "input": 0.03,
+            "output": 12,
             "cacheRead": 0.03,
             "cacheWrite": 0
           }
@@ -6176,8 +6176,8 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1040000,
-          "maxTokens": 393216,
+          "contextWindow": 1048576,
+          "maxTokens": 943718,
           "cost": {
             "input": 0.3,
             "output": 1.2,
@@ -6762,22 +6762,6 @@
             "input": 0.05,
             "output": 0.4,
             "cacheRead": 0.005,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "kwaipilot/kat-coder-pro-v2.5",
-          "name": "Kwaipilot: KAT-Coder-Pro V2.5",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 262144,
-          "maxTokens": 235929,
-          "cost": {
-            "input": 0.74,
-            "output": 2.96,
-            "cacheRead": 0.15,
             "cacheWrite": 0
           }
         },
@@ -7496,9 +7480,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.95,
-            "output": 4,
-            "cacheRead": 0.16,
+            "input": 0.465,
+            "output": 2.45,
+            "cacheRead": 0.0975,
             "cacheWrite": 0
           }
         },
@@ -20771,12 +20755,12 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1040000,
-          "maxTokens": 393216,
+          "contextWindow": 1048576,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.039,
-            "output": 0.3,
-            "cacheRead": 0.012
+            "input": 0.05,
+            "output": 1.2,
+            "cacheRead": 0.02
           }
         },
         {
@@ -20789,7 +20773,7 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.3,
+            "input": 0.2999,
             "output": 4.2,
             "cacheRead": 0.3
           }
@@ -20854,7 +20838,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.68,
+            "input": 0.61,
             "output": 13,
             "cacheRead": 0.45
           }
@@ -20985,8 +20969,8 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.06,
-            "output": 4.4,
+            "input": 0.03,
+            "output": 12,
             "cacheRead": 0.03
           }
         },
@@ -22111,12 +22095,12 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1040000,
-          "maxTokens": 393216,
+          "contextWindow": 1048576,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.039,
-            "output": 0.3,
-            "cacheRead": 0.012
+            "input": 0.05,
+            "output": 1.2,
+            "cacheRead": 0.02
           }
         },
         {
@@ -22763,9 +22747,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.0765,
-            "output": 0.255,
-            "cacheRead": 0.0425
+            "input": 0.09,
+            "output": 0.3,
+            "cacheRead": 0.05
           }
         },
         {
@@ -23019,21 +23003,6 @@
             "input": 0.03,
             "output": 0.15,
             "cacheRead": 0.03
-          }
-        },
-        {
-          "id": "kwaipilot/kat-coder-pro-v2.5",
-          "name": "Kwaipilot: KAT-Coder-Pro V2.5",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 262144,
-          "maxTokens": 235929,
-          "cost": {
-            "input": 0.74,
-            "output": 2.96,
-            "cacheRead": 0.15
           }
         },
         {
@@ -23909,9 +23878,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.95,
-            "output": 4,
-            "cacheRead": 0.16
+            "input": 0.465,
+            "output": 2.45,
+            "cacheRead": 0.0975
           }
         },
         {
@@ -23941,9 +23910,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.69,
+            "input": 0.62,
             "output": 15,
-            "cacheRead": 0.34
+            "cacheRead": 0.43
           }
         },
         {
@@ -27768,9 +27737,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.152,
+            "input": 0.03,
             "output": 12,
-            "cacheRead": 0.15
+            "cacheRead": 0.03
           }
         },
         {
@@ -31425,6 +31394,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1791335488890,
+  "sourceGeneratedAt": 1791355768643,
   "supplementDigest": "68a6db55f2db4b3af5bd74b8a7df4a86b0363ac689043ce2b5470255d20f3fad"
 }
