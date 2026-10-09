@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1791549864461,
+  "generatedAt": 1791571096403,
   "minVersion": "2026.4.11",
-  "sourceCommit": "4db022470af693f9f78dafd2a39338d5cd7dadda",
+  "sourceCommit": "bc1d44c838e2f803ccc125d8b40ad45db2a70aa0",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -1291,7 +1291,9 @@
           ],
           "reasoning": true,
           "contextWindow": 196608,
-          "maxTokens": 65536
+          "maxTokens": 65536,
+          "status": "deprecated",
+          "statusReason": "chutes no longer lists this model in its public model inventory."
         },
         {
           "id": "moonshotai/Kimi-K2.5-TEE",
@@ -2450,7 +2452,9 @@
           },
           "compat": {
             "supportsUsageInStreaming": true
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "deepinfra no longer lists this model in its public model inventory."
         },
         {
           "id": "moonshotai/Kimi-K3",
@@ -2612,7 +2616,9 @@
           ],
           "reasoning": false,
           "contextWindow": 256000,
-          "maxTokens": 65536
+          "maxTokens": 65536,
+          "status": "deprecated",
+          "statusReason": "deepinfra no longer lists this model in its public model inventory."
         },
         {
           "id": "Qwen/Qwen3-Next-80B-A3B-Instruct",
@@ -2773,7 +2779,9 @@
             "output": 5.999999999999999,
             "cacheRead": 0.2,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "deepinfra no longer lists this model in its public model inventory."
         },
         {
           "id": "Qwen/Qwen3.8-27B",
@@ -2866,7 +2874,9 @@
           },
           "compat": {
             "supportsUsageInStreaming": true
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "deepinfra no longer lists this model in its public model inventory."
         },
         {
           "id": "tencent/Hy4-preview",
@@ -5196,9 +5206,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.198,
+            "input": 0.1282,
             "output": 8,
-            "cacheRead": 0.2,
+            "cacheRead": 0.13,
             "cacheWrite": 0
           }
         },
@@ -5212,9 +5222,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0144,
-            "output": 0.046749,
-            "cacheRead": 0.0096,
+            "input": 0.0079,
+            "output": 1.28,
+            "cacheRead": 0.0079,
             "cacheWrite": 0
           }
         },
@@ -5391,7 +5401,7 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.032,
-            "output": 0.498114,
+            "output": 0.264718,
             "cacheRead": 0.02,
             "cacheWrite": 0
           }
@@ -6767,7 +6777,7 @@
         },
         {
           "id": "inclusionai/ling-3.1-flash",
-          "name": "inclusionAI: Ling 3.1 Flash (new)",
+          "name": "inclusionAI: Ling 3.1 Flash",
           "input": [
             "text"
           ],
@@ -7569,9 +7579,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.465,
+            "input": 0.4348,
             "output": 2.45,
-            "cacheRead": 0.0975,
+            "cacheRead": 0.1202,
             "cacheWrite": 0
           }
         },
@@ -8968,7 +8978,9 @@
             "output": 0.78,
             "cacheRead": 0,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "kilocode no longer lists this model in its public model inventory."
         },
         {
           "id": "qwen/qwen3-14b",
@@ -9000,7 +9012,9 @@
             "output": 1.82,
             "cacheRead": 0,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "kilocode no longer lists this model in its public model inventory."
         },
         {
           "id": "qwen/qwen3-235b-a22b-2507",
@@ -9080,7 +9094,9 @@
             "output": 2.4,
             "cacheRead": 0,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "kilocode no longer lists this model in its public model inventory."
         },
         {
           "id": "qwen/qwen3-32b",
@@ -9112,7 +9128,9 @@
             "output": 0.455,
             "cacheRead": 0,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "kilocode no longer lists this model in its public model inventory."
         },
         {
           "id": "qwen/qwen3-coder",
@@ -9192,7 +9210,9 @@
             "output": 3.25,
             "cacheRead": 0.13,
             "cacheWrite": 0.8125
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "kilocode no longer lists this model in its public model inventory."
         },
         {
           "id": "qwen/qwen3-max",
@@ -9208,7 +9228,9 @@
             "output": 3.9,
             "cacheRead": 0.156,
             "cacheWrite": 0.975
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "kilocode no longer lists this model in its public model inventory."
         },
         {
           "id": "qwen/qwen3-max-thinking",
@@ -9224,7 +9246,9 @@
             "output": 3.9,
             "cacheRead": 0,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "kilocode no longer lists this model in its public model inventory."
         },
         {
           "id": "qwen/qwen3-next-80b-a3b-instruct",
@@ -9290,7 +9314,9 @@
             "output": 4,
             "cacheRead": 0,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "kilocode no longer lists this model in its public model inventory."
         },
         {
           "id": "qwen/qwen3-vl-30b-a3b-instruct",
@@ -9341,7 +9367,9 @@
             "output": 0.416,
             "cacheRead": 0,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "kilocode no longer lists this model in its public model inventory."
         },
         {
           "id": "qwen/qwen3-vl-8b-instruct",
@@ -9375,7 +9403,9 @@
             "output": 2.1,
             "cacheRead": 0,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "kilocode no longer lists this model in its public model inventory."
         },
         {
           "id": "qwen/qwen3.5-122b-a10b",
@@ -9522,7 +9552,7 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 65536,
+          "maxTokens": 81920,
           "cost": {
             "input": 0.45,
             "output": 2.7,
@@ -9578,7 +9608,9 @@
             "output": 6.162,
             "cacheRead": 0,
             "cacheWrite": 1.28375
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "kilocode no longer lists this model in its public model inventory."
         },
         {
           "id": "qwen/qwen3.6-plus",
@@ -11435,6 +11467,32 @@
       "api": "openai-completions",
       "models": [
         {
+          "id": "apodex/apodex-1.1-mini",
+          "name": "Apodex 1.1 Mini",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 262144
+        },
+        {
+          "id": "baidu/cobuddy",
+          "name": "CoBuddy",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 131072,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 0.28,
+            "output": 1.13,
+            "cacheRead": 0.07,
+            "cacheWrite": 0
+          }
+        },
+        {
           "id": "baidu/ernie-4.5-21B-a3b",
           "name": "ERNIE 4.5 21B A3B",
           "input": [
@@ -11451,35 +11509,17 @@
           }
         },
         {
-          "id": "baidu/ernie-4.5-vl-28b-a3b",
-          "name": "ERNIE 4.5 VL 28B A3B",
+          "id": "deepseek/deepseek_v3",
+          "name": "DeepSeek-V3",
           "input": [
-            "text",
-            "image"
+            "text"
           ],
-          "reasoning": true,
-          "contextWindow": 30000,
-          "maxTokens": 8000,
+          "reasoning": false,
+          "contextWindow": 64000,
+          "maxTokens": 16000,
           "cost": {
-            "input": 0.14,
-            "output": 0.56,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "baidu/ernie-4.5-vl-28b-a3b-thinking",
-          "name": "ERNIE-4.5-VL-28B-A3B-Thinking",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 131072,
-          "maxTokens": 65536,
-          "cost": {
-            "input": 0.39,
-            "output": 0.39,
+            "input": 0.89,
+            "output": 0.89,
             "cacheRead": 0,
             "cacheWrite": 0
           }
@@ -11517,102 +11557,6 @@
           }
         },
         {
-          "id": "deepseek/deepseek-v3-0324",
-          "name": "DeepSeek V3 0324",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 163840,
-          "maxTokens": 163840,
-          "cost": {
-            "input": 0.27,
-            "output": 1.12,
-            "cacheRead": 0.135,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "deepseek/deepseek-v3-turbo",
-          "name": "DeepSeek V3 (Turbo)",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 64000,
-          "maxTokens": 16000,
-          "cost": {
-            "input": 0.4,
-            "output": 1.3,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "deepseek/deepseek-v3.1",
-          "name": "DeepSeek V3.1",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 131072,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0.27,
-            "output": 1,
-            "cacheRead": 0.135,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "deepseek/deepseek-v3.1-terminus",
-          "name": "Deepseek V3.1 Terminus",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 131072,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0.27,
-            "output": 1,
-            "cacheRead": 0.135,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "deepseek/deepseek-v3.2",
-          "name": "Deepseek V3.2",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 163840,
-          "maxTokens": 65536,
-          "cost": {
-            "input": 0.269,
-            "output": 0.4,
-            "cacheRead": 0.1345,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "deepseek/deepseek-v3.2-exp",
-          "name": "Deepseek V3.2 Exp",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 163840,
-          "maxTokens": 65536,
-          "cost": {
-            "input": 0.27,
-            "output": 0.41,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
           "id": "deepseek/deepseek-v4-flash",
           "name": "DeepSeek V4 Flash",
           "input": [
@@ -11629,6 +11573,24 @@
           },
           "compat": {
             "codeMode": "capable"
+          },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory."
+        },
+        {
+          "id": "deepseek/deepseek-v4-flash-0731",
+          "name": "DeepSeek V4 Flash 0731",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 393216,
+          "cost": {
+            "input": 0.44,
+            "output": 1.32,
+            "cacheRead": 0.028,
+            "cacheWrite": 0
           }
         },
         {
@@ -11651,8 +11613,75 @@
           }
         },
         {
+          "id": "deepseek/deepseek-v4-pro-0813",
+          "name": "DeepSeek V4 Pro 0813",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 393216,
+          "cost": {
+            "input": 1.32,
+            "output": 3.96,
+            "cacheRead": 0.044,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "deepseek/deepseek-v4.1-flash",
+          "name": "DeepSeek V4.1 Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 393216,
+          "cost": {
+            "input": 0.3,
+            "output": 1.2,
+            "cacheRead": 0.006,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "google/gemma-3-12b-it",
+          "name": "Gemma 3 12B IT",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": false,
+          "contextWindow": 131072,
+          "maxTokens": 8192,
+          "cost": {
+            "input": 0.05,
+            "output": 0.1,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "google/gemma-3-27b-it",
+          "name": "Gemma 3 27B IT",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": false,
+          "contextWindow": 98304,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 0.119,
+            "output": 0.2,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
           "id": "google/gemma-4-26b-a4b-it",
-          "name": "Gemma 4 26B A4B",
+          "name": "Gemma 4 26B A4B IT",
           "input": [
             "text",
             "image"
@@ -11669,7 +11698,7 @@
         },
         {
           "id": "google/gemma-4-31b-it",
-          "name": "Gemma 4 31B",
+          "name": "Gemma 4 31B IT",
           "input": [
             "text",
             "image"
@@ -11685,78 +11714,121 @@
           }
         },
         {
-          "id": "inclusionai/ling-2.6-1t",
-          "name": "Ling-2.6-1T",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 262144,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0.3,
-            "output": 2.5,
-            "cacheRead": 0.06,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "inclusionai/ling-2.6-flash",
-          "name": "Ling-2.6-flash",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 262144,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0.1,
-            "output": 0.3,
-            "cacheRead": 0.02,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "inclusionai/ring-2.6-1t",
-          "name": "Ring-2.6-1T",
+          "id": "inclusionai/ling-3.0-flash",
+          "name": "Ling 3.0 Flash",
           "input": [
             "text"
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 65536,
+          "maxTokens": 32768,
           "cost": {
-            "input": 0.3,
-            "output": 2.5,
-            "cacheRead": 0.06,
+            "input": 0.06,
+            "output": 0.18,
+            "cacheRead": 0.012,
             "cacheWrite": 0
           }
         },
         {
-          "id": "kwaipilot/kat-coder-pro",
-          "name": "Kat Coder Pro",
+          "id": "inclusionai/ling-3.0-flash-fin",
+          "name": "Ling 3.0 Flash Fin",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 32768,
+          "cost": {
+            "input": 0.075,
+            "output": 0.22,
+            "cacheRead": 0.015,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "inclusionai/ling-3.0-flash-sante",
+          "name": "Ling 3.0 Flash Sante",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 32768,
+          "cost": {
+            "input": 0.075,
+            "output": 0.22,
+            "cacheRead": 0.015,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "inclusionai/ling-3.0-flash-vl",
+          "name": "Ling 3.0 Flash VL",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 32768,
+          "cost": {
+            "input": 0.075,
+            "output": 0.22,
+            "cacheRead": 0.015,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "inclusionai/ling-3.1-flash",
+          "name": "Ling 3.1 Flash",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
+          "id": "meta-llama/llama-3.1-8b-instruct",
+          "name": "Llama-3.1-8B-Instruct",
           "input": [
             "text"
           ],
           "reasoning": false,
-          "contextWindow": 256000,
-          "maxTokens": 128000,
+          "contextWindow": 16384,
+          "maxTokens": 16384,
           "cost": {
-            "input": 0.3,
-            "output": 1.2,
-            "cacheRead": 0.06,
+            "input": 0.02,
+            "output": 0.05,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "meta-llama/llama-3.2-1b-instruct",
+          "name": "Llama 3.2 1B Instruct",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 131000,
+          "maxTokens": 32000,
+          "cost": {
+            "input": 0.02,
+            "output": 0.02,
+            "cacheRead": 0,
             "cacheWrite": 0
           }
         },
         {
           "id": "meta-llama/llama-3.3-70b-instruct",
-          "name": "Llama 3.3 70B Instruct",
+          "name": "Llama-3.3-70B-Instruct",
           "input": [
             "text"
           ],
           "reasoning": false,
-          "contextWindow": 131072,
-          "maxTokens": 120000,
+          "contextWindow": 12288,
+          "maxTokens": 12288,
           "cost": {
             "input": 0.135,
             "output": 0.4,
@@ -11765,65 +11837,83 @@
           }
         },
         {
-          "id": "minimax/minimax-m2",
-          "name": "MiniMax-M2",
+          "id": "meta-llama/llama-4-maverick-17b-128e-instruct-fp8",
+          "name": "Llama 4 Maverick 17B Instruct",
           "input": [
-            "text"
+            "text",
+            "image"
           ],
-          "reasoning": true,
-          "contextWindow": 204800,
-          "maxTokens": 131072,
+          "reasoning": false,
+          "contextWindow": 1048576,
+          "maxTokens": 8192,
           "cost": {
-            "input": 0.3,
-            "output": 1.2,
-            "cacheRead": 0.03,
+            "input": 0.27,
+            "output": 0.85,
+            "cacheRead": 0,
             "cacheWrite": 0
           }
         },
         {
-          "id": "minimax/minimax-m2.1",
-          "name": "Minimax M2.1",
+          "id": "meta-llama/llama-4-scout-17b-16e-instruct",
+          "name": "Llama 4 Scout 17B Instruct",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": false,
+          "contextWindow": 131072,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0.18,
+            "output": 0.59,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "mindai/macaron-v1-tall",
+          "name": "Macaron V1 Tall",
           "input": [
             "text"
           ],
-          "reasoning": false,
-          "contextWindow": 204800,
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 32768,
+          "cost": {
+            "input": 0.2475,
+            "output": 1.43,
+            "cacheRead": 0.044,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "mindai/macaron-v1-venti",
+          "name": "Macaron V1 Venti",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.3,
-            "output": 1.2,
-            "cacheRead": 0.03,
+            "input": 0.825,
+            "output": 2.475,
+            "cacheRead": 0.165,
             "cacheWrite": 0
           }
         },
         {
           "id": "minimax/minimax-m2.5",
-          "name": "MiniMax M2.5",
+          "name": "MiniMax-M2.5",
           "input": [
             "text"
           ],
           "reasoning": true,
           "contextWindow": 204800,
-          "maxTokens": 131072,
+          "maxTokens": 131100,
           "cost": {
             "input": 0.3,
             "output": 1.2,
-            "cacheRead": 0.03,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "minimax/minimax-m2.5-highspeed",
-          "name": "MiniMax M2.5 Highspeed",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 204800,
-          "maxTokens": 131072,
-          "cost": {
-            "input": 0.6,
-            "output": 2.4,
             "cacheRead": 0.03,
             "cacheWrite": 0
           }
@@ -11876,12 +11966,33 @@
             "input": 0.3,
             "output": 1.2,
             "cacheRead": 0.06,
-            "cacheWrite": 0
+            "cacheWrite": 0,
+            "tieredPricing": [
+              {
+                "cacheRead": 0.06,
+                "cacheWrite": 0,
+                "input": 0.3,
+                "output": 1.2,
+                "range": [
+                  0,
+                  524288
+                ]
+              },
+              {
+                "cacheRead": 0.12,
+                "cacheWrite": 0,
+                "input": 0.6,
+                "output": 2.4,
+                "range": [
+                  524288
+                ]
+              }
+            ]
           }
         },
         {
           "id": "minimaxai/minimax-m1-80k",
-          "name": "MiniMax M1",
+          "name": "MiniMax M1 80K",
           "input": [
             "text"
           ],
@@ -11897,7 +12008,7 @@
         },
         {
           "id": "moonshotai/kimi-k2-0905",
-          "name": "Kimi K2 0905",
+          "name": "Kimi K2 Instruct 0905",
           "input": [
             "text"
           ],
@@ -11919,7 +12030,7 @@
           ],
           "reasoning": false,
           "contextWindow": 131072,
-          "maxTokens": 32768,
+          "maxTokens": 98304,
           "cost": {
             "input": 0.57,
             "output": 2.3,
@@ -12015,11 +12126,42 @@
           }
         },
         {
-          "id": "openai/gpt-oss-120b",
-          "name": "OpenAI GPT OSS 120B",
+          "id": "nousresearch/hermes-2-pro-llama-3-8b",
+          "name": "Hermes 2 Pro Llama 3 8B",
           "input": [
-            "text",
-            "image"
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 8192,
+          "maxTokens": 8192,
+          "cost": {
+            "input": 0.14,
+            "output": 0.14,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "nvidia/nemotron-3-nano-30b-a3b",
+          "name": "Nemotron 3 Nano 30B A3B",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 32768,
+          "cost": {
+            "input": 0.05,
+            "output": 0.2,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "openai/gpt-oss-120b",
+          "name": "GPT OSS 120B",
+          "input": [
+            "text"
           ],
           "reasoning": true,
           "contextWindow": 131072,
@@ -12027,183 +12169,6 @@
           "cost": {
             "input": 0.05,
             "output": 0.25,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "qwen/qwen-2.5-72b-instruct",
-          "name": "Qwen 2.5 72B Instruct",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 32000,
-          "maxTokens": 8192,
-          "cost": {
-            "input": 0.38,
-            "output": 0.4,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "qwen/qwen2.5-7b-instruct",
-          "name": "Qwen2.5 7B Instruct",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 32000,
-          "maxTokens": 32000,
-          "cost": {
-            "input": 0.07,
-            "output": 0.07,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "qwen/qwen3-235b-a22b-instruct-2507",
-          "name": "Qwen3 235B A22B Instruct 2507",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 131072,
-          "maxTokens": 16384,
-          "cost": {
-            "input": 0.09,
-            "output": 0.58,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "qwen/qwen3-235b-a22b-thinking-2507",
-          "name": "Qwen3 235B A22b Thinking 2507",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 131072,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0.3,
-            "output": 3,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "qwen/qwen3-coder-30b-a3b-instruct",
-          "name": "Qwen3 Coder 30b A3B Instruct",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 160000,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0.07,
-            "output": 0.27,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "qwen/qwen3-coder-480b-a35b-instruct",
-          "name": "Qwen3 Coder 480B A35B Instruct",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 262144,
-          "maxTokens": 65536,
-          "cost": {
-            "input": 0.38,
-            "output": 1.55,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "qwen/qwen3-coder-next",
-          "name": "Qwen3 Coder Next",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 262144,
-          "maxTokens": 65536,
-          "cost": {
-            "input": 0.2,
-            "output": 1.5,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "qwen/qwen3-max",
-          "name": "Qwen3 Max",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 262144,
-          "maxTokens": 65536,
-          "cost": {
-            "input": 2.11,
-            "output": 8.45,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "qwen/qwen3-next-80b-a3b-instruct",
-          "name": "Qwen3 Next 80B A3B Instruct",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 131072,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0.15,
-            "output": 1.5,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "qwen/qwen3-next-80b-a3b-thinking",
-          "name": "Qwen3 Next 80B A3B Thinking",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 131072,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0.15,
-            "output": 1.5,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "qwen/qwen3-omni-30b-a3b-instruct",
-          "name": "Qwen3 Omni 30B A3B Instruct",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": false,
-          "contextWindow": 65536,
-          "maxTokens": 16384,
-          "cost": {
-            "input": 0.25,
-            "output": 0.97,
             "cacheRead": 0,
             "cacheWrite": 0
           }
@@ -12226,25 +12191,8 @@
           }
         },
         {
-          "id": "qwen/qwen3-vl-235b-a22b-instruct",
-          "name": "Qwen3 VL 235B A22B Instruct",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": false,
-          "contextWindow": 131072,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0.3,
-            "output": 1.5,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
           "id": "qwen/qwen3-vl-30b-a3b-instruct",
-          "name": "qwen/qwen3-vl-30b-a3b-instruct",
+          "name": "Qwen3 VL 30B A3B Instruct",
           "input": [
             "text",
             "image"
@@ -12260,42 +12208,8 @@
           }
         },
         {
-          "id": "qwen/qwen3-vl-30b-a3b-thinking",
-          "name": "qwen/qwen3-vl-30b-a3b-thinking",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": false,
-          "contextWindow": 131072,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0.2,
-            "output": 1,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "qwen/qwen3-vl-8b-instruct",
-          "name": "qwen/qwen3-vl-8b-instruct",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": false,
-          "contextWindow": 131072,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0.08,
-            "output": 0.5,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
           "id": "qwen/qwen3.5-122b-a10b",
-          "name": "Qwen3.5-122B-A10B",
+          "name": "Qwen3.5 122B-A10B",
           "input": [
             "text",
             "image"
@@ -12312,7 +12226,7 @@
         },
         {
           "id": "qwen/qwen3.5-27b",
-          "name": "Qwen3.5-27B",
+          "name": "Qwen3.5 27B",
           "input": [
             "text",
             "image"
@@ -12329,7 +12243,7 @@
         },
         {
           "id": "qwen/qwen3.5-35b-a3b",
-          "name": "Qwen3.5-35B-A3B",
+          "name": "Qwen3.5 35B-A3B",
           "input": [
             "text",
             "image"
@@ -12346,17 +12260,51 @@
         },
         {
           "id": "qwen/qwen3.5-397b-a17b",
-          "name": "Qwen3.5-397B-A17B",
+          "name": "Qwen3.5 397B-A17B",
           "input": [
             "text",
             "image"
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 64000,
+          "maxTokens": 65536,
           "cost": {
             "input": 0.6,
             "output": 3.6,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "qwen/qwen3.6-27b",
+          "name": "Qwen3.6 27B",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 0.6,
+            "output": 3.6,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "qwen/qwen3.6-35b-a3b",
+          "name": "Qwen3.6 35B-A3B",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 0.248,
+            "output": 1.485,
             "cacheRead": 0,
             "cacheWrite": 0
           }
@@ -12374,108 +12322,140 @@
             "input": 1.25,
             "output": 3.75,
             "cacheRead": 0.25,
-            "cacheWrite": 1.5625
-          }
-        },
-        {
-          "id": "sao10K/l3-70b-euryale-v2.1",
-          "name": "L3 70B Euryale V2.1",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 8192,
-          "maxTokens": 8192,
-          "cost": {
-            "input": 1.48,
-            "output": 1.48,
-            "cacheRead": 0,
             "cacheWrite": 0
           }
         },
         {
-          "id": "sao10K/L3-8B-stheno-v3.2",
-          "name": "L3 8B Stheno V3.2",
+          "id": "qwen/qwen3.8-2.4t-a95b",
+          "name": "Qwen3.8 2.4T A95B",
           "input": [
             "text"
           ],
-          "reasoning": false,
-          "contextWindow": 8192,
-          "maxTokens": 32000,
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
           "cost": {
-            "input": 0.05,
-            "output": 0.05,
-            "cacheRead": 0,
+            "input": 2,
+            "output": 6,
+            "cacheRead": 0.25,
             "cacheWrite": 0
           }
         },
         {
-          "id": "sao10K/l31-70b-euryale-v2.2",
-          "name": "L31 70B Euryale V2.2",
+          "id": "qwen/qwen3.8-27b",
+          "name": "Qwen3.8 27B",
           "input": [
-            "text"
+            "text",
+            "image"
           ],
-          "reasoning": false,
-          "contextWindow": 8192,
-          "maxTokens": 8192,
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
           "cost": {
-            "input": 1.48,
-            "output": 1.48,
-            "cacheRead": 0,
+            "input": 0.42,
+            "output": 3,
+            "cacheRead": 0.085,
             "cacheWrite": 0
           }
         },
         {
-          "id": "xiaomimimo/mimo-v2-flash",
-          "name": "XiaomiMiMo/MiMo-V2-Flash",
+          "id": "qwen/qwen3.8-flash",
+          "name": "Qwen3.8 Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0.15,
+            "output": 0.47,
+            "cacheRead": 0.016,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "qwen/qwen3.8-max",
+          "name": "Qwen3.8 Max",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 2,
+            "output": 6,
+            "cacheRead": 0.25,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "stepfun/step-3.7-flash",
+          "name": "Step 3.7 Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 256000,
+          "cost": {
+            "input": 0.2,
+            "output": 1.15,
+            "cacheRead": 0.04,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "tencent/hy3",
+          "name": "Hy3",
           "input": [
             "text"
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 32000,
+          "maxTokens": 262144,
           "cost": {
-            "input": 0.1,
-            "output": 0.3,
-            "cacheRead": 0.3,
+            "input": 0.14,
+            "output": 0.58,
+            "cacheRead": 0.035,
             "cacheWrite": 0
           }
         },
         {
-          "id": "xiaomimimo/mimo-v2-pro",
-          "name": "MiMo-V2-Pro",
+          "id": "tencent/hy4-preview",
+          "name": "Hy4 preview",
           "input": [
             "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 64000,
+          "cost": {
+            "input": 0.834,
+            "output": 2.501,
+            "cacheRead": 0.042,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "xiaomimimo/mimo-v2.5",
+          "name": "MiMo-V2.5",
+          "input": [
+            "text",
+            "image"
           ],
           "reasoning": true,
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 2,
-            "output": 6,
-            "cacheRead": 0.4,
-            "cacheWrite": 0,
-            "tieredPricing": [
-              {
-                "cacheRead": 0.4,
-                "cacheWrite": 0,
-                "input": 2,
-                "output": 6,
-                "range": [
-                  0,
-                  256000
-                ]
-              },
-              {
-                "cacheRead": 0.4,
-                "cacheWrite": 0,
-                "input": 2,
-                "output": 6,
-                "range": [
-                  256000
-                ]
-              }
-            ]
+            "input": 0.168,
+            "output": 0.336,
+            "cacheRead": 0.0034,
+            "cacheWrite": 0
           }
         },
         {
@@ -12491,49 +12471,46 @@
             "input": 0.522,
             "output": 1.044,
             "cacheRead": 0.0043,
-            "cacheWrite": 0,
-            "tieredPricing": [
-              {
-                "cacheRead": 0.0043,
-                "cacheWrite": 0,
-                "input": 0.522,
-                "output": 1.044,
-                "range": [
-                  0,
-                  256000
-                ]
-              },
-              {
-                "cacheRead": 0.0043,
-                "cacheWrite": 0,
-                "input": 0.522,
-                "output": 1.044,
-                "range": [
-                  256000
-                ]
-              }
-            ]
+            "cacheWrite": 0
           }
         },
         {
-          "id": "zai-org/glm-4.5",
-          "name": "GLM-4.5",
+          "id": "xiaomimimo/mimo-v2.6-flash",
+          "name": "MiMo-V2.6-Flash",
           "input": [
-            "text"
+            "text",
+            "image"
           ],
           "reasoning": true,
-          "contextWindow": 131072,
-          "maxTokens": 98304,
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
           "cost": {
-            "input": 0.6,
-            "output": 2.2,
-            "cacheRead": 0.11,
+            "input": 0.14,
+            "output": 0.28,
+            "cacheRead": 0.0028,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "xiaomimimo/mimo-v2.6-pro",
+          "name": "MiMo-V2.6-Pro",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0.435,
+            "output": 0.87,
+            "cacheRead": 0.0036,
             "cacheWrite": 0
           }
         },
         {
           "id": "zai-org/glm-4.5-air",
-          "name": "GLM 4.5 Air",
+          "name": "GLM-4.5-Air",
           "input": [
             "text"
           ],
@@ -12549,7 +12526,7 @@
         },
         {
           "id": "zai-org/glm-4.5v",
-          "name": "GLM 4.5V",
+          "name": "GLM-4.5V",
           "input": [
             "text",
             "image"
@@ -12566,7 +12543,7 @@
         },
         {
           "id": "zai-org/glm-4.6",
-          "name": "GLM 4.6",
+          "name": "GLM-4.6",
           "input": [
             "text"
           ],
@@ -12582,7 +12559,7 @@
         },
         {
           "id": "zai-org/glm-4.6v",
-          "name": "GLM 4.6V",
+          "name": "GLM-4.6V",
           "input": [
             "text",
             "image"
@@ -12679,6 +12656,39 @@
           "compat": {
             "codeMode": "capable"
           }
+        },
+        {
+          "id": "zai-org/glm-5.3",
+          "name": "GLM-5.3",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 1.4,
+            "output": 4.4,
+            "cacheRead": 0.26,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "zai-org/glm-5.3-flash",
+          "name": "GLM-5.3-Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0.15,
+            "output": 0.5,
+            "cacheRead": 0.03,
+            "cacheWrite": 0
+          }
         }
       ],
       "defaultModel": "deepseek/deepseek-v4-pro"
@@ -12704,7 +12714,9 @@
           "compat": {
             "codeMode": "capable",
             "requiresStringContent": true
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "nvidia no longer lists this model in its public model inventory."
         },
         {
           "id": "deepseek-ai/deepseek-v4.1-flash",
@@ -12834,7 +12846,9 @@
           },
           "compat": {
             "requiresStringContent": true
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "nvidia no longer lists this model in its public model inventory."
         },
         {
           "id": "mistralai/mistral-7b-instruct-v0.3",
@@ -13007,7 +13021,9 @@
           ],
           "reasoning": false,
           "contextWindow": 128000,
-          "maxTokens": 8192
+          "maxTokens": 8192,
+          "status": "deprecated",
+          "statusReason": "nvidia no longer lists this model in its public model inventory."
         },
         {
           "id": "openai/gpt-oss-20b",
@@ -13091,7 +13107,9 @@
           "compat": {
             "codeMode": "capable",
             "requiresStringContent": true
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "nvidia no longer lists this model in its public model inventory."
         },
         {
           "id": "z-ai/glm-5.3",
@@ -20810,8 +20828,8 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.016,
-            "output": 1.2,
-            "cacheRead": 0.01
+            "output": 0.6,
+            "cacheRead": 0.005
           }
         },
         {
@@ -20824,9 +20842,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.198,
+            "input": 0.1282,
             "output": 8,
-            "cacheRead": 0.2
+            "cacheRead": 0.13
           }
         },
         {
@@ -20839,9 +20857,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0137,
-            "output": 1.28,
-            "cacheRead": 0.0137
+            "input": 0.00512,
+            "output": 0.01467,
+            "cacheRead": 0.00512
           }
         },
         {
@@ -20889,9 +20907,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.49,
-            "output": 13,
-            "cacheRead": 0.3
+            "input": 0.45,
+            "output": 14,
+            "cacheRead": 0.29
           }
         },
         {
@@ -21006,8 +21024,8 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.032,
-            "output": 0.448303,
-            "cacheRead": 0.02
+            "output": 0.140682,
+            "cacheRead": 0.01
           }
         },
         {
@@ -22091,9 +22109,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0057,
+            "input": 0.0131,
             "output": 1.28,
-            "cacheRead": 0.0057
+            "cacheRead": 0.0131
           }
         },
         {
@@ -22106,9 +22124,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0137,
+            "input": 0.0063,
             "output": 1.28,
-            "cacheRead": 0.0137
+            "cacheRead": 0.0063
           }
         },
         {
@@ -22137,9 +22155,9 @@
           "contextWindow": 1024000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.297366,
-            "output": 0.594732,
-            "cacheRead": 0.0247805
+            "input": 0.2088,
+            "output": 0.4176,
+            "cacheRead": 0.0174
           }
         },
         {
@@ -23916,10 +23934,11 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 235929,
+          "maxTokens": 98304,
           "cost": {
             "input": 0.6,
-            "output": 2.5
+            "output": 2.5,
+            "cacheRead": 0.15
           }
         },
         {
@@ -23949,9 +23968,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.465,
+            "input": 0.4344,
             "output": 2.45,
-            "cacheRead": 0.0975
+            "cacheRead": 0.1077
           }
         },
         {
@@ -23981,9 +24000,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.5,
-            "output": 12,
-            "cacheRead": 0.3
+            "input": 0.9,
+            "output": 14,
+            "cacheRead": 0.6
           }
         },
         {
@@ -26211,20 +26230,6 @@
           }
         },
         {
-          "id": "qwen/qwen-plus-2025-07-28",
-          "name": "Qwen: Qwen Plus 0728",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 1000000,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0.26,
-            "output": 0.78
-          }
-        },
-        {
           "id": "qwen/qwen2.5-vl-72b-instruct",
           "name": "Qwen: Qwen2.5 VL 72B Instruct",
           "input": [
@@ -26255,20 +26260,6 @@
           }
         },
         {
-          "id": "qwen/qwen3-235b-a22b",
-          "name": "Qwen: Qwen3 235B A22B",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 131072,
-          "maxTokens": 8192,
-          "cost": {
-            "input": 0.455,
-            "output": 1.82
-          }
-        },
-        {
           "id": "qwen/qwen3-235b-a22b-2507",
           "name": "Qwen: Qwen3 235B A22B Instruct 2507",
           "input": [
@@ -26289,11 +26280,11 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 131072,
-          "maxTokens": 117964,
+          "contextWindow": 128000,
+          "maxTokens": 16384,
           "cost": {
-            "input": 0.23,
-            "output": 2.3
+            "input": 0.45,
+            "output": 3.5
           }
         },
         {
@@ -26325,20 +26316,6 @@
           }
         },
         {
-          "id": "qwen/qwen3-30b-a3b-thinking-2507",
-          "name": "Qwen: Qwen3 30B A3B Thinking 2507",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 81920,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0.2,
-            "output": 2.4
-          }
-        },
-        {
           "id": "qwen/qwen3-32b",
           "name": "Qwen: Qwen3 32B",
           "input": [
@@ -26350,20 +26327,6 @@
           "cost": {
             "input": 0.08,
             "output": 0.28
-          }
-        },
-        {
-          "id": "qwen/qwen3-8b",
-          "name": "Qwen: Qwen3 8B",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 131072,
-          "maxTokens": 8192,
-          "cost": {
-            "input": 0.117,
-            "output": 0.455
           }
         },
         {
@@ -26427,52 +26390,6 @@
           }
         },
         {
-          "id": "qwen/qwen3-coder-plus",
-          "name": "Qwen: Qwen3 Coder Plus",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 1000000,
-          "maxTokens": 65536,
-          "cost": {
-            "input": 0.65,
-            "output": 3.25,
-            "cacheRead": 0.13,
-            "cacheWrite": 0.8125
-          }
-        },
-        {
-          "id": "qwen/qwen3-max",
-          "name": "Qwen: Qwen3 Max",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 262144,
-          "maxTokens": 65536,
-          "cost": {
-            "input": 0.78,
-            "output": 3.9,
-            "cacheRead": 0.156,
-            "cacheWrite": 0.975
-          }
-        },
-        {
-          "id": "qwen/qwen3-max-thinking",
-          "name": "Qwen: Qwen3 Max Thinking",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 65536,
-          "cost": {
-            "input": 0.78,
-            "output": 3.9
-          }
-        },
-        {
           "id": "qwen/qwen3-next-80b-a3b-instruct",
           "name": "Qwen: Qwen3 Next 80B A3B Instruct",
           "input": [
@@ -26494,8 +26411,8 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 131072,
-          "maxTokens": 32768,
+          "contextWindow": 262144,
+          "maxTokens": 235929,
           "cost": {
             "input": 0.15,
             "output": 1.2
@@ -26515,21 +26432,6 @@
             "input": 0.21,
             "output": 1.9,
             "cacheRead": 0.1
-          }
-        },
-        {
-          "id": "qwen/qwen3-vl-235b-a22b-thinking",
-          "name": "Qwen: Qwen3 VL 235B A22B Thinking",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 131072,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0.4,
-            "output": 4
           }
         },
         {
@@ -26555,26 +26457,11 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 131072,
-          "maxTokens": 32768,
+          "contextWindow": 262144,
+          "maxTokens": 235929,
           "cost": {
-            "input": 0.2,
-            "output": 2.4
-          }
-        },
-        {
-          "id": "qwen/qwen3-vl-32b-instruct",
-          "name": "Qwen: Qwen3 VL 32B Instruct",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": false,
-          "contextWindow": 131072,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0.104,
-            "output": 0.416
+            "input": 0.29,
+            "output": 1
           }
         },
         {
@@ -26585,26 +26472,12 @@
             "image"
           ],
           "reasoning": false,
-          "contextWindow": 131072,
-          "maxTokens": 32768,
+          "contextWindow": 262144,
+          "maxTokens": 235929,
           "cost": {
-            "input": 0.117,
-            "output": 0.455
-          }
-        },
-        {
-          "id": "qwen/qwen3-vl-8b-thinking",
-          "name": "Qwen: Qwen3 VL 8B Thinking",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 131072,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0.18,
-            "output": 2.1
+            "input": 0.25,
+            "output": 0.75,
+            "cacheRead": 0.12
           }
         },
         {
@@ -26739,10 +26612,10 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 65536,
+          "maxTokens": 81920,
           "cost": {
-            "input": 0.45,
-            "output": 2.7
+            "input": 0.32,
+            "output": 3.2
           }
         },
         {
@@ -26775,21 +26648,6 @@
             "input": 0.1875,
             "output": 1.125,
             "cacheWrite": 0.234375
-          }
-        },
-        {
-          "id": "qwen/qwen3.6-max-preview",
-          "name": "Qwen: Qwen3.6 Max Preview",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 65536,
-          "cost": {
-            "input": 1.027,
-            "output": 6.162,
-            "cacheWrite": 1.28375
           }
         },
         {
@@ -27231,9 +27089,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625
           }
         },
         {
@@ -27261,9 +27119,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378
           }
         },
         {
@@ -27857,7 +27715,7 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.06,
-            "output": 4.2,
+            "output": 8,
             "cacheRead": 0.059
           }
         },
@@ -31513,6 +31371,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1791549845459,
+  "sourceGeneratedAt": 1791571078077,
   "supplementDigest": "68a6db55f2db4b3af5bd74b8a7df4a86b0363ac689043ce2b5470255d20f3fad"
 }
