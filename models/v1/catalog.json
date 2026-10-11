@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1791722596445,
+  "generatedAt": 1791743865735,
   "minVersion": "2026.4.11",
-  "sourceCommit": "3a0db8a3a05283c21600bc39e2772bf1432f7d0e",
+  "sourceCommit": "86c2aae466c57e3405bc85f0da3d1b6063146112",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -5126,9 +5126,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.039,
+            "input": 0.07,
             "output": 4.8,
-            "cacheRead": 0.038,
+            "cacheRead": 0.05,
             "cacheWrite": 0
           }
         },
@@ -9563,9 +9563,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033,
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625,
             "cacheWrite": 0
           }
         },
@@ -9595,9 +9595,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042,
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378,
             "cacheWrite": 0
           }
         },
@@ -14504,7 +14504,8 @@
             "supportsStrictMode": false,
             "supportsUsageInStreaming": true
           },
-          "status": "preview"
+          "status": "deprecated",
+          "statusReason": "opencode-go no longer lists this model in its public model inventory."
         },
         {
           "id": "kimi-k2.6",
@@ -20585,9 +20586,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.039,
+            "input": 0.07,
             "output": 4.8,
-            "cacheRead": 0.038
+            "cacheRead": 0.05
           }
         },
         {
@@ -23548,7 +23549,7 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.8,
-            "output": 10,
+            "output": 13.5,
             "cacheRead": 0.55
           }
         },
@@ -26633,9 +26634,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625
           }
         },
         {
@@ -26663,9 +26664,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378
           }
         },
         {
@@ -27273,9 +27274,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.039,
+            "input": 0.07,
             "output": 4.8,
-            "cacheRead": 0.038
+            "cacheRead": 0.05
           }
         },
         {
@@ -30915,6 +30916,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1791722573334,
+  "sourceGeneratedAt": 1791743848114,
   "supplementDigest": "68a6db55f2db4b3af5bd74b8a7df4a86b0363ac689043ce2b5470255d20f3fad"
 }
