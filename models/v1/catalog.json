@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1791681407510,
+  "generatedAt": 1791701320977,
   "minVersion": "2026.4.11",
-  "sourceCommit": "cfc2e29fe0ad1d54950872f0f210d8890f1b12c7",
+  "sourceCommit": "390f0f0acb98c577d5ccf71cd04201a6c4083c7b",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -1461,301 +1461,6 @@
         }
       ],
       "defaultModel": "zai-org/GLM-5.2-TEE"
-    },
-    "claude-cli": {
-      "models": [
-        {
-          "id": "claude-fable-5",
-          "name": "Claude Fable 5 (Claude CLI)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 1000000,
-          "maxTokens": 128000,
-          "contextWindowDefault": "1m",
-          "contextWindows": [
-            {
-              "contextWindow": 200000,
-              "id": "200k",
-              "label": "200K"
-            },
-            {
-              "contextWindow": 1000000,
-              "id": "1m",
-              "label": "1M"
-            }
-          ],
-          "mediaInput": {
-            "image": {
-              "maxSidePx": 2576,
-              "preferredSidePx": 2576,
-              "tokenMode": "provider"
-            }
-          }
-        },
-        {
-          "id": "claude-fable-5-1",
-          "name": "Claude Fable 5.1 (Claude CLI)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 1000000,
-          "maxTokens": 128000,
-          "contextWindowDefault": "1m",
-          "contextWindows": [
-            {
-              "contextWindow": 200000,
-              "id": "200k",
-              "label": "200K"
-            },
-            {
-              "contextWindow": 1000000,
-              "id": "1m",
-              "label": "1M"
-            }
-          ],
-          "mediaInput": {
-            "image": {
-              "maxSidePx": 2576,
-              "preferredSidePx": 2576,
-              "tokenMode": "provider"
-            }
-          }
-        },
-        {
-          "id": "claude-haiku-5-5",
-          "name": "Claude Haiku 5.5 (Claude CLI)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 1000000,
-          "maxTokens": 128000,
-          "contextWindowDefault": "1m",
-          "contextWindows": [
-            {
-              "contextWindow": 200000,
-              "id": "200k",
-              "label": "200K"
-            },
-            {
-              "contextWindow": 1000000,
-              "id": "1m",
-              "label": "1M"
-            }
-          ],
-          "mediaInput": {
-            "image": {
-              "maxSidePx": 2576,
-              "preferredSidePx": 2576,
-              "tokenMode": "provider"
-            }
-          }
-        },
-        {
-          "id": "claude-opus-4-6",
-          "name": "Claude Opus 4.6 (Claude CLI)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 200000,
-          "maxTokens": 128000,
-          "mediaInput": {
-            "image": {
-              "maxSidePx": 1568,
-              "preferredSidePx": 1568,
-              "tokenMode": "provider"
-            }
-          }
-        },
-        {
-          "id": "claude-opus-4-7",
-          "name": "Claude Opus 4.7 (Claude CLI)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 200000,
-          "maxTokens": 128000,
-          "mediaInput": {
-            "image": {
-              "maxSidePx": 2576,
-              "preferredSidePx": 2576,
-              "tokenMode": "provider"
-            }
-          }
-        },
-        {
-          "id": "claude-opus-4-8",
-          "name": "Claude Opus 4.8 (Claude CLI)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 200000,
-          "maxTokens": 128000,
-          "mediaInput": {
-            "image": {
-              "maxSidePx": 2576,
-              "preferredSidePx": 2576,
-              "tokenMode": "provider"
-            }
-          },
-          "replacedBy": "claude-opus-5",
-          "status": "deprecated"
-        },
-        {
-          "id": "claude-opus-5",
-          "name": "Claude Opus 5 (Claude CLI)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 1000000,
-          "maxTokens": 128000,
-          "contextWindowDefault": "1m",
-          "contextWindows": [
-            {
-              "contextWindow": 200000,
-              "id": "200k",
-              "label": "200K"
-            },
-            {
-              "contextWindow": 1000000,
-              "id": "1m",
-              "label": "1M"
-            }
-          ],
-          "mediaInput": {
-            "image": {
-              "maxSidePx": 2576,
-              "preferredSidePx": 2576,
-              "tokenMode": "provider"
-            }
-          }
-        },
-        {
-          "id": "claude-opus-5-5",
-          "name": "Claude Opus 5.5 (Claude CLI)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 1000000,
-          "maxTokens": 128000,
-          "contextWindowDefault": "1m",
-          "contextWindows": [
-            {
-              "contextWindow": 200000,
-              "id": "200k",
-              "label": "200K"
-            },
-            {
-              "contextWindow": 1000000,
-              "id": "1m",
-              "label": "1M"
-            }
-          ],
-          "mediaInput": {
-            "image": {
-              "maxSidePx": 2576,
-              "preferredSidePx": 2576,
-              "tokenMode": "provider"
-            }
-          }
-        },
-        {
-          "id": "claude-sonnet-4-6",
-          "name": "Claude Sonnet 4.6 (Claude CLI)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 200000,
-          "maxTokens": 128000,
-          "mediaInput": {
-            "image": {
-              "maxSidePx": 1568,
-              "preferredSidePx": 1568,
-              "tokenMode": "provider"
-            }
-          }
-        },
-        {
-          "id": "claude-sonnet-5",
-          "name": "Claude Sonnet 5 (Claude CLI)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 1000000,
-          "maxTokens": 128000,
-          "contextWindowDefault": "1m",
-          "contextWindows": [
-            {
-              "contextWindow": 200000,
-              "id": "200k",
-              "label": "200K"
-            },
-            {
-              "contextWindow": 1000000,
-              "id": "1m",
-              "label": "1M"
-            }
-          ],
-          "mediaInput": {
-            "image": {
-              "maxSidePx": 2576,
-              "preferredSidePx": 2576,
-              "tokenMode": "provider"
-            }
-          }
-        },
-        {
-          "id": "claude-sonnet-5-5",
-          "name": "Claude Sonnet 5.5 (Claude CLI)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 1000000,
-          "maxTokens": 128000,
-          "contextWindowDefault": "1m",
-          "contextWindows": [
-            {
-              "contextWindow": 200000,
-              "id": "200k",
-              "label": "200K"
-            },
-            {
-              "contextWindow": 1000000,
-              "id": "1m",
-              "label": "1M"
-            }
-          ],
-          "mediaInput": {
-            "image": {
-              "maxSidePx": 2576,
-              "preferredSidePx": 2576,
-              "tokenMode": "provider"
-            }
-          }
-        }
-      ]
     },
     "cohere": {
       "api": "openai-completions",
@@ -5193,11 +4898,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 393216,
           "cost": {
-            "input": 0.0001,
-            "output": 0.6,
-            "cacheRead": 0.005,
+            "input": 0.0348,
+            "output": 0.1392,
+            "cacheRead": 0.000696,
             "cacheWrite": 0
           }
         },
@@ -5227,9 +4932,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0099,
-            "output": 1.28,
-            "cacheRead": 0.0099,
+            "input": 0.0175,
+            "output": 0.64,
+            "cacheRead": 0.0175,
             "cacheWrite": 0
           }
         },
@@ -5280,9 +4985,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.44,
-            "output": 14.89,
-            "cacheRead": 0.3,
+            "input": 0.75,
+            "output": 14.9,
+            "cacheRead": 0.29,
             "cacheWrite": 0
           }
         },
@@ -5421,9 +5126,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.039,
+            "input": 0.07,
             "output": 4.8,
-            "cacheRead": 0.038,
+            "cacheRead": 0.05,
             "cacheWrite": 0
           }
         },
@@ -8977,10 +8682,10 @@
           ],
           "reasoning": true,
           "contextWindow": 40960,
-          "maxTokens": 36864,
+          "maxTokens": 16384,
           "cost": {
-            "input": 0.1,
-            "output": 0.22,
+            "input": 0.12,
+            "output": 0.24,
             "cacheRead": 0,
             "cacheWrite": 0
           }
@@ -20667,11 +20372,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 393216,
           "cost": {
-            "input": 0.0001,
-            "output": 0.6,
-            "cacheRead": 0.005
+            "input": 0.0348,
+            "output": 0.1392,
+            "cacheRead": 0.000696
           }
         },
         {
@@ -20699,9 +20404,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0103,
-            "output": 1.28,
-            "cacheRead": 0.0103
+            "input": 0.0175,
+            "output": 0.64,
+            "cacheRead": 0.0175
           }
         },
         {
@@ -20749,9 +20454,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.44,
-            "output": 14.89,
-            "cacheRead": 0.3
+            "input": 0.75,
+            "output": 14.9,
+            "cacheRead": 0.29
           }
         },
         {
@@ -20880,9 +20585,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.039,
+            "input": 0.07,
             "output": 4.8,
-            "cacheRead": 0.038
+            "cacheRead": 0.05
           }
         },
         {
@@ -21966,9 +21671,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0103,
-            "output": 1.28,
-            "cacheRead": 0.0103
+            "input": 0.0175,
+            "output": 0.64,
+            "cacheRead": 0.0175
           }
         },
         {
@@ -23843,7 +23548,7 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.8,
-            "output": 15,
+            "output": 10,
             "cacheRead": 0.55
           }
         },
@@ -26095,10 +25800,10 @@
           ],
           "reasoning": true,
           "contextWindow": 40960,
-          "maxTokens": 36864,
+          "maxTokens": 16384,
           "cost": {
-            "input": 0.1,
-            "output": 0.22
+            "input": 0.12,
+            "output": 0.24
           }
         },
         {
@@ -27568,9 +27273,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.039,
+            "input": 0.07,
             "output": 4.8,
-            "cacheRead": 0.038
+            "cacheRead": 0.05
           }
         },
         {
@@ -31210,6 +30915,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1791681390829,
+  "sourceGeneratedAt": 1791701302615,
   "supplementDigest": "68a6db55f2db4b3af5bd74b8a7df4a86b0363ac689043ce2b5470255d20f3fad"
 }
