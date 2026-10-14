@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1791916872121,
+  "generatedAt": 1791939656318,
   "minVersion": "2026.4.11",
-  "sourceCommit": "ecdc40dbcf9bfc4c083237fdfa69ea949088f27c",
+  "sourceCommit": "5d62810e3cb1403739f2b49b53e4cac4f4f3a3bb",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -1754,6 +1754,24 @@
     "deepinfra": {
       "api": "openai-completions",
       "models": [
+        {
+          "id": "anthropic/claude-fable-5",
+          "name": "Claude Fable 5",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 10,
+            "output": 50,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
         {
           "id": "ByteDance/Seed-2.0-code",
           "name": "Seed 2.0 Code",
@@ -4882,8 +4900,8 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0441,
-            "output": 0.63,
+            "input": 0.0396,
+            "output": 0.891,
             "cacheRead": 0.0054,
             "cacheWrite": 0
           }
@@ -4898,9 +4916,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.24948,
-            "output": 0.74844,
-            "cacheRead": 0.007938,
+            "input": 0.225,
+            "output": 8,
+            "cacheRead": 0.23,
             "cacheWrite": 0
           }
         },
@@ -4967,9 +4985,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.73,
-            "output": 10,
-            "cacheRead": 0.55,
+            "input": 0.72,
+            "output": 24,
+            "cacheRead": 0.3,
             "cacheWrite": 0
           }
         },
@@ -5064,6 +5082,23 @@
           }
         },
         {
+          "id": "~unbiased/pareto-latest",
+          "name": "Pareto Latest",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": false,
+          "contextWindow": 262144,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 2.5,
+            "output": 7.5,
+            "cacheRead": 0.25,
+            "cacheWrite": 0
+          }
+        },
+        {
           "id": "~x-ai/grok-latest",
           "name": "xAI: Grok Latest",
           "input": [
@@ -5092,7 +5127,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0261,
+            "input": 0.036,
             "output": 0.9,
             "cacheRead": 0.0108,
             "cacheWrite": 0
@@ -5106,11 +5141,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 131072,
           "cost": {
-            "input": 0.079,
-            "output": 4.8,
-            "cacheRead": 0.059,
+            "input": 0.056,
+            "output": 4.4,
+            "cacheRead": 0.0521,
             "cacheWrite": 0
           }
         },
@@ -5962,7 +5997,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 393216,
           "cost": {
             "input": 0.3,
             "output": 1.2,
@@ -6447,9 +6482,9 @@
           "contextWindow": 131072,
           "maxTokens": 32768,
           "cost": {
-            "input": 0.075,
-            "output": 0.22,
-            "cacheRead": 0.015,
+            "input": 0.06,
+            "output": 0.18,
+            "cacheRead": 0.012,
             "cacheWrite": 0
           }
         },
@@ -6568,9 +6603,9 @@
           "contextWindow": 128000,
           "maxTokens": 8192,
           "cost": {
-            "input": 0.1,
-            "output": 1,
-            "cacheRead": 0.05,
+            "input": 0.05,
+            "output": 0.7,
+            "cacheRead": 0.025,
             "cacheWrite": 0
           }
         },
@@ -6821,8 +6856,8 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 196608,
-          "maxTokens": 176947,
+          "contextWindow": 204800,
+          "maxTokens": 131072,
           "cost": {
             "input": 0.3,
             "output": 1.2,
@@ -9571,9 +9606,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.0825,
-            "output": 0.33,
-            "cacheRead": 0.020625,
+            "input": 0.132,
+            "output": 0.528,
+            "cacheRead": 0.033,
             "cacheWrite": 0
           }
         },
@@ -9603,9 +9638,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.7506,
-            "output": 2.2509,
-            "cacheRead": 0.0378,
+            "input": 0.83,
+            "output": 2.501,
+            "cacheRead": 0.041,
             "cacheWrite": 0
           }
         },
@@ -9655,25 +9690,8 @@
           "maxTokens": 262144
         },
         {
-          "id": "unbiased/pareto",
-          "name": "Pareto",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": false,
-          "contextWindow": 262144,
-          "maxTokens": 131072,
-          "cost": {
-            "input": 2.5,
-            "output": 7.5,
-            "cacheRead": 0.25,
-            "cacheWrite": 0
-          }
-        },
-        {
           "id": "unbiased/pareto-26.10-preview",
-          "name": "Pareto 26.10 Preview",
+          "name": "Pareto 26.10 Preview (retires Oct 15)",
           "input": [
             "text",
             "image"
@@ -9685,6 +9703,23 @@
             "input": 0.8,
             "output": 3.2,
             "cacheRead": 0.03,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "unbiased/pareto-26.9",
+          "name": "Pareto 26.9",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": false,
+          "contextWindow": 262144,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 2.5,
+            "output": 7.5,
+            "cacheRead": 0.25,
             "cacheWrite": 0
           }
         },
@@ -10123,8 +10158,8 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 200000,
-          "maxTokens": 128000,
+          "contextWindow": 202745,
+          "maxTokens": 131072,
           "cost": {
             "input": 1.4,
             "output": 4.4,
@@ -10558,7 +10593,7 @@
           "cost": {
             "input": 4,
             "output": 20,
-            "cacheRead": 0.19999999999999998,
+            "cacheRead": 0.2,
             "cacheWrite": 0
           },
           "compat": {
@@ -11969,6 +12004,23 @@
             "input": 0.2,
             "output": 1.15,
             "cacheRead": 0.04,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "stepfun/step-5-preview",
+          "name": "Step 5 Preview",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 64000,
+          "cost": {
+            "input": 1,
+            "output": 2.7,
+            "cacheRead": 0.1,
             "cacheWrite": 0
           }
         },
@@ -20429,8 +20481,8 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0441,
-            "output": 0.63,
+            "input": 0.0396,
+            "output": 0.891,
             "cacheRead": 0.0054
           }
         },
@@ -20444,9 +20496,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.24948,
-            "output": 0.74844,
-            "cacheRead": 0.007938
+            "input": 0.225,
+            "output": 8,
+            "cacheRead": 0.23
           }
         },
         {
@@ -20509,9 +20561,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.73,
-            "output": 10,
-            "cacheRead": 0.55
+            "input": 0.72,
+            "output": 24,
+            "cacheRead": 0.3
           }
         },
         {
@@ -20599,6 +20651,22 @@
           }
         },
         {
+          "id": "~unbiased/pareto-latest",
+          "name": "Pareto Latest",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": false,
+          "contextWindow": 262144,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 2.5,
+            "output": 7.5,
+            "cacheRead": 0.25
+          }
+        },
+        {
           "id": "~x-ai/grok-latest",
           "name": "xAI: Grok Latest",
           "input": [
@@ -20625,7 +20693,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0261,
+            "input": 0.036,
             "output": 0.9,
             "cacheRead": 0.0108
           }
@@ -20638,11 +20706,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 131072,
           "cost": {
-            "input": 0.079,
-            "output": 4.8,
-            "cacheRead": 0.059
+            "input": 0.056,
+            "output": 4.4,
+            "cacheRead": 0.0521
           }
         },
         {
@@ -21743,9 +21811,9 @@
           "contextWindow": 1024000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.427518,
-            "output": 0.855036,
-            "cacheRead": 0.0356265
+            "input": 0.95526,
+            "output": 1.91052,
+            "cacheRead": 0.079605
           }
         },
         {
@@ -21772,11 +21840,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 393216,
           "cost": {
-            "input": 0.0441,
-            "output": 0.63,
-            "cacheRead": 0.0054
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.003
           }
         },
         {
@@ -22457,9 +22525,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.09,
-            "output": 0.3,
-            "cacheRead": 0.05
+            "input": 0.0765,
+            "output": 0.255,
+            "cacheRead": 0.0425
           }
         },
         {
@@ -22711,9 +22779,9 @@
           "contextWindow": 128000,
           "maxTokens": 8192,
           "cost": {
-            "input": 0.1,
-            "output": 1,
-            "cacheRead": 0.05
+            "input": 0.05,
+            "output": 0.7,
+            "cacheRead": 0.025
           }
         },
         {
@@ -23039,11 +23107,11 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 196608,
-          "maxTokens": 176947,
+          "contextWindow": 204800,
+          "maxTokens": 131072,
           "cost": {
-            "input": 0.3,
-            "output": 1.2
+            "input": 0.255,
+            "output": 1.02
           }
         },
         {
@@ -25614,7 +25682,7 @@
           "input": [
             "text"
           ],
-          "reasoning": false,
+          "reasoning": true,
           "contextWindow": 2000000,
           "maxTokens": 8192
         },
@@ -26162,9 +26230,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.55,
-            "output": 3.5,
-            "cacheRead": 0.225
+            "input": 0.5,
+            "output": 3.6,
+            "cacheRead": 0.3
           }
         },
         {
@@ -26741,9 +26809,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.0825,
-            "output": 0.33,
-            "cacheRead": 0.020625
+            "input": 0.132,
+            "output": 0.528,
+            "cacheRead": 0.033
           }
         },
         {
@@ -26771,9 +26839,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.7506,
-            "output": 2.2509,
-            "cacheRead": 0.0378
+            "input": 0.834,
+            "output": 2.501,
+            "cacheRead": 0.042
           }
         },
         {
@@ -26894,22 +26962,6 @@
           "maxTokens": 8192
         },
         {
-          "id": "unbiased/pareto",
-          "name": "Pareto",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": false,
-          "contextWindow": 262144,
-          "maxTokens": 131072,
-          "cost": {
-            "input": 2.5,
-            "output": 7.5,
-            "cacheRead": 0.25
-          }
-        },
-        {
           "id": "unbiased/pareto-26.10-preview",
           "name": "Pareto 26.10 Preview",
           "input": [
@@ -26923,6 +26975,22 @@
             "input": 0.8,
             "output": 3.2,
             "cacheRead": 0.03
+          }
+        },
+        {
+          "id": "unbiased/pareto-26.9",
+          "name": "Pareto 26.9",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": false,
+          "contextWindow": 262144,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 2.5,
+            "output": 7.5,
+            "cacheRead": 0.25
           }
         },
         {
@@ -27348,12 +27416,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 200000,
-          "maxTokens": 128000,
+          "contextWindow": 202745,
+          "maxTokens": 131072,
           "cost": {
-            "input": 0.966,
-            "output": 3.036,
-            "cacheRead": 0.1794
+            "input": 1.33,
+            "output": 4.18,
+            "cacheRead": 0.247
           }
         },
         {
@@ -27366,9 +27434,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.06,
-            "output": 5.6,
-            "cacheRead": 0.059
+            "input": 0.05,
+            "output": 7,
+            "cacheRead": 0.049
           }
         },
         {
@@ -27381,9 +27449,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.079,
+            "input": 0.07,
             "output": 4.8,
-            "cacheRead": 0.059
+            "cacheRead": 0.05
           }
         },
         {
@@ -27397,7 +27465,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0261,
+            "input": 0.036,
             "output": 0.9,
             "cacheRead": 0.0108
           }
@@ -28307,7 +28375,7 @@
             "cacheRead": 0.3,
             "cacheWrite": 3.75
           },
-          "status": "deprecated"
+          "status": "disabled"
         },
         {
           "id": "anthropic.claude-sonnet-4-5-20250929-v1:0",
@@ -28467,7 +28535,7 @@
             "cacheRead": 0.3,
             "cacheWrite": 3.75
           },
-          "status": "deprecated"
+          "status": "disabled"
         },
         {
           "id": "eu.anthropic.claude-sonnet-4-5-20250929-v1:0",
@@ -28576,7 +28644,7 @@
             "cacheRead": 0.3,
             "cacheWrite": 3.75
           },
-          "status": "deprecated"
+          "status": "disabled"
         },
         {
           "id": "global.anthropic.claude-sonnet-4-5-20250929-v1:0",
@@ -29420,7 +29488,7 @@
             "cacheRead": 0.3,
             "cacheWrite": 3.75
           },
-          "status": "deprecated"
+          "status": "disabled"
         },
         {
           "id": "us.anthropic.claude-sonnet-4-5-20250929-v1:0",
@@ -30921,7 +30989,7 @@
           "reasoning": true,
           "contextWindow": 272000,
           "maxTokens": 128000,
-          "status": "deprecated"
+          "status": "disabled"
         },
         {
           "id": "gpt-5.5-mini",
@@ -31023,6 +31091,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1791916852891,
+  "sourceGeneratedAt": 1791939638930,
   "supplementDigest": "68a6db55f2db4b3af5bd74b8a7df4a86b0363ac689043ce2b5470255d20f3fad"
 }
