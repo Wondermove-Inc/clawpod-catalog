@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1792003126883,
+  "generatedAt": 1792025982957,
   "minVersion": "2026.4.11",
-  "sourceCommit": "3fcfe4b98c7873479b157ff8b7b871cad4faa319",
+  "sourceCommit": "364cc6843a07ac904f56d3ae3b71aa25bf8d2ef4",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -2514,9 +2514,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.13999999999999999,
-            "output": 0.27999999999999997,
-            "cacheRead": 0.0028,
+            "input": 0.13299999999999998,
+            "output": 0.26599999999999996,
+            "cacheRead": 0.0026599999999999996,
             "cacheWrite": 0
           }
         },
@@ -4752,9 +4752,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.1307,
+            "input": 0.225,
             "output": 8,
-            "cacheRead": 0.13,
+            "cacheRead": 0.23,
             "cacheWrite": 0
           }
         },
@@ -4821,9 +4821,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.5,
-            "output": 15,
-            "cacheRead": 0.28,
+            "input": 0.43,
+            "output": 14,
+            "cacheRead": 0.3,
             "cacheWrite": 0
           }
         },
@@ -4965,7 +4965,7 @@
           "cost": {
             "input": 0.036,
             "output": 0.9,
-            "cacheRead": 0.0108,
+            "cacheRead": 0.01125,
             "cacheWrite": 0
           }
         },
@@ -4979,9 +4979,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.063,
+            "input": 0.0608,
             "output": 4.4,
-            "cacheRead": 0.0586,
+            "cacheRead": 0.0565,
             "cacheWrite": 0
           }
         },
@@ -5350,7 +5350,7 @@
         },
         {
           "id": "anthropic/claude-sonnet-4",
-          "name": "Anthropic: Claude Sonnet 4",
+          "name": "Anthropic: Claude Sonnet 4 (retires Oct 15)",
           "input": [
             "image",
             "text",
@@ -6724,8 +6724,8 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 200000,
-          "maxTokens": 128000,
+          "contextWindow": 198000,
+          "maxTokens": 32768,
           "cost": {
             "input": 0.3,
             "output": 1.2,
@@ -7049,7 +7049,7 @@
             "text"
           ],
           "reasoning": false,
-          "contextWindow": 256000,
+          "contextWindow": 128000,
           "maxTokens": 16384,
           "cost": {
             "input": 0.1,
@@ -8975,11 +8975,11 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 65536,
+          "maxTokens": 235929,
           "cost": {
-            "input": 0.1,
-            "output": 0.95,
-            "cacheRead": 0.1,
+            "input": 0.15,
+            "output": 1,
+            "cacheRead": 0.05,
             "cacheWrite": 0
           }
         },
@@ -9442,9 +9442,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.0825,
-            "output": 0.33,
-            "cacheRead": 0.020625,
+            "input": 0.132,
+            "output": 0.528,
+            "cacheRead": 0.033,
             "cacheWrite": 0
           }
         },
@@ -9474,9 +9474,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.7506,
-            "output": 2.2509,
-            "cacheRead": 0.0378,
+            "input": 0.83,
+            "output": 2.501,
+            "cacheRead": 0.041,
             "cacheWrite": 0
           }
         },
@@ -9962,12 +9962,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 198000,
-          "maxTokens": 128000,
+          "contextWindow": 202752,
+          "maxTokens": 131072,
           "cost": {
-            "input": 0.6,
-            "output": 1.92,
-            "cacheRead": 0.12,
+            "input": 1,
+            "output": 3.2,
+            "cacheRead": 0.2,
             "cacheWrite": 0
           }
         },
@@ -9994,8 +9994,8 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 202745,
-          "maxTokens": 131072,
+          "contextWindow": 200000,
+          "maxTokens": 128000,
           "cost": {
             "input": 1.4,
             "output": 4.4,
@@ -10043,8 +10043,8 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048575,
-          "maxTokens": 943717,
+          "contextWindow": 1048576,
+          "maxTokens": 943718,
           "cost": {
             "input": 0.15,
             "output": 0.5,
@@ -12298,25 +12298,6 @@
           "maxTokens": 65536
         },
         {
-          "id": "nvidia/nemotron-3-super-120b-a12b",
-          "name": "Nemotron 3 Super 120B",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 1000000,
-          "maxTokens": 8192,
-          "cost": {
-            "input": 0.2,
-            "output": 0.8,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
-          "compat": {
-            "requiresStringContent": true
-          }
-        },
-        {
           "id": "nvidia/nemotron-3-ultra-550b-a55b",
           "name": "Nemotron 3 Ultra 550B",
           "input": [
@@ -12353,6 +12334,29 @@
           "compat": {
             "requiresStringContent": true
           }
+        },
+        {
+          "id": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+          "name": "Nemotron 3.5 Super VL",
+          "input": [
+            "text",
+            "image",
+            "video"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 8192,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "requiresStringContent": true
+          },
+          "status": "deprecated",
+          "statusReason": "nvidia no longer lists this model in its public model inventory."
         },
         {
           "id": "nvidia/nemotron-voicechat",
@@ -13985,6 +13989,9 @@
             "codeMode": "capable",
             "maxTokensField": "max_tokens",
             "supportedReasoningEfforts": [
+              "none",
+              "low",
+              "high",
               "max"
             ],
             "supportsDeveloperRole": false,
@@ -14049,7 +14056,9 @@
             "supportsReasoningEffort": true,
             "supportsStrictMode": false,
             "supportsUsageInStreaming": true
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "opencode-go no longer lists this model in its public model inventory."
         },
         {
           "id": "deepseek-v4-pro",
@@ -15813,10 +15822,10 @@
           "contextWindow": 1000000,
           "maxTokens": 128000,
           "cost": {
-            "input": 12,
-            "output": 60,
-            "cacheRead": 1.2,
-            "cacheWrite": 15
+            "input": 10,
+            "output": 50,
+            "cacheRead": 1,
+            "cacheWrite": 12.5
           },
           "compat": {
             "codeMode": "capable",
@@ -15834,10 +15843,10 @@
           "contextWindow": 1000000,
           "maxTokens": 128000,
           "cost": {
-            "input": 12,
-            "output": 60,
-            "cacheRead": 0.3,
-            "cacheWrite": 15
+            "input": 10,
+            "output": 50,
+            "cacheRead": 0.25,
+            "cacheWrite": 12.5
           }
         },
         {
@@ -15851,26 +15860,26 @@
           "contextWindow": 1000000,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.125,
-            "output": 0.625,
-            "cacheRead": 0.0125,
-            "cacheWrite": 0.15625,
+            "input": 0.1,
+            "output": 0.5,
+            "cacheRead": 0.01,
+            "cacheWrite": 0.125,
             "tieredPricing": [
               {
-                "cacheRead": 0.0125,
-                "cacheWrite": 0.15625,
-                "input": 0.125,
-                "output": 0.625,
+                "cacheRead": 0.01,
+                "cacheWrite": 0.125,
+                "input": 0.1,
+                "output": 0.5,
                 "range": [
                   0,
                   100001
                 ]
               },
               {
-                "cacheRead": 0.0625,
-                "cacheWrite": 0.78125,
-                "input": 0.625,
-                "output": 3.125,
+                "cacheRead": 0.05,
+                "cacheWrite": 0.625,
+                "input": 0.5,
+                "output": 2.5,
                 "range": [
                   100001
                 ]
@@ -15889,10 +15898,10 @@
           "contextWindow": 198000,
           "maxTokens": 32768,
           "cost": {
-            "input": 6,
-            "output": 30,
-            "cacheRead": 0.6,
-            "cacheWrite": 7.5
+            "input": 5,
+            "output": 25,
+            "cacheRead": 0.5,
+            "cacheWrite": 6.25
           }
         },
         {
@@ -15906,10 +15915,10 @@
           "contextWindow": 1000000,
           "maxTokens": 128000,
           "cost": {
-            "input": 6,
-            "output": 30,
-            "cacheRead": 0.6,
-            "cacheWrite": 7.5
+            "input": 5,
+            "output": 25,
+            "cacheRead": 0.5,
+            "cacheWrite": 6.25
           }
         },
         {
@@ -15923,10 +15932,10 @@
           "contextWindow": 1000000,
           "maxTokens": 128000,
           "cost": {
-            "input": 6,
-            "output": 30,
-            "cacheRead": 0.6,
-            "cacheWrite": 7.5
+            "input": 5,
+            "output": 25,
+            "cacheRead": 0.5,
+            "cacheWrite": 6.25
           }
         },
         {
@@ -15940,10 +15949,10 @@
           "contextWindow": 1000000,
           "maxTokens": 128000,
           "cost": {
-            "input": 6,
-            "output": 30,
-            "cacheRead": 0.6,
-            "cacheWrite": 7.5
+            "input": 5,
+            "output": 25,
+            "cacheRead": 0.5,
+            "cacheWrite": 6.25
           }
         },
         {
@@ -15957,10 +15966,10 @@
           "contextWindow": 1000000,
           "maxTokens": 128000,
           "cost": {
-            "input": 12,
-            "output": 60,
-            "cacheRead": 1.2,
-            "cacheWrite": 15
+            "input": 10,
+            "output": 50,
+            "cacheRead": 1,
+            "cacheWrite": 12.5
           }
         },
         {
@@ -15974,10 +15983,10 @@
           "contextWindow": 1000000,
           "maxTokens": 128000,
           "cost": {
-            "input": 6,
-            "output": 30,
-            "cacheRead": 0.6,
-            "cacheWrite": 7.5
+            "input": 5,
+            "output": 25,
+            "cacheRead": 0.5,
+            "cacheWrite": 6.25
           },
           "compat": {
             "codeMode": "capable",
@@ -15995,10 +16004,10 @@
           "contextWindow": 1000000,
           "maxTokens": 128000,
           "cost": {
-            "input": 4.8,
-            "output": 24,
-            "cacheRead": 0.24,
-            "cacheWrite": 6
+            "input": 4,
+            "output": 20,
+            "cacheRead": 0.2,
+            "cacheWrite": 5
           }
         },
         {
@@ -16012,10 +16021,10 @@
           "contextWindow": 1000000,
           "maxTokens": 128000,
           "cost": {
-            "input": 9.6,
-            "output": 48,
-            "cacheRead": 0.48,
-            "cacheWrite": 12
+            "input": 8,
+            "output": 40,
+            "cacheRead": 0.4,
+            "cacheWrite": 10
           }
         },
         {
@@ -16029,10 +16038,10 @@
           "contextWindow": 1000000,
           "maxTokens": 128000,
           "cost": {
-            "input": 12,
-            "output": 60,
-            "cacheRead": 1.2,
-            "cacheWrite": 15
+            "input": 10,
+            "output": 50,
+            "cacheRead": 1,
+            "cacheWrite": 12.5
           }
         },
         {
@@ -16046,10 +16055,10 @@
           "contextWindow": 198000,
           "maxTokens": 64000,
           "cost": {
-            "input": 3.75,
-            "output": 18.75,
-            "cacheRead": 0.375,
-            "cacheWrite": 4.69
+            "input": 3,
+            "output": 15,
+            "cacheRead": 0.3,
+            "cacheWrite": 3.75
           }
         },
         {
@@ -16063,10 +16072,10 @@
           "contextWindow": 1000000,
           "maxTokens": 64000,
           "cost": {
-            "input": 3.6,
-            "output": 18,
-            "cacheRead": 0.36,
-            "cacheWrite": 4.5
+            "input": 3,
+            "output": 15,
+            "cacheRead": 0.3,
+            "cacheWrite": 3.75
           },
           "compat": {
             "supportsUsageInStreaming": false
@@ -16083,10 +16092,10 @@
           "contextWindow": 1000000,
           "maxTokens": 64000,
           "cost": {
-            "input": 2.5,
-            "output": 12.5,
-            "cacheRead": 0.25,
-            "cacheWrite": 3.125
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.2,
+            "cacheWrite": 2.5
           }
         },
         {
@@ -16100,10 +16109,10 @@
           "contextWindow": 1000000,
           "maxTokens": 128000,
           "cost": {
-            "input": 2.5,
-            "output": 12.5,
-            "cacheRead": 0.125,
-            "cacheWrite": 3.125
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.1,
+            "cacheWrite": 2.5
           }
         },
         {
@@ -16360,6 +16369,23 @@
             "input": 0.7,
             "output": 3.75,
             "cacheRead": 0.07,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "gemini-4-argon",
+          "name": "Gemini 4 Argon",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 2.5,
+            "output": 12.5,
+            "cacheRead": 0.125,
             "cacheWrite": 0
           }
         },
@@ -19985,9 +20011,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.1307,
+            "input": 0.225,
             "output": 8,
-            "cacheRead": 0.13
+            "cacheRead": 0.23
           }
         },
         {
@@ -20050,9 +20076,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.49,
-            "output": 14.9,
-            "cacheRead": 0.27
+            "input": 0.43,
+            "output": 14,
+            "cacheRead": 0.3
           }
         },
         {
@@ -20184,7 +20210,7 @@
           "cost": {
             "input": 0.036,
             "output": 0.9,
-            "cacheRead": 0.0108
+            "cacheRead": 0.01125
           }
         },
         {
@@ -20197,9 +20223,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.063,
+            "input": 0.0608,
             "output": 4.4,
-            "cacheRead": 0.0586
+            "cacheRead": 0.0565
           }
         },
         {
@@ -21300,9 +21326,9 @@
           "contextWindow": 1024000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.398808,
-            "output": 0.797616,
-            "cacheRead": 0.033234
+            "input": 0.95526,
+            "output": 1.91052,
+            "cacheRead": 0.079605
           }
         },
         {
@@ -22014,9 +22040,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.09,
-            "output": 0.3,
-            "cacheRead": 0.05
+            "input": 0.0765,
+            "output": 0.255,
+            "cacheRead": 0.0425
           }
         },
         {
@@ -22045,9 +22071,8 @@
           "contextWindow": 262144,
           "maxTokens": 16384,
           "cost": {
-            "input": 0.09,
-            "output": 0.34,
-            "cacheRead": 0.05
+            "input": 0.2,
+            "output": 0.4
           }
         },
         {
@@ -22640,12 +22665,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 200000,
-          "maxTokens": 128000,
+          "contextWindow": 198000,
+          "maxTokens": 32768,
           "cost": {
             "input": 0.27,
-            "output": 1.08,
-            "cacheRead": 0.027
+            "output": 0.95,
+            "cacheRead": 0.03
           }
         },
         {
@@ -23042,11 +23067,11 @@
             "image"
           ],
           "reasoning": false,
-          "contextWindow": 256000,
+          "contextWindow": 128000,
           "maxTokens": 16384,
           "cost": {
-            "input": 0.09375,
-            "output": 0.25
+            "input": 0.075,
+            "output": 0.2
           }
         },
         {
@@ -23181,7 +23206,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.5,
+            "input": 0.48,
             "output": 15,
             "cacheRead": 0.28
           }
@@ -24425,10 +24450,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 2,
-            "output": 10,
-            "cacheRead": 0.2,
-            "cacheWrite": 2.5
+            "input": 4,
+            "output": 20,
+            "cacheRead": 0.4,
+            "cacheWrite": 5
           }
         },
         {
@@ -24442,10 +24467,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 2,
-            "output": 10,
-            "cacheRead": 0.2,
-            "cacheWrite": 2.5
+            "input": 4,
+            "output": 20,
+            "cacheRead": 0.4,
+            "cacheWrite": 5
           }
         },
         {
@@ -24459,10 +24484,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 1,
-            "output": 5,
-            "cacheRead": 0.1,
-            "cacheWrite": 1.25
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.2,
+            "cacheWrite": 2.5
           }
         },
         {
@@ -24476,10 +24501,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 1,
-            "output": 5,
-            "cacheRead": 0.1,
-            "cacheWrite": 1.25
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.2,
+            "cacheWrite": 2.5
           }
         },
         {
@@ -25808,11 +25833,11 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 65536,
+          "maxTokens": 235929,
           "cost": {
-            "input": 0.1,
-            "output": 0.95,
-            "cacheRead": 0.1
+            "input": 0.15,
+            "output": 1,
+            "cacheRead": 0.05
           }
         },
         {
@@ -25923,9 +25948,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.04,
-            "output": 2.3,
-            "cacheRead": 0.0198
+            "input": 0.24,
+            "output": 2.2,
+            "cacheRead": 0.05
           }
         },
         {
@@ -26297,9 +26322,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.0825,
-            "output": 0.33,
-            "cacheRead": 0.020625
+            "input": 0.132,
+            "output": 0.528,
+            "cacheRead": 0.033
           }
         },
         {
@@ -26327,9 +26352,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.7506,
-            "output": 2.2509,
-            "cacheRead": 0.0378
+            "input": 0.834,
+            "output": 2.501,
+            "cacheRead": 0.042
           }
         },
         {
@@ -26874,12 +26899,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 198000,
-          "maxTokens": 128000,
+          "contextWindow": 202752,
+          "maxTokens": 131072,
           "cost": {
-            "input": 0.6,
-            "output": 1.92,
-            "cacheRead": 0.12
+            "input": 1,
+            "output": 3.2,
+            "cacheRead": 0.2
           }
         },
         {
@@ -26904,12 +26929,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 202745,
-          "maxTokens": 131072,
+          "contextWindow": 200000,
+          "maxTokens": 128000,
           "cost": {
-            "input": 1.33,
-            "output": 4.18,
-            "cacheRead": 0.247
+            "input": 0.966,
+            "output": 3.036,
+            "cacheRead": 0.1794
           }
         },
         {
@@ -26922,9 +26947,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.06,
-            "output": 7,
-            "cacheRead": 0.059
+            "input": 0.04,
+            "output": 4.4,
+            "cacheRead": 0.039
           }
         },
         {
@@ -26939,7 +26964,7 @@
           "cost": {
             "input": 0.079,
             "output": 4.8,
-            "cacheRead": 0.059
+            "cacheRead": 0.078
           }
         },
         {
@@ -26950,12 +26975,12 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048575,
-          "maxTokens": 943717,
+          "contextWindow": 1048576,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.15,
-            "output": 0.5,
-            "cacheRead": 0.03
+            "input": 0.036,
+            "output": 0.9,
+            "cacheRead": 0.01125
           }
         },
         {
@@ -30579,6 +30604,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1792003109868,
+  "sourceGeneratedAt": 1792025967214,
   "supplementDigest": "68a6db55f2db4b3af5bd74b8a7df4a86b0363ac689043ce2b5470255d20f3fad"
 }
