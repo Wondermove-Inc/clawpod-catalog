@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1792068214337,
+  "generatedAt": 1792089470702,
   "minVersion": "2026.4.11",
-  "sourceCommit": "7816d8b6542af575bd67fe0eabd6393ff4f7963a",
+  "sourceCommit": "486f5b5181fb4d8220456602d0dba01b5bd8955b",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -4738,9 +4738,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.02376,
-            "output": 0.72,
-            "cacheRead": 0.0054,
+            "input": 0.0089,
+            "output": 0.8,
+            "cacheRead": 0.01,
             "cacheWrite": 0
           }
         },
@@ -4754,9 +4754,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.225,
+            "input": 0.1307,
             "output": 8,
-            "cacheRead": 0.23,
+            "cacheRead": 0.13,
             "cacheWrite": 0
           }
         },
@@ -4823,9 +4823,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.29,
-            "output": 24,
-            "cacheRead": 0.28,
+            "input": 0.4,
+            "output": 14,
+            "cacheRead": 0.3,
             "cacheWrite": 0
           }
         },
@@ -4981,9 +4981,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.063,
+            "input": 0.0608,
             "output": 4.4,
-            "cacheRead": 0.0586,
+            "cacheRead": 0.0565,
             "cacheWrite": 0
           }
         },
@@ -5348,24 +5348,6 @@
             "output": 20,
             "cacheRead": 0.2,
             "cacheWrite": 5
-          }
-        },
-        {
-          "id": "anthropic/claude-sonnet-4",
-          "name": "Anthropic: Claude Sonnet 4 (retires Oct 15)",
-          "input": [
-            "image",
-            "text",
-            "document"
-          ],
-          "reasoning": true,
-          "contextWindow": 200000,
-          "maxTokens": 64000,
-          "cost": {
-            "input": 3,
-            "output": 15,
-            "cacheRead": 0.3,
-            "cacheWrite": 3.75
           }
         },
         {
@@ -6654,6 +6636,24 @@
           }
         },
         {
+          "id": "meta/muse-spark-open",
+          "name": "Meta: Muse Spark Open",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 943718,
+          "cost": {
+            "input": 1.25,
+            "output": 4.25,
+            "cacheRead": 0.15,
+            "cacheWrite": 0
+          }
+        },
+        {
           "id": "meta/muse-wonder",
           "name": "Meta: Muse Wonder",
           "input": [
@@ -7051,7 +7051,7 @@
             "text"
           ],
           "reasoning": false,
-          "contextWindow": 128000,
+          "contextWindow": 256000,
           "maxTokens": 16384,
           "cost": {
             "input": 0.1,
@@ -7331,6 +7331,34 @@
           "reasoning": true,
           "contextWindow": 1000000,
           "maxTokens": 65536
+        },
+        {
+          "id": "nvidia/nemotron-3.5-super-vl",
+          "name": "NVIDIA: Nemotron 3.5 Super VL",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 235929,
+          "cost": {
+            "input": 0.1,
+            "output": 0.4,
+            "cacheRead": 0.08,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "nvidia/nemotron-3.5-super-vl:free",
+          "name": "NVIDIA: Nemotron 3.5 Super VL (free)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072
         },
         {
           "id": "openai/gpt-3.5-turbo",
@@ -8960,7 +8988,7 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 81920,
+          "maxTokens": 65536,
           "cost": {
             "input": 0.45,
             "output": 2.7,
@@ -9444,9 +9472,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033,
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625,
             "cacheWrite": 0
           }
         },
@@ -9476,9 +9504,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.83,
-            "output": 2.501,
-            "cacheRead": 0.041,
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378,
             "cacheWrite": 0
           }
         },
@@ -9526,23 +9554,6 @@
           "reasoning": true,
           "contextWindow": 1048576,
           "maxTokens": 262144
-        },
-        {
-          "id": "unbiased/pareto-26.10-preview",
-          "name": "Pareto 26.10 Preview (retires Oct 15)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": false,
-          "contextWindow": 1048576,
-          "maxTokens": 131072,
-          "cost": {
-            "input": 0.8,
-            "output": 3.2,
-            "cacheRead": 0.03,
-            "cacheWrite": 0
-          }
         },
         {
           "id": "unbiased/pareto-26.9",
@@ -12344,8 +12355,7 @@
           "name": "Nemotron 3.5 Super VL",
           "input": [
             "text",
-            "image",
-            "video"
+            "image"
           ],
           "reasoning": true,
           "contextWindow": 1048576,
@@ -12358,9 +12368,7 @@
           },
           "compat": {
             "requiresStringContent": true
-          },
-          "status": "deprecated",
-          "statusReason": "nvidia no longer lists this model in its public model inventory."
+          }
         },
         {
           "id": "nvidia/nemotron-voicechat",
@@ -14043,9 +14051,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.15,
-            "output": 0.6,
-            "cacheRead": 0.003,
+            "input": 0.14,
+            "output": 0.28,
+            "cacheRead": 0.0028,
             "cacheWrite": 0
           },
           "compat": {
@@ -20000,7 +20008,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.02376,
+            "input": 0.00801,
             "output": 0.72,
             "cacheRead": 0.0054
           }
@@ -20015,9 +20023,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.2244,
-            "output": 0.6732,
-            "cacheRead": 0.00714
+            "input": 0.1307,
+            "output": 8,
+            "cacheRead": 0.13
           }
         },
         {
@@ -20080,8 +20088,8 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.31,
-            "output": 24,
+            "input": 0.4,
+            "output": 14,
             "cacheRead": 0.3
           }
         },
@@ -20227,9 +20235,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.063,
+            "input": 0.0608,
             "output": 4.4,
-            "cacheRead": 0.0586
+            "cacheRead": 0.0565
           }
         },
         {
@@ -20785,23 +20793,6 @@
           }
         },
         {
-          "id": "anthropic/claude-sonnet-4",
-          "name": "Anthropic: Claude Sonnet 4",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 200000,
-          "maxTokens": 64000,
-          "cost": {
-            "input": 3,
-            "output": 15,
-            "cacheRead": 0.3,
-            "cacheWrite": 3.75
-          }
-        },
-        {
           "id": "anthropic/claude-sonnet-4.5",
           "name": "Anthropic: Claude Sonnet 4.5",
           "input": [
@@ -21330,9 +21321,9 @@
           "contextWindow": 1024000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.95526,
-            "output": 1.91052,
-            "cacheRead": 0.079605
+            "input": 0.398808,
+            "output": 0.797616,
+            "cacheRead": 0.033234
           }
         },
         {
@@ -21361,7 +21352,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.02376,
+            "input": 0.00801,
             "output": 0.72,
             "cacheRead": 0.0054
           }
@@ -22546,6 +22537,22 @@
           }
         },
         {
+          "id": "meta/muse-spark-open",
+          "name": "Meta: Muse Spark Open",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 943718,
+          "cost": {
+            "input": 1.25,
+            "output": 4.25,
+            "cacheRead": 0.15
+          }
+        },
+        {
           "id": "meta/muse-wonder",
           "name": "Meta: Muse Wonder",
           "input": [
@@ -23071,11 +23078,11 @@
             "image"
           ],
           "reasoning": false,
-          "contextWindow": 128000,
+          "contextWindow": 256000,
           "maxTokens": 16384,
           "cost": {
-            "input": 0.075,
-            "output": 0.2
+            "input": 0.09375,
+            "output": 0.25
           }
         },
         {
@@ -23473,6 +23480,37 @@
           "reasoning": true,
           "contextWindow": 1000000,
           "maxTokens": 65536,
+          "cost": {
+            "input": 0,
+            "output": 0
+          }
+        },
+        {
+          "id": "nvidia/nemotron-3.5-super-vl",
+          "name": "NVIDIA: Nemotron 3.5 Super VL",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 235929,
+          "cost": {
+            "input": 0.15,
+            "output": 0.5,
+            "cacheRead": 0.02
+          }
+        },
+        {
+          "id": "nvidia/nemotron-3.5-super-vl:free",
+          "name": "NVIDIA: Nemotron 3.5 Super VL (free)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
           "cost": {
             "input": 0,
             "output": 0
@@ -25823,10 +25861,11 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 81920,
+          "maxTokens": 65536,
           "cost": {
-            "input": 0.32,
-            "output": 3.2
+            "input": 0.25,
+            "output": 2,
+            "cacheRead": 0.025
           }
         },
         {
@@ -26327,9 +26366,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625
           }
         },
         {
@@ -26357,9 +26396,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378
           }
         },
         {
@@ -26478,22 +26517,6 @@
           "reasoning": true,
           "contextWindow": 1000000,
           "maxTokens": 8192
-        },
-        {
-          "id": "unbiased/pareto-26.10-preview",
-          "name": "Pareto 26.10 Preview",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": false,
-          "contextWindow": 1048576,
-          "maxTokens": 131072,
-          "cost": {
-            "input": 0.8,
-            "output": 3.2,
-            "cacheRead": 0.03
-          }
         },
         {
           "id": "unbiased/pareto-26.9",
@@ -26952,9 +26975,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.02,
-            "output": 7,
-            "cacheRead": 0.019
+            "input": 0.35,
+            "output": 10,
+            "cacheRead": 0.349
           }
         },
         {
@@ -26967,9 +26990,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.079,
-            "output": 4.8,
-            "cacheRead": 0.078
+            "input": 0.4,
+            "output": 8,
+            "cacheRead": 0.399
           }
         },
         {
@@ -30609,6 +30632,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1792068193341,
+  "sourceGeneratedAt": 1792089451764,
   "supplementDigest": "68a6db55f2db4b3af5bd74b8a7df4a86b0363ac689043ce2b5470255d20f3fad"
 }
