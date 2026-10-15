@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1792046857164,
+  "generatedAt": 1792068214337,
   "minVersion": "2026.4.11",
-  "sourceCommit": "33a36fe4a2eef36d20cd373b122d6c0b1b6e3cb1",
+  "sourceCommit": "7816d8b6542af575bd67fe0eabd6393ff4f7963a",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -2484,7 +2484,9 @@
             "output": 4.05,
             "cacheRead": 0.1599999975,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "deepinfra no longer lists this model in its public model inventory."
         },
         {
           "id": "thinkingmachines/Inkling-Small",
@@ -4736,8 +4738,8 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.01368,
-            "output": 0.891,
+            "input": 0.02376,
+            "output": 0.72,
             "cacheRead": 0.0054,
             "cacheWrite": 0
           }
@@ -4821,9 +4823,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.3,
-            "output": 14,
-            "cacheRead": 0.3,
+            "input": 0.29,
+            "output": 24,
+            "cacheRead": 0.28,
             "cacheWrite": 0
           }
         },
@@ -4979,9 +4981,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.06,
+            "input": 0.063,
             "output": 4.4,
-            "cacheRead": 0.0558,
+            "cacheRead": 0.0586,
             "cacheWrite": 0
           }
         },
@@ -10043,8 +10045,8 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "contextWindow": 1048575,
+          "maxTokens": 943717,
           "cost": {
             "input": 0.15,
             "output": 0.5,
@@ -12253,7 +12255,9 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 131072
+          "maxTokens": 131072,
+          "status": "deprecated",
+          "statusReason": "nvidia no longer lists this model in its public model inventory."
         },
         {
           "id": "nvidia/cosmos-reason2-8b",
@@ -19996,8 +20000,8 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.01368,
-            "output": 0.891,
+            "input": 0.02376,
+            "output": 0.72,
             "cacheRead": 0.0054
           }
         },
@@ -20011,9 +20015,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.225,
-            "output": 8,
-            "cacheRead": 0.23
+            "input": 0.2244,
+            "output": 0.6732,
+            "cacheRead": 0.00714
           }
         },
         {
@@ -20076,9 +20080,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.29,
+            "input": 0.31,
             "output": 24,
-            "cacheRead": 0.28
+            "cacheRead": 0.3
           }
         },
         {
@@ -20223,9 +20227,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.06,
+            "input": 0.063,
             "output": 4.4,
-            "cacheRead": 0.0558
+            "cacheRead": 0.0586
           }
         },
         {
@@ -21341,9 +21345,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 1.32,
-            "output": 3.96,
-            "cacheRead": 0.044
+            "input": 0.66,
+            "output": 1.98,
+            "cacheRead": 0.022
           }
         },
         {
@@ -21357,8 +21361,8 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.01368,
-            "output": 0.891,
+            "input": 0.02376,
+            "output": 0.72,
             "cacheRead": 0.0054
           }
         },
@@ -22377,11 +22381,11 @@
             "text"
           ],
           "reasoning": false,
-          "contextWindow": 80000,
-          "maxTokens": 72000,
+          "contextWindow": 131072,
+          "maxTokens": 117964,
           "cost": {
-            "input": 0.0509,
-            "output": 0.335
+            "input": 0.05,
+            "output": 0.33
           }
         },
         {
@@ -26948,9 +26952,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.037,
+            "input": 0.02,
             "output": 7,
-            "cacheRead": 0.036
+            "cacheRead": 0.019
           }
         },
         {
@@ -26976,12 +26980,12 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "contextWindow": 1048575,
+          "maxTokens": 943717,
           "cost": {
-            "input": 0.036,
-            "output": 0.9,
-            "cacheRead": 0.01125
+            "input": 0.15,
+            "output": 0.5,
+            "cacheRead": 0.03
           }
         },
         {
@@ -30605,6 +30609,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1792046839766,
+  "sourceGeneratedAt": 1792068193341,
   "supplementDigest": "68a6db55f2db4b3af5bd74b8a7df4a86b0363ac689043ce2b5470255d20f3fad"
 }
