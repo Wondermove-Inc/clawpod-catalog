@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1792133249484,
+  "generatedAt": 1792154588606,
   "minVersion": "2026.4.11",
-  "sourceCommit": "2fcda0c9e7e318f46abebbcbe2e3064b79136651",
+  "sourceCommit": "7558875e93f0cb938941ae8874d0fee394a98682",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -2464,9 +2464,9 @@
           "contextWindow": 1048576,
           "maxTokens": 1000000,
           "cost": {
-            "input": 1,
-            "output": 2.7,
-            "cacheRead": 0.05,
+            "input": 0.95,
+            "output": 2.565,
+            "cacheRead": 0.0475,
             "cacheWrite": 0
           }
         },
@@ -4804,9 +4804,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.00999,
+            "input": 0.00441,
             "output": 1.152,
-            "cacheRead": 0.00999,
+            "cacheRead": 0.00441,
             "cacheWrite": 0
           }
         },
@@ -4999,7 +4999,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.01908,
+            "input": 0.01206,
             "output": 0.9,
             "cacheRead": 0.01125,
             "cacheWrite": 0
@@ -6519,7 +6519,7 @@
           ],
           "reasoning": false,
           "contextWindow": 131072,
-          "maxTokens": 32768,
+          "maxTokens": 16384,
           "cost": {
             "input": 0.1,
             "output": 0.32,
@@ -6552,8 +6552,8 @@
             "image"
           ],
           "reasoning": false,
-          "contextWindow": 131072,
-          "maxTokens": 117964,
+          "contextWindow": 327680,
+          "maxTokens": 16384,
           "cost": {
             "input": 0.08,
             "output": 0.24,
@@ -9335,6 +9335,16 @@
             "cacheRead": 0.15,
             "cacheWrite": 0
           }
+        },
+        {
+          "id": "stealth/cat-jam",
+          "name": "Stealth: Cat Jam (free)",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 131072
         },
         {
           "id": "stealth/claude-opus-4.6",
@@ -20148,11 +20158,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 393216,
           "cost": {
-            "input": 0.25,
-            "output": 5,
-            "cacheRead": 0.249
+            "input": 0.24948,
+            "output": 0.74844,
+            "cacheRead": 0.007938
           }
         },
         {
@@ -20165,9 +20175,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.00999,
+            "input": 0.0162,
             "output": 1.152,
-            "cacheRead": 0.00999
+            "cacheRead": 0.0108
           }
         },
         {
@@ -20347,7 +20357,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.01908,
+            "input": 0.02061,
             "output": 0.9,
             "cacheRead": 0.01125
           }
@@ -21417,9 +21427,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0111,
+            "input": 0.018,
             "output": 1.28,
-            "cacheRead": 0.0111
+            "cacheRead": 0.018
           }
         },
         {
@@ -21463,9 +21473,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 1.32,
-            "output": 3.96,
-            "cacheRead": 0.044
+            "input": 0.66,
+            "output": 1.98,
+            "cacheRead": 0.022
           }
         },
         {
@@ -22514,11 +22524,10 @@
           ],
           "reasoning": false,
           "contextWindow": 131072,
-          "maxTokens": 32768,
+          "maxTokens": 16384,
           "cost": {
-            "input": 0.59,
-            "output": 0.79,
-            "cacheRead": 0.295
+            "input": 0.1,
+            "output": 0.32
           }
         },
         {
@@ -22545,11 +22554,11 @@
             "image"
           ],
           "reasoning": false,
-          "contextWindow": 131072,
-          "maxTokens": 117964,
+          "contextWindow": 327680,
+          "maxTokens": 16384,
           "cost": {
-            "input": 0.18,
-            "output": 0.59
+            "input": 0.1,
+            "output": 0.3
           }
         },
         {
@@ -23375,7 +23384,7 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.304,
-            "output": 11.936,
+            "output": 12.533,
             "cacheRead": 0.21
           }
         },
@@ -27131,9 +27140,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.62,
-            "output": 2.42,
-            "cacheRead": 0.14
+            "input": 0.037,
+            "output": 9,
+            "cacheRead": 0.036
           }
         },
         {
@@ -27162,7 +27171,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.01908,
+            "input": 0.02061,
             "output": 0.9,
             "cacheRead": 0.01125
           }
@@ -30788,6 +30797,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1792133233120,
+  "sourceGeneratedAt": 1792154566113,
   "supplementDigest": "68a6db55f2db4b3af5bd74b8a7df4a86b0363ac689043ce2b5470255d20f3fad"
 }
