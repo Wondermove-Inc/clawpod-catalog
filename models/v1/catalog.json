@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1792219384230,
+  "generatedAt": 1792240630377,
   "minVersion": "2026.4.11",
-  "sourceCommit": "870fe9fda3b34ea876777adba735d39d4973e477",
+  "sourceCommit": "65920347cf86d6738252f578e52af0bf40e02d2d",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -4769,12 +4769,12 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "contextWindow": 262144,
+          "maxTokens": 131072,
           "cost": {
-            "input": 0.0309,
-            "output": 0.4026,
-            "cacheRead": 0.0309,
+            "input": 0.1,
+            "output": 0.5,
+            "cacheRead": 0.002,
             "cacheWrite": 0
           }
         },
@@ -4788,9 +4788,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.2078,
-            "output": 0.7497,
-            "cacheRead": 0.21,
+            "input": 0.12,
+            "output": 8,
+            "cacheRead": 0.12,
             "cacheWrite": 0
           }
         },
@@ -4804,9 +4804,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0162,
-            "output": 0.9653,
-            "cacheRead": 0.0162,
+            "input": 0.0055,
+            "output": 1.28,
+            "cacheRead": 0.0055,
             "cacheWrite": 0
           }
         },
@@ -4858,7 +4858,7 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.27,
-            "output": 8.5378,
+            "output": 14,
             "cacheRead": 0.27,
             "cacheWrite": 0
           }
@@ -4997,11 +4997,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.0464,
-            "output": 0.5578,
-            "cacheRead": 0.0464,
+            "input": 0.06,
+            "output": 1.6,
+            "cacheRead": 0.04,
             "cacheWrite": 0
           }
         },
@@ -5015,9 +5015,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.069,
-            "output": 2.2044,
-            "cacheRead": 0.069,
+            "input": 0.0632,
+            "output": 4.4,
+            "cacheRead": 0.0588,
             "cacheWrite": 0
           }
         },
@@ -5856,6 +5856,23 @@
             "input": 0.3,
             "output": 1.2,
             "cacheRead": 0.006,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "deepseek/deepseek-v4.1-flash-1017",
+          "name": "DeepSeek: DeepSeek V4.1 Flash 1017",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 393216,
+          "cost": {
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.003,
             "cacheWrite": 0
           }
         },
@@ -10132,8 +10149,8 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "contextWindow": 1048575,
+          "maxTokens": 943717,
           "cost": {
             "input": 0.15,
             "output": 0.5,
@@ -20185,12 +20202,12 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "contextWindow": 262144,
+          "maxTokens": 131072,
           "cost": {
-            "input": 0.0309,
-            "output": 0.4026,
-            "cacheRead": 0.0309
+            "input": 0.1,
+            "output": 0.5,
+            "cacheRead": 0.002
           }
         },
         {
@@ -20203,9 +20220,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.2078,
-            "output": 0.7497,
-            "cacheRead": 0.21
+            "input": 0.12,
+            "output": 8,
+            "cacheRead": 0.12
           }
         },
         {
@@ -20218,9 +20235,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0162,
-            "output": 0.9653,
-            "cacheRead": 0.0162
+            "input": 0.0055,
+            "output": 1.28,
+            "cacheRead": 0.0055
           }
         },
         {
@@ -20269,7 +20286,7 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.27,
-            "output": 8.5378,
+            "output": 14,
             "cacheRead": 0.27
           }
         },
@@ -20398,11 +20415,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.0464,
-            "output": 0.5578,
-            "cacheRead": 0.0464
+            "input": 0.06,
+            "output": 1.6,
+            "cacheRead": 0.04
           }
         },
         {
@@ -20415,9 +20432,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.069,
-            "output": 2.2044,
-            "cacheRead": 0.069
+            "input": 0.0632,
+            "output": 4.4,
+            "cacheRead": 0.0588
           }
         },
         {
@@ -21470,9 +21487,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0162,
-            "output": 0.9653,
-            "cacheRead": 0.0162
+            "input": 0.0055,
+            "output": 1.28,
+            "cacheRead": 0.0055
           }
         },
         {
@@ -21524,6 +21541,22 @@
         {
           "id": "deepseek/deepseek-v4.1-flash",
           "name": "DeepSeek: DeepSeek V4.1 Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 393216,
+          "cost": {
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.003
+          }
+        },
+        {
+          "id": "deepseek/deepseek-v4.1-flash-1017",
+          "name": "DeepSeek: DeepSeek V4.1 Flash 1017",
           "input": [
             "text",
             "image"
@@ -27271,12 +27304,12 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "contextWindow": 1048575,
+          "maxTokens": 943717,
           "cost": {
-            "input": 0.0464,
-            "output": 0.5578,
-            "cacheRead": 0.0464
+            "input": 0.15,
+            "output": 0.5,
+            "cacheRead": 0.03
           }
         },
         {
@@ -30900,6 +30933,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1792219368000,
+  "sourceGeneratedAt": 1792240610588,
   "supplementDigest": "68a6db55f2db4b3af5bd74b8a7df4a86b0363ac689043ce2b5470255d20f3fad"
 }
