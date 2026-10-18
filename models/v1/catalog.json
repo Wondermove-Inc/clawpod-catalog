@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1792285552673,
+  "generatedAt": 1792305810084,
   "minVersion": "2026.4.11",
-  "sourceCommit": "b5d1fd1fc40da3bd520108682c478621467e6c18",
+  "sourceCommit": "847f7fade0d6aa5df76fbf599c8f8f90841dd4f7",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -670,6 +670,23 @@
               "max"
             ],
             "supportsReasoningEffort": true
+          }
+        },
+        {
+          "id": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+          "name": "DeepSeek V4.1 Flash 1017",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 262144,
+          "cost": {
+            "input": 0.3,
+            "output": 1.2,
+            "cacheRead": 0,
+            "cacheWrite": 0
           }
         },
         {
@@ -1929,6 +1946,23 @@
             "input": 0.13999999999999999,
             "output": 0.42,
             "cacheRead": 0.0042,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "deepseek-ai/DeepSeek-V4.1-Flash-1017",
+          "name": "DeepSeek V4.1 Flash 1017",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 384000,
+          "cost": {
+            "input": 0.098,
+            "output": 0.294,
+            "cacheRead": 0.00294,
             "cacheWrite": 0
           }
         },
@@ -4790,11 +4824,11 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 131072,
+          "contextWindow": 1048576,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.08,
-            "output": 0.5,
+            "input": 0.05,
+            "output": 0.6,
             "cacheRead": 0.008,
             "cacheWrite": 0
           }
@@ -4825,7 +4859,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.00392,
+            "input": 0.00912,
             "output": 0.143616,
             "cacheRead": 0.001523,
             "cacheWrite": 0
@@ -5882,7 +5916,7 @@
         },
         {
           "id": "deepseek/deepseek-v4.1-flash-1017",
-          "name": "DeepSeek: DeepSeek V4.1 Flash 1017",
+          "name": "DeepSeek V4.1 Flash 1017",
           "input": [
             "text",
             "image"
@@ -12612,6 +12646,17 @@
         {
           "id": "deepseek-v4.1-flash",
           "name": "DeepSeek V4.1 Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 384000
+        },
+        {
+          "id": "deepseek-v4.1-flash:1017",
+          "name": "DeepSeek V4.1 Flash 1017",
           "input": [
             "text",
             "image"
@@ -19972,7 +20017,7 @@
           "cost": {
             "input": 0.6,
             "output": 1.8,
-            "cacheRead": 0,
+            "cacheRead": 0.11,
             "cacheWrite": 0
           }
         },
@@ -20005,7 +20050,7 @@
           "cost": {
             "input": 0.3,
             "output": 0.9,
-            "cacheRead": 0,
+            "cacheRead": 0.05,
             "cacheWrite": 0
           }
         },
@@ -20290,11 +20335,11 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 131072,
+          "contextWindow": 1048576,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.08,
-            "output": 0.5,
+            "input": 0.05,
+            "output": 0.6,
             "cacheRead": 0.008
           }
         },
@@ -20323,9 +20368,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.00392,
-            "output": 0.143616,
-            "cacheRead": 0.001523
+            "input": 0.0086,
+            "output": 0.45,
+            "cacheRead": 0.0086
           }
         },
         {
@@ -21637,7 +21682,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0536,
+            "input": 0.0648,
             "output": 0.144,
             "cacheRead": 0.0016
           }
@@ -27396,7 +27441,7 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.079,
-            "output": 3.2,
+            "output": 4.8,
             "cacheRead": 0.078
           }
         },
@@ -31037,6 +31082,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1792285537343,
+  "sourceGeneratedAt": 1792305794368,
   "supplementDigest": "68a6db55f2db4b3af5bd74b8a7df4a86b0363ac689043ce2b5470255d20f3fad"
 }
