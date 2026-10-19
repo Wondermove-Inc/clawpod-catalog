@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1792371995364,
+  "generatedAt": 1792393232917,
   "minVersion": "2026.4.11",
-  "sourceCommit": "64e9443af525212642b0406fbc454727f267a68a",
+  "sourceCommit": "d0320310f87521ae30aa0c071039d7ef7aac9b95",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -658,6 +658,7 @@
             "cacheWrite": 0
           },
           "compat": {
+            "codeMode": "capable",
             "reasoningEffortMap": {
               "adaptive": "max",
               "none": "none",
@@ -4856,8 +4857,8 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.05,
-            "output": 0.6,
-            "cacheRead": 0.008,
+            "output": 0.15,
+            "cacheRead": 0.012,
             "cacheWrite": 0
           }
         },
@@ -4889,7 +4890,7 @@
           "cost": {
             "input": 0.0052,
             "output": 0.12,
-            "cacheRead": 0.00224,
+            "cacheRead": 0.00336,
             "cacheWrite": 0
           }
         },
@@ -4940,9 +4941,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.249,
-            "output": 11.936,
-            "cacheRead": 0.21,
+            "input": 0.238,
+            "output": 16,
+            "cacheRead": 0.228,
             "cacheWrite": 0
           }
         },
@@ -5082,7 +5083,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.048,
+            "input": 0.0312,
             "output": 0.2,
             "cacheRead": 0.006,
             "cacheWrite": 0
@@ -5096,11 +5097,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.075,
-            "output": 2.2,
-            "cacheRead": 0.07,
+            "input": 0.04,
+            "output": 6,
+            "cacheRead": 0.025,
             "cacheWrite": 0
           }
         },
@@ -5953,9 +5954,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.15,
-            "output": 0.6,
-            "cacheRead": 0.003,
+            "input": 0.3,
+            "output": 1.2,
+            "cacheRead": 0.006,
             "cacheWrite": 0
           }
         },
@@ -11244,6 +11245,23 @@
         {
           "id": "deepseek/deepseek-v4.1-flash",
           "name": "DeepSeek V4.1 Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 393216,
+          "cost": {
+            "input": 0.3,
+            "output": 1.2,
+            "cacheRead": 0.006,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "deepseek/deepseek-v4.1-flash-1017",
+          "name": "DeepSeek V4.1 Flash 1017",
           "input": [
             "text",
             "image"
@@ -20453,8 +20471,8 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.05,
-            "output": 0.6,
-            "cacheRead": 0.008
+            "output": 0.15,
+            "cacheRead": 0.012
           }
         },
         {
@@ -20482,9 +20500,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0049,
-            "output": 0.45,
-            "cacheRead": 0.0049
+            "input": 0.00392,
+            "output": 0.12,
+            "cacheRead": 0.00336
           }
         },
         {
@@ -20532,9 +20550,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.249,
-            "output": 11.936,
-            "cacheRead": 0.21
+            "input": 0.238,
+            "output": 16,
+            "cacheRead": 0.228
           }
         },
         {
@@ -20664,7 +20682,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.048,
+            "input": 0.0352,
             "output": 0.2,
             "cacheRead": 0.006
           }
@@ -20677,11 +20695,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.075,
-            "output": 2.2,
-            "cacheRead": 0.07
+            "input": 0.04,
+            "output": 6,
+            "cacheRead": 0.025
           }
         },
         {
@@ -21765,9 +21783,9 @@
           "contextWindow": 1024000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.9483,
-            "output": 1.8966,
-            "cacheRead": 0.079025
+            "input": 0.95526,
+            "output": 1.91052,
+            "cacheRead": 0.079605
           }
         },
         {
@@ -21796,8 +21814,8 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.048,
-            "output": 0.12,
+            "input": 0.0456,
+            "output": 0.08,
             "cacheRead": 0.0016
           }
         },
@@ -22511,9 +22529,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.0675,
-            "output": 0.225,
-            "cacheRead": 0.0375
+            "input": 0.09,
+            "output": 0.3,
+            "cacheRead": 0.05
           }
         },
         {
@@ -23722,7 +23740,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.249,
+            "input": 0.239,
             "output": 11.936,
             "cacheRead": 0.21
           }
@@ -27570,7 +27588,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.048,
+            "input": 0.0352,
             "output": 0.2,
             "cacheRead": 0.006
           }
@@ -31196,6 +31214,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1792371980438,
+  "sourceGeneratedAt": 1792393212717,
   "supplementDigest": "68a6db55f2db4b3af5bd74b8a7df4a86b0363ac689043ce2b5470255d20f3fad"
 }
