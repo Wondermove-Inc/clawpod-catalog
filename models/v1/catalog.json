@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1792413915440,
+  "generatedAt": 1792435141271,
   "minVersion": "2026.4.11",
-  "sourceCommit": "436a01a2e3e477f0c788a5b7b8835addbbef8fb6",
+  "sourceCommit": "f05a892d40fc2c452fc226aefd09756d6f22902b",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -4856,9 +4856,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.047,
+            "input": 0.04,
             "output": 0.6,
-            "cacheRead": 0.006,
+            "cacheRead": 0.005,
             "cacheWrite": 0
           }
         },
@@ -4872,9 +4872,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.2244,
-            "output": 0.6732,
-            "cacheRead": 0.00714,
+            "input": 0.1307,
+            "output": 8,
+            "cacheRead": 0.13,
             "cacheWrite": 0
           }
         },
@@ -4888,9 +4888,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0114,
+            "input": 0.0049,
             "output": 0.45,
-            "cacheRead": 0.0114,
+            "cacheRead": 0.0049,
             "cacheWrite": 0
           }
         },
@@ -4942,7 +4942,7 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.238,
-            "output": 13,
+            "output": 16,
             "cacheRead": 0.228,
             "cacheWrite": 0
           }
@@ -5099,9 +5099,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.045,
+            "input": 0.057,
             "output": 6,
-            "cacheRead": 0.028,
+            "cacheRead": 0.036,
             "cacheWrite": 0
           }
         },
@@ -6407,6 +6407,22 @@
           "cost": {
             "input": 0.2,
             "output": 0.75,
+            "cacheRead": 0.02,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "inception/mercury-3",
+          "name": "Inception: Mercury 3",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0.2,
+            "output": 0.7,
             "cacheRead": 0.02,
             "cacheWrite": 0
           }
@@ -9634,9 +9650,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033,
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625,
             "cacheWrite": 0
           }
         },
@@ -9666,9 +9682,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042,
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378,
             "cacheWrite": 0
           }
         },
@@ -12921,6 +12937,17 @@
             "supportsTools": true,
             "supportsUsageInStreaming": true
           }
+        },
+        {
+          "id": "minimax-m3.1-flash",
+          "name": "MiniMax-M3.1-Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 512000
         },
         {
           "id": "mistral-large-3:675b",
@@ -17295,6 +17322,23 @@
           }
         },
         {
+          "id": "minimax-m3-1-flash",
+          "name": "MiniMax M3.1 Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0.1875,
+            "output": 0.75,
+            "cacheRead": 0.01875,
+            "cacheWrite": 0
+          }
+        },
+        {
           "id": "minimax-m3-preview",
           "name": "MiniMax M3 Preview",
           "input": [
@@ -20465,9 +20509,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.047,
+            "input": 0.04,
             "output": 0.6,
-            "cacheRead": 0.006
+            "cacheRead": 0.005
           }
         },
         {
@@ -20480,9 +20524,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.202,
+            "input": 0.1307,
             "output": 8,
-            "cacheRead": 0.2
+            "cacheRead": 0.13
           }
         },
         {
@@ -20495,9 +20539,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.00912,
-            "output": 0.12,
-            "cacheRead": 0.00336
+            "input": 0.0049,
+            "output": 0.45,
+            "cacheRead": 0.0049
           }
         },
         {
@@ -20546,7 +20590,7 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.238,
-            "output": 13,
+            "output": 16,
             "cacheRead": 0.228
           }
         },
@@ -20692,9 +20736,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.045,
+            "input": 0.057,
             "output": 6,
-            "cacheRead": 0.028
+            "cacheRead": 0.036
           }
         },
         {
@@ -21764,9 +21808,9 @@
           "contextWindow": 1024000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.95526,
-            "output": 1.91052,
-            "cacheRead": 0.079605
+            "input": 0.400548,
+            "output": 0.801096,
+            "cacheRead": 0.033379
           }
         },
         {
@@ -21795,7 +21839,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0376,
+            "input": 0.032,
             "output": 0.08,
             "cacheRead": 0.0016
           }
@@ -22661,6 +22705,21 @@
             "input": 0.04,
             "output": 0.15,
             "cacheRead": 0.004
+          }
+        },
+        {
+          "id": "inception/mercury-3",
+          "name": "Inception: Mercury 3",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0.1,
+            "output": 0.35,
+            "cacheRead": 0.01
           }
         },
         {
@@ -26887,9 +26946,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625
           }
         },
         {
@@ -26917,9 +26976,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378
           }
         },
         {
@@ -31183,6 +31242,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1792413895239,
+  "sourceGeneratedAt": 1792435123079,
   "supplementDigest": "68a6db55f2db4b3af5bd74b8a7df4a86b0363ac689043ce2b5470255d20f3fad"
 }
