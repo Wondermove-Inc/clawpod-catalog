@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1792500196349,
+  "generatedAt": 1792521422436,
   "minVersion": "2026.4.11",
-  "sourceCommit": "2d03d5632a69d04181844f85b05d5509240dcc14",
+  "sourceCommit": "1bb67632b18261b7a9f15d78296b4dee8e1b01ca",
   "providers": {
     "anthropic": {
       "api": "anthropic-messages",
@@ -4872,9 +4872,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.225,
+            "input": 0.1307,
             "output": 8,
-            "cacheRead": 0.23,
+            "cacheRead": 0.13,
             "cacheWrite": 0
           }
         },
@@ -4888,9 +4888,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.01592,
+            "input": 0.00392,
             "output": 0.12,
-            "cacheRead": 0.00336,
+            "cacheRead": 0.003304,
             "cacheWrite": 0
           }
         },
@@ -4942,7 +4942,7 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.238,
-            "output": 16,
+            "output": 24,
             "cacheRead": 0.228,
             "cacheWrite": 0
           }
@@ -5083,8 +5083,8 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.047076,
-            "output": 0.16,
+            "input": 0.048,
+            "output": 0.12,
             "cacheRead": 0.006,
             "cacheWrite": 0
           }
@@ -5101,7 +5101,7 @@
           "cost": {
             "input": 0.079,
             "output": 1.4,
-            "cacheRead": 0.055,
+            "cacheRead": 0.078,
             "cacheWrite": 0
           }
         },
@@ -5870,9 +5870,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.15,
-            "output": 0.6,
-            "cacheRead": 0.003,
+            "input": 0.3,
+            "output": 1.2,
+            "cacheRead": 0.006,
             "cacheWrite": 0
           }
         },
@@ -5933,10 +5933,10 @@
           "contextWindow": 1048576,
           "maxTokens": 65536,
           "cost": {
-            "input": 1.25,
-            "output": 10,
-            "cacheRead": 0.125,
-            "cacheWrite": 0.375
+            "input": 0.625,
+            "output": 5,
+            "cacheRead": 0.0625,
+            "cacheWrite": 0.1875
           }
         },
         {
@@ -6948,7 +6948,7 @@
         },
         {
           "id": "mistralai/mistral-large-4-0",
-          "name": "Mistral: Mistral Large 4 (50% off)",
+          "name": "Mistral: Mistral Large 4",
           "input": [
             "text",
             "image"
@@ -6957,9 +6957,9 @@
           "contextWindow": 1048576,
           "maxTokens": 262144,
           "cost": {
-            "input": 0.68,
-            "output": 2.09,
-            "cacheRead": 0.07,
+            "input": 1.36,
+            "output": 4.18,
+            "cacheRead": 0.14,
             "cacheWrite": 0
           }
         },
@@ -8760,11 +8760,11 @@
           ],
           "reasoning": false,
           "contextWindow": 262144,
-          "maxTokens": 16384,
+          "maxTokens": 235929,
           "cost": {
-            "input": 0.09,
+            "input": 0.1,
             "output": 1.1,
-            "cacheRead": 0,
+            "cacheRead": 0.07,
             "cacheWrite": 0
           }
         },
@@ -8895,7 +8895,7 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 235929,
+          "maxTokens": 81920,
           "cost": {
             "input": 0.1625,
             "output": 1.3,
@@ -9479,9 +9479,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033,
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625,
             "cacheWrite": 0
           }
         },
@@ -9511,9 +9511,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042,
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378,
             "cacheWrite": 0
           }
         },
@@ -9550,17 +9550,6 @@
             "cacheRead": 0.1,
             "cacheWrite": 0
           }
-        },
-        {
-          "id": "thinkingmachines/inkling-small:free",
-          "name": "Thinking Machines: Inkling Small (free)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 262144
         },
         {
           "id": "unbiased/pareto-26.10",
@@ -12428,6 +12417,16 @@
     "ollama-cloud": {
       "api": "ollama",
       "models": [
+        {
+          "id": "beam",
+          "name": "Beam 1.0 501B A23B",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 131072
+        },
         {
           "id": "deepseek-v4-flash",
           "name": "deepseek-v4-flash",
@@ -20340,9 +20339,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.2244,
-            "output": 0.6732,
-            "cacheRead": 0.00714
+            "input": 0.1307,
+            "output": 8,
+            "cacheRead": 0.13
           }
         },
         {
@@ -20355,9 +20354,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0151,
-            "output": 0.45,
-            "cacheRead": 0.0151
+            "input": 0.00392,
+            "output": 0.12,
+            "cacheRead": 0.003304
           }
         },
         {
@@ -20406,7 +20405,7 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.238,
-            "output": 16,
+            "output": 24,
             "cacheRead": 0.228
           }
         },
@@ -20537,8 +20536,8 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.047076,
-            "output": 0.16,
+            "input": 0.048,
+            "output": 0.12,
             "cacheRead": 0.006
           }
         },
@@ -20554,7 +20553,7 @@
           "cost": {
             "input": 0.079,
             "output": 1.4,
-            "cacheRead": 0.055
+            "cacheRead": 0.078
           }
         },
         {
@@ -21593,9 +21592,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.44,
-            "output": 1.32,
-            "cacheRead": 0.014
+            "input": 0.1298,
+            "output": 0.3894,
+            "cacheRead": 0.00413
           }
         },
         {
@@ -21624,9 +21623,9 @@
           "contextWindow": 1024000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.95526,
-            "output": 1.91052,
-            "cacheRead": 0.079605
+            "input": 0.38019,
+            "output": 0.76038,
+            "cacheRead": 0.0316825
           }
         },
         {
@@ -21655,9 +21654,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.056,
+            "input": 0.02832,
             "output": 0.12,
-            "cacheRead": 0.0016
+            "cacheRead": 0.000566
           }
         },
         {
@@ -21807,22 +21806,6 @@
           }
         },
         {
-          "id": "google/gemini-2.5-flash:batch",
-          "name": "Google: Gemini 2.5 Flash (batch)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 65535,
-          "cost": {
-            "input": 0.15,
-            "output": 1.25,
-            "cacheRead": 0.03
-          }
-        },
-        {
           "id": "google/gemini-2.5-pro",
           "name": "Google: Gemini 2.5 Pro",
           "input": [
@@ -21854,22 +21837,6 @@
             "output": 10,
             "cacheRead": 0.125,
             "cacheWrite": 0.375
-          }
-        },
-        {
-          "id": "google/gemini-2.5-pro:batch",
-          "name": "Google: Gemini 2.5 Pro (batch)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 65536,
-          "cost": {
-            "input": 0.625,
-            "output": 5,
-            "cacheRead": 0.125
           }
         },
         {
@@ -23248,9 +23215,9 @@
           "contextWindow": 1048576,
           "maxTokens": 262144,
           "cost": {
-            "input": 0.68,
-            "output": 2.09,
-            "cacheRead": 0.07
+            "input": 1.36,
+            "output": 4.18,
+            "cacheRead": 0.14
           }
         },
         {
@@ -26027,10 +25994,11 @@
           ],
           "reasoning": false,
           "contextWindow": 262144,
-          "maxTokens": 16384,
+          "maxTokens": 235929,
           "cost": {
-            "input": 0.09,
-            "output": 1.1
+            "input": 0.1,
+            "output": 1.1,
+            "cacheRead": 0.07
           }
         },
         {
@@ -26149,9 +26117,9 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 235929,
+          "maxTokens": 81920,
           "cost": {
-            "input": 0.15,
+            "input": 0.14,
             "output": 1,
             "cacheRead": 0.05
           }
@@ -26762,9 +26730,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625
           }
         },
         {
@@ -26792,9 +26760,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378
           }
         },
         {
@@ -27418,7 +27386,7 @@
           "cost": {
             "input": 0.079,
             "output": 1.4,
-            "cacheRead": 0.055
+            "cacheRead": 0.078
           }
         },
         {
@@ -27432,8 +27400,8 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.047076,
-            "output": 0.16,
+            "input": 0.048,
+            "output": 0.12,
             "cacheRead": 0.006
           }
         },
@@ -31058,6 +31026,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1792500175693,
+  "sourceGeneratedAt": 1792521405375,
   "supplementDigest": "68a6db55f2db4b3af5bd74b8a7df4a86b0363ac689043ce2b5470255d20f3fad"
 }
