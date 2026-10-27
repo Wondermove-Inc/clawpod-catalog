@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1793083795230,
+  "generatedAt": 1793105126143,
   "minVersion": "2026.4.11",
-  "sourceCommit": "851c6a6978864a1bf3df9712052f97e4e6bdbeb8",
+  "sourceCommit": "5bf0c41a03f1dba03d625460607ed5b959710458",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -4811,9 +4811,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.2266,
-            "output": 8,
-            "cacheRead": 0.23,
+            "input": 0.21648,
+            "output": 0.64944,
+            "cacheRead": 0.006888,
             "cacheWrite": 0
           }
         },
@@ -4881,7 +4881,7 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.169,
-            "output": 11.5,
+            "output": 20,
             "cacheRead": 0.159,
             "cacheWrite": 0
           }
@@ -5022,9 +5022,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.0513,
-            "output": 0.0701,
-            "cacheRead": 0.03,
+            "input": 0.0235,
+            "output": 0.1151,
+            "cacheRead": 0.0235,
             "cacheWrite": 0
           }
         },
@@ -5036,11 +5036,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.0703,
-            "output": 4.3843,
-            "cacheRead": 0.0703,
+            "input": 0.0699,
+            "output": 1.4,
+            "cacheRead": 0.0689,
             "cacheWrite": 0
           }
         },
@@ -5692,11 +5692,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.14,
-            "output": 0.28,
-            "cacheRead": 0.028,
+            "input": 0.05,
+            "output": 0.45,
+            "cacheRead": 0.05,
             "cacheWrite": 0
           }
         },
@@ -7173,7 +7173,7 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.56,
+            "input": 0.6725,
             "output": 3.1,
             "cacheRead": 0.15,
             "cacheWrite": 0
@@ -7272,16 +7272,6 @@
             "cacheRead": 0,
             "cacheWrite": 0
           }
-        },
-        {
-          "id": "nvidia/nemotron-3-super-120b-a12b:free",
-          "name": "NVIDIA: Nemotron 3 Super (free)",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 235929
         },
         {
           "id": "nvidia/nemotron-3-ultra-550b-a55b",
@@ -9760,9 +9750,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.43,
+            "input": 0.435,
             "output": 0.87,
-            "cacheRead": 0.0036,
+            "cacheRead": 0.004,
             "cacheWrite": 0
           }
         },
@@ -9871,7 +9861,7 @@
           "cost": {
             "input": 0.3,
             "output": 0.9,
-            "cacheRead": 0.05,
+            "cacheRead": 0.055,
             "cacheWrite": 0
           }
         },
@@ -11521,7 +11511,7 @@
             "input": 3,
             "output": 15,
             "cacheRead": 0.3,
-            "cacheWrite": 0
+            "cacheWrite": 3
           },
           "compat": {
             "codeMode": "capable"
@@ -11541,7 +11531,7 @@
             "input": 2,
             "output": 10,
             "cacheRead": 0.2,
-            "cacheWrite": 0
+            "cacheWrite": 2
           }
         },
         {
@@ -11558,7 +11548,7 @@
             "input": 4,
             "output": 20,
             "cacheRead": 0.2,
-            "cacheWrite": 0
+            "cacheWrite": 4
           }
         },
         {
@@ -25228,9 +25218,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.2266,
+            "input": 0.1948,
             "output": 8,
-            "cacheRead": 0.23
+            "cacheRead": 0.19
           }
         },
         {
@@ -25293,9 +25283,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.169,
-            "output": 11.5,
-            "cacheRead": 0.159
+            "input": 0.1605,
+            "output": 9.7533,
+            "cacheRead": 0.16
           }
         },
         {
@@ -25425,9 +25415,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.0513,
-            "output": 0.0701,
-            "cacheRead": 0.03
+            "input": 0.0235,
+            "output": 0.1151,
+            "cacheRead": 0.0235
           }
         },
         {
@@ -25438,11 +25428,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.0703,
-            "output": 4.3843,
-            "cacheRead": 0.0703
+            "input": 0.0699,
+            "output": 1.4,
+            "cacheRead": 0.0689
           }
         },
         {
@@ -26449,11 +26439,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.14,
-            "output": 0.28,
-            "cacheRead": 0.028
+            "input": 0.05,
+            "output": 0.45,
+            "cacheRead": 0.05
           }
         },
         {
@@ -26512,9 +26502,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 1.32,
-            "output": 3.96,
-            "cacheRead": 0.044
+            "input": 0.66,
+            "output": 1.98,
+            "cacheRead": 0.022
           }
         },
         {
@@ -26544,9 +26534,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.3,
-            "output": 1.2,
-            "cacheRead": 0.006
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.003
           }
         },
         {
@@ -28329,7 +28319,7 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.56,
+            "input": 0.6725,
             "output": 3.1,
             "cacheRead": 0.15
           }
@@ -28346,7 +28336,7 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.169,
-            "output": 11.5,
+            "output": 20,
             "cacheRead": 0.159
           }
         },
@@ -28526,20 +28516,6 @@
             "input": 0.3,
             "output": 2.4,
             "cacheRead": 0.15
-          }
-        },
-        {
-          "id": "nvidia/nemotron-3-super-120b-a12b:free",
-          "name": "NVIDIA: Nemotron 3 Super (free)",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 235929,
-          "cost": {
-            "input": 0,
-            "output": 0
           }
         },
         {
@@ -32117,7 +32093,7 @@
           "cost": {
             "input": 0.3,
             "output": 0.9,
-            "cacheRead": 0.05
+            "cacheRead": 0.055
           }
         },
         {
@@ -32219,7 +32195,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0769,
+            "input": 0.0699,
             "output": 1.4,
             "cacheRead": 0.0689
           }
@@ -35880,6 +35856,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1793083773932,
+  "sourceGeneratedAt": 1793105110374,
   "supplementDigest": "6c181550a54abf4ac4a423d46bf431749541bc6e311dd3839817f37669f7007f"
 }
