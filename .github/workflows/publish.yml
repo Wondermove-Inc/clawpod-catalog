@@ -62,9 +62,13 @@ jobs:
           fetch-depth: 1
           persist-credentials: false
 
+      # OpenClaw's preinstall enforces its engines.node minimum (24.22.1 since
+      # 2026-10-22). The runner's cached 24.x lags behind, so always resolve the
+      # newest 24.x instead of whatever the image ships.
       - uses: actions/setup-node@v4
         with:
           node-version: "24"
+          check-latest: true
 
       - name: Install OpenClaw dependencies
         working-directory: openclaw
