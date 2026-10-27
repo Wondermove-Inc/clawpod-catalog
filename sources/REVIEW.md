@@ -191,3 +191,23 @@ models.dev와 OpenRouter 공개 API로 누락 후보를 찾은 뒤, 아래 공�
 - **기타:** GPT-6.1 Sol은 AWS가 명시적 캐싱 미지원이라고 밝혀 cacheWrite를 생략했다. AWS 기준 한도(1M/131072)가 OpenAI 기준(1.05M/128K)과 다르다.
   Kimi K3는 AWS가 Converse에서 이전 reasoning 블록을 재전송하면 실패할 수 있다고 경고한다.
   OpenAI·xAI의 장문(272K/200K 초과) 가격, AWS 1시간 cache write 가격은 행 형식으로 표현하지 않았다.
+
+# 2026-10-27 Codex 모델을 공식 문서 기준으로 정리
+
+근거: [Codex 모델](https://learn.chatgpt.com/docs/models) (ChatGPT 로그인 기준, 페이지 원문 확인). 계정 접근권·실제 호출은 검증하지 않았다.
+
+| 모델 | 공식 문서 | 반영 |
+| --- | --- | --- |
+| `gpt-6-astra`, `gpt-6.1-sol`, `gpt-6-luna` | 현행 추천 모델 | 유지(active) |
+| `gpt-6.1-terra` | 현행 추천 모델. Codex CLI 0.159.0 이상 필요 | **추가**(active) |
+| `gpt-6-sol` | `gpt-5.4`의 대체 모델로 안내("when available to your plan and client"), 종료 공지 없음 | 유지(active) |
+| `gpt-5.5` | 2026-10-14 19:00 UTC 종료. 유료 플랜 대체는 `gpt-6.1-sol` | `disabled`, `replacedBy: gpt-6.1-sol`. 지난 날짜 규칙은 삭제 |
+| `gpt-5.4`, `gpt-5.4-mini` | 2026-08-31 종료. 대체는 `gpt-6-sol`, `gpt-6-luna` | `disabled`, `replacedBy`를 문서 안내대로 변경(이전: `gpt-5.6-terra`/`gpt-5.6-luna`) |
+| `gpt-5.3-codex-spark` | 2026-09-14 종료 | `disabled` 유지 |
+| `gpt-5.2`, `gpt-5.3-codex` | 이미 deprecated, 대체 모델 안내 없음 | `deprecated` 유지. 종료된 `gpt-5.5`를 가리키던 `replacedBy` 삭제 |
+| `gpt-5.1`, `gpt-5.1-codex-max`, `gpt-5.1-codex-mini`, `gpt-5.2-codex`, `gpt-5.5-mini`, `gpt-5.6-sol/terra/luna` | 페이지에 언급 없음 | `deprecated` |
+
+- 문서에서 사라진 모델은 종료 공지가 없으므로 `disabled`가 아니라 `deprecated`로 표시했다.
+  Agent(`src/agents/model-catalog-vendored.ts`)는 두 상태를 같게 취급한다. 새 설정에는 넣지 않고, 이미 쓰는 모델은 메타데이터만 갱신한다.
+- `gpt-6.1-terra` 값은 다른 Codex 최신 모델과 같이 272K 운영 예산, 128000 maxTokens, text+image, reasoning=true다.
+  문서에 한도가 없어 같은 ID의 `openai` upstream 행(1.05M/128000, text+image, reasoning)과 일치하는지 확인했다.

@@ -693,7 +693,8 @@ test("reviewed data publishes corrected prices, subscription unknowns, and retir
   });
   assert.equal(get("google-vertex", "gemini-3.8-flash").cost.input, 0.75);
   assert.equal(get("openai-codex", "gpt-5.4").status, "disabled");
-  assert.equal(get("openai-codex", "gpt-5.4-mini").replacedBy, "gpt-5.6-luna");
+  assert.equal(get("openai-codex", "gpt-5.4-mini").replacedBy, "gpt-6-luna");
+  assert.equal(get("openai-codex", "gpt-5.5").replacedBy, "gpt-6.1-sol");
   assert.ok(next.providers["openai-codex"].models.every((m) => m.cost === undefined));
   assert.ok(next.providers["minimax-portal"].models.every((m) => m.cost === undefined));
   // Mantle IDs are in-Region only, so AWS Geo/In-region prices apply (reviewed 2026-10-02).

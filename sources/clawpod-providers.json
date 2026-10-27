@@ -89,7 +89,7 @@
         "extensions/openai/openai-codex-provider.ts",
         "extensions/openai/openai-codex-catalog.ts"
       ],
-      "notes": "Reviewed 2026-09-08: ChatGPT sign-in GPT-5.4/mini retired 2026-08-31; replacements follow official Codex documentation. Subscription USD/token costs omitted, including legacy SDK API prices. Preserve Agent 272K operating budget and existing lifecycle labels. Reviewed 2026-10-02: added gpt-6-sol, gpt-6.1-sol, gpt-6-luna; gpt-5.3-codex-spark retired 2026-09-14; gpt-5.5 retires 2026-10-14. sources/REVIEW.md."
+      "notes": "Reviewed 2026-09-08: ChatGPT sign-in GPT-5.4/mini retired 2026-08-31; replacements follow official Codex documentation. Subscription USD/token costs omitted, including legacy SDK API prices. Preserve Agent 272K operating budget and existing lifecycle labels. Reviewed 2026-10-02: added gpt-6-sol, gpt-6.1-sol, gpt-6-luna; gpt-5.3-codex-spark retired 2026-09-14; gpt-5.5 retires 2026-10-14. Reviewed 2026-10-27 against the Codex models page: added gpt-6.1-terra; gpt-5.5 disabled (replaced by gpt-6.1-sol); gpt-5.4/mini replacements now gpt-6-sol/gpt-6-luna; models the page no longer mentions marked deprecated. sources/REVIEW.md."
     },
     "zai": {
       "source": "Wondermove-Inc/clawpod-agent",
@@ -3803,7 +3803,8 @@
           ],
           "reasoning": true,
           "contextWindow": 272000,
-          "maxTokens": 128000
+          "maxTokens": 128000,
+          "status": "deprecated"
         },
         {
           "id": "gpt-5.1-codex-max",
@@ -3815,7 +3816,8 @@
           ],
           "reasoning": true,
           "contextWindow": 272000,
-          "maxTokens": 128000
+          "maxTokens": 128000,
+          "status": "deprecated"
         },
         {
           "id": "gpt-5.1-codex-mini",
@@ -3827,7 +3829,8 @@
           ],
           "reasoning": true,
           "contextWindow": 272000,
-          "maxTokens": 128000
+          "maxTokens": 128000,
+          "status": "deprecated"
         },
         {
           "id": "gpt-5.2",
@@ -3840,8 +3843,7 @@
           "reasoning": true,
           "contextWindow": 272000,
           "maxTokens": 128000,
-          "status": "deprecated",
-          "replacedBy": "gpt-5.5"
+          "status": "deprecated"
         },
         {
           "id": "gpt-5.2-codex",
@@ -3853,7 +3855,8 @@
           ],
           "reasoning": true,
           "contextWindow": 272000,
-          "maxTokens": 128000
+          "maxTokens": 128000,
+          "status": "deprecated"
         },
         {
           "id": "gpt-5.3-codex",
@@ -3866,8 +3869,7 @@
           "reasoning": true,
           "contextWindow": 272000,
           "maxTokens": 128000,
-          "status": "deprecated",
-          "replacedBy": "gpt-5.5"
+          "status": "deprecated"
         },
         {
           "id": "gpt-5.3-codex-spark",
@@ -3893,7 +3895,7 @@
           "contextWindow": 272000,
           "maxTokens": 128000,
           "status": "disabled",
-          "replacedBy": "gpt-5.6-terra"
+          "replacedBy": "gpt-6-sol"
         },
         {
           "id": "gpt-5.4-mini",
@@ -3907,7 +3909,7 @@
           "contextWindow": 272000,
           "maxTokens": 128000,
           "status": "disabled",
-          "replacedBy": "gpt-5.6-luna"
+          "replacedBy": "gpt-6-luna"
         },
         {
           "id": "gpt-5.5",
@@ -3920,7 +3922,8 @@
           "reasoning": true,
           "contextWindow": 272000,
           "maxTokens": 128000,
-          "status": "deprecated"
+          "status": "disabled",
+          "replacedBy": "gpt-6.1-sol"
         },
         {
           "id": "gpt-5.5-mini",
@@ -3932,7 +3935,8 @@
           ],
           "reasoning": true,
           "contextWindow": 272000,
-          "maxTokens": 128000
+          "maxTokens": 128000,
+          "status": "deprecated"
         },
         {
           "id": "gpt-5.6-luna",
@@ -3944,7 +3948,8 @@
           ],
           "reasoning": true,
           "contextWindow": 272000,
-          "maxTokens": 128000
+          "maxTokens": 128000,
+          "status": "deprecated"
         },
         {
           "id": "gpt-5.6-sol",
@@ -3956,7 +3961,8 @@
           ],
           "reasoning": true,
           "contextWindow": 272000,
-          "maxTokens": 128000
+          "maxTokens": 128000,
+          "status": "deprecated"
         },
         {
           "id": "gpt-5.6-terra",
@@ -3968,7 +3974,8 @@
           ],
           "reasoning": true,
           "contextWindow": 272000,
-          "maxTokens": 128000
+          "maxTokens": 128000,
+          "status": "deprecated"
         },
         {
           "id": "gpt-6-astra",
@@ -3997,6 +4004,18 @@
         {
           "id": "gpt-6.1-sol",
           "name": "gpt-6.1-sol",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000
+        },
+        {
+          "id": "gpt-6.1-terra",
+          "name": "gpt-6.1-terra",
           "api": "openai-codex-responses",
           "input": [
             "text",
@@ -4224,7 +4243,7 @@
       "from": null,
       "to": "disabled",
       "source": "https://learn.chatgpt.com/docs/models",
-      "replacedBy": "gpt-5.6-terra"
+      "replacedBy": "gpt-6-sol"
     },
     {
       "kind": "status",
@@ -4233,7 +4252,7 @@
       "from": "active",
       "to": "disabled",
       "source": "https://learn.chatgpt.com/docs/models",
-      "replacedBy": "gpt-5.6-terra"
+      "replacedBy": "gpt-6-sol"
     },
     {
       "kind": "status",
@@ -4242,7 +4261,7 @@
       "from": "deprecated",
       "to": "disabled",
       "source": "https://learn.chatgpt.com/docs/models",
-      "replacedBy": "gpt-5.6-terra"
+      "replacedBy": "gpt-6-sol"
     },
     {
       "kind": "status",
@@ -4251,7 +4270,7 @@
       "from": null,
       "to": "disabled",
       "source": "https://learn.chatgpt.com/docs/models",
-      "replacedBy": "gpt-5.6-luna"
+      "replacedBy": "gpt-6-luna"
     },
     {
       "kind": "status",
@@ -4260,7 +4279,7 @@
       "from": "active",
       "to": "disabled",
       "source": "https://learn.chatgpt.com/docs/models",
-      "replacedBy": "gpt-5.6-luna"
+      "replacedBy": "gpt-6-luna"
     },
     {
       "kind": "status",
@@ -4269,16 +4288,7 @@
       "from": "deprecated",
       "to": "disabled",
       "source": "https://learn.chatgpt.com/docs/models",
-      "replacedBy": "gpt-5.6-luna"
-    },
-    {
-      "kind": "status",
-      "provider": "openai-codex",
-      "model": "gpt-5.5",
-      "from": "deprecated",
-      "to": "disabled",
-      "source": "https://learn.chatgpt.com/docs/models",
-      "effectiveAt": 1791936000000
+      "replacedBy": "gpt-6-luna"
     },
     {
       "kind": "cost",

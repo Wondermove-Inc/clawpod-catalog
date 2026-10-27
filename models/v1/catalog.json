@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1793063100588,
+  "generatedAt": 1793074454079,
   "minVersion": "2026.4.11",
   "sourceCommit": "6f212fb009904efe6e9686f4bb433a39048b3b82",
   "providers": {
@@ -35591,7 +35591,8 @@
           ],
           "reasoning": true,
           "contextWindow": 272000,
-          "maxTokens": 128000
+          "maxTokens": 128000,
+          "status": "deprecated"
         },
         {
           "id": "gpt-5.1-codex-max",
@@ -35603,7 +35604,8 @@
           ],
           "reasoning": true,
           "contextWindow": 272000,
-          "maxTokens": 128000
+          "maxTokens": 128000,
+          "status": "deprecated"
         },
         {
           "id": "gpt-5.1-codex-mini",
@@ -35615,7 +35617,8 @@
           ],
           "reasoning": true,
           "contextWindow": 272000,
-          "maxTokens": 128000
+          "maxTokens": 128000,
+          "status": "deprecated"
         },
         {
           "id": "gpt-5.2",
@@ -35628,8 +35631,7 @@
           "reasoning": true,
           "contextWindow": 272000,
           "maxTokens": 128000,
-          "status": "deprecated",
-          "replacedBy": "gpt-5.5"
+          "status": "deprecated"
         },
         {
           "id": "gpt-5.2-codex",
@@ -35641,7 +35643,8 @@
           ],
           "reasoning": true,
           "contextWindow": 272000,
-          "maxTokens": 128000
+          "maxTokens": 128000,
+          "status": "deprecated"
         },
         {
           "id": "gpt-5.3-codex",
@@ -35654,8 +35657,7 @@
           "reasoning": true,
           "contextWindow": 272000,
           "maxTokens": 128000,
-          "status": "deprecated",
-          "replacedBy": "gpt-5.5"
+          "status": "deprecated"
         },
         {
           "id": "gpt-5.3-codex-spark",
@@ -35681,7 +35683,7 @@
           "contextWindow": 272000,
           "maxTokens": 128000,
           "status": "disabled",
-          "replacedBy": "gpt-5.6-terra"
+          "replacedBy": "gpt-6-sol"
         },
         {
           "id": "gpt-5.4-mini",
@@ -35695,7 +35697,7 @@
           "contextWindow": 272000,
           "maxTokens": 128000,
           "status": "disabled",
-          "replacedBy": "gpt-5.6-luna"
+          "replacedBy": "gpt-6-luna"
         },
         {
           "id": "gpt-5.5",
@@ -35708,7 +35710,8 @@
           "reasoning": true,
           "contextWindow": 272000,
           "maxTokens": 128000,
-          "status": "disabled"
+          "status": "disabled",
+          "replacedBy": "gpt-6.1-sol"
         },
         {
           "id": "gpt-5.5-mini",
@@ -35720,7 +35723,8 @@
           ],
           "reasoning": true,
           "contextWindow": 272000,
-          "maxTokens": 128000
+          "maxTokens": 128000,
+          "status": "deprecated"
         },
         {
           "id": "gpt-5.6-luna",
@@ -35732,7 +35736,8 @@
           ],
           "reasoning": true,
           "contextWindow": 272000,
-          "maxTokens": 128000
+          "maxTokens": 128000,
+          "status": "deprecated"
         },
         {
           "id": "gpt-5.6-sol",
@@ -35744,7 +35749,8 @@
           ],
           "reasoning": true,
           "contextWindow": 272000,
-          "maxTokens": 128000
+          "maxTokens": 128000,
+          "status": "deprecated"
         },
         {
           "id": "gpt-5.6-terra",
@@ -35756,7 +35762,8 @@
           ],
           "reasoning": true,
           "contextWindow": 272000,
-          "maxTokens": 128000
+          "maxTokens": 128000,
+          "status": "deprecated"
         },
         {
           "id": "gpt-6-astra",
@@ -35795,6 +35802,18 @@
           "maxTokens": 128000
         },
         {
+          "id": "gpt-6.1-terra",
+          "name": "gpt-6.1-terra",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000
+        },
+        {
           "id": "gpt-6-luna",
           "name": "gpt-6-luna",
           "api": "openai-codex-responses",
@@ -35811,5 +35830,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1793063082001,
-  "supplementDigest": "68a6db55f2db4b3af5bd74b8a7df4a86b0363ac689043ce2b5470255d20f3fad"
+  "supplementDigest": "6c181550a54abf4ac4a423d46bf431749541bc6e311dd3839817f37669f7007f"
 }

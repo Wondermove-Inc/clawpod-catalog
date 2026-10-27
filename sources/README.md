@@ -19,7 +19,7 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 
 | Provider                    | 보완 모델 수 | 데이터 기준                                                           |
 | --------------------------- | -----------: | --------------------------------------------------------------------- |
-| `openai-codex`              |           18 | SDK 9개 + 플러그인 augmentation. 중복은 플러그인 우선                 |
+| `openai-codex`              |           19 | SDK 9개 + 플러그인 augmentation. 중복은 플러그인 우선                 |
 | `google`                    |           12 | 플러그인 정적 Gemini 목록; preview 포함                               |
 | `google-vertex`             |           12 | Vertex builder와 같이 Google 모델 목록 공유                           |
 | `xai`                       |           10 | 현행 7개 + 공식 전환 안내가 있는 별칭 3개                             |
@@ -50,6 +50,9 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
   `gpt-5.4`/`gpt-5.4-mini`는 종료되어 disabled 및 공식 대체 모델을 기록했습니다.
 - 2026-10-02 Codex 재검토: `gpt-6-sol`·`gpt-6.1-sol`·`gpt-6-luna` 추가, 9/14 종료된
   `gpt-5.3-codex-spark`는 disabled, 10/14 종료 예정인 `gpt-5.5`는 deprecated 후 날짜 규칙으로 disabled 전환.
+- 2026-10-27 Codex를 공식 문서 기준으로 정리: `gpt-6.1-terra` 추가, `gpt-5.5` disabled(대체 `gpt-6.1-sol`),
+  `gpt-5.4`/`gpt-5.4-mini` 대체를 `gpt-6-sol`/`gpt-6-luna`로 변경, 문서에서 사라진 구형 모델은 deprecated.
+  현재 새 설정에 노출되는 Codex 모델은 Astra·6.1 Sol·6.1 Terra·6 Luna·6 Sol 5개입니다.
 - 카탈로그 추가만으로 provider 인증이나 활성화를 설정하지는 않습니다.
 
 ## 수정 절차
