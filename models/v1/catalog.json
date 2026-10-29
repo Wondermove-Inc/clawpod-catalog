@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1793255831723,
+  "generatedAt": 1793277271617,
   "minVersion": "2026.4.11",
-  "sourceCommit": "e125921a28ebbe40ed6721fd8ca07cc16358bfb2",
+  "sourceCommit": "a0f10e38dea4244cfb22ad3f63139ef540e51587",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -4778,9 +4778,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0133,
-            "output": 1.58,
-            "cacheRead": 0.012,
+            "input": 0.0233,
+            "output": 1.8,
+            "cacheRead": 0.0231,
             "cacheWrite": 0
           }
         },
@@ -4810,8 +4810,8 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0475,
-            "output": 0.1568,
+            "input": 0.057,
+            "output": 0.1341,
             "cacheRead": 0.028,
             "cacheWrite": 0
           }
@@ -10783,7 +10783,9 @@
             "output": 0.28,
             "cacheRead": 0,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory."
         },
         {
           "id": "deepseek/deepseek_v3",
@@ -25043,9 +25045,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0133,
-            "output": 1.58,
-            "cacheRead": 0.012
+            "input": 0.0233,
+            "output": 1.8,
+            "cacheRead": 0.0231
           }
         },
         {
@@ -25073,8 +25075,8 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0475,
-            "output": 0.1568,
+            "input": 0.057,
+            "output": 0.1341,
             "cacheRead": 0.028
           }
         },
@@ -26327,9 +26329,9 @@
           "contextWindow": 1024000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.95526,
-            "output": 1.91052,
-            "cacheRead": 0.079605
+            "input": 0.897318,
+            "output": 1.794636,
+            "cacheRead": 0.0747765
           }
         },
         {
@@ -26342,9 +26344,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 1.32,
-            "output": 3.96,
-            "cacheRead": 0.044
+            "input": 0.66,
+            "output": 1.98,
+            "cacheRead": 0.022
           }
         },
         {
@@ -26374,9 +26376,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.3,
-            "output": 1.2,
-            "cacheRead": 0.006
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.003
           }
         },
         {
@@ -28175,9 +28177,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.192,
-            "output": 15,
-            "cacheRead": 0.182
+            "input": 0.239,
+            "output": 10.8,
+            "cacheRead": 0.21
           }
         },
         {
@@ -31444,7 +31446,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1000000,
-          "maxTokens": 65536
+          "maxTokens": 64000
         },
         {
           "id": "unbiased/pareto-26.10",
@@ -35609,6 +35611,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1793255816066,
+  "sourceGeneratedAt": 1793277253375,
   "supplementDigest": "6c181550a54abf4ac4a423d46bf431749541bc6e311dd3839817f37669f7007f"
 }
