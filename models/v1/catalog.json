@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1793449568122,
+  "generatedAt": 1793471070793,
   "minVersion": "2026.4.11",
-  "sourceCommit": "298b86c81fa0efa8eab67fa5eddb94232dd69ef6",
+  "sourceCommit": "93e0789962d791c23312a0f14fb1937500f602b0",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -2478,9 +2478,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.04199999814,
+            "input": 0.7922999999999999,
+            "output": 2.3759499999999996,
+            "cacheRead": 0.03989999823299999,
             "cacheWrite": 0
           }
         },
@@ -5764,7 +5764,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 393216,
+          "maxTokens": 943718,
           "cost": {
             "input": 1.32,
             "output": 3.96,
@@ -6148,9 +6148,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.01,
-            "output": 0.031,
-            "cacheRead": 0.005,
+            "input": 0.024,
+            "output": 0.1,
+            "cacheRead": 0.01,
             "cacheWrite": 0
           }
         },
@@ -8389,26 +8389,6 @@
           }
         },
         {
-          "id": "poolside/laguna-s-2.1:free",
-          "name": "Poolside: Laguna S 2.1 (free)",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 32768
-        },
-        {
-          "id": "poolside/laguna-xs-2.1:free",
-          "name": "Poolside: Laguna XS 2.1 (free)",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 32768
-        },
-        {
           "id": "prism-ml/ternary-bonsai-2-27b",
           "name": "PrismML: Ternary Bonsai 2 27B",
           "input": [
@@ -9282,9 +9262,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033,
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625,
             "cacheWrite": 0
           }
         },
@@ -9314,9 +9294,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042,
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378,
             "cacheWrite": 0
           }
         },
@@ -9678,12 +9658,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 204800,
+          "contextWindow": 202752,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.54,
-            "output": 1.98,
-            "cacheRead": 0.099,
+            "input": 0.6,
+            "output": 2.2,
+            "cacheRead": 0.11,
             "cacheWrite": 0
           }
         },
@@ -26593,11 +26573,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 393216,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.66,
-            "output": 1.98,
-            "cacheRead": 0.022
+            "input": 0.115,
+            "output": 4,
+            "cacheRead": 0.11
           }
         },
         {
@@ -27970,9 +27950,9 @@
           "contextWindow": 1048576,
           "maxTokens": 524288,
           "cost": {
-            "input": 0.15,
-            "output": 0.6,
-            "cacheRead": 0.015
+            "input": 0.075,
+            "output": 0.3,
+            "cacheRead": 0.0075
           }
         },
         {
@@ -30497,64 +30477,6 @@
           }
         },
         {
-          "id": "poolside/laguna-s-2.1",
-          "name": "Poolside: Laguna S 2.1",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 131072,
-          "cost": {
-            "input": 0.09,
-            "output": 0.18,
-            "cacheRead": 0.009
-          }
-        },
-        {
-          "id": "poolside/laguna-s-2.1:free",
-          "name": "Poolside: Laguna S 2.1 (free)",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0,
-            "output": 0
-          }
-        },
-        {
-          "id": "poolside/laguna-xs-2.1",
-          "name": "Poolside: Laguna XS 2.1",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0.06,
-            "output": 0.12,
-            "cacheRead": 0.03
-          }
-        },
-        {
-          "id": "poolside/laguna-xs-2.1:free",
-          "name": "Poolside: Laguna XS 2.1 (free)",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0,
-            "output": 0
-          }
-        },
-        {
           "id": "prism-ml/ternary-bonsai-2-27b",
           "name": "PrismML: Ternary Bonsai 2 27B",
           "input": [
@@ -31547,9 +31469,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625
           }
         },
         {
@@ -31577,9 +31499,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378
           }
         },
         {
@@ -32094,12 +32016,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 204800,
+          "contextWindow": 202752,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.54,
-            "output": 1.98,
-            "cacheRead": 0.099
+            "input": 0.6,
+            "output": 2.2,
+            "cacheRead": 0.11
           }
         },
         {
@@ -35847,6 +35769,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1793449550577,
+  "sourceGeneratedAt": 1793471054877,
   "supplementDigest": "6c181550a54abf4ac4a423d46bf431749541bc6e311dd3839817f37669f7007f"
 }
