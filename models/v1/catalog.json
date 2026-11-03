@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1793708972563,
+  "generatedAt": 1793730718030,
   "minVersion": "2026.4.11",
-  "sourceCommit": "3fa919dc7303981193288f4b08d073608724b24c",
+  "sourceCommit": "2813b78ac9f71a2963502c242c7e6e45c3bde99d",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -4887,9 +4887,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.1824,
-            "output": 10.5572,
-            "cacheRead": 0.18,
+            "input": 0.2,
+            "output": 15,
+            "cacheRead": 0.19,
             "cacheWrite": 0
           }
         },
@@ -6429,22 +6429,6 @@
             "input": 0.75,
             "output": 3,
             "cacheRead": 0.015,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "meta-llama/llama-3.1-70b-instruct",
-          "name": "Llama-3.1-70B-Instruct",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 131072,
-          "maxTokens": 8192,
-          "cost": {
-            "input": 0.32,
-            "output": 0.32,
-            "cacheRead": 0,
             "cacheWrite": 0
           }
         },
@@ -8258,9 +8242,9 @@
           "contextWindow": 131072,
           "maxTokens": 65536,
           "cost": {
-            "input": 0.027,
-            "output": 0.099,
-            "cacheRead": 0.024,
+            "input": 0.03,
+            "output": 0.15,
+            "cacheRead": 0.015,
             "cacheWrite": 0
           }
         },
@@ -8274,9 +8258,9 @@
           "contextWindow": 131072,
           "maxTokens": 117964,
           "cost": {
-            "input": 0.012,
-            "output": 0.05,
-            "cacheRead": 0.011,
+            "input": 0.014,
+            "output": 0.059,
+            "cacheRead": 0.013,
             "cacheWrite": 0
           }
         },
@@ -8494,12 +8478,12 @@
             "text"
           ],
           "reasoning": false,
-          "contextWindow": 262144,
-          "maxTokens": 16384,
+          "contextWindow": 131072,
+          "maxTokens": 117964,
           "cost": {
-            "input": 0.09,
-            "output": 0.55,
-            "cacheRead": 0,
+            "input": 0.14,
+            "output": 0.8,
+            "cacheRead": 0.05,
             "cacheWrite": 0
           }
         },
@@ -9263,9 +9247,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033,
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625,
             "cacheWrite": 0
           }
         },
@@ -9295,9 +9279,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042,
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378,
             "cacheWrite": 0
           }
         },
@@ -13823,7 +13807,7 @@
           }
         }
       ],
-      "defaultUtilityModel": "gpt-5.6-luna"
+      "defaultUtilityModel": "gpt-6-luna"
     },
     "opencode": {
       "api": "openai-completions",
@@ -16329,7 +16313,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1000000,
-          "maxTokens": 131072,
+          "maxTokens": 262144,
           "cost": {
             "input": 0.3,
             "output": 1.2,
@@ -16346,7 +16330,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1000000,
-          "maxTokens": 131072,
+          "maxTokens": 262144,
           "cost": {
             "input": 0.3,
             "output": 1.2,
@@ -16396,7 +16380,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1000000,
-          "maxTokens": 32768,
+          "maxTokens": 262144,
           "cost": {
             "input": 0.138,
             "output": 0.275,
@@ -16412,7 +16396,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1000000,
-          "maxTokens": 32768,
+          "maxTokens": 262144,
           "cost": {
             "input": 0.13,
             "output": 0.26,
@@ -16444,7 +16428,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1000000,
-          "maxTokens": 32768,
+          "maxTokens": 262144,
           "cost": {
             "input": 1.65,
             "output": 3.301,
@@ -16460,7 +16444,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1000000,
-          "maxTokens": 32768,
+          "maxTokens": 262144,
           "cost": {
             "input": 1.65,
             "output": 4.95,
@@ -16674,7 +16658,7 @@
           ],
           "reasoning": true,
           "contextWindow": 256000,
-          "maxTokens": 8192,
+          "maxTokens": 16384,
           "cost": {
             "input": 0.13,
             "output": 0.4,
@@ -17214,7 +17198,7 @@
           ],
           "reasoning": true,
           "contextWindow": 524288,
-          "maxTokens": 65536,
+          "maxTokens": 131072,
           "cost": {
             "input": 0.3,
             "output": 1.2,
@@ -17282,7 +17266,7 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 32768,
+          "maxTokens": 102400,
           "cost": {
             "input": 0.2,
             "output": 0.5,
@@ -20466,7 +20450,13 @@
           ],
           "reasoning": true,
           "contextWindow": 1000000,
-          "maxTokens": 262144
+          "maxTokens": 262144,
+          "cost": {
+            "input": 0.3,
+            "output": 0.9,
+            "cacheRead": 0.06,
+            "cacheWrite": 0
+          }
         },
         {
           "id": "liquid/lfm2.5-24b-a2b",
@@ -25402,8 +25392,8 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.1824,
-            "output": 10.5572,
+            "input": 0.189,
+            "output": 8.532,
             "cacheRead": 0.18
           }
         },
@@ -27305,9 +27295,9 @@
           "contextWindow": 262144,
           "maxTokens": 32768,
           "cost": {
-            "input": 0.061,
-            "output": 0.184,
-            "cacheRead": 0.031
+            "input": 0.071,
+            "output": 0.213,
+            "cacheRead": 0.035
           }
         },
         {
@@ -27998,9 +27988,9 @@
           "contextWindow": 1048576,
           "maxTokens": 524288,
           "cost": {
-            "input": 0.15,
-            "output": 0.6,
-            "cacheRead": 0.015
+            "input": 0.075,
+            "output": 0.3,
+            "cacheRead": 0.0075
           }
         },
         {
@@ -28456,9 +28446,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.192,
+            "input": 0.2,
             "output": 15,
-            "cacheRead": 0.182
+            "cacheRead": 0.19
           }
         },
         {
@@ -30168,9 +30158,9 @@
           "contextWindow": 131072,
           "maxTokens": 65536,
           "cost": {
-            "input": 0.15,
-            "output": 0.6,
-            "cacheRead": 0.075
+            "input": 0.022,
+            "output": 0.082,
+            "cacheRead": 0.02
           }
         },
         {
@@ -30623,11 +30613,12 @@
             "text"
           ],
           "reasoning": false,
-          "contextWindow": 262144,
-          "maxTokens": 16384,
+          "contextWindow": 131072,
+          "maxTokens": 117964,
           "cost": {
-            "input": 0.09,
-            "output": 0.55
+            "input": 0.14,
+            "output": 0.8,
+            "cacheRead": 0.05
           }
         },
         {
@@ -31490,9 +31481,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625
           }
         },
         {
@@ -31520,9 +31511,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378
           }
         },
         {
@@ -31829,6 +31820,22 @@
           }
         },
         {
+          "id": "x-ai/grok-4.6:batch",
+          "name": "SpaceXAI: Grok 4.6 (batch)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 500000,
+          "maxTokens": 450000,
+          "cost": {
+            "input": 1.6,
+            "output": 4.8,
+            "cacheRead": 0.4
+          }
+        },
+        {
           "id": "x-ai/grok-4.7",
           "name": "SpaceXAI: Grok 4.7",
           "input": [
@@ -31842,6 +31849,22 @@
             "input": 2,
             "output": 6,
             "cacheRead": 0.5
+          }
+        },
+        {
+          "id": "x-ai/grok-4.7:batch",
+          "name": "SpaceXAI: Grok 4.7 (batch)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 500000,
+          "maxTokens": 450000,
+          "cost": {
+            "input": 1.6,
+            "output": 4.8,
+            "cacheRead": 0.4
           }
         },
         {
@@ -35806,6 +35829,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1793708956872,
+  "sourceGeneratedAt": 1793730693667,
   "supplementDigest": "6c181550a54abf4ac4a423d46bf431749541bc6e311dd3839817f37669f7007f"
 }
