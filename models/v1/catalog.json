@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1793752933446,
+  "generatedAt": 1793774017103,
   "minVersion": "2026.4.11",
-  "sourceCommit": "bf10667561bfdf36fed14c70a5f8ec97b4a01f09",
+  "sourceCommit": "15e38612b4bed88f6595be4d16c0c7b2d4fe20a9",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -4887,9 +4887,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.1729,
-            "output": 10.5572,
-            "cacheRead": 0.17,
+            "input": 0.19,
+            "output": 8.94,
+            "cacheRead": 0.19,
             "cacheWrite": 0
           }
         },
@@ -5029,9 +5029,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.0313,
-            "output": 0.0846,
-            "cacheRead": 0.03,
+            "input": 0.0269,
+            "output": 0.0996,
+            "cacheRead": 0.0269,
             "cacheWrite": 0
           }
         },
@@ -6165,9 +6165,9 @@
           "contextWindow": 262144,
           "maxTokens": 16384,
           "cost": {
-            "input": 0.068,
-            "output": 0.113,
-            "cacheRead": 0.034,
+            "input": 0.1,
+            "output": 0.34,
+            "cacheRead": 0.1,
             "cacheWrite": 0
           }
         },
@@ -6189,7 +6189,7 @@
         },
         {
           "id": "inception/mercury-2",
-          "name": "Inception: Mercury 2",
+          "name": "Inception: Mercury 2 (retires Nov 8)",
           "input": [
             "text"
           ],
@@ -6205,7 +6205,7 @@
         },
         {
           "id": "inception/mercury-2.5",
-          "name": "Inception: Mercury 2.5",
+          "name": "Inception: Mercury 2.5 (retires Nov 8)",
           "input": [
             "text"
           ],
@@ -6221,7 +6221,7 @@
         },
         {
           "id": "inception/mercury-3",
-          "name": "Inception: Mercury 3",
+          "name": "Inception: Mercury 3 (retires Nov 8)",
           "input": [
             "text"
           ],
@@ -8221,9 +8221,9 @@
           "contextWindow": 131072,
           "maxTokens": 65536,
           "cost": {
-            "input": 0.03,
-            "output": 0.15,
-            "cacheRead": 0.015,
+            "input": 0.028,
+            "output": 0.103,
+            "cacheRead": 0.025,
             "cacheWrite": 0
           }
         },
@@ -8237,9 +8237,9 @@
           "contextWindow": 131072,
           "maxTokens": 117964,
           "cost": {
-            "input": 0.012,
-            "output": 0.051,
-            "cacheRead": 0.011,
+            "input": 0.007,
+            "output": 0.031,
+            "cacheRead": 0.006,
             "cacheWrite": 0
           }
         },
@@ -8457,12 +8457,12 @@
             "text"
           ],
           "reasoning": false,
-          "contextWindow": 262144,
-          "maxTokens": 16384,
+          "contextWindow": 131072,
+          "maxTokens": 117964,
           "cost": {
-            "input": 0.09,
-            "output": 0.55,
-            "cacheRead": 0,
+            "input": 0.14,
+            "output": 0.8,
+            "cacheRead": 0.05,
             "cacheWrite": 0
           }
         },
@@ -9251,6 +9251,23 @@
           }
         },
         {
+          "id": "tencent/hy4",
+          "name": "Tencent: Hy4",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 0.834,
+            "output": 2.501,
+            "cacheRead": 0.042,
+            "cacheWrite": 0
+          }
+        },
+        {
           "id": "tencent/hy4-preview",
           "name": "Hy4 preview",
           "input": [
@@ -9487,7 +9504,7 @@
           "cost": {
             "input": 0.1,
             "output": 0.28,
-            "cacheRead": 0.003,
+            "cacheRead": 0.05,
             "cacheWrite": 0
           }
         },
@@ -23413,6 +23430,23 @@
           }
         },
         {
+          "id": "tencent/hy4",
+          "name": "Tencent Hy4",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1024000,
+          "maxTokens": 64000,
+          "cost": {
+            "input": 0.417,
+            "output": 1.2505,
+            "cacheRead": 0.021,
+            "cacheWrite": 0
+          }
+        },
+        {
           "id": "tencent/hy4-preview",
           "name": "Tencent Hy4 Preview",
           "input": [
@@ -25341,9 +25375,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.1729,
-            "output": 10.5572,
-            "cacheRead": 0.17
+            "input": 0.19,
+            "output": 8.94,
+            "cacheRead": 0.19
           }
         },
         {
@@ -25474,9 +25508,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.0313,
-            "output": 0.0846,
-            "cacheRead": 0.03
+            "input": 0.0269,
+            "output": 0.0996,
+            "cacheRead": 0.0269
           }
         },
         {
@@ -26562,7 +26596,7 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.115,
-            "output": 4,
+            "output": 4.6,
             "cacheRead": 0.11
           }
         },
@@ -26593,9 +26627,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.15,
-            "output": 0.6,
-            "cacheRead": 0.003
+            "input": 0.3,
+            "output": 1.2,
+            "cacheRead": 0.006
           }
         },
         {
@@ -27244,9 +27278,9 @@
           "contextWindow": 262144,
           "maxTokens": 32768,
           "cost": {
-            "input": 0.068,
-            "output": 0.203,
-            "cacheRead": 0.034
+            "input": 0.094,
+            "output": 0.281,
+            "cacheRead": 0.047
           }
         },
         {
@@ -27936,9 +27970,9 @@
           "contextWindow": 1048576,
           "maxTokens": 524288,
           "cost": {
-            "input": 0.075,
-            "output": 0.3,
-            "cacheRead": 0.0075
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.015
           }
         },
         {
@@ -28394,9 +28428,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.276,
-            "output": 9.6,
-            "cacheRead": 0.13
+            "input": 0.2,
+            "output": 16,
+            "cacheRead": 0.19
           }
         },
         {
@@ -30561,11 +30595,12 @@
             "text"
           ],
           "reasoning": false,
-          "contextWindow": 262144,
-          "maxTokens": 16384,
+          "contextWindow": 131072,
+          "maxTokens": 117964,
           "cost": {
-            "input": 0.09,
-            "output": 0.55
+            "input": 0.14,
+            "output": 0.8,
+            "cacheRead": 0.05
           }
         },
         {
@@ -31464,6 +31499,22 @@
           }
         },
         {
+          "id": "tencent/hy4",
+          "name": "Tencent: Hy4",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 0.417,
+            "output": 1.2505,
+            "cacheRead": 0.021
+          }
+        },
+        {
           "id": "tencent/hy4-preview",
           "name": "Tencent: Hy4 preview",
           "input": [
@@ -32130,9 +32181,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.0313,
-            "output": 0.0846,
-            "cacheRead": 0.03
+            "input": 0.0269,
+            "output": 0.0996,
+            "cacheRead": 0.0269
           }
         },
         {
@@ -35791,6 +35842,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1793752917045,
+  "sourceGeneratedAt": 1793774001839,
   "supplementDigest": "6c181550a54abf4ac4a423d46bf431749541bc6e311dd3839817f37669f7007f"
 }
