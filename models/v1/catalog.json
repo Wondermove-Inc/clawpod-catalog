@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1793774017103,
+  "generatedAt": 1793795363647,
   "minVersion": "2026.4.11",
-  "sourceCommit": "15e38612b4bed88f6595be4d16c0c7b2d4fe20a9",
+  "sourceCommit": "db7e1e06c3a35a29dc13b5faec2d5589727a4ec4",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -4802,9 +4802,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0333,
-            "output": 0.475,
-            "cacheRead": 0.00475,
+            "input": 0.032,
+            "output": 0.288,
+            "cacheRead": 0.005,
             "cacheWrite": 0
           }
         },
@@ -4887,9 +4887,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.19,
-            "output": 8.94,
-            "cacheRead": 0.19,
+            "input": 0.1605,
+            "output": 10.1583,
+            "cacheRead": 0.16,
             "cacheWrite": 0
           }
         },
@@ -8221,9 +8221,9 @@
           "contextWindow": 131072,
           "maxTokens": 65536,
           "cost": {
-            "input": 0.028,
-            "output": 0.103,
-            "cacheRead": 0.025,
+            "input": 0.03,
+            "output": 0.15,
+            "cacheRead": 0.015,
             "cacheWrite": 0
           }
         },
@@ -8237,9 +8237,9 @@
           "contextWindow": 131072,
           "maxTokens": 117964,
           "cost": {
-            "input": 0.007,
-            "output": 0.031,
-            "cacheRead": 0.006,
+            "input": 0.009,
+            "output": 0.036,
+            "cacheRead": 0.008,
             "cacheWrite": 0
           }
         },
@@ -15535,6 +15535,33 @@
           "status": "deprecated"
         },
         {
+          "id": "hy4",
+          "name": "Hy4 (TokenHub)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1024000,
+          "contextTokens": 960000,
+          "maxTokens": 64000,
+          "cost": {
+            "input": 0.834,
+            "output": 2.501,
+            "cacheRead": 0.042,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "defaultThinkingLevel": "high",
+            "supportedReasoningEfforts": [
+              "none",
+              "high"
+            ],
+            "supportsReasoningEffort": true,
+            "supportsUsageInStreaming": true
+          }
+        },
+        {
           "id": "hy4-preview",
           "name": "Hy4 preview (TokenHub)",
           "input": [
@@ -15574,6 +15601,33 @@
           "contextWindow": 256000,
           "maxTokens": 128000,
           "compat": {
+            "supportedReasoningEfforts": [
+              "none",
+              "high"
+            ],
+            "supportsReasoningEffort": true,
+            "supportsUsageInStreaming": true
+          }
+        },
+        {
+          "id": "hy4",
+          "name": "Hy4 (TokenPlan)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1024000,
+          "contextTokens": 960000,
+          "maxTokens": 64000,
+          "cost": {
+            "input": 0.834,
+            "output": 2.501,
+            "cacheRead": 0.042,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "defaultThinkingLevel": "high",
             "supportedReasoningEfforts": [
               "none",
               "high"
@@ -19796,9 +19850,9 @@
           "contextWindow": 1000000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.076,
-            "output": 0.153,
-            "cacheRead": 0.014,
+            "input": 0.13,
+            "output": 0.26,
+            "cacheRead": 0.028,
             "cacheWrite": 0
           }
         },
@@ -19826,12 +19880,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 1000000,
-          "maxTokens": 384000,
+          "contextWindow": 1048600,
+          "maxTokens": 1048600,
           "cost": {
-            "input": 0.66,
-            "output": 1.98,
-            "cacheRead": 0.022,
+            "input": 1.32,
+            "output": 3.96,
+            "cacheRead": 0.132,
             "cacheWrite": 0
           }
         },
@@ -23720,9 +23774,9 @@
           "contextWindow": 1000000,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.8,
-            "output": 2.55,
-            "cacheRead": 0.16,
+            "input": 1.4,
+            "output": 4.4,
+            "cacheRead": 0.14,
             "cacheWrite": 0
           }
         },
@@ -25295,9 +25349,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0333,
-            "output": 0.475,
-            "cacheRead": 0.00475
+            "input": 0.032,
+            "output": 0.288,
+            "cacheRead": 0.005
           }
         },
         {
@@ -25375,9 +25429,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.19,
-            "output": 8.94,
-            "cacheRead": 0.19
+            "input": 0.1605,
+            "output": 10.1583,
+            "cacheRead": 0.16
           }
         },
         {
@@ -26627,9 +26681,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.3,
-            "output": 1.2,
-            "cacheRead": 0.006
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.003
           }
         },
         {
@@ -27279,7 +27333,7 @@
           "maxTokens": 32768,
           "cost": {
             "input": 0.094,
-            "output": 0.281,
+            "output": 0.283,
             "cacheRead": 0.047
           }
         },
@@ -30140,9 +30194,9 @@
           "contextWindow": 131072,
           "maxTokens": 65536,
           "cost": {
-            "input": 0.15,
-            "output": 0.6,
-            "cacheRead": 0.075
+            "input": 0.02,
+            "output": 0.073,
+            "cacheRead": 0.018
           }
         },
         {
@@ -35842,6 +35896,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1793774001839,
+  "sourceGeneratedAt": 1793795345944,
   "supplementDigest": "6c181550a54abf4ac4a423d46bf431749541bc6e311dd3839817f37669f7007f"
 }
