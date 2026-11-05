@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1793860426695,
+  "generatedAt": 1793881842958,
   "minVersion": "2026.4.11",
-  "sourceCommit": "f593ed11afc532add463ad030d70ed37d699b3e6",
+  "sourceCommit": "8345610b869b8078d22c4c0bf92925cc75f137f5",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -4835,9 +4835,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.0963,
+            "input": 0.0927,
             "output": 8,
-            "cacheRead": 0.0963,
+            "cacheRead": 0.0927,
             "cacheWrite": 0
           }
         },
@@ -4904,9 +4904,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.1824,
-            "output": 10.5572,
-            "cacheRead": 0.18,
+            "input": 0.1567,
+            "output": 9.3388,
+            "cacheRead": 0.15,
             "cacheWrite": 0
           }
         },
@@ -6165,9 +6165,9 @@
           "contextWindow": 262144,
           "maxTokens": 32768,
           "cost": {
-            "input": 0.022,
-            "output": 0.067,
-            "cacheRead": 0.011,
+            "input": 0.034,
+            "output": 0.103,
+            "cacheRead": 0.017,
             "cacheWrite": 0
           }
         },
@@ -8254,9 +8254,9 @@
           "contextWindow": 131072,
           "maxTokens": 65536,
           "cost": {
-            "input": 0.011,
-            "output": 0.04,
-            "cacheRead": 0.01,
+            "input": 0.03,
+            "output": 0.15,
+            "cacheRead": 0.015,
             "cacheWrite": 0
           }
         },
@@ -8635,11 +8635,11 @@
           ],
           "reasoning": false,
           "contextWindow": 262144,
-          "maxTokens": 235929,
+          "maxTokens": 16384,
           "cost": {
-            "input": 0.1,
+            "input": 0.09,
             "output": 1.1,
-            "cacheRead": 0.07,
+            "cacheRead": 0,
             "cacheWrite": 0
           }
         },
@@ -12188,7 +12188,9 @@
           ],
           "reasoning": false,
           "contextWindow": 128000,
-          "maxTokens": 4096
+          "maxTokens": 4096,
+          "status": "deprecated",
+          "statusReason": "nvidia no longer lists this model in its public model inventory."
         },
         {
           "id": "meta/llama-3.2-90b-vision-instruct",
@@ -25422,9 +25424,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.0963,
+            "input": 0.0927,
             "output": 8,
-            "cacheRead": 0.0963
+            "cacheRead": 0.0927
           }
         },
         {
@@ -25487,8 +25489,8 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.1529,
-            "output": 10.5572,
+            "input": 0.1567,
+            "output": 9.3388,
             "cacheRead": 0.15
           }
         },
@@ -26707,9 +26709,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.107,
-            "output": 4.278,
-            "cacheRead": 0.1023
+            "input": 0.103,
+            "output": 4.11,
+            "cacheRead": 0.098
           }
         },
         {
@@ -26739,9 +26741,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.3,
-            "output": 1.2,
-            "cacheRead": 0.006
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.003
           }
         },
         {
@@ -27390,9 +27392,9 @@
           "contextWindow": 262144,
           "maxTokens": 32768,
           "cost": {
-            "input": 0.027,
-            "output": 0.081,
-            "cacheRead": 0.013
+            "input": 0.035,
+            "output": 0.106,
+            "cacheRead": 0.018
           }
         },
         {
@@ -30268,9 +30270,9 @@
           "contextWindow": 131072,
           "maxTokens": 65536,
           "cost": {
-            "input": 0.011,
-            "output": 0.04,
-            "cacheRead": 0.01
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.075
           }
         },
         {
@@ -30856,11 +30858,10 @@
           ],
           "reasoning": false,
           "contextWindow": 262144,
-          "maxTokens": 235929,
+          "maxTokens": 16384,
           "cost": {
-            "input": 0.1,
-            "output": 1.1,
-            "cacheRead": 0.07
+            "input": 0.09,
+            "output": 1.1
           }
         },
         {
@@ -35955,6 +35956,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1793860411293,
+  "sourceGeneratedAt": 1793881823909,
   "supplementDigest": "6c181550a54abf4ac4a423d46bf431749541bc6e311dd3839817f37669f7007f"
 }
