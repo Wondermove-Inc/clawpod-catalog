@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1793968168406,
+  "generatedAt": 1793989637437,
   "minVersion": "2026.4.11",
-  "sourceCommit": "7a2001fa44690c17f621210f7196a70c06f8f45d",
+  "sourceCommit": "4a29006e89e7f13c042bf6ee557b9c64e3a99dc4",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -4851,7 +4851,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.059,
+            "input": 0.0461,
             "output": 0.3,
             "cacheRead": 0.035,
             "cacheWrite": 0
@@ -4904,9 +4904,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.1529,
-            "output": 10.1522,
-            "cacheRead": 0.15,
+            "input": 0.1624,
+            "output": 9.3388,
+            "cacheRead": 0.16,
             "cacheWrite": 0
           }
         },
@@ -6165,9 +6165,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.028,
-            "output": 0.083,
-            "cacheRead": 0.014,
+            "input": 0.04,
+            "output": 0.15,
+            "cacheRead": 0.01,
             "cacheWrite": 0
           }
         },
@@ -6182,9 +6182,9 @@
           "contextWindow": 262144,
           "maxTokens": 16384,
           "cost": {
-            "input": 0.079,
-            "output": 0.132,
-            "cacheRead": 0.039,
+            "input": 0.098,
+            "output": 0.165,
+            "cacheRead": 0.049,
             "cacheWrite": 0
           }
         },
@@ -8222,9 +8222,9 @@
           "contextWindow": 131072,
           "maxTokens": 65536,
           "cost": {
-            "input": 0.029,
-            "output": 0.109,
-            "cacheRead": 0.026,
+            "input": 0.01,
+            "output": 0.038,
+            "cacheRead": 0.009,
             "cacheWrite": 0
           }
         },
@@ -9078,7 +9078,7 @@
         },
         {
           "id": "ricursiveai/ripple-65b-preview",
-          "name": "ricursiveAI/Ripple-65B-Preview",
+          "name": "Ricursive: Ripple 65B Preview",
           "input": [
             "text"
           ],
@@ -9245,9 +9245,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033,
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625,
             "cacheWrite": 0
           }
         },
@@ -9294,9 +9294,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042,
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378,
             "cacheWrite": 0
           }
         },
@@ -25406,7 +25406,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.059,
+            "input": 0.0448,
             "output": 0.3,
             "cacheRead": 0.035
           }
@@ -25457,7 +25457,7 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.1529,
-            "output": 10.1522,
+            "output": 10.5572,
             "cacheRead": 0.15
           }
         },
@@ -26630,7 +26630,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.059,
+            "input": 0.0448,
             "output": 0.3,
             "cacheRead": 0.035
           }
@@ -26661,9 +26661,9 @@
           "contextWindow": 1024000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.95526,
-            "output": 1.91052,
-            "cacheRead": 0.079605
+            "input": 0.811014,
+            "output": 1.622028,
+            "cacheRead": 0.0675845
           }
         },
         {
@@ -28038,9 +28038,9 @@
           "contextWindow": 1048576,
           "maxTokens": 524288,
           "cost": {
-            "input": 0.15,
-            "output": 0.6,
-            "cacheRead": 0.015
+            "input": 0.075,
+            "output": 0.3,
+            "cacheRead": 0.0075
           }
         },
         {
@@ -30192,9 +30192,9 @@
           "contextWindow": 131072,
           "maxTokens": 65536,
           "cost": {
-            "input": 0.028,
-            "output": 0.104,
-            "cacheRead": 0.025
+            "input": 0.016,
+            "output": 0.061,
+            "cacheRead": 0.015
           }
         },
         {
@@ -31293,7 +31293,7 @@
         },
         {
           "id": "ricursiveai/ripple-65b-preview",
-          "name": "ricursiveAI/Ripple-65B-Preview",
+          "name": "Ricursive: Ripple 65B Preview",
           "input": [
             "text"
           ],
@@ -31555,9 +31555,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625
           }
         },
         {
@@ -31601,9 +31601,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378
           }
         },
         {
@@ -35889,6 +35889,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1793968152058,
+  "sourceGeneratedAt": 1793989618041,
   "supplementDigest": "6c181550a54abf4ac4a423d46bf431749541bc6e311dd3839817f37669f7007f"
 }
