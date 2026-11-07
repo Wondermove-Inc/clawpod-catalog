@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1793989637437,
+  "generatedAt": 1794012085002,
   "minVersion": "2026.4.11",
-  "sourceCommit": "4a29006e89e7f13c042bf6ee557b9c64e3a99dc4",
+  "sourceCommit": "efb980423985b290f5c294ba7b13ad4c2bd074d8",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -4851,7 +4851,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0461,
+            "input": 0.0434,
             "output": 0.3,
             "cacheRead": 0.035,
             "cacheWrite": 0
@@ -4904,9 +4904,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.1624,
-            "output": 9.3388,
-            "cacheRead": 0.16,
+            "input": 0.1539,
+            "output": 10.1489,
+            "cacheRead": 0.15,
             "cacheWrite": 0
           }
         },
@@ -5538,6 +5538,22 @@
           }
         },
         {
+          "id": "cohere/command-a",
+          "name": "Command A",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 256000,
+          "maxTokens": 8192,
+          "cost": {
+            "input": 2.5,
+            "output": 10,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
           "id": "cohere/command-a-plus",
           "name": "Cohere: Command A+",
           "input": [
@@ -5582,6 +5598,22 @@
           "cost": {
             "input": 2.5,
             "output": 10,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "cohere/command-r7b-12-2024",
+          "name": "Command R7B",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 128000,
+          "maxTokens": 4000,
+          "cost": {
+            "input": 0.0375,
+            "output": 0.15,
             "cacheRead": 0,
             "cacheWrite": 0
           }
@@ -5764,8 +5796,8 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 1024000,
-          "maxTokens": 384000,
+          "contextWindow": 1048576,
+          "maxTokens": 393216,
           "cost": {
             "input": 1.6,
             "output": 3.2,
@@ -6182,9 +6214,9 @@
           "contextWindow": 262144,
           "maxTokens": 16384,
           "cost": {
-            "input": 0.098,
-            "output": 0.165,
-            "cacheRead": 0.049,
+            "input": 0.1,
+            "output": 0.34,
+            "cacheRead": 0.1,
             "cacheWrite": 0
           }
         },
@@ -6398,7 +6430,7 @@
         },
         {
           "id": "liquid/lfm-2.5-2.6b",
-          "name": "LiquidAI: LFM2.5-2.6B",
+          "name": "LiquidAI: LFM2.5-2.6B (retires Nov 13)",
           "input": [
             "text"
           ],
@@ -6677,8 +6709,8 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 198000,
-          "maxTokens": 32768,
+          "contextWindow": 65536,
+          "maxTokens": 58982,
           "cost": {
             "input": 0.3,
             "output": 1.2,
@@ -8223,7 +8255,7 @@
           "maxTokens": 65536,
           "cost": {
             "input": 0.01,
-            "output": 0.038,
+            "output": 0.037,
             "cacheRead": 0.009,
             "cacheWrite": 0
           }
@@ -9245,9 +9277,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.0825,
-            "output": 0.33,
-            "cacheRead": 0.020625,
+            "input": 0.132,
+            "output": 0.528,
+            "cacheRead": 0.033,
             "cacheWrite": 0
           }
         },
@@ -9294,9 +9326,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.7506,
-            "output": 2.2509,
-            "cacheRead": 0.0378,
+            "input": 0.834,
+            "output": 2.501,
+            "cacheRead": 0.042,
             "cacheWrite": 0
           }
         },
@@ -19993,6 +20025,23 @@
           }
         },
         {
+          "id": "deepseek/deepseek-v4.1-flash-1017-ultrafast",
+          "name": "DeepSeek V4.1 Flash 1017 Ultrafast",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 1048576,
+          "cost": {
+            "input": 2.4,
+            "output": 9.6,
+            "cacheRead": 0.048,
+            "cacheWrite": 0
+          }
+        },
+        {
           "id": "deepseek/deepseek-v4.1-flash-fast",
           "name": "DeepSeek V4.1 Flash Fast",
           "input": [
@@ -20351,6 +20400,16 @@
             "cacheRead": 0,
             "cacheWrite": 0
           }
+        },
+        {
+          "id": "humansand/ampersand-v0.1",
+          "name": "Ampersand v0.1",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 32768
         },
         {
           "id": "inception/mercury-2",
@@ -25406,7 +25465,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0448,
+            "input": 0.0434,
             "output": 0.3,
             "cacheRead": 0.035
           }
@@ -25456,8 +25515,8 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.1529,
-            "output": 10.5572,
+            "input": 0.1539,
+            "output": 10.1489,
             "cacheRead": 0.15
           }
         },
@@ -26630,9 +26689,24 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0448,
+            "input": 0.0434,
             "output": 0.3,
             "cacheRead": 0.035
+          }
+        },
+        {
+          "id": "deepseek/deepseek-v4-flash-0731:batch",
+          "name": "DeepSeek: DeepSeek V4 Flash 0731 (batch)",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 384000,
+          "cost": {
+            "input": 0.048,
+            "output": 0.144,
+            "cacheRead": 0.012
           }
         },
         {
@@ -26658,12 +26732,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 1024000,
-          "maxTokens": 384000,
+          "contextWindow": 1048576,
+          "maxTokens": 393216,
           "cost": {
-            "input": 0.811014,
-            "output": 1.622028,
-            "cacheRead": 0.0675845
+            "input": 1.6,
+            "output": 3.2,
+            "cacheRead": 0.135
           }
         },
         {
@@ -27389,9 +27463,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.09,
-            "output": 0.3,
-            "cacheRead": 0.05
+            "input": 0.0675,
+            "output": 0.225,
+            "cacheRead": 0.0375
           }
         },
         {
@@ -27679,6 +27753,35 @@
           }
         },
         {
+          "id": "liquid/lfm-3-1.7b",
+          "name": "LiquidAI: LFM3-1.7B",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 8192,
+          "cost": {
+            "input": 0.08,
+            "output": 0.2,
+            "cacheRead": 0.02
+          }
+        },
+        {
+          "id": "liquid/lfm-3-1.7b:free",
+          "name": "LiquidAI: LFM3-1.7B (free)",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 8192,
+          "cost": {
+            "input": 0,
+            "output": 0
+          }
+        },
+        {
           "id": "mancer/weaver",
           "name": "Mancer: Weaver (alpha)",
           "input": [
@@ -27842,6 +27945,22 @@
           }
         },
         {
+          "id": "meta/muse-glimmer-30b:batch",
+          "name": "Meta: Muse Glimmer 30B (batch)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 131072,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 0.24,
+            "output": 0.96,
+            "cacheRead": 0.032
+          }
+        },
+        {
           "id": "meta/muse-spark-1.1",
           "name": "Meta: Muse Spark 1.1",
           "input": [
@@ -27988,12 +28107,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 198000,
-          "maxTokens": 32768,
+          "contextWindow": 65536,
+          "maxTokens": 58982,
           "cost": {
-            "input": 0.27,
-            "output": 0.95,
-            "cacheRead": 0.03
+            "input": 0.3,
+            "output": 1.2,
+            "cacheRead": 0.06
           }
         },
         {
@@ -28025,6 +28144,22 @@
             "input": 0.3,
             "output": 1.2,
             "cacheRead": 0.06
+          }
+        },
+        {
+          "id": "minimax/minimax-m3:batch",
+          "name": "MiniMax: MiniMax M3 (batch)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 524288,
+          "maxTokens": 512000,
+          "cost": {
+            "input": 0.224,
+            "output": 0.88,
+            "cacheRead": 0.0448
           }
         },
         {
@@ -30193,8 +30328,8 @@
           "maxTokens": 65536,
           "cost": {
             "input": 0.016,
-            "output": 0.061,
-            "cacheRead": 0.015
+            "output": 0.059,
+            "cacheRead": 0.014
           }
         },
         {
@@ -31142,6 +31277,22 @@
           }
         },
         {
+          "id": "qwen/qwen3.8-27b:batch",
+          "name": "Qwen: Qwen3.8 27B (batch)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 235929,
+          "cost": {
+            "input": 0.16,
+            "output": 2,
+            "cacheRead": 0.04
+          }
+        },
+        {
           "id": "qwen/qwen3.8-flash",
           "name": "Qwen: Qwen3.8 Flash",
           "input": [
@@ -31555,9 +31706,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.0825,
-            "output": 0.33,
-            "cacheRead": 0.020625
+            "input": 0.132,
+            "output": 0.528,
+            "cacheRead": 0.033
           }
         },
         {
@@ -31601,9 +31752,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.7506,
-            "output": 2.2509,
-            "cacheRead": 0.0378
+            "input": 0.834,
+            "output": 2.501,
+            "cacheRead": 0.042
           }
         },
         {
@@ -31680,6 +31831,22 @@
             "input": 0.45,
             "output": 1.2,
             "cacheRead": 0.1
+          }
+        },
+        {
+          "id": "thinkingmachines/inkling-small:batch",
+          "name": "Thinking Machines: Inkling Small (batch)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 524288,
+          "maxTokens": 262144,
+          "cost": {
+            "input": 0.36,
+            "output": 0.96,
+            "cacheRead": 0.08
           }
         },
         {
@@ -35889,6 +36056,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1793989618041,
+  "sourceGeneratedAt": 1794012070871,
   "supplementDigest": "6c181550a54abf4ac4a423d46bf431749541bc6e311dd3839817f37669f7007f"
 }
