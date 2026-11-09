@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1794185171282,
+  "generatedAt": 1794206536807,
   "minVersion": "2026.4.11",
-  "sourceCommit": "f9206425face6b25b5e39619731cd290fd9a081a",
+  "sourceCommit": "37365600bf67cab28ef5e180c5dfbfb400d88f83",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -2133,6 +2133,23 @@
             "input": 2.85,
             "output": 14.25,
             "cacheRead": 0.28500000000000003,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "moonshotai/Kimi-K3.1-Pro",
+          "name": "Kimi K3.1 Pro",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 943718,
+          "cost": {
+            "input": 1.9,
+            "output": 9.5,
+            "cacheRead": 0.19,
             "cacheWrite": 0
           }
         },
@@ -4938,9 +4955,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.1624,
-            "output": 9.7471,
-            "cacheRead": 0.16,
+            "input": 0.1539,
+            "output": 10.1489,
+            "cacheRead": 0.15,
             "cacheWrite": 0
           }
         },
@@ -6231,9 +6248,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.04,
-            "output": 0.15,
-            "cacheRead": 0.01,
+            "input": 0.036,
+            "output": 0.107,
+            "cacheRead": 0.018,
             "cacheWrite": 0
           }
         },
@@ -8280,7 +8297,7 @@
           ],
           "reasoning": true,
           "contextWindow": 131072,
-          "maxTokens": 117964,
+          "maxTokens": 32768,
           "cost": {
             "input": 0.018,
             "output": 0.09,
@@ -9682,7 +9699,7 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 202752,
+          "contextWindow": 204800,
           "maxTokens": 131072,
           "cost": {
             "input": 0.6,
@@ -25515,9 +25532,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.1624,
-            "output": 9.7471,
-            "cacheRead": 0.16
+            "input": 0.1539,
+            "output": 10.1489,
+            "cacheRead": 0.15
           }
         },
         {
@@ -26736,9 +26753,9 @@
           "contextWindow": 1024000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.9483,
-            "output": 1.8966,
-            "cacheRead": 0.079025
+            "input": 0.95526,
+            "output": 1.91052,
+            "cacheRead": 0.079605
           }
         },
         {
@@ -27450,7 +27467,7 @@
           "maxTokens": 117964,
           "cost": {
             "input": 0.08,
-            "output": 0.35,
+            "output": 0.45,
             "cacheRead": 0.04
           }
         },
@@ -27480,9 +27497,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.0675,
-            "output": 0.225,
-            "cacheRead": 0.0375
+            "input": 0.09,
+            "output": 0.3,
+            "cacheRead": 0.05
           }
         },
         {
@@ -28145,9 +28162,9 @@
           "contextWindow": 1048576,
           "maxTokens": 524288,
           "cost": {
-            "input": 0.075,
-            "output": 0.3,
-            "cacheRead": 0.0075
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.015
           }
         },
         {
@@ -30354,11 +30371,11 @@
           ],
           "reasoning": true,
           "contextWindow": 131072,
-          "maxTokens": 117964,
+          "maxTokens": 32768,
           "cost": {
-            "input": 0.03,
-            "output": 0.13,
-            "cacheRead": 0.03
+            "input": 0.018,
+            "output": 0.09,
+            "cacheRead": 0.009
           }
         },
         {
@@ -32288,7 +32305,7 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 202752,
+          "contextWindow": 204800,
           "maxTokens": 131072,
           "cost": {
             "input": 0.6,
@@ -32380,9 +32397,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.454,
+            "input": 0.623,
             "output": 1.271,
-            "cacheRead": 0.153
+            "cacheRead": 0.21
           }
         },
         {
@@ -36072,6 +36089,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1794185151887,
+  "sourceGeneratedAt": 1794206519368,
   "supplementDigest": "6c181550a54abf4ac4a423d46bf431749541bc6e311dd3839817f37669f7007f"
 }
