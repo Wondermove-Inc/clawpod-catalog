@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1794227428639,
+  "generatedAt": 1794271326540,
   "minVersion": "2026.4.11",
-  "sourceCommit": "0ab37d2048421fc9ea3906ec51c13a943032b6ef",
+  "sourceCommit": "d1518e4d07a5f3cb3d0437e9916a69ae0765df9f",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -255,6 +255,24 @@
             "max": "max",
             "minimal": "low",
             "xhigh": "xhigh"
+          }
+        },
+        {
+          "id": "claude-fable-5-2",
+          "name": "Claude Fable 5.2",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 8,
+            "output": 40,
+            "cacheRead": 0.2,
+            "cacheWrite": 10
           }
         },
         {
@@ -1339,6 +1357,23 @@
             "input": 1.85,
             "output": 9.5,
             "cacheRead": 0.18499999999999997,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "Qwen/Qwen3.5-27B-TEE",
+          "name": "Qwen3.5 27B TEE",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 262144,
+          "cost": {
+            "input": 0.2,
+            "output": 1.75,
+            "cacheRead": 0.019999999999999997,
             "cacheWrite": 0
           }
         },
@@ -4789,7 +4824,7 @@
       "models": [
         {
           "id": "~anthropic/claude-fable-latest",
-          "name": "Anthropic: Claude Fable Latest ($$$$)",
+          "name": "Anthropic: Claude Fable Latest",
           "input": [
             "text",
             "image",
@@ -4799,10 +4834,10 @@
           "contextWindow": 1000000,
           "maxTokens": 128000,
           "cost": {
-            "input": 10,
-            "output": 50,
-            "cacheRead": 0.25,
-            "cacheWrite": 12.5
+            "input": 8,
+            "output": 40,
+            "cacheRead": 0.2,
+            "cacheWrite": 10
           }
         },
         {
@@ -4955,9 +4990,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.1529,
-            "output": 10.1522,
-            "cacheRead": 0.15,
+            "input": 0.1824,
+            "output": 10.5572,
+            "cacheRead": 0.18,
             "cacheWrite": 0
           }
         },
@@ -5301,6 +5336,24 @@
             "output": 50,
             "cacheRead": 0.25,
             "cacheWrite": 12.5
+          }
+        },
+        {
+          "id": "anthropic/claude-fable-5.2",
+          "name": "Anthropic: Claude Fable 5.2",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 8,
+            "output": 40,
+            "cacheRead": 0.2,
+            "cacheWrite": 10
           }
         },
         {
@@ -6245,12 +6298,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 235929,
+          "contextWindow": 256000,
+          "maxTokens": 128000,
           "cost": {
-            "input": 0.036,
-            "output": 0.109,
-            "cacheRead": 0.018,
+            "input": 0.04,
+            "output": 0.15,
+            "cacheRead": 0.01,
             "cacheWrite": 0
           }
         },
@@ -6528,8 +6581,8 @@
             "text"
           ],
           "reasoning": false,
-          "contextWindow": 131072,
-          "maxTokens": 32768,
+          "contextWindow": 128000,
+          "maxTokens": 115200,
           "cost": {
             "input": 0.1,
             "output": 0.32,
@@ -6569,6 +6622,24 @@
             "output": 0.24,
             "cacheRead": 0,
             "cacheWrite": 0
+          }
+        },
+        {
+          "id": "meta/muse-ember",
+          "name": "Meta: Muse Ember",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 943718,
+          "cost": {
+            "input": 0.1,
+            "output": 0.5,
+            "cacheRead": 0.004,
+            "cacheWrite": 0.125
           }
         },
         {
@@ -6716,22 +6787,6 @@
           }
         },
         {
-          "id": "minimax/minimax-m1",
-          "name": "MiniMax: MiniMax M1",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 1000000,
-          "maxTokens": 40000,
-          "cost": {
-            "input": 0.55,
-            "output": 2.2,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
           "id": "minimax/minimax-m2.5",
           "name": "MiniMax-M2.5",
           "input": [
@@ -6743,7 +6798,7 @@
           "cost": {
             "input": 0.3,
             "output": 1.2,
-            "cacheRead": 0.03,
+            "cacheRead": 0.06,
             "cacheWrite": 0
           }
         },
@@ -6757,9 +6812,9 @@
           "contextWindow": 196608,
           "maxTokens": 176947,
           "cost": {
-            "input": 0.3,
-            "output": 1.2,
-            "cacheRead": 0.06,
+            "input": 0.21,
+            "output": 0.84,
+            "cacheRead": 0.042,
             "cacheWrite": 0
           }
         },
@@ -8297,7 +8352,7 @@
           ],
           "reasoning": true,
           "contextWindow": 131072,
-          "maxTokens": 32768,
+          "maxTokens": 117964,
           "cost": {
             "input": 0.018,
             "output": 0.09,
@@ -8504,10 +8559,10 @@
           ],
           "reasoning": true,
           "contextWindow": 40960,
-          "maxTokens": 16384,
+          "maxTokens": 36864,
           "cost": {
-            "input": 0.12,
-            "output": 0.24,
+            "input": 0.1,
+            "output": 0.22,
             "cacheRead": 0,
             "cacheWrite": 0
           }
@@ -9133,13 +9188,13 @@
           "input": [
             "text"
           ],
-          "reasoning": false,
+          "reasoning": true,
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.2,
-            "output": 0.6,
-            "cacheRead": 0.05,
+            "input": 0.1,
+            "output": 0.3,
+            "cacheRead": 0.025,
             "cacheWrite": 0
           }
         },
@@ -9213,18 +9268,6 @@
             "cacheRead": 0.15,
             "cacheWrite": 0
           }
-        },
-        {
-          "id": "stealth/crouton-alpha",
-          "name": "Crouton Alpha",
-          "input": [
-            "text",
-            "image",
-            "document"
-          ],
-          "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 943718
         },
         {
           "id": "stealth/glyph-cluster",
@@ -9367,6 +9410,17 @@
             "cacheRead": 0.17,
             "cacheWrite": 0
           }
+        },
+        {
+          "id": "thinkingmachines/inkling-2-small:free",
+          "name": "Thinking Machines: Inkling 2 Small (free)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 131072
         },
         {
           "id": "thinkingmachines/inkling-small",
@@ -9812,8 +9866,8 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "contextWindow": 1048575,
+          "maxTokens": 943717,
           "cost": {
             "input": 0.15,
             "output": 0.5,
@@ -13960,9 +14014,9 @@
           "contextWindow": 1048576,
           "maxTokens": 65536,
           "cost": {
-            "input": 1.5,
-            "output": 7.5,
-            "cacheRead": 0.15,
+            "input": 0.75,
+            "output": 3.75,
+            "cacheRead": 0.075,
             "cacheWrite": 0
           },
           "compat": {
@@ -16203,6 +16257,23 @@
             "output": 50,
             "cacheRead": 0.25,
             "cacheWrite": 12.5
+          }
+        },
+        {
+          "id": "claude-fable-5-2",
+          "name": "Claude Fable 5.2",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 8,
+            "output": 40,
+            "cacheRead": 0.2,
+            "cacheWrite": 10
           }
         },
         {
@@ -19418,6 +19489,42 @@
           }
         },
         {
+          "id": "anthropic/claude-fable-5.2",
+          "name": "Claude Fable 5.2",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 8,
+            "output": 40,
+            "cacheRead": 0.2,
+            "cacheWrite": 10
+          }
+        },
+        {
+          "id": "anthropic/claude-fable-5.2-fast",
+          "name": "Claude Fable 5.2 (Fast)",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 16,
+            "output": 80,
+            "cacheRead": 0.4,
+            "cacheWrite": 20
+          }
+        },
+        {
           "id": "anthropic/claude-haiku-4.5",
           "name": "Claude Haiku 4.5",
           "input": [
@@ -20701,6 +20808,24 @@
             "input": 0.17,
             "output": 0.66,
             "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "meta/muse-ember",
+          "name": "Muse Ember",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 1048576,
+          "cost": {
+            "input": 0.1,
+            "output": 0.5,
+            "cacheRead": 0.004,
             "cacheWrite": 0
           }
         },
@@ -25384,10 +25509,10 @@
           "contextWindow": 1000000,
           "maxTokens": 128000,
           "cost": {
-            "input": 10,
-            "output": 50,
-            "cacheRead": 0.25,
-            "cacheWrite": 12.5
+            "input": 8,
+            "output": 40,
+            "cacheRead": 0.2,
+            "cacheWrite": 10
           }
         },
         {
@@ -25532,9 +25657,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.1529,
-            "output": 10.1522,
-            "cacheRead": 0.15
+            "input": 0.1824,
+            "output": 10.5572,
+            "cacheRead": 0.18
           }
         },
         {
@@ -25930,6 +26055,40 @@
             "output": 25,
             "cacheRead": 0.125,
             "cacheWrite": 6.25
+          }
+        },
+        {
+          "id": "anthropic/claude-fable-5.2",
+          "name": "Anthropic: Claude Fable 5.2",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 8,
+            "output": 40,
+            "cacheRead": 0.2,
+            "cacheWrite": 10
+          }
+        },
+        {
+          "id": "anthropic/claude-fable-5.2:batch",
+          "name": "Anthropic: Claude Fable 5.2 (batch)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 4,
+            "output": 20,
+            "cacheRead": 0.1,
+            "cacheWrite": 5
           }
         },
         {
@@ -26830,11 +26989,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 131072,
           "cost": {
-            "input": 0.011,
-            "output": 0.2,
-            "cacheRead": 0.002
+            "input": 0.112,
+            "output": 0.336,
+            "cacheRead": 0.00336
           }
         },
         {
@@ -27494,12 +27653,12 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 235929,
+          "contextWindow": 256000,
+          "maxTokens": 128000,
           "cost": {
-            "input": 0.09,
-            "output": 0.3,
-            "cacheRead": 0.05
+            "input": 0.08,
+            "output": 0.1,
+            "cacheRead": 0.046
           }
         },
         {
@@ -27863,12 +28022,12 @@
             "text"
           ],
           "reasoning": false,
-          "contextWindow": 131072,
-          "maxTokens": 32768,
+          "contextWindow": 128000,
+          "maxTokens": 115200,
           "cost": {
-            "input": 0.59,
-            "output": 0.79,
-            "cacheRead": 0.295
+            "input": 0.71,
+            "output": 0.71,
+            "cacheRead": 0.71
           }
         },
         {
@@ -27915,6 +28074,23 @@
           "cost": {
             "input": 0.18,
             "output": 0.18
+          }
+        },
+        {
+          "id": "meta/muse-ember",
+          "name": "Meta: Muse Ember",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 943718,
+          "cost": {
+            "input": 0.1,
+            "output": 0.5,
+            "cacheRead": 0.004,
+            "cacheWrite": 0.125
           }
         },
         {
@@ -28076,20 +28252,6 @@
           }
         },
         {
-          "id": "minimax/minimax-m1",
-          "name": "MiniMax: MiniMax M1",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 1000000,
-          "maxTokens": 40000,
-          "cost": {
-            "input": 0.55,
-            "output": 2.2
-          }
-        },
-        {
           "id": "minimax/minimax-m2.5",
           "name": "MiniMax: MiniMax M2.5",
           "input": [
@@ -28162,9 +28324,9 @@
           "contextWindow": 1048576,
           "maxTokens": 524288,
           "cost": {
-            "input": 0.15,
-            "output": 0.6,
-            "cacheRead": 0.015
+            "input": 0.075,
+            "output": 0.3,
+            "cacheRead": 0.0075
           }
         },
         {
@@ -28635,11 +28797,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 16384,
           "cost": {
-            "input": 0.917,
-            "output": 6,
-            "cacheRead": 0.226
+            "input": 2.28,
+            "output": 11.4,
+            "cacheRead": 0.228
           }
         },
         {
@@ -28890,7 +29052,7 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.15,
-            "output": 0.5,
+            "output": 0.47,
             "cacheRead": 0.02
           }
         },
@@ -30372,11 +30534,11 @@
           ],
           "reasoning": true,
           "contextWindow": 131072,
-          "maxTokens": 32768,
+          "maxTokens": 117964,
           "cost": {
-            "input": 0.018,
-            "output": 0.09,
-            "cacheRead": 0.009
+            "input": 0.03,
+            "output": 0.13,
+            "cacheRead": 0.03
           }
         },
         {
@@ -30506,7 +30668,7 @@
           ],
           "reasoning": true,
           "contextWindow": 2000000,
-          "maxTokens": 65536
+          "maxTokens": 64000
         },
         {
           "id": "openrouter/auto-code",
@@ -30517,7 +30679,7 @@
           ],
           "reasoning": true,
           "contextWindow": 2000000,
-          "maxTokens": 65536
+          "maxTokens": 64000
         },
         {
           "id": "openrouter/bodybuilder",
@@ -30798,10 +30960,10 @@
           ],
           "reasoning": true,
           "contextWindow": 40960,
-          "maxTokens": 16384,
+          "maxTokens": 36864,
           "cost": {
-            "input": 0.12,
-            "output": 0.24
+            "input": 0.1,
+            "output": 0.22
           }
         },
         {
@@ -31343,6 +31505,21 @@
           }
         },
         {
+          "id": "qwen/qwen3.8-max-0902:batch",
+          "name": "Qwen: Qwen3.8 Max (0902) (batch)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 1.15,
+            "output": 3.45
+          }
+        },
+        {
           "id": "qwen/qwen3.8-max-prime",
           "name": "Qwen: Qwen3.8 Max Prime",
           "input": [
@@ -31466,7 +31643,7 @@
           "input": [
             "text"
           ],
-          "reasoning": false,
+          "reasoning": true,
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
@@ -31594,21 +31771,6 @@
           "maxTokens": 4000,
           "cost": {
             "input": 0.04,
-            "output": 0
-          }
-        },
-        {
-          "id": "stealth/crouton-alpha",
-          "name": "Crouton Alpha",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 943718,
-          "cost": {
-            "input": 0,
             "output": 0
           }
         },
@@ -31836,6 +31998,21 @@
           }
         },
         {
+          "id": "thinkingmachines/inkling-2-small:free",
+          "name": "Thinking Machines: Inkling 2 Small (free)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0,
+            "output": 0
+          }
+        },
+        {
           "id": "thinkingmachines/inkling-small",
           "name": "Thinking Machines: Inkling Small",
           "input": [
@@ -31876,7 +32053,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1000000,
-          "maxTokens": 65536
+          "maxTokens": 64000
         },
         {
           "id": "unbiased/pareto-26.10",
@@ -32426,11 +32603,11 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "contextWindow": 1048575,
+          "maxTokens": 943717,
           "cost": {
-            "input": 0.0335,
-            "output": 0.083,
+            "input": 0.15,
+            "output": 0.5,
             "cacheRead": 0.03
           }
         },
@@ -32443,11 +32620,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.05,
-            "output": 0.18,
-            "cacheRead": 0.01
+            "input": 0.03,
+            "output": 0.061,
+            "cacheRead": 0.013
           }
         },
         {
@@ -36090,6 +36267,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1794227412088,
+  "sourceGeneratedAt": 1794271311136,
   "supplementDigest": "6c181550a54abf4ac4a423d46bf431749541bc6e311dd3839817f37669f7007f"
 }
