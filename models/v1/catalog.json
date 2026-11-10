@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1794313762590,
+  "generatedAt": 1794335186208,
   "minVersion": "2026.4.11",
-  "sourceCommit": "af37a0013eeff572a626f523dc6e98f5a843e10c",
+  "sourceCommit": "080ed32005690b75b9d6860b0582a3f335290e94",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -6239,6 +6239,24 @@
           }
         },
         {
+          "id": "google/gemini-4-carbon",
+          "name": "Google: Gemini 4 Carbon",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 943718,
+          "cost": {
+            "input": 4,
+            "output": 20,
+            "cacheRead": 0.2,
+            "cacheWrite": 0.375
+          }
+        },
+        {
           "id": "google/gemini-nano-banana-2.1",
           "name": "Nano Banana 2.1",
           "input": [
@@ -6301,9 +6319,9 @@
           "contextWindow": 256000,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.04,
-            "output": 0.15,
-            "cacheRead": 0.01,
+            "input": 0.032,
+            "output": 0.096,
+            "cacheRead": 0.016,
             "cacheWrite": 0
           }
         },
@@ -6759,8 +6777,8 @@
             "document"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "contextWindow": 1000000,
+          "maxTokens": 262144,
           "cost": {
             "input": 1.25,
             "output": 4.25,
@@ -9356,9 +9374,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033,
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625,
             "cacheWrite": 0
           }
         },
@@ -9405,9 +9423,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042,
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378,
             "cacheWrite": 0
           }
         },
@@ -9643,7 +9661,7 @@
           "cost": {
             "input": 0.1,
             "output": 0.28,
-            "cacheRead": 0.05,
+            "cacheRead": 0.003,
             "cacheWrite": 0
           }
         },
@@ -9883,8 +9901,8 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048575,
-          "maxTokens": 943717,
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
           "cost": {
             "input": 0.15,
             "output": 0.5,
@@ -20529,6 +20547,24 @@
           }
         },
         {
+          "id": "google/gemini-4-carbon",
+          "name": "Gemini 4 Carbon",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 1000000,
+          "cost": {
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.1,
+            "cacheWrite": 0
+          }
+        },
+        {
           "id": "google/gemma-4-26b-a4b-it",
           "name": "Gemma 4 26B A4B IT",
           "input": [
@@ -26982,9 +27018,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.006,
-            "output": 0.5,
-            "cacheRead": 0.005
+            "input": 0.3,
+            "output": 1.2,
+            "cacheRead": 0.006
           }
         },
         {
@@ -27565,6 +27601,40 @@
         {
           "id": "google/gemini-4-argon:batch",
           "name": "Google: Gemini 4 Argon (batch)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 943718,
+          "cost": {
+            "input": 1,
+            "output": 5,
+            "cacheRead": 0.05,
+            "cacheWrite": 0.1875
+          }
+        },
+        {
+          "id": "google/gemini-4-carbon",
+          "name": "Google: Gemini 4 Carbon",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 943718,
+          "cost": {
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.1,
+            "cacheWrite": 0.1875
+          }
+        },
+        {
+          "id": "google/gemini-4-carbon:batch",
+          "name": "Google: Gemini 4 Carbon (batch)",
           "input": [
             "text",
             "image"
@@ -28252,8 +28322,8 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "contextWindow": 1000000,
+          "maxTokens": 262144,
           "cost": {
             "input": 1.25,
             "output": 4.25,
@@ -28363,9 +28433,9 @@
           "contextWindow": 1048576,
           "maxTokens": 524288,
           "cost": {
-            "input": 0.15,
-            "output": 0.6,
-            "cacheRead": 0.015
+            "input": 0.075,
+            "output": 0.3,
+            "cacheRead": 0.0075
           }
         },
         {
@@ -31941,9 +32011,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625
           }
         },
         {
@@ -31987,9 +32057,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378
           }
         },
         {
@@ -32615,9 +32685,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0062,
+            "input": 0.007,
             "output": 6.8,
-            "cacheRead": 0.0052
+            "cacheRead": 0.006
           }
         },
         {
@@ -32658,11 +32728,11 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048575,
-          "maxTokens": 943717,
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
           "cost": {
-            "input": 0.15,
-            "output": 0.5,
+            "input": 0.0399,
+            "output": 0.0784,
             "cacheRead": 0.03
           }
         },
@@ -32677,9 +32747,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.03,
+            "input": 0.037,
             "output": 0.061,
-            "cacheRead": 0.013
+            "cacheRead": 0.016
           }
         },
         {
@@ -36322,6 +36392,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1794313746443,
+  "sourceGeneratedAt": 1794335168020,
   "supplementDigest": "6c181550a54abf4ac4a423d46bf431749541bc6e311dd3839817f37669f7007f"
 }
