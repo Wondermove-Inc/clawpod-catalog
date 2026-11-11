@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1794400209923,
+  "generatedAt": 1794421541676,
   "minVersion": "2026.4.11",
-  "sourceCommit": "cb4cd561dfb56d2ff8c49a21b89e935053e122a1",
+  "sourceCommit": "7154e4efb11bf33fdd7b9fc4ccbe3333f0bcf585",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -5671,22 +5671,14 @@
           }
         },
         {
-          "id": "baidu/ernie-5.5-flash-preview",
-          "name": "Baidu: ERNIE-5.5-Flash-Preview",
+          "id": "baidu/ernie-5.5-flash-preview:free",
+          "name": "Baidu: ERNIE-5.5-Flash-Preview (free)",
           "input": [
             "text"
           ],
           "reasoning": true,
           "contextWindow": 1024000,
-          "maxTokens": 921600,
-          "cost": {
-            "input": 0.28,
-            "output": 1.13,
-            "cacheRead": 0.028,
-            "cacheWrite": 0
-          },
-          "status": "deprecated",
-          "statusReason": "kilocode no longer lists this model in its public model inventory."
+          "maxTokens": 921600
         },
         {
           "id": "baidu/ernie-light-dt-1.0-intl",
@@ -6433,9 +6425,9 @@
           "contextWindow": 256000,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.01,
-            "output": 0.031,
-            "cacheRead": 0.005,
+            "input": 0.011,
+            "output": 0.034,
+            "cacheRead": 0.006,
             "cacheWrite": 0
           }
         },
@@ -6925,12 +6917,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 65536,
-          "maxTokens": 58982,
+          "contextWindow": 200000,
+          "maxTokens": 128000,
           "cost": {
-            "input": 0.3,
-            "output": 1.2,
-            "cacheRead": 0.06,
+            "input": 0.27,
+            "output": 1.08,
+            "cacheRead": 0.027,
             "cacheWrite": 0
           }
         },
@@ -9759,7 +9751,7 @@
           "cost": {
             "input": 0.1,
             "output": 0.28,
-            "cacheRead": 0.003,
+            "cacheRead": 0.0028,
             "cacheWrite": 0
           }
         },
@@ -26677,36 +26669,6 @@
           }
         },
         {
-          "id": "bytedance-seed/seed-1.6",
-          "name": "ByteDance Seed: Seed 1.6",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0.25,
-            "output": 2
-          }
-        },
-        {
-          "id": "bytedance-seed/seed-1.6-flash",
-          "name": "ByteDance Seed: Seed 1.6 Flash",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0.075,
-            "output": 0.3
-          }
-        },
-        {
           "id": "bytedance-seed/seed-2-1-turbo",
           "name": "ByteDance Seed: Seed 2.1 Turbo",
           "input": [
@@ -26719,21 +26681,6 @@
           "cost": {
             "input": 0.5,
             "output": 2.5
-          }
-        },
-        {
-          "id": "bytedance-seed/seed-2.0-code",
-          "name": "ByteDance Seed: Seed-2.0-Code",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 131072,
-          "cost": {
-            "input": 0.5,
-            "output": 3
           }
         },
         {
@@ -27055,9 +27002,9 @@
           "contextWindow": 1024000,
           "maxTokens": 384000,
           "cost": {
-            "input": 0.95526,
-            "output": 1.91052,
-            "cacheRead": 0.079605
+            "input": 0.88044,
+            "output": 1.76088,
+            "cacheRead": 0.07337
           }
         },
         {
@@ -27803,7 +27750,7 @@
           "maxTokens": 117964,
           "cost": {
             "input": 0.08,
-            "output": 0.45,
+            "output": 0.35,
             "cacheRead": 0.04
           }
         },
@@ -28516,9 +28463,9 @@
           "contextWindow": 1048576,
           "maxTokens": 524288,
           "cost": {
-            "input": 0.15,
-            "output": 0.6,
-            "cacheRead": 0.015
+            "input": 0.075,
+            "output": 0.3,
+            "cacheRead": 0.0075
           }
         },
         {
@@ -32095,9 +32042,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625
           }
         },
         {
@@ -32141,9 +32088,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378
           }
         },
         {
@@ -36462,6 +36409,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1794400189100,
+  "sourceGeneratedAt": 1794421526309,
   "supplementDigest": "6c181550a54abf4ac4a423d46bf431749541bc6e311dd3839817f37669f7007f"
 }
