@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1794335186208,
+  "generatedAt": 1794357769492,
   "minVersion": "2026.4.11",
-  "sourceCommit": "080ed32005690b75b9d6860b0582a3f335290e94",
+  "sourceCommit": "3ae56132ae9907493dcf45f48feb3afa59fa49c2",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -5591,6 +5591,38 @@
           }
         },
         {
+          "id": "baidu/ernie-5.5-flash-preview",
+          "name": "Baidu: ERNIE-5.5-Flash-Preview",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1024000,
+          "maxTokens": 921600,
+          "cost": {
+            "input": 0.28,
+            "output": 1.13,
+            "cacheRead": 0.028,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "baidu/ernie-light-dt-1.0-intl",
+          "name": "Baidu: ERNIE-Light-DT-1.0",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1024000,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 1.13,
+            "output": 3.94,
+            "cacheRead": 0.113,
+            "cacheWrite": 0
+          }
+        },
+        {
           "id": "bytedance-seed/seed-2-1-turbo",
           "name": "ByteDance Seed: Seed 2.1 Turbo",
           "input": [
@@ -5851,12 +5883,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 1048575,
-          "maxTokens": 943717,
+          "contextWindow": 1048576,
+          "maxTokens": 393216,
           "cost": {
-            "input": 0.091,
-            "output": 0.182,
-            "cacheRead": 0.0182,
+            "input": 0.09,
+            "output": 0.18,
+            "cacheRead": 0.018,
             "cacheWrite": 0
           }
         },
@@ -6250,10 +6282,10 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 4,
-            "output": 20,
-            "cacheRead": 0.2,
-            "cacheWrite": 0.375
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.1,
+            "cacheWrite": 0.1875
           }
         },
         {
@@ -6319,9 +6351,9 @@
           "contextWindow": 256000,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.032,
-            "output": 0.096,
-            "cacheRead": 0.016,
+            "input": 0.01,
+            "output": 0.03,
+            "cacheRead": 0.005,
             "cacheWrite": 0
           }
         },
@@ -6657,7 +6689,7 @@
             "input": 0.1,
             "output": 0.5,
             "cacheRead": 0.004,
-            "cacheWrite": 0.125
+            "cacheWrite": 0
           }
         },
         {
@@ -8555,22 +8587,6 @@
           }
         },
         {
-          "id": "qwen/qwen-2.5-7b-instruct",
-          "name": "Qwen: Qwen2.5 7B Instruct",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 32768,
-          "maxTokens": 29491,
-          "cost": {
-            "input": 0.1,
-            "output": 0.2,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
           "id": "qwen/qwen-plus",
           "name": "Qwen Plus",
           "input": [
@@ -9374,9 +9390,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.0825,
-            "output": 0.33,
-            "cacheRead": 0.020625,
+            "input": 0.132,
+            "output": 0.528,
+            "cacheRead": 0.033,
             "cacheWrite": 0
           }
         },
@@ -9423,9 +9439,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.7506,
-            "output": 2.2509,
-            "cacheRead": 0.0378,
+            "input": 0.834,
+            "output": 2.501,
+            "cacheRead": 0.042,
             "cacheWrite": 0
           }
         },
@@ -9852,7 +9868,7 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 202752,
+          "contextWindow": 202745,
           "maxTokens": 131072,
           "cost": {
             "input": 1.4,
@@ -11143,9 +11159,7 @@
             "output": 0.28,
             "cacheRead": 0,
             "cacheWrite": 0
-          },
-          "status": "deprecated",
-          "statusReason": "novita no longer lists this model in its public model inventory."
+          }
         },
         {
           "id": "deepseek/deepseek_v3",
@@ -12066,9 +12080,7 @@
             "output": 0.336,
             "cacheRead": 0.0034,
             "cacheWrite": 0
-          },
-          "status": "deprecated",
-          "statusReason": "novita no longer lists this model in its public model inventory."
+          }
         },
         {
           "id": "xiaomimimo/mimo-v2.5-pro",
@@ -12084,9 +12096,7 @@
             "output": 1.044,
             "cacheRead": 0.0043,
             "cacheWrite": 0
-          },
-          "status": "deprecated",
-          "statusReason": "novita no longer lists this model in its public model inventory."
+          }
         },
         {
           "id": "xiaomimimo/mimo-v2.6-flash",
@@ -19188,6 +19198,23 @@
           "cost": {
             "input": 0.6,
             "output": 3.6,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "alibaba/qwen3.6-35b-a3b",
+          "name": "Qwen 3.6 35B A3B",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 0.375,
+            "output": 2.25,
             "cacheRead": 0,
             "cacheWrite": 0
           }
@@ -26609,6 +26636,36 @@
           }
         },
         {
+          "id": "baidu/ernie-5.5-flash-preview",
+          "name": "Baidu: ERNIE-5.5-Flash-Preview",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1024000,
+          "maxTokens": 921600,
+          "cost": {
+            "input": 0.28,
+            "output": 1.13,
+            "cacheRead": 0.028
+          }
+        },
+        {
+          "id": "baidu/ernie-light-dt-1.0-intl",
+          "name": "Baidu: ERNIE-Light-DT-1.0",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1024000,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 1.13,
+            "output": 3.94,
+            "cacheRead": 0.113
+          }
+        },
+        {
           "id": "bytedance-seed/seed-1.6",
           "name": "ByteDance Seed: Seed 1.6",
           "input": [
@@ -26923,12 +26980,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 1048575,
-          "maxTokens": 943717,
+          "contextWindow": 1048576,
+          "maxTokens": 393216,
           "cost": {
-            "input": 0.091,
-            "output": 0.182,
-            "cacheRead": 0.0182
+            "input": 0.09,
+            "output": 0.18,
+            "cacheRead": 0.018
           }
         },
         {
@@ -27018,9 +27075,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.3,
-            "output": 1.2,
-            "cacheRead": 0.006
+            "input": 0.051,
+            "output": 0.567,
+            "cacheRead": 0.018
           }
         },
         {
@@ -27966,6 +28023,21 @@
           }
         },
         {
+          "id": "kt/midm-k-3.0-pro",
+          "name": "KT: Mi:dm K 3.0 Pro",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 261795,
+          "maxTokens": 235615,
+          "cost": {
+            "input": 0.2,
+            "output": 0.8,
+            "cacheRead": 0.04
+          }
+        },
+        {
           "id": "liquid/lfm-2.5-2.6b",
           "name": "LiquidAI: LFM2.5-2.6B",
           "input": [
@@ -28048,9 +28120,9 @@
           "contextWindow": 8000,
           "maxTokens": 6000,
           "cost": {
-            "input": 0.4,
-            "output": 0.75,
-            "cacheRead": 0.4
+            "input": 0.3,
+            "output": 0.5,
+            "cacheRead": 0.3
           }
         },
         {
@@ -28983,6 +29055,21 @@
           "cost": {
             "input": 0.45,
             "output": 0.95
+          }
+        },
+        {
+          "id": "motif-technologies/motif-3",
+          "name": "Motif Technologies: Motif 3",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 235929,
+          "cost": {
+            "input": 0.3,
+            "output": 1.2,
+            "cacheRead": 0.06
           }
         },
         {
@@ -31018,20 +31105,6 @@
           }
         },
         {
-          "id": "qwen/qwen-2.5-7b-instruct",
-          "name": "Qwen: Qwen2.5 7B Instruct",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 32768,
-          "maxTokens": 29491,
-          "cost": {
-            "input": 0.1,
-            "output": 0.2
-          }
-        },
-        {
           "id": "qwen/qwen-2.5-coder-32b-instruct",
           "name": "Qwen2.5 Coder 32B Instruct",
           "input": [
@@ -32011,9 +32084,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.0825,
-            "output": 0.33,
-            "cacheRead": 0.020625
+            "input": 0.132,
+            "output": 0.528,
+            "cacheRead": 0.033
           }
         },
         {
@@ -32057,9 +32130,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.7506,
-            "output": 2.2509,
-            "cacheRead": 0.0378
+            "input": 0.834,
+            "output": 2.501,
+            "cacheRead": 0.042
           }
         },
         {
@@ -32222,9 +32295,9 @@
           "contextWindow": 6144,
           "maxTokens": 5529,
           "cost": {
-            "input": 0.35,
-            "output": 0.65,
-            "cacheRead": 0.35
+            "input": 0.3,
+            "output": 0.5,
+            "cacheRead": 0.2
           }
         },
         {
@@ -32511,20 +32584,6 @@
           }
         },
         {
-          "id": "xingchen-agi/xing4.0-29b-a4b:free",
-          "name": "XingChen: Xing4.0 29B A4B (free)",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 235929,
-          "cost": {
-            "input": 0,
-            "output": 0
-          }
-        },
-        {
           "id": "z-ai/glm-4.5",
           "name": "Z.ai: GLM 4.5",
           "input": [
@@ -32667,12 +32726,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 202752,
+          "contextWindow": 202745,
           "maxTokens": 131072,
           "cost": {
-            "input": 1.4,
-            "output": 4.4,
-            "cacheRead": 0.26
+            "input": 1.33,
+            "output": 4.18,
+            "cacheRead": 0.247
           }
         },
         {
@@ -32747,9 +32806,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.037,
+            "input": 0.042,
             "output": 0.061,
-            "cacheRead": 0.016
+            "cacheRead": 0.018
           }
         },
         {
@@ -36392,6 +36451,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1794335168020,
+  "sourceGeneratedAt": 1794357751720,
   "supplementDigest": "6c181550a54abf4ac4a423d46bf431749541bc6e311dd3839817f37669f7007f"
 }
