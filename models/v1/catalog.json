@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1794357769492,
+  "generatedAt": 1794378793415,
   "minVersion": "2026.4.11",
-  "sourceCommit": "3ae56132ae9907493dcf45f48feb3afa59fa49c2",
+  "sourceCommit": "77550be149cb6156db9beac4f16581d0043ad4ab",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -606,42 +606,6 @@
             "max": "max",
             "minimal": "low",
             "xhigh": "xhigh"
-          }
-        },
-        {
-          "id": "claude-sonnet-4-5",
-          "name": "Claude Sonnet 4.5 (latest)",
-          "input": [
-            "text",
-            "image",
-            "document"
-          ],
-          "reasoning": true,
-          "contextWindow": 200000,
-          "maxTokens": 64000,
-          "cost": {
-            "input": 3,
-            "output": 15,
-            "cacheRead": 0.3,
-            "cacheWrite": 3.75
-          }
-        },
-        {
-          "id": "claude-sonnet-4-5-20250929",
-          "name": "Claude Sonnet 4.5",
-          "input": [
-            "text",
-            "image",
-            "document"
-          ],
-          "reasoning": true,
-          "contextWindow": 200000,
-          "maxTokens": 64000,
-          "cost": {
-            "input": 3,
-            "output": 15,
-            "cacheRead": 0.3,
-            "cacheWrite": 3.75
           }
         },
         {
@@ -2743,40 +2707,12 @@
           },
           "thinkingLevelMap": {
             "max": "max",
-            "xhigh": "max"
+            "xhigh": "high"
           }
         },
         {
           "id": "deepseek-v4-flash",
-          "name": "DeepSeek V4 Flash",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 1000000,
-          "maxTokens": 384000,
-          "cost": {
-            "input": 0.15,
-            "output": 0.6,
-            "cacheRead": 0.003,
-            "cacheWrite": 0
-          },
-          "compat": {
-            "codeMode": "preferred",
-            "defaultThinkingLevel": "high",
-            "maxTokensField": "max_tokens",
-            "requiresReasoningContentOnAssistantMessages": true,
-            "supportsReasoningEffort": true,
-            "supportsUsageInStreaming": true
-          },
-          "thinkingLevelMap": {
-            "max": "max",
-            "xhigh": "max"
-          }
-        },
-        {
-          "id": "deepseek-v4-flash-vision-exp",
-          "name": "DeepSeek V4 Flash Vision (Experimental)",
+          "name": "DeepSeek V4.1 Flash (Legacy Alias)",
           "input": [
             "text",
             "image"
@@ -2800,7 +2736,36 @@
           },
           "thinkingLevelMap": {
             "max": "max",
-            "xhigh": "max"
+            "xhigh": "high"
+          }
+        },
+        {
+          "id": "deepseek-v4-flash-vision-exp",
+          "name": "DeepSeek V4.1 Flash (Legacy Vision Alias)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 384000,
+          "cost": {
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.003,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "codeMode": "preferred",
+            "defaultThinkingLevel": "high",
+            "maxTokensField": "max_tokens",
+            "requiresReasoningContentOnAssistantMessages": true,
+            "supportsReasoningEffort": true,
+            "supportsUsageInStreaming": true
+          },
+          "thinkingLevelMap": {
+            "max": "max",
+            "xhigh": "high"
           }
         },
         {
@@ -2828,7 +2793,7 @@
           },
           "thinkingLevelMap": {
             "max": "max",
-            "xhigh": "max"
+            "xhigh": "high"
           }
         }
       ],
@@ -6351,9 +6316,9 @@
           "contextWindow": 256000,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.01,
-            "output": 0.03,
-            "cacheRead": 0.005,
+            "input": 0.011,
+            "output": 0.034,
+            "cacheRead": 0.006,
             "cacheWrite": 0
           }
         },
@@ -11159,7 +11124,9 @@
             "output": 0.28,
             "cacheRead": 0,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory."
         },
         {
           "id": "deepseek/deepseek_v3",
@@ -12080,7 +12047,9 @@
             "output": 0.336,
             "cacheRead": 0.0034,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory."
         },
         {
           "id": "xiaomimimo/mimo-v2.5-pro",
@@ -12096,7 +12065,9 @@
             "output": 1.044,
             "cacheRead": 0.0043,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory."
         },
         {
           "id": "xiaomimimo/mimo-v2.6-flash",
@@ -19977,7 +19948,9 @@
                 ]
               }
             ]
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "vercel-ai-gateway no longer lists this model in its public model inventory."
         },
         {
           "id": "bytedance/seed-1.8",
@@ -20015,7 +19988,9 @@
                 ]
               }
             ]
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "vercel-ai-gateway no longer lists this model in its public model inventory."
         },
         {
           "id": "bytedance/seed-2.1-turbo",
@@ -25760,7 +25735,7 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.1824,
-            "output": 9.3388,
+            "output": 11.0055,
             "cacheRead": 0.18
           }
         },
@@ -28505,9 +28480,9 @@
           "contextWindow": 1048576,
           "maxTokens": 524288,
           "cost": {
-            "input": 0.075,
-            "output": 0.3,
-            "cacheRead": 0.0075
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.015
           }
         },
         {
@@ -36451,6 +36426,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1794357751720,
+  "sourceGeneratedAt": 1794378776477,
   "supplementDigest": "6c181550a54abf4ac4a423d46bf431749541bc6e311dd3839817f37669f7007f"
 }
