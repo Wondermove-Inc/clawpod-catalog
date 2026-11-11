@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1794378793415,
+  "generatedAt": 1794400209923,
   "minVersion": "2026.4.11",
-  "sourceCommit": "77550be149cb6156db9beac4f16581d0043ad4ab",
+  "sourceCommit": "cb4cd561dfb56d2ff8c49a21b89e935053e122a1",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -4589,6 +4589,121 @@
           }
         },
         {
+          "id": "gemini-4-carbon",
+          "name": "Gemini 4 Carbon",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 32768,
+          "cost": {
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.1,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "gemini-flash-latest",
+          "name": "Gemini Flash Latest",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 0.75,
+            "output": 3.75,
+            "cacheRead": 0.075,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "gemini-flash-lite-latest",
+          "name": "Gemini Flash-Lite Latest",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 0.3,
+            "output": 2.5,
+            "cacheRead": 0.03,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "gemini-pro-latest",
+          "name": "Gemini Pro Latest",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 2,
+            "output": 12,
+            "cacheRead": 0.2,
+            "cacheWrite": 0,
+            "tieredPricing": [
+              {
+                "cacheRead": 0.2,
+                "cacheWrite": 0,
+                "input": 2,
+                "output": 12,
+                "range": [
+                  0,
+                  200000
+                ]
+              },
+              {
+                "cacheRead": 0.4,
+                "cacheWrite": 0,
+                "input": 4,
+                "output": 18,
+                "range": [
+                  200000
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "id": "gemma-4-26b-a4b-it",
+          "name": "Gemma 4 26B A4B IT",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
+          "id": "gemma-4-31b-it",
+          "name": "Gemma 4 31B IT",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 32768
+        },
+        {
           "id": "gemini-3.1-flash-preview",
           "name": "Gemini 3.1 Flash Preview",
           "input": [
@@ -4956,7 +5071,7 @@
           "maxTokens": 943718,
           "cost": {
             "input": 0.1824,
-            "output": 9.3388,
+            "output": 11.0055,
             "cacheRead": 0.18,
             "cacheWrite": 0
           }
@@ -5569,7 +5684,9 @@
             "output": 1.13,
             "cacheRead": 0.028,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "kilocode no longer lists this model in its public model inventory."
         },
         {
           "id": "baidu/ernie-light-dt-1.0-intl",
@@ -6316,9 +6433,9 @@
           "contextWindow": 256000,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.011,
-            "output": 0.034,
-            "cacheRead": 0.006,
+            "input": 0.01,
+            "output": 0.031,
+            "cacheRead": 0.005,
             "cacheWrite": 0
           }
         },
@@ -19363,7 +19480,7 @@
           "maxTokens": 262144,
           "cost": {
             "input": 0.06,
-            "output": 2.3,
+            "output": 2.2,
             "cacheRead": 0.059,
             "cacheWrite": 0
           }
@@ -19911,86 +20028,6 @@
             "cacheRead": 0.1,
             "cacheWrite": 2.5
           }
-        },
-        {
-          "id": "bytedance/seed-1.6",
-          "name": "Seed 1.6",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 256000,
-          "maxTokens": 32000,
-          "cost": {
-            "input": 0.25,
-            "output": 2,
-            "cacheRead": 0.05,
-            "cacheWrite": 0,
-            "tieredPricing": [
-              {
-                "cacheRead": 0.05,
-                "cacheWrite": 0,
-                "input": 0.25,
-                "output": 2,
-                "range": [
-                  0,
-                  128001
-                ]
-              },
-              {
-                "cacheRead": 0.05,
-                "cacheWrite": 0,
-                "input": 0.5,
-                "output": 4,
-                "range": [
-                  128001
-                ]
-              }
-            ]
-          },
-          "status": "deprecated",
-          "statusReason": "vercel-ai-gateway no longer lists this model in its public model inventory."
-        },
-        {
-          "id": "bytedance/seed-1.8",
-          "name": "Seed 1.8",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 256000,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 0.25,
-            "output": 2,
-            "cacheRead": 0.05,
-            "cacheWrite": 0,
-            "tieredPricing": [
-              {
-                "cacheRead": 0.05,
-                "cacheWrite": 0,
-                "input": 0.25,
-                "output": 2,
-                "range": [
-                  0,
-                  128001
-                ]
-              },
-              {
-                "cacheRead": 0.05,
-                "cacheWrite": 0,
-                "input": 0.5,
-                "output": 4,
-                "range": [
-                  128001
-                ]
-              }
-            ]
-          },
-          "status": "deprecated",
-          "statusReason": "vercel-ai-gateway no longer lists this model in its public model inventory."
         },
         {
           "id": "bytedance/seed-2.1-turbo",
@@ -26611,8 +26648,8 @@
           }
         },
         {
-          "id": "baidu/ernie-5.5-flash-preview",
-          "name": "Baidu: ERNIE-5.5-Flash-Preview",
+          "id": "baidu/ernie-5.5-flash-preview:free",
+          "name": "Baidu: ERNIE-5.5-Flash-Preview (free)",
           "input": [
             "text"
           ],
@@ -26620,9 +26657,8 @@
           "contextWindow": 1024000,
           "maxTokens": 921600,
           "cost": {
-            "input": 0.28,
-            "output": 1.13,
-            "cacheRead": 0.028
+            "input": 0,
+            "output": 0
           }
         },
         {
@@ -28414,12 +28450,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 65536,
-          "maxTokens": 58982,
+          "contextWindow": 200000,
+          "maxTokens": 128000,
           "cost": {
-            "input": 0.3,
-            "output": 1.2,
-            "cacheRead": 0.06
+            "input": 0.27,
+            "output": 1.08,
+            "cacheRead": 0.027
           }
         },
         {
@@ -32781,9 +32817,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.042,
+            "input": 0.047,
             "output": 0.061,
-            "cacheRead": 0.018
+            "cacheRead": 0.02
           }
         },
         {
@@ -36426,6 +36462,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1794378776477,
+  "sourceGeneratedAt": 1794400189100,
   "supplementDigest": "6c181550a54abf4ac4a423d46bf431749541bc6e311dd3839817f37669f7007f"
 }
