@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1794724322683,
+  "generatedAt": 1794745658920,
   "minVersion": "2026.4.11",
-  "sourceCommit": "85441bb44cb69da7444bcdc734d611cd492a9751",
+  "sourceCommit": "81ca4f4d712a67c012c7dc0311e0fa37ac576490",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -6789,8 +6789,8 @@
           "contextWindow": 131072,
           "maxTokens": 117964,
           "cost": {
-            "input": 0.08,
-            "output": 0.16,
+            "input": 0.064,
+            "output": 0.128,
             "cacheRead": 0,
             "cacheWrite": 0
           }
@@ -6806,9 +6806,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.019,
-            "output": 0.056,
-            "cacheRead": 0.009,
+            "input": 0.039,
+            "output": 0.117,
+            "cacheRead": 0.02,
             "cacheWrite": 0
           }
         },
@@ -6856,42 +6856,6 @@
           }
         },
         {
-          "id": "inception/mercury-2",
-          "name": "Mercury 2 (retires Nov 15)",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 128000,
-          "maxTokens": 128000,
-          "cost": {
-            "input": 0.25,
-            "output": 0.75,
-            "cacheRead": 0.025,
-            "cacheWrite": 0
-          },
-          "status": "deprecated",
-          "statusReason": "kilocode no longer lists this model in its public model inventory."
-        },
-        {
-          "id": "inception/mercury-2.5",
-          "name": "Mercury 2.5 (retires Nov 15)",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 260000,
-          "maxTokens": 65536,
-          "cost": {
-            "input": 0.04,
-            "output": 0.15,
-            "cacheRead": 0.004,
-            "cacheWrite": 0
-          },
-          "status": "deprecated",
-          "statusReason": "kilocode no longer lists this model in its public model inventory."
-        },
-        {
           "id": "inception/mercury-3",
           "name": "Mercury 3",
           "input": [
@@ -6906,24 +6870,6 @@
             "cacheRead": 0.01,
             "cacheWrite": 0
           }
-        },
-        {
-          "id": "inception/mercury-coder-small",
-          "name": "Mercury Coder Small Beta (retires Nov 15)",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 32000,
-          "maxTokens": 16384,
-          "cost": {
-            "input": 0.25,
-            "output": 1,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
-          "status": "deprecated",
-          "statusReason": "kilocode no longer lists this model in its public model inventory."
         },
         {
           "id": "inclusionai/ling-3.0-flash",
@@ -7621,9 +7567,9 @@
           "contextWindow": 1048576,
           "maxTokens": 524288,
           "cost": {
-            "input": 0.075,
-            "output": 0.3,
-            "cacheRead": 0.0075,
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.015,
             "cacheWrite": 0
           }
         },
@@ -8217,8 +8163,8 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 2,
-            "output": 10,
+            "input": 0.2375,
+            "output": 8.4114,
             "cacheRead": 0.2,
             "cacheWrite": 0
           }
@@ -11518,12 +11464,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 204800,
+          "contextWindow": 202752,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.6,
-            "output": 2.2,
-            "cacheRead": 0.11,
+            "input": 0.4,
+            "output": 1.75,
+            "cacheRead": 0.08,
             "cacheWrite": 0
           }
         },
@@ -22638,42 +22584,6 @@
           "maxTokens": 32768
         },
         {
-          "id": "inception/mercury-2",
-          "name": "Mercury 2",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 128000,
-          "maxTokens": 50000,
-          "cost": {
-            "input": 0.25,
-            "output": 0.75,
-            "cacheRead": 0.025,
-            "cacheWrite": 0
-          },
-          "status": "deprecated",
-          "statusReason": "vercel-ai-gateway no longer lists this model in its public model inventory."
-        },
-        {
-          "id": "inception/mercury-2.5",
-          "name": "Mercury 2.5",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 260000,
-          "maxTokens": 65536,
-          "cost": {
-            "input": 0.04,
-            "output": 0.15,
-            "cacheRead": 0.004,
-            "cacheWrite": 0
-          },
-          "status": "deprecated",
-          "statusReason": "vercel-ai-gateway no longer lists this model in its public model inventory."
-        },
-        {
           "id": "inception/mercury-3",
           "name": "Mercury 3",
           "input": [
@@ -22688,24 +22598,6 @@
             "cacheRead": 0.01,
             "cacheWrite": 0
           }
-        },
-        {
-          "id": "inception/mercury-coder-small",
-          "name": "Mercury Coder Small Beta",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 32000,
-          "maxTokens": 16384,
-          "cost": {
-            "input": 0.25,
-            "output": 1,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
-          "status": "deprecated",
-          "statusReason": "vercel-ai-gateway no longer lists this model in its public model inventory."
         },
         {
           "id": "inclusionai/ling-3.0-flash",
@@ -27799,11 +27691,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 384000,
           "cost": {
-            "input": 0.038,
-            "output": 0.5,
-            "cacheRead": 0.01
+            "input": 0.02,
+            "output": 0.108,
+            "cacheRead": 0.007
           }
         },
         {
@@ -28998,11 +28890,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 128000,
-          "maxTokens": 32000,
+          "contextWindow": 163840,
+          "maxTokens": 32768,
           "cost": {
-            "input": 0.571,
-            "output": 2.286
+            "input": 0.5,
+            "output": 2.15,
+            "cacheRead": 0.35
           }
         },
         {
@@ -29071,11 +28964,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 384000,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.06,
-            "output": 0.18,
-            "cacheRead": 0.015
+            "input": 0.0434,
+            "output": 0.3,
+            "cacheRead": 0.035
           }
         },
         {
@@ -29182,9 +29075,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.035,
-            "output": 0.27,
-            "cacheRead": 0.003
+            "input": 0.038,
+            "output": 0.333,
+            "cacheRead": 0.004
           }
         },
         {
@@ -31091,8 +30984,8 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.2375,
-            "output": 8.4114,
+            "input": 0.2403,
+            "output": 8.4023,
             "cacheRead": 0.2
           }
         },
@@ -31107,9 +31000,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.346,
-            "output": 4.41,
-            "cacheRead": 0.111
+            "input": 0.33,
+            "output": 4.95,
+            "cacheRead": 0.105
           }
         },
         {
@@ -31371,11 +31264,11 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "contextWindow": 262144,
+          "maxTokens": 235929,
           "cost": {
             "input": 0.15,
-            "output": 0.47,
+            "output": 0.5,
             "cacheRead": 0.02
           }
         },
@@ -33571,9 +33464,9 @@
           "contextWindow": 262144,
           "maxTokens": 40960,
           "cost": {
-            "input": 0.17,
-            "output": 0.25,
-            "cacheRead": 0.153
+            "input": 0.021,
+            "output": 0.031,
+            "cacheRead": 0.019
           }
         },
         {
@@ -35012,9 +34905,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.322,
-            "output": 0.989,
-            "cacheRead": 0.109
+            "input": 0.386,
+            "output": 1.187,
+            "cacheRead": 0.13
           }
         },
         {
@@ -38595,6 +38488,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1794724306082,
+  "sourceGeneratedAt": 1794745641756,
   "supplementDigest": "6c181550a54abf4ac4a423d46bf431749541bc6e311dd3839817f37669f7007f"
 }
