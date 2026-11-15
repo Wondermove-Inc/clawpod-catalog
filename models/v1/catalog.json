@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1794703570897,
+  "generatedAt": 1794724322683,
   "minVersion": "2026.4.11",
-  "sourceCommit": "d3438ec2b2efab02857dcb965fd1cfada7616574",
+  "sourceCommit": "85441bb44cb69da7444bcdc734d611cd492a9751",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -6268,7 +6268,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 384000,
           "cost": {
             "input": 0.44,
             "output": 1.32,
@@ -6806,8 +6806,8 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.018,
-            "output": 0.053,
+            "input": 0.019,
+            "output": 0.056,
             "cacheRead": 0.009,
             "cacheWrite": 0
           }
@@ -6869,7 +6869,9 @@
             "output": 0.75,
             "cacheRead": 0.025,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "kilocode no longer lists this model in its public model inventory."
         },
         {
           "id": "inception/mercury-2.5",
@@ -6885,7 +6887,9 @@
             "output": 0.15,
             "cacheRead": 0.004,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "kilocode no longer lists this model in its public model inventory."
         },
         {
           "id": "inception/mercury-3",
@@ -6917,7 +6921,9 @@
             "output": 1,
             "cacheRead": 0,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "kilocode no longer lists this model in its public model inventory."
         },
         {
           "id": "inclusionai/ling-3.0-flash",
@@ -8321,8 +8327,8 @@
           "contextWindow": 262144,
           "maxTokens": 16384,
           "cost": {
-            "input": 0.075,
-            "output": 0.4,
+            "input": 0.06,
+            "output": 0.32,
             "cacheRead": 0,
             "cacheWrite": 0
           }
@@ -10985,9 +10991,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.0825,
-            "output": 0.33,
-            "cacheRead": 0.020625,
+            "input": 0.132,
+            "output": 0.528,
+            "cacheRead": 0.033,
             "cacheWrite": 0
           }
         },
@@ -11034,9 +11040,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.7506,
-            "output": 2.2509,
-            "cacheRead": 0.0378,
+            "input": 0.834,
+            "output": 2.501,
+            "cacheRead": 0.042,
             "cacheWrite": 0
           }
         },
@@ -22645,7 +22651,9 @@
             "output": 0.75,
             "cacheRead": 0.025,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "vercel-ai-gateway no longer lists this model in its public model inventory."
         },
         {
           "id": "inception/mercury-2.5",
@@ -22661,7 +22669,9 @@
             "output": 0.15,
             "cacheRead": 0.004,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "vercel-ai-gateway no longer lists this model in its public model inventory."
         },
         {
           "id": "inception/mercury-3",
@@ -22693,7 +22703,9 @@
             "output": 1,
             "cacheRead": 0,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "vercel-ai-gateway no longer lists this model in its public model inventory."
         },
         {
           "id": "inclusionai/ling-3.0-flash",
@@ -29152,11 +29164,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 393216,
           "cost": {
-            "input": 0.038,
-            "output": 0.5,
-            "cacheRead": 0.01
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.003
           }
         },
         {
@@ -29168,11 +29180,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 384000,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.05,
-            "output": 0.15,
-            "cacheRead": 0.004
+            "input": 0.035,
+            "output": 0.27,
+            "cacheRead": 0.003
           }
         },
         {
@@ -30588,9 +30600,9 @@
           "contextWindow": 1048576,
           "maxTokens": 524288,
           "cost": {
-            "input": 0.075,
-            "output": 0.3,
-            "cacheRead": 0.0075
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.015
           }
         },
         {
@@ -31079,8 +31091,8 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 2,
-            "output": 10,
+            "input": 0.2375,
+            "output": 8.4114,
             "cacheRead": 0.2
           }
         },
@@ -31095,9 +31107,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.7,
-            "output": 6,
-            "cacheRead": 0.1
+            "input": 0.346,
+            "output": 4.41,
+            "cacheRead": 0.111
           }
         },
         {
@@ -33559,9 +33571,9 @@
           "contextWindow": 262144,
           "maxTokens": 40960,
           "cost": {
-            "input": 0.063,
-            "output": 0.093,
-            "cacheRead": 0.057
+            "input": 0.17,
+            "output": 0.25,
+            "cacheRead": 0.153
           }
         },
         {
@@ -34814,12 +34826,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 204800,
+          "contextWindow": 202752,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.6,
-            "output": 2.2,
-            "cacheRead": 0.11
+            "input": 0.4,
+            "output": 1.75,
+            "cacheRead": 0.08
           }
         },
         {
@@ -34894,21 +34906,6 @@
             "input": 0.007,
             "output": 6.8,
             "cacheRead": 0.006
-          }
-        },
-        {
-          "id": "z-ai/glm-5.2:batch",
-          "name": "Z.ai: GLM 5.2 (batch)",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 943718,
-          "cost": {
-            "input": 0.298,
-            "output": 0.916,
-            "cacheRead": 0.101
           }
         },
         {
@@ -35013,11 +35010,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.45,
-            "output": 2,
-            "cacheRead": 0.1
+            "input": 0.322,
+            "output": 0.989,
+            "cacheRead": 0.109
           }
         },
         {
@@ -38598,6 +38595,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1794703555870,
+  "sourceGeneratedAt": 1794724306082,
   "supplementDigest": "6c181550a54abf4ac4a423d46bf431749541bc6e311dd3839817f37669f7007f"
 }
