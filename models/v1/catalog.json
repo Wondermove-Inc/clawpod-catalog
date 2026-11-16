@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1794767106425,
+  "generatedAt": 1794790186769,
   "minVersion": "2026.4.11",
-  "sourceCommit": "293518e8635af1974310985ce5bd9107d076dfb1",
+  "sourceCommit": "d8964fd1495376d776066011f913efe80c27be29",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -6806,9 +6806,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.012,
-            "output": 0.037,
-            "cacheRead": 0.006,
+            "input": 0.01,
+            "output": 0.031,
+            "cacheRead": 0.005,
             "cacheWrite": 0
           }
         },
@@ -7567,9 +7567,9 @@
           "contextWindow": 1048576,
           "maxTokens": 524288,
           "cost": {
-            "input": 0.15,
-            "output": 0.6,
-            "cacheRead": 0.015,
+            "input": 0.075,
+            "output": 0.3,
+            "cacheRead": 0.0075,
             "cacheWrite": 0
           }
         },
@@ -8163,8 +8163,8 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.2403,
-            "output": 8.4023,
+            "input": 2,
+            "output": 10,
             "cacheRead": 0.2,
             "cacheWrite": 0
           }
@@ -10297,25 +10297,6 @@
           }
         },
         {
-          "id": "qwen/qwen3-vl-30b-a3b-thinking",
-          "name": "Qwen: Qwen3 VL 30B A3B Thinking (retires Nov 15)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 235929,
-          "cost": {
-            "input": 0.29,
-            "output": 1,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
-          "status": "deprecated",
-          "statusReason": "kilocode no longer lists this model in its public model inventory."
-        },
-        {
           "id": "qwen/qwen3-vl-8b-instruct",
           "name": "Qwen: Qwen3 VL 8B Instruct",
           "input": [
@@ -10880,24 +10861,6 @@
           "maxTokens": 256000
         },
         {
-          "id": "stepfun/step-3.5-flash",
-          "name": "Step 3.5 Flash",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 262144,
-          "maxTokens": 65536,
-          "cost": {
-            "input": 0.1,
-            "output": 0.3,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
-          "status": "deprecated",
-          "statusReason": "kilocode no longer lists this model in its public model inventory."
-        },
-        {
           "id": "stepfun/step-3.7-flash",
           "name": "Step 3.7 Flash",
           "input": [
@@ -10941,9 +10904,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033,
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625,
             "cacheWrite": 0
           }
         },
@@ -10990,9 +10953,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042,
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378,
             "cacheWrite": 0
           }
         },
@@ -14155,7 +14118,9 @@
           },
           "compat": {
             "requiresStringContent": true
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "nvidia no longer lists this model in its public model inventory."
         },
         {
           "id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
@@ -28968,11 +28933,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 384000,
           "cost": {
-            "input": 0.0434,
-            "output": 0.3,
-            "cacheRead": 0.035
+            "input": 0.06,
+            "output": 0.18,
+            "cacheRead": 0.015
           }
         },
         {
@@ -29047,9 +29012,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.0507,
-            "output": 0.2028,
-            "cacheRead": 0.001014
+            "input": 0.14,
+            "output": 0.42,
+            "cacheRead": 0.0042
           }
         },
         {
@@ -29933,7 +29898,7 @@
           "maxTokens": 117964,
           "cost": {
             "input": 0.06,
-            "output": 0.15,
+            "output": 0.25,
             "cacheRead": 0.015
           }
         },
@@ -30988,9 +30953,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 2,
-            "output": 10,
-            "cacheRead": 0.2
+            "input": 2.3,
+            "output": 11.5,
+            "cacheRead": 0.23
           }
         },
         {
@@ -32210,10 +32175,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 4.4,
-            "output": 22,
-            "cacheRead": 0.44,
-            "cacheWrite": 5.5
+            "input": 4,
+            "output": 20,
+            "cacheRead": 0.4,
+            "cacheWrite": 5
           }
         },
         {
@@ -32754,11 +32719,11 @@
           ],
           "reasoning": true,
           "contextWindow": 131072,
-          "maxTokens": 117964,
+          "maxTokens": 65536,
           "cost": {
-            "input": 0.03,
-            "output": 0.13,
-            "cacheRead": 0.03
+            "input": 0.075,
+            "output": 0.3,
+            "cacheRead": 0.0375
           }
         },
         {
@@ -33453,9 +33418,9 @@
           "contextWindow": 262144,
           "maxTokens": 40960,
           "cost": {
-            "input": 0.03,
-            "output": 0.044,
-            "cacheRead": 0.027
+            "input": 0.168,
+            "output": 0.247,
+            "cacheRead": 0.151
           }
         },
         {
@@ -34065,9 +34030,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.0825,
-            "output": 0.33,
-            "cacheRead": 0.020625
+            "input": 0.132,
+            "output": 0.528,
+            "cacheRead": 0.033
           }
         },
         {
@@ -34111,9 +34076,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.7506,
-            "output": 2.2509,
-            "cacheRead": 0.0378
+            "input": 0.834,
+            "output": 2.501,
+            "cacheRead": 0.042
           }
         },
         {
@@ -34621,9 +34586,9 @@
           "contextWindow": 131072,
           "maxTokens": 98304,
           "cost": {
-            "input": 0.2,
-            "output": 1.1,
-            "cacheRead": 0.03
+            "input": 0.13,
+            "output": 0.85,
+            "cacheRead": 0.025
           }
         },
         {
@@ -34772,9 +34737,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.084,
-            "output": 3.6,
-            "cacheRead": 0.079
+            "input": 0.0699,
+            "output": 1.4,
+            "cacheRead": 0.0689
           }
         },
         {
@@ -38449,6 +38414,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1794767088152,
+  "sourceGeneratedAt": 1794790173560,
   "supplementDigest": "6c181550a54abf4ac4a423d46bf431749541bc6e311dd3839817f37669f7007f"
 }
