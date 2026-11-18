@@ -19,15 +19,15 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 
 | Provider                    | 보완 모델 수 | 데이터 기준                                                           |
 | --------------------------- | -----------: | --------------------------------------------------------------------- |
-| `openai-codex`              |           19 | SDK 9개 + 플러그인 augmentation. 중복은 플러그인 우선                 |
+| `openai-codex`              |           21 | SDK 9개 + 플러그인 augmentation + 공식 문서 추가분(2026-11-18 GPT-6.2)            |
 | `google`                    |           12 | 플러그인 정적 Gemini 목록; preview 포함                               |
-| `google-vertex`             |           12 | Vertex builder와 같이 Google 모델 목록 공유                           |
+| `google-vertex`             |           15 | Google 모델 목록 + 2026-11-18 Gemini 4 Argon/Carbon/Hydrogen              |
 | `xai`                       |           10 | 현행 7개 + 공식 전환 안내가 있는 별칭 3개                             |
-| `minimax`                   |            3 | 플러그인의 text 모델 목록                                             |
-| `minimax-portal`            |            4 | 위 3개 + M Plan 전용 `MiniMax-M3.1-Flash-Preview` (2026-10-02)         |
-| `amazon-bedrock`            |          144 | SDK 목록 87개 + 2026-10-02 AWS 문서로 추가한 57개                     |
-| `amazon-bedrock-mantle`     |           15 | Claude 10개 + Mantle 전용 GPT-5.5·Grok 4.3·Gemma 4 (2026-10-02)       |
-| `anthropic-vertex`          |           13 | `global` 지역 표준 가격 (2026-10-02 Opus/Sonnet 5.5 추가)             |
+| `minimax`                   |            4 | 플러그인의 text 모델 목록 + 2026-11-18 M3.1 Flash                              |
+| `minimax-portal`            |            5 | M Plan 모델. 2026-11-18 M3.1 Flash 추가, Preview·M2.7은 대체됨                |
+| `amazon-bedrock`            |          160 | SDK 87개 + 2026-10-02 57개 + 2026-11-18 16개 (AWS 문서)                    |
+| `amazon-bedrock-mantle`     |           16 | Claude 10개 + Mantle 전용 6개 (2026-11-18 GPT-6.1 Terra)                  |
+| `anthropic-vertex`          |           15 | `global` 표준 가격 (2026-11-18 Haiku 5.5·Fable 5.2 추가)                    |
 | `openrouter`                |            1 | Agent `auto` 별칭만. 나머지는 게시 때 공개 API에서 자동 갱신          |
 | `zai`                       |            6 | 에이전트 내장 JSON의 기준 목록; upstream에는 이미 더 많은 모델이 있음 |
 
