@@ -211,3 +211,34 @@ models.dev와 OpenRouter 공개 API로 누락 후보를 찾은 뒤, 아래 공�
   Agent(`src/agents/model-catalog-vendored.ts`)는 두 상태를 같게 취급한다. 새 설정에는 넣지 않고, 이미 쓰는 모델은 메타데이터만 갱신한다.
 - `gpt-6.1-terra` 값은 다른 Codex 최신 모델과 같이 272K 운영 예산, 128000 maxTokens, text+image, reasoning=true다.
   문서에 한도가 없어 같은 ID의 `openai` upstream 행(1.05M/128000, text+image, reasoning)과 일치하는지 확인했다.
+
+# 2026-11-18 수동 provider 재검토
+
+models.dev와 공식 Codex 페이지로 2026-10-01 이후 누락 후보를 찾고, 아래 공식 자료로 확인해 반영했다.
+계정 접근권·실제 호출은 검증하지 않았다. 비용 단위는 USD / 백만 토큰이다.
+
+| 대상 | 추가·수정 | 공식 근거 |
+| --- | --- | --- |
+| `openai-codex` | `gpt-6.2-astra`, `gpt-6.2-sol` 추가(현행 추천 모델). 페이지의 Codex 기본 context는 272K/500K지만 Agent 운영 예산 272K 유지 | [Codex 모델](https://learn.chatgpt.com/docs/models) |
+| `anthropic-vertex` | `claude-haiku-5-5`(0.1/0.5/0.01/0.125), `claude-fable-5-2`(8/40/0.2/10) 추가. `claude-sonnet-5-5` cacheRead 0.2→0.1 | Vertex Claude 모델 페이지, [Vertex 가격](https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing) Global |
+| `google-vertex` | `gemini-4-argon`, `gemini-4-carbon`(프로모션 2/10/0.1, 2026-12-01부터 4/20/0.2 날짜 규칙), `gemini-4-hydrogen`(1.5/7.5/0.075) 추가 | [Vertex 가격](https://cloud.google.com/gemini-enterprise-agent-platform/generative-ai/pricing) |
+| `minimax` | `MiniMax-M3.1-Flash`(0.15/0.6/0.015) 추가. `MiniMax-M2.7`·`-highspeed`는 2026-11-18 종료로 disabled | [모델 FAQ](https://platform.minimax.io/docs/faq/models) |
+| `minimax-portal` | `MiniMax-M3.1-Flash` 추가. Flash-Preview·M2.7·M2.7-highspeed는 M3.1 Flash로 처리되어 deprecated(`replacedBy`) | [M Plan](https://platform.minimax.io/docs/m-plan/intro), [모델 FAQ](https://platform.minimax.io/docs/faq/models) |
+| `amazon-bedrock` | 16행 추가: Claude Haiku 5.5(us./ca./eu./au./jp./global.), Fable 5.2, GPT-6.1 Terra, Kimi K3.1 Pro Highspeed, Kimi K3 `in.`, GLM-5.3. Sonnet 5.5 cacheRead 50% 인하(2026-10-07) 반영. 상태 40행 동기화 | AWS 모델 카드, AWS Price List feed, [수명주기](https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html) |
+| `amazon-bedrock-mantle` | `openai.gpt-6.1-terra` 추가(us-east-1). Sonnet 5.5 cacheRead 0.22→0.11 | AWS 모델 카드 |
+
+## 판단과 한계
+
+- **Bedrock 상태 동기화:** Sonnet 4.5 deprecated(2027-04-08 EOL 날짜 규칙), Sonnet 4·Claude 3 Haiku·3.5 Sonnet v1/v2·3.7 Sonnet disabled,
+  Llama 3.1 405B·Llama 3.2 disabled, 2026-09-30 공지된 오픈 웨이트 21행과 Palmyra X4/X5 deprecated.
+  3.7 Sonnet은 AWS가 두 리전만 표기해 나머지 리전도 같다고 판단했다.
+- **Bedrock Opus 4.1:** 2026-10-08 연장 지원 시작 후에도 AWS 가격은 15/75/1.5/18.75로 변화 없음.
+- **캐시 쓰기:** GPT-6.1 Terra, Kimi K3.1, GLM-5.3은 AWS가 Converse에서 명시적 캐싱을 지원하지 않는다고 해 cacheWrite를 생략했다(GPT-6.1 Sol과 같은 기준).
+  기존 Kimi K3·GPT-6 행은 같은 문구인데도 cacheWrite가 남아 있어 다음 검토에서 기준을 통일해야 한다.
+- **표현 못 하는 가격:** Haiku 5.5의 100K 초과 입력 할증, GPT-6.1 Terra의 272K 초과 할증, Fable 5.2 Fast 모드 가격.
+- **추가하지 않은 것:** Bedrock GPT-6.2 Astra/Sol(가격 페이지 이름만, 모델 카드·ID 없음), Nova 2.0 Pro/Omni(카드 없음), Mythos 5.2(승인제),
+  Mantle Haiku 5.5(GovCloud 전용).
+- **공식 값이 아닌 것:** Kimi K3.1 maxTokens 131072(K3 값 차용), MiniMax M3.1 Flash maxTokens 131072(운영 기본값),
+  Gemini 4 maxTokens 65536(스트리밍 응답당 한도). Haiku 5.5 reasoning=true는 Anthropic upstream 행 기준.
+- **확인 필요:** M Plan 문서가 텍스트 모델로 M3.1 Flash만 표기해 `minimax-portal`의 `MiniMax-M3`가 아직 제공되는지 불분명하다(변경하지 않음).
+- **`google` provider(자동 생성):** Gemini 4 Argon/Carbon이 이미 들어와 있으나 2026-12-01 가격 인상은 upstream 갱신에 맡겼다.
