@@ -313,22 +313,88 @@ Credential, token, internal endpoint 또는 secret을 catalog와 workflow output
 
 ### 수동 갱신
 
-모델·가격·상태를 수정할 때는 다음 순서로 작업합니다.
+모델·가격·상태·Thinking Effort를 수정할 때는 다음 순서로 작업합니다.
 
-1. `sources/clawpod-providers.json`의 모델 정의와 출처를 수정합니다. 중복 upstream의 구값을 고쳐야 하면 기존 값 조건과 공식 근거를 가진 `corrections`를 추가합니다.
-2. 가격의 적용 조건·종료 시각과 모델 제외 이유를 `sources/REVIEW.md`에 기록합니다. 규칙을 바꿀 때는 경계 전후와 upstream 값이 달라진 경우도 확인합니다.
-3. Node.js 22에서 의존성을 설치하고 테스트·dry-run을 실행합니다.
+1. `sources/clawpod-providers.json`을 수정합니다. 어느 칸에 쓸지는 아래 [신모델 대응 절차](#신모델-대응-절차)의 표를 따릅니다.
+2. 근거 URL과 판단(가격 적용 조건·종료 시각·제외 이유 등)을 `sources/REVIEW.md`에 기록합니다.
+3. 최근 성공한 게시 실행이 저장한 원본 3개를 받아 catalog를 다시 생성하고 테스트합니다. 로컬에 OpenClaw를 설치할 필요가 없습니다. 원본은 7일간 보관됩니다.
 
 ```bash
 npm ci
+run=$(gh run list --workflow publish.yml --branch main --status success -L 1 --json databaseId --jq '.[0].databaseId')
+gh run download "$run" -n catalog-sources -D /tmp/catalog-sources
+git checkout origin/main -- models/v1/catalog.json   # main 게시본 기준으로 다시 만듭니다
+node scripts/publish-catalog.mjs \
+  --source-file /tmp/catalog-sources/openclaw-catalog.json \
+  --openrouter-file /tmp/catalog-sources/openrouter-models.json \
+  --modelsdev-file /tmp/catalog-sources/models-dev.json \
+  --report-file /tmp/catalog-gaps.md
 npm test
-npm run publish-catalog:dry-run
-npm run publish-catalog
 ```
 
-마지막 명령은 실제 artifact를 씁니다. 입력·검토 기록·생성된 `models/v1/catalog.json`의 diff를 함께 검토하고 커밋합니다. Generated artifact는 직접 편집하지 않습니다. 테스트는 구조와 게시 동작을 확인하며 공식 가격·가용성의 최신성을 대신 검증하지 않습니다.
+입력·검토 기록·생성된 `models/v1/catalog.json`의 diff를 함께 검토하고 커밋합니다. Generated artifact는 직접 편집하지 않습니다. `/tmp/catalog-gaps.md`로 남은 빈칸을 확인합니다. 테스트는 구조와 게시 동작을 확인하며 공식 가격·가용성의 최신성을 대신 검증하지 않습니다.
 
-작업 브랜치를 푸시한 것만으로 공개 `main` raw URL이 바뀌지는 않습니다. 변경을 `main`에 병합한 뒤 공개 artifact와 게시 workflow를 확인해야 합니다. 로컬 게시 명령은 Git commit/push를 수행하지 않으며, 자동 게시 workflow의 commit 단계가 그 작업을 담당합니다.
+PR을 올린 뒤 workflow를 바꿨다면 브랜치에서 `gh workflow run publish.yml --ref <branch> -f dry_run=true`로 확인합니다. 작업 브랜치를 푸시한 것만으로 공개 `main` raw URL이 바뀌지는 않습니다. 변경을 `main`에 병합한 뒤 공개 artifact와 게시 workflow를 확인해야 합니다. 로컬 게시 명령은 Git commit/push를 수행하지 않으며, 자동 게시 workflow의 commit 단계가 그 작업을 담당합니다.
+
+### 신모델 대응 절차
+
+새 모델은 두 경로로 들어옵니다. 경로마다 해야 할 일이 다릅니다.
+
+| 경로 | 해당 provider | 자동 여부 | 사람이 할 일 |
+| --- | --- | --- | --- |
+| 자동 | OpenClaw가 만드는 provider(`anthropic`, `openai`, `google`, `ollama-cloud`, 중계 provider 등), `openrouter` | 6시간마다 모델·가격 자동 추가 | 이슈 **Catalog gaps**에 나온 빈칸만 채움 |
+| 수동 | `openai-codex`, `amazon-bedrock`, `amazon-bedrock-mantle`, `anthropic-vertex`, `google-vertex`, `minimax-portal` 등 `sources/clawpod-providers.json`의 `providers` | 자동으로 안 들어옴 | 공식 문서를 보고 직접 추가 |
+
+**1. 빈칸 확인 (자동 경로)**
+
+이슈 **Catalog gaps**를 봅니다. 6시간마다 갱신되고, 아래 두 목록이 나옵니다.
+- **Missing model data:** 이름·reasoning·컨텍스트/최대 출력이 없거나, `replacedBy`가 없는 모델이나 종료된 모델을 가리키는 행
+- **Missing thinking profiles:** 지원 단계나 기본 단계가 없는 reasoning 모델
+
+라우터 별칭(`auto`, `free`, `*-latest`)과 공식 문서가 없는 모델은 남아 있는 것이 정상입니다(`sources/REVIEW.md`에 기록).
+
+**2. 신모델 찾기 (수동 경로)**
+
+신모델 발표 소식이 있을 때, 그리고 정기적으로(권장: 월 1회) 아래 출처와 수동 provider의 현재 목록을 대조합니다.
+models.dev(`https://models.dev/api.json`)를 같은 provider끼리 비교하면 빠르게 후보를 뽑을 수 있습니다.
+단, models.dev는 2차 출처라 후보를 찾는 데만 씁니다.
+
+| provider | 공식 출처 | models.dev 키 |
+| --- | --- | --- |
+| `openai-codex` | https://learn.chatgpt.com/docs/models | (없음) |
+| `amazon-bedrock`, `amazon-bedrock-mantle` | AWS 모델 카드(docs.aws.amazon.com/bedrock), AWS Price List feed | `amazon-bedrock` |
+| `anthropic-vertex` | Vertex Claude 모델 페이지, Vertex 가격(Global) | `google-vertex-anthropic` |
+| `google-vertex` | Vertex Gemini 문서·가격 | `google-vertex` |
+| `minimax`, `minimax-portal` | https://platform.minimax.io/docs | `minimax`, `minimax-coding-plan` |
+
+**3. 반영할 곳 고르기**
+
+| 상황 | 쓰는 곳 | 비고 |
+| --- | --- | --- |
+| 수동 provider에 새 모델 | `providers.<provider>.models`에 행 추가 | reasoning 모델이면 Effort도 함께 정합니다(`thinking` 규칙이 계열 접두사로 이미 걸리는지 확인) |
+| 자동 값이 틀렸거나 비어 있음(이름·reasoning·한도·가격·대체 모델) | `overrides` | 가격을 모르면 0이 아니라 `"cost": null` |
+| Effort가 비었거나 틀림 | `thinking` | `provider: "*"`와 계열 접두사(`claude-opus-5*` 등)를 쓰면 모든 중계 provider와 다음 변형 모델에 함께 적용됩니다 |
+| 수동 모델의 종료·가격 날짜 전환 | `corrections` (`effectiveAt`) | 자동 provider 행의 상태는 아직 바꿀 수 없습니다 |
+
+모든 값은 공식 문서로 확인하고, 규칙마다 `source`(공식 URL)를 적습니다. 판단이 필요했던 내용은 `note`와 `sources/REVIEW.md`에 남깁니다.
+
+**4. 재생성·검증·PR**
+
+[수동 갱신](#수동-갱신)의 명령으로 catalog를 다시 만들고 `npm test`를 통과시킵니다. 그다음 `/tmp/catalog-gaps.md`에서 빈칸이 줄었는지 확인하고 PR을 올립니다.
+머지 후에는 바로 반영하려면 `gh workflow run publish.yml --ref main`으로 수동 실행하고, 아니면 다음 6시간 주기를 기다립니다.
+
+**5. 정기 재확인 목록**
+
+자동으로 처리되지 않아 사람이 다시 봐야 하는 항목입니다. 처리하면 이 목록에서 지웁니다.
+
+| 시점 | 항목 |
+| --- | --- |
+| 2026-12-01 이후 | Gemini 2.5 Pro/Flash가 새 모델로 라우팅됨. `google` provider의 Gemini 2.5 Effort 규칙 재검토. 자동 provider `google`의 Gemini 4 Argon/Carbon 가격 인상이 반영됐는지 확인(`google-vertex`는 날짜 규칙으로 자동) |
+| 수시 | Kilo·Vercel 프로모션 0원 모델(Glyph Cluster, Flint)의 유료 전환 |
+| Agent SOT 전환 시 | Sonnet 5.5의 `off`(`between_tools`로만 가능), Codex 모델 기본 Effort가 API 기본값과 같은지 |
+| 상태 변경 수단이 생기면 | Qwen 판매 종료 모델 4개(`qwen3-coder-plus`, `qwen3-coder-next`, `qwen3-max-2026-01-23`, `glm-4.7`) deprecated 처리 |
+
+`corrections`의 날짜 규칙(Sonnet 4.5 EOL 2027-04-08, Gemini 4 Vertex 가격 2026-12-01 등)은 자동으로 적용되므로 이 목록에 넣지 않습니다.
 
 ### 오프라인 검증·재생성
 
