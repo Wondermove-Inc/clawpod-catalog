@@ -102,7 +102,7 @@ function indexOpenRouter(rows = []) {
 
 // A `*` provider rule names the model by its modelKey(), so one rule covers the same
 // model on every gateway ("claude-opus-5-5" matches "anthropic/claude-opus-5.5").
-function ruleMatches(rule, provider, id) {
+export function ruleMatches(rule, provider, id) {
   if (rule.provider !== "*" && rule.provider !== provider) return false;
   const target = rule.provider === "*" ? modelKey(id) : id;
   return rule.model.endsWith("*")

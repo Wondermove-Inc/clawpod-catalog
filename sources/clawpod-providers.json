@@ -8750,5 +8750,367 @@
       "source": "https://huggingface.co/google/gemma-4-31B-it",
       "note": "Gemma 4 thinking is on/off only (<|think|> token / enable_thinking), template default false. Venice ids google-gemma-4-26b-a4b-it and -31b-it."
     }
+  ],
+  "overrides": [
+    {
+      "provider": "github-copilot",
+      "model": "claude-haiku-4.5",
+      "set": {
+        "reasoning": true
+      },
+      "source": "https://platform.claude.com/docs/en/build-with-claude/extended-thinking",
+      "note": "Claude Haiku 4.5 supports extended thinking; upstream row omits reasoning."
+    },
+    {
+      "provider": "github-copilot",
+      "model": "gemini-2.5-pro",
+      "set": {
+        "reasoning": true
+      },
+      "source": "https://ai.google.dev/gemini-api/docs/thinking",
+      "note": "Gemini 2.5+ are thinking models; upstream row omits reasoning."
+    },
+    {
+      "provider": "github-copilot",
+      "model": "gemini-3.1-pro-preview",
+      "set": {
+        "reasoning": true
+      },
+      "source": "https://ai.google.dev/gemini-api/docs/thinking",
+      "note": "Gemini 2.5+ are thinking models; upstream row omits reasoning."
+    },
+    {
+      "provider": "github-copilot",
+      "model": "gemini-3.5-flash",
+      "set": {
+        "reasoning": true
+      },
+      "source": "https://ai.google.dev/gemini-api/docs/thinking",
+      "note": "Gemini 2.5+ are thinking models; upstream row omits reasoning."
+    },
+    {
+      "provider": "github-copilot",
+      "model": "gemini-3.6-flash",
+      "set": {
+        "reasoning": true
+      },
+      "source": "https://ai.google.dev/gemini-api/docs/thinking",
+      "note": "Gemini 2.5+ are thinking models; upstream row omits reasoning."
+    },
+    {
+      "provider": "mistral",
+      "model": "devstral-medium-latest",
+      "set": {
+        "reasoning": false
+      },
+      "source": "https://docs.mistral.ai/getting-started/models",
+      "note": "Devstral is not a reasoning model (Mistral reasoning models are Magistral / Large 4)."
+    },
+    {
+      "provider": "mistral",
+      "model": "mistral-medium-2508",
+      "set": {
+        "reasoning": false
+      },
+      "source": "https://docs.mistral.ai/getting-started/models",
+      "note": "Mistral Medium 3.1 has no reasoning mode."
+    },
+    {
+      "provider": "together",
+      "model": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
+      "set": {
+        "reasoning": false
+      },
+      "source": "https://www.llama.com/docs/model-cards-and-prompt-formats/llama3_3/",
+      "note": "Llama 3.3 is an instruct model without a thinking mode."
+    },
+    {
+      "provider": "volcengine",
+      "model": "kimi-k2-5-260127",
+      "set": {
+        "reasoning": true
+      },
+      "source": "https://huggingface.co/moonshotai/Kimi-K2.5",
+      "note": "Kimi K2.5 has a thinking mode (on/off)."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-coder-next",
+      "set": {
+        "reasoning": false
+      },
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-Next",
+      "note": "Model card: supports only non-thinking mode."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-coder-30b-a3b*",
+      "set": {
+        "reasoning": false
+      },
+      "source": "https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct",
+      "note": "Qwen3-Coder instruct: non-thinking only."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-oss-*",
+      "set": {
+        "reasoning": true
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-oss-120b",
+      "note": "gpt-oss takes reasoning effort low/medium/high; some hosts publish reasoning:false."
+    },
+    {
+      "provider": "novita",
+      "model": "minimax/minimax-m2.7",
+      "set": {
+        "replacedBy": null
+      },
+      "source": "https://platform.minimax.io/docs/faq/models",
+      "note": "Target minimax/minimax-m3 is itself deprecated on novita and no active MiniMax row remains there."
+    },
+    {
+      "provider": "byteplus-plan",
+      "model": "ark-code-latest",
+      "set": {
+        "cost": null
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/README.md",
+      "note": "Subscription plan: no per-token USD price, so omit instead of publishing 0."
+    },
+    {
+      "provider": "byteplus-plan",
+      "model": "kimi-k2.5",
+      "set": {
+        "cost": null
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/README.md",
+      "note": "Subscription plan: no per-token USD price, so omit instead of publishing 0."
+    },
+    {
+      "provider": "kimi",
+      "model": "kimi-for-coding",
+      "set": {
+        "cost": null
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/README.md",
+      "note": "Subscription plan: no per-token USD price, so omit instead of publishing 0."
+    },
+    {
+      "provider": "kimi",
+      "model": "kimi-for-coding-highspeed",
+      "set": {
+        "cost": null
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/README.md",
+      "note": "Subscription plan: no per-token USD price, so omit instead of publishing 0."
+    },
+    {
+      "provider": "qwen-token-plan",
+      "model": "glm-5",
+      "set": {
+        "cost": null
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/README.md",
+      "note": "Subscription plan: no per-token USD price, so omit instead of publishing 0."
+    },
+    {
+      "provider": "qwen-token-plan",
+      "model": "kimi-k2.5",
+      "set": {
+        "cost": null
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/README.md",
+      "note": "Subscription plan: no per-token USD price, so omit instead of publishing 0."
+    },
+    {
+      "provider": "qwen-token-plan",
+      "model": "MiniMax-M2.5",
+      "set": {
+        "cost": null
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/README.md",
+      "note": "Subscription plan: no per-token USD price, so omit instead of publishing 0."
+    },
+    {
+      "provider": "stepfun-plan",
+      "model": "step-3.5-flash",
+      "set": {
+        "cost": null
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/README.md",
+      "note": "Subscription plan: no per-token USD price, so omit instead of publishing 0."
+    },
+    {
+      "provider": "stepfun-plan",
+      "model": "step-3.5-flash-2603",
+      "set": {
+        "cost": null
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/README.md",
+      "note": "Subscription plan: no per-token USD price, so omit instead of publishing 0."
+    },
+    {
+      "provider": "stepfun-plan",
+      "model": "step-3.7-flash",
+      "set": {
+        "cost": null
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/README.md",
+      "note": "Subscription plan: no per-token USD price, so omit instead of publishing 0."
+    },
+    {
+      "provider": "volcengine-plan",
+      "model": "ark-code-latest",
+      "set": {
+        "cost": null
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/README.md",
+      "note": "Subscription plan: no per-token USD price, so omit instead of publishing 0."
+    },
+    {
+      "provider": "volcengine-plan",
+      "model": "deepseek-v4-flash",
+      "set": {
+        "cost": null
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/README.md",
+      "note": "Subscription plan: no per-token USD price, so omit instead of publishing 0."
+    },
+    {
+      "provider": "volcengine-plan",
+      "model": "deepseek-v4-pro",
+      "set": {
+        "cost": null
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/README.md",
+      "note": "Subscription plan: no per-token USD price, so omit instead of publishing 0."
+    },
+    {
+      "provider": "volcengine-plan",
+      "model": "doubao-seed-2.1-turbo",
+      "set": {
+        "cost": null
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/README.md",
+      "note": "Subscription plan: no per-token USD price, so omit instead of publishing 0."
+    },
+    {
+      "provider": "volcengine-plan",
+      "model": "glm-5.2",
+      "set": {
+        "cost": null
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/README.md",
+      "note": "Subscription plan: no per-token USD price, so omit instead of publishing 0."
+    },
+    {
+      "provider": "xiaomi-token-plan",
+      "model": "mimo-v2.5",
+      "set": {
+        "cost": null
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/README.md",
+      "note": "Subscription plan: no per-token USD price, so omit instead of publishing 0."
+    },
+    {
+      "provider": "xiaomi-token-plan",
+      "model": "mimo-v2.5-pro",
+      "set": {
+        "cost": null
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/README.md",
+      "note": "Subscription plan: no per-token USD price, so omit instead of publishing 0."
+    },
+    {
+      "provider": "xiaomi-token-plan",
+      "model": "mimo-v2.6-flash",
+      "set": {
+        "cost": null
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/README.md",
+      "note": "Subscription plan: no per-token USD price, so omit instead of publishing 0."
+    },
+    {
+      "provider": "xiaomi-token-plan",
+      "model": "mimo-v2.6-pro",
+      "set": {
+        "cost": null
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/README.md",
+      "note": "Subscription plan: no per-token USD price, so omit instead of publishing 0."
+    },
+    {
+      "provider": "qwen",
+      "model": "glm-4.7",
+      "set": {
+        "name": "GLM-4.7"
+      },
+      "source": "https://www.alibabacloud.com/help/en/model-studio/models"
+    },
+    {
+      "provider": "qwen",
+      "model": "qwen3-coder-next",
+      "set": {
+        "name": "Qwen3 Coder Next"
+      },
+      "source": "https://www.alibabacloud.com/help/en/model-studio/models"
+    },
+    {
+      "provider": "qwen",
+      "model": "qwen3-coder-plus",
+      "set": {
+        "name": "Qwen3 Coder Plus"
+      },
+      "source": "https://www.alibabacloud.com/help/en/model-studio/models"
+    },
+    {
+      "provider": "qwen",
+      "model": "qwen3-max-2026-01-23",
+      "set": {
+        "name": "Qwen3 Max (2026-01-23)"
+      },
+      "source": "https://www.alibabacloud.com/help/en/model-studio/models"
+    },
+    {
+      "provider": "qwen",
+      "model": "qwen3.6-flash",
+      "set": {
+        "name": "Qwen3.6 Flash"
+      },
+      "source": "https://www.alibabacloud.com/help/en/model-studio/models"
+    },
+    {
+      "provider": "qwen",
+      "model": "qwen3.7-max",
+      "set": {
+        "name": "Qwen3.7 Max"
+      },
+      "source": "https://www.alibabacloud.com/help/en/model-studio/models"
+    },
+    {
+      "provider": "qwen",
+      "model": "qwen3.8-flash",
+      "set": {
+        "name": "Qwen3.8 Flash"
+      },
+      "source": "https://www.alibabacloud.com/help/en/model-studio/models"
+    },
+    {
+      "provider": "qwen",
+      "model": "qwen3.8-max",
+      "set": {
+        "name": "Qwen3.8 Max"
+      },
+      "source": "https://www.alibabacloud.com/help/en/model-studio/models"
+    },
+    {
+      "provider": "ollama-cloud",
+      "model": "gemma4",
+      "set": {
+        "name": "Gemma 4"
+      },
+      "source": "https://ai.google.dev/gemma/docs/core"
+    }
   ]
 }

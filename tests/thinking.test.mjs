@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { validateSupplement } from "../scripts/catalog.mjs";
+import { applyOverrides, validateSupplement } from "../scripts/catalog.mjs";
 import { parseModelsDev } from "../scripts/models-dev.mjs";
 import { applyThinking, modelKey, thinkingCoverage, thinkingReport } from "../scripts/thinking.mjs";
 
@@ -268,4 +268,58 @@ test("the gap report groups missing models by provider, largest first", () => {
   assert.match(report, /\*\*2\/5\*\* \(3 missing\)/);
   assert.ok(report.indexOf("### kilocode (2)") < report.indexOf("### openrouter (1)"));
   assert.match(report, /- `a\/b`\n- `kilo-auto\/free`/);
+});
+
+test("overrides replace or remove upstream values, and reasoning:false drops the profile", () => {
+  const source = "https://example.com/doc";
+  const providers = {
+    gw: {
+      models: [
+        {
+          id: "vendor/coder-next",
+          reasoning: true,
+          compat: { thinkingLevels: ["off", "low"], defaultThinkingLevel: "low", supportsTools: true },
+        },
+        { id: "plan-model", cost: { input: 0, output: 0 }, replacedBy: "gone" },
+      ],
+    },
+    other: { models: [{ id: "coder-next", reasoning: true, compat: { thinkingLevels: ["low"] } }] },
+  };
+  const out = applyOverrides(providers, [
+    { provider: "*", model: "coder-next", set: { reasoning: false }, source },
+    { provider: "gw", model: "plan-model", set: { cost: null, replacedBy: null, name: "Plan" }, source },
+    { provider: "gw", model: "plan*", set: { maxTokens: 10 }, source },
+  ]);
+  assert.deepEqual(out.gw.models[0], {
+    id: "vendor/coder-next",
+    reasoning: false,
+    compat: { supportsTools: true },
+  });
+  assert.deepEqual(out.other.models[0], { id: "coder-next", reasoning: false });
+  assert.deepEqual(out.gw.models[1], { id: "plan-model", name: "Plan", maxTokens: 10 });
+  assert.equal(providers.gw.models[1].cost.input, 0, "input is not mutated");
+});
+
+test("override rules are validated", () => {
+  const base = {
+    schemaVersion: 1,
+    provenance: { acme: { source: "s", revision: "r", files: ["f"], notes: "n" } },
+    providers: {
+      acme: {
+        api: "openai-completions",
+        models: [{ id: "m", name: "m", input: ["text"], reasoning: true, contextWindow: 1, maxTokens: 1 }],
+      },
+    },
+  };
+  const ok = { provider: "*", model: "m", set: { reasoning: false }, source: "https://e.com" };
+  validateSupplement({ ...base, overrides: [ok] });
+  for (const bad of [
+    { ...ok, set: {} },
+    { ...ok, set: { status: "disabled" } },
+    { ...ok, set: { cost: { input: -1, output: 1 } } },
+    { ...ok, set: { contextWindow: 0 } },
+    { ...ok, source: "nope" },
+  ]) {
+    assert.throws(() => validateSupplement({ ...base, overrides: [bad] }), JSON.stringify(bad));
+  }
 });
