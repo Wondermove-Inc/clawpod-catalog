@@ -297,7 +297,7 @@ test("overrides replace or remove upstream values, and reasoning:false drops the
   const out = applyOverrides(providers, [
     { provider: "*", model: "coder-next", set: { reasoning: false }, source },
     { provider: "gw", model: "plan-model", set: { cost: null, replacedBy: null, name: "Plan" }, source },
-    { provider: "gw", model: "plan*", set: { maxTokens: 10 }, source },
+    { provider: "gw", model: "plan*", set: { maxTokens: 10, status: "deprecated" }, source },
   ]);
   assert.deepEqual(out.gw.models[0], {
     id: "vendor/coder-next",
@@ -305,7 +305,7 @@ test("overrides replace or remove upstream values, and reasoning:false drops the
     compat: { supportsTools: true },
   });
   assert.deepEqual(out.other.models[0], { id: "coder-next", reasoning: false });
-  assert.deepEqual(out.gw.models[1], { id: "plan-model", name: "Plan", maxTokens: 10 });
+  assert.deepEqual(out.gw.models[1], { id: "plan-model", name: "Plan", maxTokens: 10, status: "deprecated" });
   assert.equal(providers.gw.models[1].cost.input, 0, "input is not mutated");
 });
 
@@ -343,7 +343,7 @@ test("override rules are validated", () => {
   });
   for (const bad of [
     { ...ok, set: {} },
-    { ...ok, set: { status: "disabled" } },
+    { ...ok, set: { status: "active" } },
     { ...ok, set: { cost: { input: -1, output: 1 } } },
     { ...ok, set: { contextWindow: 0 } },
     { ...ok, set: { cost: { input: 1, output: 2, tieredPricing: [{ input: 1, output: 2, range: [] }] } } },

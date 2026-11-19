@@ -152,6 +152,8 @@ const overrideSchema = z
           .nullable()
           .optional(),
         replacedBy: nonempty.nullable().optional(),
+        // Lifecycle of upstream rows, which `corrections` cannot reach (supplement rows only).
+        status: z.enum(["deprecated", "disabled"]).optional(),
       })
       .strict()
       .refine((value) => Object.keys(value).length > 0, "empty override"),

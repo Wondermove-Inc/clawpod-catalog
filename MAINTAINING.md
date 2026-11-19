@@ -149,7 +149,8 @@ npm run audit                                          # 전수 검사: open 항
   - 문서에서 사라졌지만 종료 공지가 없으면 `deprecated`입니다.
 - `replacedBy`는 같은 provider의 **활성** 모델만 가리킵니다. 대체 모델이 종료되면 지우거나 바꿉니다.
 - 미래 날짜의 종료는 `corrections`에 `effectiveAt`(UTC epoch ms, 예: `Date.UTC(2027,3,8)`)로 넣습니다. 그 뒤 첫 게시 때 자동으로 바뀝니다.
-- 상태 변경은 `corrections`로만 할 수 있고, `corrections`는 **수동 파일 `providers`에 있는 행만** 대상으로 합니다. 자동 provider 행의 상태는 아직 바꿀 수 없습니다(7장 참고).
+- 수동 행의 상태는 행에 직접 쓰거나 `corrections`(날짜 전환)로 바꿉니다. `corrections`는 **수동 파일 `providers`에 있는 행만** 대상으로 합니다.
+- 자동 provider 행의 상태는 `overrides`의 `"status": "deprecated" | "disabled"`로 바꿉니다(날짜 조건은 없음).
 
 ## 6. 반영 방법
 
@@ -161,6 +162,7 @@ npm run audit                                          # 전수 검사: open 항
 | 자동 행의 이름·reasoning·한도·가격·대체 모델이 틀리거나 비어 있음 | `overrides` |
 | Effort가 비었거나 틀림 | `thinking` |
 | 수동 행의 가격·상태 조건부 보정, 날짜 전환 | `corrections` |
+| 자동 행의 상태(사용 비권장·종료) | `overrides`의 `status` |
 | 공식 값이 없어서 비워 둘 수밖에 없는 빈칸 | `knownGaps` (`check`: `thinking` / `cost` / `zero-price` / `model-data`, `reason` 필수) |
 
 ### 모델 매칭 (`thinking`, `overrides`, `knownGaps` 공통)
@@ -247,15 +249,12 @@ npm run audit
 
 | 시점 | 항목 |
 | --- | --- |
-| 마지막 정기 점검 | **2026-11-19** (다음 점검 때 `npm run candidates -- --since 2026-11-19`) |
-| 미결정 | **무료 변형 모델 가격 14개** (`npm run audit`의 `required: cost` open): kilocode 12개(`:free` 11개 + `reflection/beam-free`)와 vercel 2개. Kilo 모델 API의 `isFree`·가격 0으로 무료가 확인되면 `overrides`로 `{"input":0,"output":0}`을 넣습니다. 확인할 수 없으면 `knownGaps`(`check: "cost"`)에 사유를 적습니다 |
-| 미반영 후보 (2026-11-19) | Bedrock GPT-6.2 Astra/Sol(`openai.gpt-6.2-*`, us./global., 11/17 출시): AWS 모델 카드·가격 확인 후 추가 |
+| 마지막 정기 점검 | **2026-11-19** (다음 점검 때 `npm run candidates -- --since 2026-11-19`). 이 날 `npm run audit` open 0, 후보는 아래 보류 1건뿐 |
 | 보류 (승인제) | Vertex Gemini 4 Neon(11/18, verified enterprise customers 전용). 일반 공개되면 추가: Global $3/$15/cacheRead $0.15, 한 번 응답 65,536, 단계 low~xhigh 기본 high(`thinking` 규칙 이미 있음) |
 | 2026-12-01 이후 | Gemini 2.5 Pro/Flash가 새 모델로 라우팅됨. `google` provider의 Gemini 2.5 Effort 규칙을 재검토. 자동 provider `google`의 Gemini 4 Argon/Carbon 가격 인상이 반영됐는지 확인(`google-vertex`는 날짜 규칙으로 자동) |
 | 2027-01-12 이후 | Gemini 4 Hydrogen(그리고 Neon)의 캐시 쓰기 요금(입력의 1.25배)이 생김. `google-vertex` 행에 `cacheWrite` 추가 |
-| 수시 | Kilo·Vercel 프로모션 0원(Glyph Cluster, Flint)의 유료 전환 |
+| 수시 | 무료·프로모션 0원 모델의 유료 전환: Glyph Cluster, Flint(Kilo·Vercel)와 무료 변형 14개(kilocode `:free`, vercel `-free`). 가격 0은 `overrides`에 있으니, 출처 API에서 가격이 생기면 해당 규칙을 지우거나 고칩니다 |
 | Agent SOT 전환 시 | Sonnet 5.5의 `off`(`between_tools`로만 가능), Codex 모델 기본 Effort가 API 기본값과 같은지, Agent의 `max` 단계 지원 |
-| 수단이 생기면 | 자동 provider 행의 상태 변경: Qwen 판매 종료 4개(`qwen3-coder-plus`, `qwen3-coder-next`, `qwen3-max-2026-01-23`, `glm-4.7`)를 deprecated로. `overrides`에 `status`를 허용하는 방안이 있습니다 |
 
 `corrections`의 날짜 규칙(Sonnet 4.5 EOL 2027-04-08, Gemini 4 Vertex 가격 2026-12-01 등)은 자동으로 적용되므로 여기에 넣지 않습니다.
 
