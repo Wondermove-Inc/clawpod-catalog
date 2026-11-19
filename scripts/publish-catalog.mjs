@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 import { buildCatalog, countModels, MAX_CATALOG_BYTES, serializeCatalog } from "./catalog.mjs";
 import { convertOpenRouterModels, parseOpenRouterResponse, withOpenRouter } from "./openrouter.mjs";
 import { parseModelsDev } from "./models-dev.mjs";
-import { thinkingCoverage } from "./thinking.mjs";
+import { thinkingCoverage, thinkingReport } from "./thinking.mjs";
 
 const LARGE_MODEL_DELTA_NOTICE = 50;
 const defaultRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -20,6 +20,7 @@ function parseArgs(argv) {
   let sourceFile;
   let openRouterFile;
   let modelsDevFile;
+  let reportFile;
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === "--dry-run") {
       dryRun = true;
@@ -32,6 +33,9 @@ function parseArgs(argv) {
     } else if (argv[i] === "--modelsdev-file" && argv[i + 1] && !argv[i + 1].startsWith("--")) {
       if (modelsDevFile) throw new Error("--modelsdev-file may only be specified once");
       modelsDevFile = argv[++i];
+    } else if (argv[i] === "--report-file" && argv[i + 1] && !argv[i + 1].startsWith("--")) {
+      if (reportFile) throw new Error("--report-file may only be specified once");
+      reportFile = argv[++i];
     } else {
       throw new Error(`unknown or incomplete argument: ${argv[i]}`);
     }
@@ -45,7 +49,7 @@ function parseArgs(argv) {
   if (!modelsDevFile) {
     throw new Error("missing required argument: --modelsdev-file <models.dev api.json>");
   }
-  return { dryRun, sourceFile, openRouterFile, modelsDevFile };
+  return { dryRun, sourceFile, openRouterFile, modelsDevFile, reportFile };
 }
 
 function parseSource(body) {
@@ -77,7 +81,7 @@ export async function publishCatalog({
   log = console.log,
   githubOutput = process.env.GITHUB_OUTPUT,
 } = {}) {
-  const { dryRun, sourceFile, openRouterFile, modelsDevFile } = parseArgs(argv);
+  const { dryRun, sourceFile, openRouterFile, modelsDevFile, reportFile } = parseArgs(argv);
   const outputPath = path.join(rootDir, "models", "v1", "catalog.json");
   const minVersion = fs.readFileSync(path.join(rootDir, "MIN_VERSION"), "utf8").trim();
   const supplement = JSON.parse(
@@ -109,6 +113,7 @@ export async function publishCatalog({
     `thinking profiles: ${coverage.complete}/${coverage.total} active reasoning models have levels and a default (${coverage.missing.length} missing)`,
   );
   writeOutput(githubOutput, "thinking_missing", String(coverage.missing.length));
+  if (reportFile) fs.writeFileSync(path.resolve(reportFile), thinkingReport(coverage));
   const contents = serializeCatalog(next);
   if (contents === previous.contents) {
     log("published catalog is already current; nothing to do");

@@ -151,6 +151,7 @@ Publisher ingress schema와 consumer acceptance schema는 동일하지 않습니
 - upstream `thinkingLevelMap`이 `null`로 막은 단계는 빼고, 기본 단계가 지원 단계에 없으면 기본 단계를 비웁니다(출처 충돌).
 - 2026-11-19 기준 활성 reasoning 모델 1594/1663이 채워져 있습니다. 남은 빈칸은 라우터 별칭과 공식 문서가 없는 모델입니다(sources/REVIEW.md).
 - 채우지 못한 모델은 비워 둡니다. 게시 로그에 `thinking profiles: 채운 수/전체` 줄이 남고, workflow output `thinking_missing`에 빈칸 수가 기록됩니다. 빈칸이 있어도 게시는 막지 않습니다.
+- 빈칸 목록은 매 실행의 workflow 요약에 붙고, main 게시 실행(dry-run 제외)은 GitHub 이슈 **"Thinking effort gaps"** 하나를 계속 갱신합니다. 빈칸이 0이 되면 이슈를 닫습니다. 새 빈칸은 이 이슈를 보고 공식 문서로 확인해 `thinking` 규칙으로 채웁니다. 이를 위해 `publish` job에 `issues: write` 권한이 있습니다.
 
 Publisher의 8MiB 검사는 streaming download/memory cap이 아닙니다. Consumer의 4MiB streaming body limit와 목적·구현이 다릅니다. 최종 직렬화한 게시 파일에는 별도로 4MiB 한도를 적용합니다.
 

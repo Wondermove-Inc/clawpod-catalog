@@ -375,9 +375,14 @@ test("offline CLI dry-run, write, repeat, and source-only changes obey persisten
     log: () => {},
     githubOutput,
   };
-  const dry = await publishCatalog({ ...options, argv: [...options.argv, "--dry-run"] });
+  const report = path.join(dir, "report.md");
+  const dry = await publishCatalog({
+    ...options,
+    argv: [...options.argv, "--dry-run", "--report-file", report],
+  });
   assert.equal(dry.changed, true);
   assert.equal(fs.existsSync(output), false);
+  assert.match(fs.readFileSync(report, "utf8"), /thinking levels and a default/);
   await publishCatalog(options);
   const first = fs.readFileSync(output, "utf8");
   assert.equal((await publishCatalog({ ...options, now: NOW + 3600_000 })).changed, false);
@@ -463,6 +468,11 @@ test("invalid or missing command arguments fail before write", async (t) => {
     ["--source-file", "a", "--openrouter-file", "b"],
     ["--source-file", "a", "--openrouter-file", "b", "--modelsdev-file"],
     ["--source-file", "a", "--openrouter-file", "b", "--modelsdev-file", "c", "--modelsdev-file", "d"],
+    [...["--source-file", "a", "--openrouter-file", "b", "--modelsdev-file", "c"], "--report-file"],
+    [
+      ...["--source-file", "a", "--openrouter-file", "b", "--modelsdev-file", "c"],
+      ...["--report-file", "d", "--report-file", "e"],
+    ],
   ]) {
     await assert.rejects(publishCatalog({ rootDir: dir, argv }), /argument|once/);
   }
