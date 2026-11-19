@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795091442116,
+  "generatedAt": 1795112908599,
   "minVersion": "2026.4.11",
-  "sourceCommit": "dbc1aa04e88f531910d70512009c74e355311c92",
+  "sourceCommit": "6ecbcf06981cfb5f9c5f1e1f06df5d0207895523",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -7009,7 +7009,7 @@
           "cost": {
             "input": 0.3,
             "output": 1.2,
-            "cacheRead": 0.007,
+            "cacheRead": 0.006,
             "cacheWrite": 0
           },
           "compat": {
@@ -7032,9 +7032,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.111,
-            "output": 4.44,
-            "cacheRead": 0.097,
+            "input": 1.32,
+            "output": 3.96,
+            "cacheRead": 0.044,
             "cacheWrite": 0
           },
           "compat": {
@@ -7055,11 +7055,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 384000,
           "cost": {
-            "input": 0.055,
-            "output": 0.3,
-            "cacheRead": 0.035,
+            "input": 0.44,
+            "output": 1.32,
+            "cacheRead": 0.028,
             "cacheWrite": 0
           },
           "compat": {
@@ -8592,9 +8592,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.055,
-            "output": 0.3,
-            "cacheRead": 0.035,
+            "input": 0.44,
+            "output": 1.32,
+            "cacheRead": 0.028,
             "cacheWrite": 0
           },
           "compat": {
@@ -8643,9 +8643,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.9,
-            "output": 1.5,
-            "cacheRead": 0.25,
+            "input": 1.6,
+            "output": 3.2,
+            "cacheRead": 0.135,
             "cacheWrite": 0
           },
           "compat": {
@@ -8667,9 +8667,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.111,
-            "output": 4.44,
-            "cacheRead": 0.097,
+            "input": 1.32,
+            "output": 3.96,
+            "cacheRead": 0.044,
             "cacheWrite": 0
           },
           "compat": {
@@ -8721,7 +8721,7 @@
           "cost": {
             "input": 0.3,
             "output": 1.2,
-            "cacheRead": 0.007,
+            "cacheRead": 0.006,
             "cacheWrite": 0
           },
           "compat": {
@@ -11006,7 +11006,7 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.6,
+            "input": 0.66,
             "output": 3.5,
             "cacheRead": 0.16,
             "cacheWrite": 0
@@ -17761,9 +17761,7 @@
             "output": 1.13,
             "cacheRead": 0.07,
             "cacheWrite": 0
-          },
-          "status": "deprecated",
-          "statusReason": "novita no longer lists this model in its public model inventory."
+          }
         },
         {
           "id": "baidu/ernie-4.5-21B-a3b",
@@ -18565,7 +18563,9 @@
               "max"
             ],
             "defaultThinkingLevel": "max"
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory."
         },
         {
           "id": "moonshotai/kimi-k3.1-pro",
@@ -18681,8 +18681,6 @@
               }
             ]
           },
-          "status": "deprecated",
-          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "off",
@@ -18733,8 +18731,6 @@
               }
             ]
           },
-          "status": "deprecated",
-          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "low",
@@ -18784,8 +18780,6 @@
               }
             ]
           },
-          "status": "deprecated",
-          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "low",
@@ -38701,9 +38695,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.035,
-            "output": 0.15,
-            "cacheRead": 0.0015
+            "input": 0.036,
+            "output": 0.5,
+            "cacheRead": 0.01
           },
           "compat": {
             "thinkingLevels": [
@@ -38725,9 +38719,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.0999,
+            "input": 0.117,
             "output": 8,
-            "cacheRead": 0.0999
+            "cacheRead": 0.12
           },
           "compat": {
             "thinkingLevels": [
@@ -38747,11 +38741,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 384000,
+          "maxTokens": 131072,
           "cost": {
-            "input": 0.06,
-            "output": 0.18,
-            "cacheRead": 0.015
+            "input": 0.04664,
+            "output": 0.13992,
+            "cacheRead": 0.001484
           },
           "compat": {
             "thinkingLevels": [
@@ -38825,7 +38819,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.1824,
+            "input": 0.1805,
             "output": 11.0055,
             "cacheRead": 0.18
           },
@@ -40702,9 +40696,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.111,
-            "output": 4.44,
-            "cacheRead": 0.097
+            "input": 0.13,
+            "output": 5.5,
+            "cacheRead": 0.11
           },
           "compat": {
             "thinkingLevels": [
@@ -40725,11 +40719,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 393216,
           "cost": {
-            "input": 0.3,
-            "output": 1.2,
-            "cacheRead": 0.006
+            "input": 0.0507,
+            "output": 0.2028,
+            "cacheRead": 0.001014
           },
           "compat": {
             "thinkingLevels": [
@@ -42878,9 +42872,9 @@
           "contextWindow": 1048576,
           "maxTokens": 524288,
           "cost": {
-            "input": 0.15,
-            "output": 0.6,
-            "cacheRead": 0.015
+            "input": 0.075,
+            "output": 0.3,
+            "cacheRead": 0.0075
           },
           "compat": {
             "thinkingLevels": [
@@ -43408,7 +43402,7 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.66,
+            "input": 0.65,
             "output": 3.5,
             "cacheRead": 0.16
           },
@@ -46471,7 +46465,7 @@
           ],
           "reasoning": true,
           "contextWindow": 2000000,
-          "maxTokens": 64000
+          "maxTokens": 128000
         },
         {
           "id": "openrouter/auto-code",
@@ -46482,7 +46476,7 @@
           ],
           "reasoning": true,
           "contextWindow": 2000000,
-          "maxTokens": 64000
+          "maxTokens": 128000
         },
         {
           "id": "openrouter/bodybuilder",
@@ -47202,11 +47196,10 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 40960,
+          "maxTokens": 235929,
           "cost": {
-            "input": 0.142,
-            "output": 0.208,
-            "cacheRead": 0.127
+            "input": 0.17,
+            "output": 0.25
           },
           "compat": {
             "thinkingLevels": [
@@ -48119,9 +48112,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625
           },
           "compat": {
             "thinkingLevels": [
@@ -48211,9 +48204,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378
           },
           "compat": {
             "thinkingLevels": [
@@ -48321,31 +48314,6 @@
           }
         },
         {
-          "id": "thinkingmachines/inkling-2-small:free",
-          "name": "Thinking Machines: Inkling 2 Small (free)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 131072,
-          "cost": {
-            "input": 0,
-            "output": 0
-          },
-          "compat": {
-            "thinkingLevels": [
-              "minimal",
-              "low",
-              "medium",
-              "high",
-              "max"
-            ],
-            "defaultThinkingLevel": "high"
-          }
-        },
-        {
           "id": "thinkingmachines/inkling-small",
           "name": "Thinking Machines: Inkling Small",
           "input": [
@@ -48408,7 +48376,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1000000,
-          "maxTokens": 64000
+          "maxTokens": 128000
         },
         {
           "id": "unbiased/pareto-26.10",
@@ -55534,6 +55502,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1795091421740,
+  "sourceGeneratedAt": 1795112888211,
   "supplementDigest": "47b3cf526500f14adbac4f5b193449b0123d97d8656fe0213b17fa52bad356a6"
 }
