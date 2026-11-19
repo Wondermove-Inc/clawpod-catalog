@@ -105,6 +105,10 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 ```
 
 - `model`은 정확한 ID이거나, `*`로 끝나는 접두사입니다. 접두사 규칙을 쓰면 같은 계열의 새 모델도 자동으로 걸립니다.
+- `provider`를 `"*"`로 쓰면 모든 provider에 적용되고, `model`은 정규화한 ID(`scripts/thinking.mjs`의 `modelKey`)로 비교합니다.
+  소문자로 바꾸고 `vendor/` 접두사, `:변형`, `@접미사`, 지역 접두사(`us.` 등), `anthropic.` 같은 제조사 접두사, 끝의 `-v1`을 빼고
+  `.`과 `_`를 `-`로 바꾼 값입니다. 예를 들어 `anthropic/claude-opus-5.5`와 `us.anthropic.claude-opus-5-5`는 모두 `claude-opus-5-5`입니다.
+  규칙 하나로 모든 중계 provider의 같은 모델이 채워집니다. 특정 provider만 다르게 하려면 그 규칙을 `*` 규칙보다 앞에 둡니다.
 - `levels`는 `off`, `minimal`, `low`, `medium`, `high`, `xhigh`, `adaptive`, `max`, `ultra` 중에서 낮은 단계부터 중복 없이 적습니다.
   끌 수 있는 모델만 `off`를 넣습니다. `default`는 `levels` 중 하나여야 합니다.
 - 켜고 끄기만 되는 모델은 `["off", "low"]`와 `"labels": {"low": "on"}`으로 적습니다.

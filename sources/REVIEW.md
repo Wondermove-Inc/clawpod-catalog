@@ -242,3 +242,38 @@ models.dev와 공식 Codex 페이지로 2026-10-01 이후 누락 후보를 찾�
   Gemini 4 maxTokens 65536(스트리밍 응답당 한도). Haiku 5.5 reasoning=true는 Anthropic upstream 행 기준.
 - **확인 필요:** M Plan 문서가 텍스트 모델로 M3.1 Flash만 표기해 `minimax-portal`의 `MiniMax-M3`가 아직 제공되는지 불분명하다(변경하지 않음).
 - **`google` provider(자동 생성):** Gemini 4 Argon/Carbon이 이미 들어와 있으나 2026-12-01 가격 인상은 upstream 갱신에 맡겼다.
+
+# 2026-11-19 Thinking Effort 공식 문서 규칙
+
+reasoning 모델의 지원 단계(`compat.thinkingLevels`)와 기본 단계(`compat.defaultThinkingLevel`)를 공식 문서로 확인해
+`thinking` 규칙 274개(provider 지정 8개, `*` 266개)로 넣었다. 규칙마다 근거 URL(`source`)과 변환 근거(`note`)가 있다.
+계정 접근권·실제 호출은 검증하지 않았다.
+
+- **결과:** 활성 reasoning 모델 1594/1663 완료(이전 1100). 새로 채움 512행, 지원 단계 수정 221행, 기본 단계 수정 198행.
+- **변환 기준:** 이름 있는 effort는 그대로(`none`→`off`), 끌 수 있을 때만 `off`.
+  토큰 예산만 있는 모델(Claude 4.x 수동 예산, Gemini 2.5, Qwen3.5~3.7)은 OpenClaw 기본 사다리 `off/minimal/low/medium/high`.
+  모델이 스스로 생각량을 정하는 모드는 `adaptive`. 켜기/끄기만 되는 모델은 `["off","low"]` + `{"low":"on"}`, 항상 켜짐은 `["low"]`.
+- **출처 충돌(공식 문서를 따름):**
+  - Claude Opus 5.5 기본값 `medium`(OpenRouter는 high).
+  - Sonnet 4.6 기본값 `off`.
+  - Claude 4.5 이하 예산형 모델은 켜기/끄기가 아니라 예산 사다리.
+  - GPT-5.2 기본값 `off`(API 기본 effort `none`), GPT-5.5 Pro 기본값 `high`.
+  - o3/o4-mini는 low/medium/high, Grok 4.3에 `xhigh` 추가.
+  - Grok 4.20 reasoning 계열은 항상 켜짐.
+  - GLM-5.2 `off/high/max` 기본 `max`.
+  - Kimi K3 계열은 Moonshot API에서 끌 수 없음(Bedrock·Venice만 `off` 허용 규칙).
+  - DeepSeek V4는 `off/low/high/max`.
+  - Seed는 `minimal/xhigh/max` 제거.
+  - Gemini 3.x는 끌 수 없음, Gemini 4 Neon/Hydrogen 기본 `high`.
+- **OpenClaw 코드와 다른 곳:** Fable 5 기본값(Anthropic 문서는 high), Mythos Preview `max` 누락, Grok 4.3 `xhigh` 누락, MiMo 단계 정의.
+
+## 판단과 한계
+
+- Claude effort 모델에는 `adaptive` 단계를 따로 두지 않았다. 모든 effort 단계가 adaptive로 동작하기 때문이다. OpenClaw의 Sonnet 5 프로필에는 `minimal`과 `adaptive`가 있다.
+- Sonnet 5.5의 `off`는 `between_tools`로만 가능하다(`disabled`는 400). Agent가 이를 보낼 수 없으면 `off`를 빼야 한다.
+- 중계 provider도 제조사 공식 값을 따른다. 예외로 DeepSeek V4의 OpenRouter·Kilo 행은 OpenRouter 공개값(`off/high/xhigh`)을 유지한다(provider 지정 규칙).
+- `openai-codex` 행에도 OpenAI API 기본값이 적용된다(GPT-5.2 기본 `off` 등). Codex 구독의 시작 effort는 다를 수 있다.
+- Gemini 2.5 Pro/Flash는 2026-12-01부터 Google이 새 모델로 라우팅할 예정이라 `google` provider 규칙을 다시 봐야 한다.
+- 공식 기본값이 명시되지 않아 API 레퍼런스 기본값을 쓴 모델: GPT-6 Astra, GPT-6.2, o-series 등(`medium`). 근거는 각 규칙의 `note`에 있다.
+- **남은 빈칸 69행은 채우지 않았다:** 라우터 별칭 25(`auto`, `free`, `*-latest` 등), 공식 문서 없음 31, 기타 13(abliterated, Aion, Arrow).
+- `qwen3-coder-next`·`qwen3-coder-30b-a3b`는 thinking 모드가 없는데 `reasoning: true`로 들어와 있다. Bedrock gpt-oss 행은 반대로 `reasoning: false`인데 reasoning 모델이다. reasoning 플래그 자체의 오류라 이번 범위에서는 고치지 않았다.

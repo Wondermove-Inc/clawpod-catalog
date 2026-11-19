@@ -107,8 +107,10 @@ const thinkingRuleSchema = z
     model: nonempty,
     levels: z.array(thinkingLevel).min(1),
     default: thinkingLevel,
-    labels: z.record(thinkingLevel, nonempty).optional(),
+    labels: z.partialRecord(thinkingLevel, nonempty).optional(),
     source: z.url(),
+    // How the vendor's native control maps onto the levels; kept for later reviews.
+    note: nonempty.optional(),
   })
   .strict()
   .refine((rule) => rule.levels.includes(rule.default), "default must be one of the levels")

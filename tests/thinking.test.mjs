@@ -177,6 +177,34 @@ test("model keys link the same model across gateways, and ambiguity links nothin
   assert.deepEqual(profile(out, "gw", "~a/solo-latest").levels, ["high"]);
 });
 
+test("a * rule names the model key and covers every gateway; earlier rules win", () => {
+  const rule = (provider, model, levels) => ({
+    provider,
+    model,
+    levels,
+    default: levels[0],
+    source: "https://example.com/doc",
+  });
+  const rules = [
+    rule("openrouter", "anthropic/claude-opus-5.5", ["max"]),
+    rule("*", "claude-opus-5-5", ["low", "high"]),
+    rule("*", "glm-4-6*", ["off", "low"]),
+  ];
+  const providers = {
+    openrouter: { models: [row("anthropic/claude-opus-5.5"), row("anthropic/claude-opus-5.5-fast")] },
+    "amazon-bedrock": { models: [row("us.anthropic.claude-opus-5-5")] },
+    kilocode: { models: [row("anthropic/claude-opus-5.5")] },
+    zai: { models: [row("glm-4.6v"), row("glm-4.5")] },
+  };
+  const out = applyThinking(providers, { rules });
+  assert.deepEqual(profile(out, "openrouter", "anthropic/claude-opus-5.5").levels, ["max"]);
+  assert.deepEqual(profile(out, "kilocode", "anthropic/claude-opus-5.5").levels, ["low", "high"]);
+  assert.deepEqual(profile(out, "amazon-bedrock", "us.anthropic.claude-opus-5-5").levels, ["low", "high"]);
+  assert.equal(profile(out, "openrouter", "anthropic/claude-opus-5.5-fast").levels, undefined);
+  assert.deepEqual(profile(out, "zai", "glm-4.6v").levels, ["off", "low"]);
+  assert.equal(profile(out, "zai", "glm-4.5").levels, undefined);
+});
+
 test("coverage counts active reasoning rows without a complete profile", () => {
   const bundle = {
     providers: {
@@ -206,6 +234,10 @@ test("supplement thinking rules are validated", () => {
   };
   const rule = { provider: "acme", model: "m", levels: ["low", "high"], default: "high", source: "https://e.com" };
   validateSupplement({ ...base, thinking: [rule] });
+  validateSupplement({
+    ...base,
+    thinking: [{ ...rule, levels: ["off", "low"], default: "low", labels: { low: "on" }, note: "switch" }],
+  });
   for (const bad of [
     { ...rule, default: "max" },
     { ...rule, levels: ["high", "low"] },
@@ -213,6 +245,7 @@ test("supplement thinking rules are validated", () => {
     { ...rule, levels: ["low", "turbo"] },
     { ...rule, source: "not a url" },
     { ...rule, extra: true },
+    { ...rule, labels: { turbo: "on" } },
   ]) {
     assert.throws(() => validateSupplement({ ...base, thinking: [bad] }), JSON.stringify(bad));
   }
