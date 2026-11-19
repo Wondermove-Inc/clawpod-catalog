@@ -348,11 +348,32 @@ test("override rules are validated", () => {
   };
   const ok = { provider: "*", model: "m", set: { reasoning: false }, source: "https://e.com" };
   validateSupplement({ ...base, overrides: [ok] });
+  validateSupplement({
+    ...base,
+    overrides: [
+      {
+        ...ok,
+        set: {
+          cost: {
+            input: 1,
+            output: 2,
+            cacheRead: 0.1,
+            tieredPricing: [
+              { input: 1, output: 2, range: [0, 128000] },
+              { input: 2, output: 4, range: [128000] },
+            ],
+          },
+        },
+      },
+    ],
+  });
   for (const bad of [
     { ...ok, set: {} },
     { ...ok, set: { status: "disabled" } },
     { ...ok, set: { cost: { input: -1, output: 1 } } },
     { ...ok, set: { contextWindow: 0 } },
+    { ...ok, set: { cost: { input: 1, output: 2, tieredPricing: [{ input: 1, output: 2, range: [] }] } } },
+    { ...ok, set: { cost: { input: 1, output: 2, tieredPricing: [{ input: 1, output: 2, range: [0], extra: 1 }] } } },
     { ...ok, source: "nope" },
   ]) {
     assert.throws(() => validateSupplement({ ...base, overrides: [bad] }), JSON.stringify(bad));

@@ -135,7 +135,22 @@ const overrideSchema = z
         reasoning: z.boolean().optional(),
         contextWindow: z.number().int().positive().optional(),
         maxTokens: z.number().int().positive().optional(),
-        cost: z.object(costFields).strict().nullable().optional(),
+        // Same shape as upstream rows: base rates plus optional context-length tiers.
+        cost: z
+          .object({
+            ...costFields,
+            tieredPricing: z
+              .array(
+                z
+                  .object({ ...costFields, range: z.array(z.number().int().nonnegative()).min(1).max(2) })
+                  .strict(),
+              )
+              .min(1)
+              .optional(),
+          })
+          .strict()
+          .nullable()
+          .optional(),
         replacedBy: nonempty.nullable().optional(),
       })
       .strict()

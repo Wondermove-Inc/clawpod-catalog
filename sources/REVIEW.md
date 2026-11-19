@@ -297,3 +297,30 @@ reasoning 모델의 지원 단계(`compat.thinkingLevels`)와 기본 단계(`com
 - **`vercel-ai-gateway/openai/gpt-live-1`:** 음성 실시간 모델이라 공식 컨텍스트·출력 한도가 없다. 값이 없어 Agent가 이 행을 쓰지 않는다. 지어내지 않았다.
 - **가격 없음 147행:** 구독형(Codex, `*-plan` 등)은 의도된 것이다. ollama-cloud 27, kilocode 18 등 실제 빈칸은 공식 가격 확인이 필요해 이번에 고치지 않았다.
 - **캐시 가격 0 (쓰기 1035, 읽기 234):** 무료(예: OpenAI 자동 캐시)인지 미상인지 파일만으로 구분할 수 없다. 제조사별 확인이 필요하다.
+
+# 2026-11-19 가격 빈칸·캐시 가격 재검토
+
+전수 검사의 가격 항목을 다시 나눴다.
+- 가격 빈칸 147행 중 106행은 의도된 것이다: 구독형 81(ollama-cloud, `*-plan`, Codex 등), 라우터 별칭 25.
+- 캐시 쓰기 0(1035행)은 대부분 정상이다: OpenAI·DeepSeek·xAI·Gemini 기본 캐시는 쓰기 요금이 따로 없다.
+- 캐시 읽기 0(234행)도 대부분 캐시 기능이 없는 모델이라 정상이다: OpenAI Pro, Bedrock 오픈 모델, Voxtral 등. Agent도 없으면 0으로 계산한다.
+
+의심 행 48개를 각 provider의 공식 가격 자료로 확인했다.
+
+| 결과 | 행 | 내용 |
+| --- | ---: | --- |
+| 가격 입력 | 24 | Bedrock `global.` Claude 6(AWS AmazonBedrockFoundationModels Global 가격). GMI Claude 5(5분 캐시 쓰기 과금, Opus 4.7 할인 종료로 5/25). DeepInfra Seed 2.0 3·Qwen3.7 Max(구간 요금 포함). Qwen3.5 Plus 캐시 가격 |
+| 공식 무료 0 | 8 | Z.ai GLM Flash 3, Gemini API Gemma 4 2(무료 티어만), Kilo·Vercel Glyph Cluster, Vercel Flint |
+| 비움 유지 | 23 | NVIDIA 무료 체험 API 7, Cohere Tiny Aya 4(API 가격 없음), Qwen 국제 리전 가격 없음·판매 종료 6, Switchyard·Beam(가변), gpt-live-1(초 단위 과금), Ampersand·Flint(Kilo/Vercel 가격 미공개) |
+| 가격 제거 | 1 | `qwen/qwen3-coder-plus`: 2026-10-10 판매 종료로 현재 1/5를 확인할 수 없음 |
+| 현재 값 유지 | 1 | DeepInfra Claude Fable 5: 캐시 요금 없음(0/0이 맞음) |
+
+## 판단과 한계
+
+- `overrides`의 `cost`에 upstream 행과 같은 `tieredPricing`(컨텍스트 구간별 요금)을 허용했다.
+- GMI 가격은 GMI 콘솔이 쓰는 비인증 JSON(`/api/v1/billing/model_prices`)에서 가져왔다. 공개 가격 페이지가 아니다.
+  GMI는 캐시 쓰기를 `ephemeral5mInputPrice`로 과금하고 `cacheWritePrice`는 0으로 표기한다.
+- Kilo·Vercel의 0원(Glyph Cluster, Flint)은 출시·stealth 프로모션이라 다시 확인해야 한다.
+- Qwen 가격은 싱가포르 종량제 기준이다. 이 provider가 Coding Plan(월정액) 엔드포인트라면 토큰 단가가 적용되지 않는다.
+- Qwen의 판매 종료 모델 4개(`qwen3-coder-plus`, `qwen3-coder-next`, `qwen3-max-2026-01-23`, `glm-4.7`)는 상태 변경 수단이 수동 모델에만 있어서 상태를 바꾸지 못했다.
+- 전수 검사의 "유료인데 0" 16행 중 8행은 위의 공식 무료다.
