@@ -343,3 +343,24 @@ reasoning 모델의 지원 단계(`compat.thinkingLevels`)와 기본 단계(`com
 - 새 세션 에이전트에게 문서만 주고 실제 과제(Gemini 4 Neon 추가, `:free` 가격)를 계획하게 해서 문서 공백 16건을 찾아 고쳤다.
   - 수동 행 근거 기록 위치, `maxTokens`는 한 번 응답 기준, 미래 날짜 요금, 승인제 정책, Kilo·Vercel·Vertex 출처, 입력 형식 제한, 규칙 추가 위치, 점검일 기록 등.
   - 이슈 보고서가 가격 항목을 빼고 세던 문제를 고쳐 audit와 같은 기준으로 맞췄다.
+
+# 2026-11-19 남은 할 일 마무리 (open 0)
+
+`MAINTAINING.md` 절차로 `npm run audit`의 open 항목과 `npm run candidates`의 후보를 처리했다. 결과는 audit open 0, 이슈 Catalog gaps 할 일 0이다.
+
+| 대상 | 처리 | 공식 근거 |
+| --- | --- | --- |
+| 무료 변형 모델 14개(kilocode `:free` 11 + `reflection/beam-free`, vercel `-free` 2) | `overrides`로 가격 0 | Kilo 모델 API(`isFree: true`, 가격 0/0) https://api.kilo.ai/api/openrouter/models, Vercel 모델 API(가격 0/0) https://ai-gateway.vercel.sh/v1/models |
+| Bedrock GPT-6.2 Astra/Sol | `amazon-bedrock`에 us.·global. 4행: Astra 8.8/44/0.44(us)·8/40/0.4(global), Sol 2.2/11/0.11·2/10/0.1. 1,050,000 컨텍스트, 128,000 출력 | AWS 모델 카드 `model-card-openai-gpt-6-2-astra.html`, `…-sol.html` (출시 2026-11-17) |
+| Mantle GPT-6.2 Astra/Sol | `amazon-bedrock-mantle`에 `openai.gpt-6.2-*` 2행(In-Region 가격, 30분 캐시 쓰기 11/2.75) | 같은 카드의 bedrock-mantle 모델 ID(us-east-1) |
+| Qwen 판매 종료 4개 | `overrides`의 새 `status` 필드로 deprecated | https://www.alibabacloud.com/help/en/model-studio/model-depreciation |
+
+## 판단과 한계
+
+- `overrides`에 `status`(`deprecated`·`disabled`)를 허용했다. 자동 provider 행의 상태를 바꿀 수단이 없어 보류했던 Qwen 4개를 이것으로 처리했다.
+- GPT-6.2는 bedrock-runtime에 지역 base ID가 없어(카드: Not supported) us.·global. profile만 넣었다.
+- GPT-6.2 장문 할증(272K 초과 입력 시 전체 요청에 Sol 4.4/16.5, Astra 17.6/66 등)은 수동 행 형식이 구간 요금을 받지 않아 넣지 않았다. Astra Ultrafast(3배, 2027-03-01부터 6배)도 표현하지 않았다.
+- Converse는 명시적 캐싱을 지원하지 않아 Bedrock 행에는 `cacheWrite`를 넣지 않았다. Mantle은 Chat Completions에서 지원해 30분 캐시 쓰기 가격을 넣었다. 기존 Mantle GPT-6.1 Terra 행에는 `cacheWrite`가 없다(미확인이라 그대로 둠).
+- Mantle의 OpenAI 모델은 AWS 카드상 `/openai/v1` 경로로 제공된다. Agent가 `/v1`을 쓰는 문제는 기존 Mantle 비-Claude 행과 같다.
+- Gemini 4 Neon은 verified enterprise customers 전용이라 승인제 기준으로 보류했다(`MAINTAINING.md` 9장).
+- 브랜치 dry-run의 최신 원본에서 `novita/baidu/cobuddy`가 Effort 빈칸 open으로 다시 나타났다. 2026-11-19 Effort 조사에서 "공식 문서 없음"으로 건너뛴 모델이라 같은 사유로 `knownGaps`에 추가했다.

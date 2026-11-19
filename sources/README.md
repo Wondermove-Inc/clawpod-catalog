@@ -25,8 +25,8 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 | `xai`                       |           10 | 현행 7개 + 공식 전환 안내가 있는 별칭 3개                             |
 | `minimax`                   |            4 | 플러그인의 text 모델 목록 + 2026-11-18 M3.1 Flash                              |
 | `minimax-portal`            |            5 | M Plan 모델. 2026-11-18 M3.1 Flash 추가, Preview·M2.7은 대체됨                |
-| `amazon-bedrock`            |          160 | SDK 87개 + 2026-10-02 57개 + 2026-11-18 16개 (AWS 문서)                    |
-| `amazon-bedrock-mantle`     |           16 | Claude 10개 + Mantle 전용 6개 (2026-11-18 GPT-6.1 Terra)                  |
+| `amazon-bedrock`            |          164 | SDK 87개 + AWS 문서 추가 77개(2026-10-02 57, 11-18 16, 11-19 GPT-6.2 4)     |
+| `amazon-bedrock-mantle`     |           18 | Claude 10개 + Mantle 전용 8개 (2026-11-19 GPT-6.2 Astra/Sol)              |
 | `anthropic-vertex`          |           15 | `global` 표준 가격 (2026-11-18 Haiku 5.5·Fable 5.2 추가)                    |
 | `openrouter`                |            1 | Agent `auto` 별칭만. 나머지는 게시 때 공개 API에서 자동 갱신          |
 | `zai`                       |            6 | 에이전트 내장 JSON의 기준 목록; upstream에는 이미 더 많은 모델이 있음 |
@@ -129,12 +129,12 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 
 - 모델 찾는 방식은 `thinking` 규칙과 같습니다(정확한 ID, `*`로 끝나는 접두사, `provider: "*"`는 정규화한 ID).
   `thinking`과 달리 맞는 규칙이 모두 순서대로 적용됩니다.
-- `set`에 쓸 수 있는 필드는 `name`, `reasoning`, `contextWindow`, `maxTokens`, `cost`, `replacedBy`입니다.
+- `set`에 쓸 수 있는 필드는 `name`, `reasoning`, `contextWindow`, `maxTokens`, `cost`(`tieredPricing` 포함), `replacedBy`, `status`(`deprecated`·`disabled`)입니다.
   `null`은 필드를 지웁니다. 가격을 모르면 0이 아니라 `"cost": null`로 비웁니다.
 - `reasoning: false`로 바꾸면 그 모델의 Thinking Effort 값도 함께 지웁니다.
 - 적용 순서: 병합 → `corrections` → `overrides` → `thinking`.
   그래서 `overrides`로 `reasoning: true`가 된 모델도 `thinking` 규칙으로 Effort가 채워집니다.
-- 상태(`status`) 변경은 계속 `corrections`로 합니다.
+- 자동 provider 행의 상태는 `overrides`의 `status`로 바꿉니다. 수동 행의 상태와 날짜 전환은 `corrections`로 합니다.
 
 ## 검토 완료 빈칸 (`knownGaps`)
 
