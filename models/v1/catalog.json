@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795086981174,
+  "generatedAt": 1795087401346,
   "minVersion": "2026.4.11",
   "sourceCommit": "bd9166435e98460dee2f6bfa53c301ca1ff96a98",
   "providers": {
@@ -38681,11 +38681,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 384000,
           "cost": {
-            "input": 0.047,
-            "output": 0.3,
-            "cacheRead": 0.035
+            "input": 0.06,
+            "output": 0.18,
+            "cacheRead": 0.015
           },
           "compat": {
             "thinkingLevels": [
@@ -40540,7 +40540,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.047,
+            "input": 0.062,
             "output": 0.3,
             "cacheRead": 0.035
           },
@@ -55306,6 +55306,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1795085592894,
+  "sourceGeneratedAt": 1795087382979,
   "supplementDigest": "a5e39658b9dc3b3f5dd7d905e68d1a59428bca513a914f9ff6ca9d7db8d644fb"
 }
