@@ -1,7 +1,7 @@
 import { createHash } from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
 import { z } from "zod";
-import { applyThinking, THINKING_LEVELS } from "./thinking.mjs";
+import { applyThinking, ruleMatches, THINKING_LEVELS } from "./thinking.mjs";
 
 export const MAX_CATALOG_BYTES = 8 * 1024 * 1024;
 export const MAX_PUBLISHED_BYTES = 4 * 1024 * 1024;
@@ -122,6 +122,28 @@ const thinkingRuleSchema = z
       ),
     "levels must be unique and ordered low to high",
   );
+// Reviewed replacement of upstream/OpenRouter values for one model or family (same
+// matching as thinking rules). `null` removes the field: an unknown price or a
+// replacement that no longer exists is omitted rather than published wrong.
+const overrideSchema = z
+  .object({
+    provider: nonempty,
+    model: nonempty,
+    set: z
+      .object({
+        name: nonempty.optional(),
+        reasoning: z.boolean().optional(),
+        contextWindow: z.number().int().positive().optional(),
+        maxTokens: z.number().int().positive().optional(),
+        cost: z.object(costFields).strict().nullable().optional(),
+        replacedBy: nonempty.nullable().optional(),
+      })
+      .strict()
+      .refine((value) => Object.keys(value).length > 0, "empty override"),
+    source: z.url(),
+    note: nonempty.optional(),
+  })
+  .strict();
 export const supplementSchema = z
   .object({
     schemaVersion: z.literal(1),
@@ -139,6 +161,7 @@ export const supplementSchema = z
     providers: z.record(z.string().regex(/^[a-z0-9][a-z0-9-]*$/), supplementalProviderSchema),
     corrections: z.array(correctionSchema).optional(),
     thinking: z.array(thinkingRuleSchema).optional(),
+    overrides: z.array(overrideSchema).optional(),
   })
   .strict();
 
@@ -181,6 +204,29 @@ export function validateSupplement(value) {
     }
   }
   return supplement;
+}
+
+// Every matching override applies in order, so a later, narrower rule can refine a family.
+export function applyOverrides(providers, overrides = []) {
+  const result = structuredClone(providers);
+  for (const [provider, entry] of Object.entries(result)) {
+    for (const model of entry.models) {
+      for (const override of overrides) {
+        if (!ruleMatches(override, provider, model.id)) continue;
+        for (const [key, value] of Object.entries(override.set)) {
+          if (value === null) delete model[key];
+          else model[key] = structuredClone(value);
+        }
+        // A model that no longer reasons must not keep an upstream thinking profile.
+        if (override.set.reasoning === false && model.compat) {
+          const { thinkingLevels, defaultThinkingLevel, thinkingLevelLabels, ...compat } = model.compat;
+          if (Object.keys(compat).length) model.compat = compat;
+          else delete model.compat;
+        }
+      }
+    }
+  }
+  return result;
 }
 
 // Reviewed exceptions only apply to the exact known-bad values. A newer upstream
@@ -311,10 +357,13 @@ export function buildCatalog({
     minVersion: minVersion.trim(),
     ...(bundle.minVersion ? { sourceMinVersion: bundle.minVersion } : {}),
     providers: applyThinking(
-      applyCorrections(
-        mergeProviders(rest.providers, supplement.providers),
-        supplement.corrections,
-        now,
+      applyOverrides(
+        applyCorrections(
+          mergeProviders(rest.providers, supplement.providers),
+          supplement.corrections,
+          now,
+        ),
+        supplement.overrides,
       ),
       { ...thinkingSources, rules: supplement.thinking },
     ),

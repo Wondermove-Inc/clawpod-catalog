@@ -114,6 +114,30 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 - 켜고 끄기만 되는 모델은 `["off", "low"]`와 `"labels": {"low": "on"}`으로 적습니다.
 - `reasoning: true`인 행에만 적용합니다. 근거와 판단은 REVIEW.md에 기록합니다.
 
+## 자동 값 덮어쓰기 (`overrides`)
+
+`overrides`는 OpenClaw·OpenRouter에서 자동으로 들어온 값이 틀렸거나 비어 있을 때, 공식 근거로 확인한 값으로
+덮어쓰는 규칙입니다. `corrections`와 달리 기존 값과 상관없이 항상 적용됩니다(수동 값이 이김).
+
+```json
+{
+  "provider": "*",
+  "model": "qwen3-coder-next",
+  "set": { "reasoning": false },
+  "source": "https://huggingface.co/Qwen/Qwen3-Coder-Next",
+  "note": "Model card: supports only non-thinking mode."
+}
+```
+
+- 모델 찾는 방식은 `thinking` 규칙과 같습니다(정확한 ID, `*`로 끝나는 접두사, `provider: "*"`는 정규화한 ID).
+  `thinking`과 달리 맞는 규칙이 모두 순서대로 적용됩니다.
+- `set`에 쓸 수 있는 필드는 `name`, `reasoning`, `contextWindow`, `maxTokens`, `cost`, `replacedBy`입니다.
+  `null`은 필드를 지웁니다. 가격을 모르면 0이 아니라 `"cost": null`로 비웁니다.
+- `reasoning: false`로 바꾸면 그 모델의 Thinking Effort 값도 함께 지웁니다.
+- 적용 순서: 병합 → `corrections` → `overrides` → `thinking`.
+  그래서 `overrides`로 `reasoning: true`가 된 모델도 `thinking` 규칙으로 Effort가 채워집니다.
+- 상태(`status`) 변경은 계속 `corrections`로 합니다.
+
 ## 검증된 보정과 날짜 전환
 
 `corrections`는 공식 근거 URL과 정확한 기존 값을 명시한 예외입니다. 모든 규칙은

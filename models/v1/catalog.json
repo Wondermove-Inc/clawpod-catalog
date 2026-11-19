@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795085609473,
+  "generatedAt": 1795086034427,
   "minVersion": "2026.4.11",
   "sourceCommit": "bd9166435e98460dee2f6bfa53c301ca1ff96a98",
   "providers": {
@@ -1507,13 +1507,7 @@
             "text"
           ],
           "contextWindow": 256000,
-          "maxTokens": 4096,
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
+          "maxTokens": 4096
         },
         {
           "id": "kimi-k2.5",
@@ -1525,12 +1519,6 @@
           "reasoning": true,
           "contextWindow": 256000,
           "maxTokens": 32768,
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
           "compat": {
             "thinkingLevels": [
               "off",
@@ -4631,6 +4619,17 @@
             "output": 5,
             "cacheRead": 0.1,
             "cacheWrite": 1.25
+          },
+          "reasoning": true,
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "minimal",
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "off"
           }
         },
         {
@@ -4849,10 +4848,19 @@
             "maxTokensField": "max_tokens",
             "supportsDeveloperRole": false,
             "supportsStore": false,
-            "supportsUsageInStreaming": false
+            "supportsUsageInStreaming": false,
+            "thinkingLevels": [
+              "minimal",
+              "low",
+              "medium",
+              "high",
+              "adaptive"
+            ],
+            "defaultThinkingLevel": "adaptive"
           },
           "replacedBy": "gemini-3.1-pro-preview",
-          "status": "deprecated"
+          "status": "deprecated",
+          "reasoning": true
         },
         {
           "id": "gemini-3.1-pro-preview",
@@ -4875,8 +4883,15 @@
             "maxTokensField": "max_tokens",
             "supportsDeveloperRole": false,
             "supportsStore": false,
-            "supportsUsageInStreaming": false
-          }
+            "supportsUsageInStreaming": false,
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "high"
+          },
+          "reasoning": true
         },
         {
           "id": "gemini-3.5-flash",
@@ -4899,10 +4914,18 @@
             "maxTokensField": "max_tokens",
             "supportsDeveloperRole": false,
             "supportsStore": false,
-            "supportsUsageInStreaming": false
+            "supportsUsageInStreaming": false,
+            "thinkingLevels": [
+              "minimal",
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "medium"
           },
           "replacedBy": "gemini-3.6-flash",
-          "status": "deprecated"
+          "status": "deprecated",
+          "reasoning": true
         },
         {
           "id": "gemini-3.6-flash",
@@ -4925,8 +4948,16 @@
             "maxTokensField": "max_tokens",
             "supportsDeveloperRole": false,
             "supportsStore": false,
-            "supportsUsageInStreaming": false
-          }
+            "supportsUsageInStreaming": false,
+            "thinkingLevels": [
+              "minimal",
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "medium"
+          },
+          "reasoning": true
         },
         {
           "id": "gpt-5.3-codex",
@@ -6733,7 +6764,7 @@
           "input": [
             "text"
           ],
-          "reasoning": false,
+          "reasoning": true,
           "contextWindow": 131072,
           "maxTokens": 8192,
           "cost": {
@@ -6741,6 +6772,14 @@
             "output": 0.69,
             "cacheRead": 0,
             "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "medium"
           }
         }
       ]
@@ -16381,12 +16420,6 @@
           "reasoning": true,
           "contextWindow": 262144,
           "maxTokens": 32768,
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
           "compat": {
             "thinkingLevels": [
               "off",
@@ -16407,12 +16440,6 @@
           "reasoning": true,
           "contextWindow": 262144,
           "maxTokens": 32768,
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
           "compat": {
             "thinkingLevels": [
               "low"
@@ -16895,7 +16922,8 @@
             "cacheWrite": 0
           },
           "replacedBy": "mistral-medium-3-5",
-          "status": "deprecated"
+          "status": "deprecated",
+          "reasoning": false
         },
         {
           "id": "ministral-14b-2512",
@@ -17098,7 +17126,8 @@
             "cacheWrite": 0
           },
           "replacedBy": "mistral-medium-3-5",
-          "status": "deprecated"
+          "status": "deprecated",
+          "reasoning": false
         },
         {
           "id": "mistral-medium-2604",
@@ -18093,7 +18122,6 @@
             "cacheRead": 0.06,
             "cacheWrite": 0
           },
-          "replacedBy": "minimax/minimax-m3",
           "status": "deprecated",
           "compat": {
             "thinkingLevels": [
@@ -20108,7 +20136,8 @@
             "thinkingLevelLabels": {
               "low": "on"
             }
-          }
+          },
+          "name": "Gemma 4"
         },
         {
           "id": "gemma4:31b",
@@ -22887,7 +22916,8 @@
           ],
           "reasoning": false,
           "contextWindow": 202752,
-          "maxTokens": 16384
+          "maxTokens": 16384,
+          "name": "GLM-4.7"
         },
         {
           "id": "glm-5",
@@ -22936,7 +22966,8 @@
           ],
           "reasoning": false,
           "contextWindow": 262144,
-          "maxTokens": 65536
+          "maxTokens": 65536,
+          "name": "Qwen3 Coder Next"
         },
         {
           "id": "qwen3-coder-plus",
@@ -22951,7 +22982,8 @@
             "output": 5,
             "cacheRead": 0,
             "cacheWrite": 0
-          }
+          },
+          "name": "Qwen3 Coder Plus"
         },
         {
           "id": "qwen3-max-2026-01-23",
@@ -22960,7 +22992,8 @@
           ],
           "reasoning": false,
           "contextWindow": 262144,
-          "maxTokens": 65536
+          "maxTokens": 65536,
+          "name": "Qwen3 Max (2026-01-23)"
         },
         {
           "id": "qwen3.5-plus",
@@ -23036,6 +23069,7 @@
               }
             ]
           },
+          "name": "Qwen3.6 Flash",
           "compat": {
             "thinkingLevels": [
               "off",
@@ -23109,6 +23143,7 @@
             "cacheRead": 0.5,
             "cacheWrite": 3.125
           },
+          "name": "Qwen3.7 Max",
           "compat": {
             "thinkingLevels": [
               "off",
@@ -23207,7 +23242,8 @@
             "high": "xhigh",
             "max": "xhigh",
             "minimal": "low"
-          }
+          },
+          "name": "Qwen3.8 Flash"
         },
         {
           "id": "qwen3.8-max",
@@ -23249,7 +23285,8 @@
             "high": "xhigh",
             "max": "xhigh",
             "minimal": "low"
-          }
+          },
+          "name": "Qwen3.8 Max"
         }
       ]
     },
@@ -23368,12 +23405,6 @@
           "reasoning": true,
           "contextWindow": 202752,
           "maxTokens": 16384,
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
           "compat": {
             "thinkingLevels": [
               "off",
@@ -23457,12 +23488,6 @@
           "reasoning": true,
           "contextWindow": 262144,
           "maxTokens": 98304,
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
           "compat": {
             "thinkingLevels": [
               "off",
@@ -23524,12 +23549,6 @@
           "reasoning": true,
           "contextWindow": 196608,
           "maxTokens": 32768,
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
           "compat": {
             "thinkingLevels": [
               "low"
@@ -24053,12 +24072,6 @@
           "reasoning": true,
           "contextWindow": 262144,
           "maxTokens": 65536,
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
           "compat": {
             "thinkingLevels": [
               "low"
@@ -24078,12 +24091,6 @@
           "reasoning": true,
           "contextWindow": 262144,
           "maxTokens": 65536,
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
           "compat": {
             "thinkingLevels": [
               "low",
@@ -24102,12 +24109,6 @@
           "reasoning": true,
           "contextWindow": 262144,
           "maxTokens": 262144,
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
           "compat": {
             "maxTokensField": "max_tokens",
             "reasoningEffortMap": {
@@ -24868,7 +24869,8 @@
             "output": 1.04,
             "cacheRead": 0,
             "cacheWrite": 0
-          }
+          },
+          "reasoning": false
         },
         {
           "id": "meta-models/Muse-Spark-Open-816B-A42B",
@@ -29291,7 +29293,7 @@
           "input": [
             "text"
           ],
-          "reasoning": true,
+          "reasoning": false,
           "contextWindow": 262144,
           "maxTokens": 8192,
           "cost": {
@@ -29307,7 +29309,7 @@
           "input": [
             "text"
           ],
-          "reasoning": true,
+          "reasoning": false,
           "contextWindow": 256000,
           "maxTokens": 256000,
           "cost": {
@@ -36970,7 +36972,18 @@
             "cacheWrite": 0
           },
           "replacedBy": "doubao-seed-evolving",
-          "status": "deprecated"
+          "status": "deprecated",
+          "reasoning": true,
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low"
+            ],
+            "defaultThinkingLevel": "low",
+            "thinkingLevelLabels": {
+              "low": "on"
+            }
+          }
         }
       ]
     },
@@ -36984,13 +36997,7 @@
             "text"
           ],
           "contextWindow": 256000,
-          "maxTokens": 4096,
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
+          "maxTokens": 4096
         },
         {
           "id": "deepseek-v4-flash",
@@ -37001,12 +37008,6 @@
           "reasoning": true,
           "contextWindow": 1024000,
           "maxTokens": 384000,
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
           "compat": {
             "codeMode": "capable",
             "thinkingLevels": [
@@ -37027,12 +37028,6 @@
           "reasoning": true,
           "contextWindow": 1024000,
           "maxTokens": 384000,
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
           "compat": {
             "codeMode": "capable",
             "thinkingLevels": [
@@ -37154,12 +37149,6 @@
           "reasoning": true,
           "contextWindow": 256000,
           "maxTokens": 256000,
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
           "compat": {
             "thinkingLevels": [
               "off",
@@ -37199,12 +37188,6 @@
           "reasoning": true,
           "contextWindow": 1024000,
           "maxTokens": 128000,
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
           "compat": {
             "codeMode": "capable",
             "thinkingLevels": [
@@ -37873,12 +37856,6 @@
           "reasoning": true,
           "contextWindow": 1048576,
           "maxTokens": 131072,
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
           "compat": {
             "codeMode": "preferred",
             "thinkingLevels": [
@@ -37900,12 +37877,6 @@
           "reasoning": true,
           "contextWindow": 1048576,
           "maxTokens": 131072,
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
           "compat": {
             "thinkingLevels": [
               "off",
@@ -37927,12 +37898,6 @@
           "reasoning": true,
           "contextWindow": 1048576,
           "maxTokens": 131072,
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
           "compat": {
             "codeMode": "preferred",
             "thinkingLevels": [
@@ -37955,12 +37920,6 @@
           "reasoning": true,
           "contextWindow": 1048576,
           "maxTokens": 131072,
-          "cost": {
-            "input": 0,
-            "output": 0,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          },
           "compat": {
             "codeMode": "preferred",
             "thinkingLevels": [
@@ -51708,7 +51667,7 @@
           "input": [
             "text"
           ],
-          "reasoning": false,
+          "reasoning": true,
           "contextWindow": 128000,
           "maxTokens": 4096,
           "cost": {
@@ -51716,6 +51675,14 @@
             "output": 0.6,
             "cacheRead": 0,
             "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "medium"
           }
         },
         {
@@ -51725,7 +51692,7 @@
           "input": [
             "text"
           ],
-          "reasoning": false,
+          "reasoning": true,
           "contextWindow": 128000,
           "maxTokens": 4096,
           "cost": {
@@ -51733,6 +51700,14 @@
             "output": 0.3,
             "cacheRead": 0,
             "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "medium"
           }
         },
         {
@@ -51742,7 +51717,7 @@
           "input": [
             "text"
           ],
-          "reasoning": false,
+          "reasoning": true,
           "contextWindow": 128000,
           "maxTokens": 4096,
           "cost": {
@@ -51750,6 +51725,14 @@
             "output": 0.6,
             "cacheRead": 0,
             "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "medium"
           }
         },
         {
@@ -51759,7 +51742,7 @@
           "input": [
             "text"
           ],
-          "reasoning": false,
+          "reasoning": true,
           "contextWindow": 128000,
           "maxTokens": 4096,
           "cost": {
@@ -51767,6 +51750,14 @@
             "output": 0.2,
             "cacheRead": 0,
             "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "medium"
           }
         },
         {
@@ -51854,7 +51845,7 @@
           "input": [
             "text"
           ],
-          "reasoning": true,
+          "reasoning": false,
           "contextWindow": 131072,
           "maxTokens": 65536,
           "cost": {
@@ -55163,5 +55154,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795085592894,
-  "supplementDigest": "af95af1a2c086736e795273a9ca2bbfa9a3d89db2d12e41ee67a77989f316233"
+  "supplementDigest": "7a2a03dc0d5200f1e5ce41c1f04d8c0c717ef9ac4e620ad29da7bc768d2b3878"
 }

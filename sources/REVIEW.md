@@ -277,3 +277,23 @@ reasoning 모델의 지원 단계(`compat.thinkingLevels`)와 기본 단계(`com
 - 공식 기본값이 명시되지 않아 API 레퍼런스 기본값을 쓴 모델: GPT-6 Astra, GPT-6.2, o-series 등(`medium`). 근거는 각 규칙의 `note`에 있다.
 - **남은 빈칸 69행은 채우지 않았다:** 라우터 별칭 25(`auto`, `free`, `*-latest` 등), 공식 문서 없음 31, 기타 13(abliterated, Aion, Arrow).
 - `qwen3-coder-next`·`qwen3-coder-30b-a3b`는 thinking 모드가 없는데 `reasoning: true`로 들어와 있다. Bedrock gpt-oss 행은 반대로 `reasoning: false`인데 reasoning 모델이다. reasoning 플래그 자체의 오류라 이번 범위에서는 고치지 않았다.
+
+# 2026-11-19 catalog 전수 검사와 자동 값 덮어쓰기
+
+`models/v1/catalog.json` 전체(55 provider, 2114 모델)를 구조·필수 값·값 이상·Effort·상태·보안 항목으로 검사했다.
+구조, 보안(접속 정보 없음), 한도 값, Effort 형식은 문제가 없었다. 확실한 오류는 새 `overrides` 규칙 41개로 고쳤다.
+
+| 문제 | 이전 | 이후 | 처리 |
+| --- | ---: | ---: | --- |
+| reasoning 값 없음 | 11 | 2 | github-copilot Claude/Gemini 5행 true, Mistral 2행·Llama 3.3 false, Volcengine Kimi K2.5 true. 남은 `ark-code-latest` 2행은 별칭이라 미정 |
+| reasoning 값 오류 | - | - | `qwen3-coder-next`·`qwen3-coder-30b-a3b` false(모델 카드: non-thinking only). gpt-oss(Bedrock 4, Hugging Face 1) true |
+| 이름 없음 | 9 | 0 | Qwen 8, Ollama gemma4 |
+| 대체 모델이 종료된 모델 | 1 | 0 | novita `minimax-m2.7`의 `replacedBy` 제거(남은 활성 MiniMax 행 없음) |
+| 유료인데 가격 0 | 27 | 8 | 구독 플랜 19행은 0 대신 비움 |
+
+## 판단과 한계
+
+- **남긴 가격 0 (8행):** NVIDIA API 4, Cohere north-mini-code, opencode big-pickle, OpenRouter Lyria 2. 실제 무료일 수 있다. Lyria는 OpenRouter가 가격을 0으로 공개하고 다른 과금 항목이 없다.
+- **`vercel-ai-gateway/openai/gpt-live-1`:** 음성 실시간 모델이라 공식 컨텍스트·출력 한도가 없다. 값이 없어 Agent가 이 행을 쓰지 않는다. 지어내지 않았다.
+- **가격 없음 147행:** 구독형(Codex, `*-plan` 등)은 의도된 것이다. ollama-cloud 27, kilocode 18 등 실제 빈칸은 공식 가격 확인이 필요해 이번에 고치지 않았다.
+- **캐시 가격 0 (쓰기 1035, 읽기 234):** 무료(예: OpenAI 자동 캐시)인지 미상인지 파일만으로 구분할 수 없다. 제조사별 확인이 필요하다.
