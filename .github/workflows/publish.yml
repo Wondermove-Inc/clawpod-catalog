@@ -138,6 +138,9 @@ jobs:
 
       - name: Report catalog gaps
         if: steps.publish.outcome == 'success'
+        # Reporting must never block publishing: a GitHub API error here would
+        # otherwise skip "Commit and push".
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ github.token }}
           MISSING: ${{ steps.publish.outputs.catalog_gaps }}

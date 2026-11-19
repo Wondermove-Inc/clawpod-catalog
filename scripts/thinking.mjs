@@ -127,14 +127,18 @@ export function applyThinking(providers, { rules = [], openRouter = [], modelsDe
         (provider === "openrouter" ? undefined : router.byKey.get(modelKey(model.id)) ?? undefined);
       const candidates = [
         rule && { levels: rule.levels, default: rule.default, labels: rule.labels },
-        { levels: model.compat?.thinkingLevels, default: model.compat?.defaultThinkingLevel },
+        // Upstream data is not schema-checked here; ignore a malformed ladder instead of failing.
+        {
+          levels: Array.isArray(model.compat?.thinkingLevels) ? model.compat.thinkingLevels : undefined,
+          default: model.compat?.defaultThinkingLevel,
+        },
         fromOpenRouter(routerReasoning),
         fromModelsDev(modelsDev[provider]?.models?.[model.id]?.reasoning_options),
       ].filter(Boolean);
       const picked = candidates.find((c) => c.levels?.length);
       let levels = picked?.levels;
       // The upstream map marks levels the route cannot take with null.
-      if (levels && model.thinkingLevelMap) {
+      if (levels && model.thinkingLevelMap && typeof model.thinkingLevelMap === "object") {
         levels = levels.filter((level) => model.thinkingLevelMap[level] !== null);
       }
       if (!levels?.length) continue;
