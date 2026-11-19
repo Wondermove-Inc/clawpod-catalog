@@ -9480,6 +9480,507 @@
       },
       "source": "https://console.gmicloud.ai/api/v1/billing/model_prices",
       "note": "GMI bills 5-minute cache writes under ephemeral5mInputPrice (3.75) while cacheWritePrice reads 0."
+    },
+    {
+      "provider": "cohere",
+      "model": "tiny-aya-earth",
+      "set": {
+        "cost": null
+      },
+      "source": "https://cohere.com/pricing",
+      "note": "Reviewed 2026-11-19: no official per-token price. Cohere docs say Tiny Aya is callable on the Chat API (https://docs.cohere.com/docs/tiny-aya), but cohere.com/pricing shows only \"Download weights\" for Tiny Aya (pricingRows null) and no per-token price. The Aya Expanse FAQ price ($0.50/$1.50) does not cover Tiny Aya."
+    },
+    {
+      "provider": "cohere",
+      "model": "tiny-aya-fire",
+      "set": {
+        "cost": null
+      },
+      "source": "https://cohere.com/pricing",
+      "note": "Reviewed 2026-11-19: no official per-token price. Cohere docs say Tiny Aya is callable on the Chat API (https://docs.cohere.com/docs/tiny-aya), but cohere.com/pricing shows only \"Download weights\" for Tiny Aya (pricingRows null) and no per-token price. The Aya Expanse FAQ price ($0.50/$1.50) does not cover Tiny Aya."
+    },
+    {
+      "provider": "cohere",
+      "model": "tiny-aya-global",
+      "set": {
+        "cost": null
+      },
+      "source": "https://cohere.com/pricing",
+      "note": "Reviewed 2026-11-19: no official per-token price. Cohere docs say Tiny Aya is callable on the Chat API (https://docs.cohere.com/docs/tiny-aya), but cohere.com/pricing shows only \"Download weights\" for Tiny Aya (pricingRows null) and no per-token price. The Aya Expanse FAQ price ($0.50/$1.50) does not cover Tiny Aya."
+    },
+    {
+      "provider": "cohere",
+      "model": "tiny-aya-water",
+      "set": {
+        "cost": null
+      },
+      "source": "https://cohere.com/pricing",
+      "note": "Reviewed 2026-11-19: no official per-token price. Cohere docs say Tiny Aya is callable on the Chat API (https://docs.cohere.com/docs/tiny-aya), but cohere.com/pricing shows only \"Download weights\" for Tiny Aya (pricingRows null) and no per-token price. The Aya Expanse FAQ price ($0.50/$1.50) does not cover Tiny Aya."
+    },
+    {
+      "provider": "kilocode",
+      "model": "humansand/ampersand-v0.1",
+      "set": {
+        "cost": null
+      },
+      "source": "https://api.kilo.ai/api/openrouter/models",
+      "note": "Reviewed 2026-11-19: no official per-token price. Kilo API lists pricing 0/0 but isFree:false, and there is no Kilo statement that it is free. Humans& direct price is $1 in / $5.20 out / $0.20 cached (https://ampersand.humansand.ai/docs/PRICING.html). Vercel's free offer ended 2026-11-13. The 0 looks like a placeholder or pass-through."
+    },
+    {
+      "provider": "kilocode",
+      "model": "recursive/flint-v1.0",
+      "set": {
+        "cost": null
+      },
+      "source": "https://api.kilo.ai/api/openrouter/models",
+      "note": "Reviewed 2026-11-19: no official per-token price. Kilo API lists pricing 0 but isFree:false for this paid slug. The officially free variant is the separate recursive/flint-v1.0:free (isFree:true). No published paid price for Flint on Kilo."
+    },
+    {
+      "provider": "nvidia",
+      "model": "google/gemma-4-31b-it",
+      "set": {
+        "cost": null
+      },
+      "source": "https://forums.developer.nvidia.com/t/nvidia-nim-faq/300317",
+      "note": "Reviewed 2026-11-19: no official per-token price. No per-token price (free trial / credits). build.nvidia.com hosted endpoints are free for prototyping to NVIDIA Developer Program members. integrate.api.nvidia.com/v1/models lists the model with no pricing."
+    },
+    {
+      "provider": "nvidia",
+      "model": "meta/muse-glimmer-30b",
+      "set": {
+        "cost": null
+      },
+      "source": "https://forums.developer.nvidia.com/t/nvidia-nim-faq/300317",
+      "note": "Reviewed 2026-11-19: no official per-token price. No per-token price (free trial / credits). build.nvidia.com hosted endpoints are free for prototyping to NVIDIA Developer Program members. integrate.api.nvidia.com/v1/models lists the model with no pricing."
+    },
+    {
+      "provider": "nvidia",
+      "model": "minimaxai/minimax-m3.1-flash",
+      "set": {
+        "cost": null
+      },
+      "source": "https://forums.developer.nvidia.com/t/nvidia-nim-faq/300317",
+      "note": "Reviewed 2026-11-19: no official per-token price. No per-token price (free trial / credits). build.nvidia.com hosted endpoints are free for prototyping to NVIDIA Developer Program members. integrate.api.nvidia.com/v1/models lists the model with no pricing."
+    },
+    {
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
+      "set": {
+        "cost": null
+      },
+      "source": "https://forums.developer.nvidia.com/t/nvidia-nim-faq/300317",
+      "note": "Reviewed 2026-11-19: no official per-token price. No per-token price (free trial / credits). build.nvidia.com hosted endpoints are free for prototyping to NVIDIA Developer Program members. integrate.api.nvidia.com/v1/models lists the model with no pricing."
+    },
+    {
+      "provider": "nvidia",
+      "model": "poolside/laguna-xs-2.1",
+      "set": {
+        "cost": null
+      },
+      "source": "https://forums.developer.nvidia.com/t/nvidia-nim-faq/300317",
+      "note": "Reviewed 2026-11-19: no official per-token price. No per-token price (free trial / credits). build.nvidia.com hosted endpoints are free for prototyping to NVIDIA Developer Program members. integrate.api.nvidia.com/v1/models lists the model with no pricing."
+    },
+    {
+      "provider": "nvidia",
+      "model": "stepfun-ai/step-5-preview",
+      "set": {
+        "cost": null
+      },
+      "source": "https://forums.developer.nvidia.com/t/nvidia-nim-faq/300317",
+      "note": "Reviewed 2026-11-19: no official per-token price. No per-token price (free trial / credits). build.nvidia.com hosted endpoints are free for prototyping to NVIDIA Developer Program members. integrate.api.nvidia.com/v1/models lists the model with no pricing."
+    },
+    {
+      "provider": "nvidia",
+      "model": "z-ai/glm-5.3-flash",
+      "set": {
+        "cost": null
+      },
+      "source": "https://forums.developer.nvidia.com/t/nvidia-nim-faq/300317",
+      "note": "Reviewed 2026-11-19: no official per-token price. No per-token price (free trial / credits). build.nvidia.com hosted endpoints are free for prototyping to NVIDIA Developer Program members. integrate.api.nvidia.com/v1/models lists the model with no pricing."
+    },
+    {
+      "provider": "qwen",
+      "model": "glm-4.7",
+      "set": {
+        "cost": null
+      },
+      "source": "https://www.alibabacloud.com/help/id/model-studio/model-depreciation",
+      "note": "Reviewed 2026-11-19: no official per-token price. Model Studio deprecated glm-4.7 on 2026-10-10 (snapshot-model notice id=1949; replacement qwen3.7-plus). It no longer appears on the international pricing page. Also a Coding Plan legacy model."
+    },
+    {
+      "provider": "qwen",
+      "model": "glm-5",
+      "set": {
+        "cost": null
+      },
+      "source": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+      "note": "Reviewed 2026-11-19: no official per-token price. Pay-as-you-go price exists only for China (Beijing): $0.573/$2.580 (<=32K), $0.860/$3.154 (32K-166K). There is no Singapore/International price. Internationally glm-5 is offered via the Coding Plan subscription ($50/month), which has no per-token price."
+    },
+    {
+      "provider": "qwen",
+      "model": "kimi-k2.5",
+      "set": {
+        "cost": null
+      },
+      "source": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+      "note": "Reviewed 2026-11-19: no official per-token price. Not listed for Singapore/International. The only prices are Beijing and the \"Global\" scope (Frankfurt/Virginia/Tokyo endpoints): $0.574 in / $3.011 out, with implicit cache at 20% = $0.1148. Use that only if the provider's endpoint is a Global-scope region. Internationally it is a Coding Plan model."
+    },
+    {
+      "provider": "qwen",
+      "model": "MiniMax-M2.5",
+      "set": {
+        "cost": null
+      },
+      "source": "https://www.alibabacloud.com/help/en/model-studio/model-pricing",
+      "note": "Reviewed 2026-11-19: no official per-token price. Pay-as-you-go price is listed only for China (Beijing): $0.304/$1.213. There is no International price. Internationally it is a Coding Plan subscription model."
+    },
+    {
+      "provider": "qwen",
+      "model": "qwen3-coder-next",
+      "set": {
+        "cost": null
+      },
+      "source": "https://www.alibabacloud.com/help/id/model-studio/model-depreciation",
+      "note": "Reviewed 2026-11-19: no official per-token price. Deprecated 2026-10-10 (snapshot notice id=1949; replacement qwen3.7-plus). Not on the current international pricing page."
+    },
+    {
+      "provider": "qwen",
+      "model": "qwen3-max-2026-01-23",
+      "set": {
+        "cost": null
+      },
+      "source": "https://www.alibabacloud.com/help/id/model-studio/model-depreciation",
+      "note": "Reviewed 2026-11-19: no official per-token price. Deprecated 2026-10-10 (snapshot notice id=1949; replacement qwen3.7-max). Not on the current international pricing page."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "humansand/ampersand-v0.1",
+      "set": {
+        "cost": null
+      },
+      "source": "https://vercel.com/changelog/humans-and-ampersand-now-available-on-ai-gateway",
+      "note": "Reviewed 2026-11-19: no official per-token price. The changelog says it is free \"through November 13, 2026\", and that date has passed. The API and page still show 0/Free, but Vercel has published no paid price. Humans& direct is $1 / $5.20 / cached $0.20."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "openai/gpt-live-1",
+      "set": {
+        "cost": null
+      },
+      "source": "https://ai-gateway.vercel.sh/v1/models",
+      "note": "Reviewed 2026-11-19: no official per-token price. Realtime audio model, billed per session second (realtime_session_duration_cost_per_second 0.0008334, about $0.05/min). There is no per-token price."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "reflection/beam",
+      "set": {
+        "cost": null
+      },
+      "source": "https://vercel.com/changelog/reflection-ai-beam-now-available-on-ai-gateway-for-free",
+      "note": "Reviewed 2026-11-19: no official per-token price. Price depends on which provider serves the request (API varies_by_provider:true). The reflection endpoint is free for a limited launch period. nebius is $0.25/$1. baseten and togetherai are $0.40/$1.20 with cached $0.04. The .md page headline says $0.25/$1. When the free period ends, the slug moves to paid pricing. No single price to set."
+    },
+    {
+      "provider": "openrouter",
+      "model": "nvidia/switchyard",
+      "set": {
+        "cost": null
+      },
+      "source": "https://openrouter.ai/api/v1/models",
+      "note": "Reviewed 2026-11-19: no official per-token price. OpenRouter pricing is prompt/completion \"-1\", meaning variable. It is a router billed at the rate of the model it picks, so there is no fixed per-token price."
+    }
+  ],
+  "knownGaps": [
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "openai/gpt-live-1",
+      "check": "model-data",
+      "reason": "Realtime audio model billed per second of session; no official token context/output limits.",
+      "source": "https://ai-gateway.vercel.sh/v1/models"
+    },
+    {
+      "provider": "abliteration",
+      "model": "abliterated-model",
+      "check": "thinking",
+      "reason": "Reviewed 2026-11-19: no official thinking/effort documentation for this model."
+    },
+    {
+      "provider": "abliteration",
+      "model": "abliterated-model-large-flash",
+      "check": "thinking",
+      "reason": "Reviewed 2026-11-19: no official thinking/effort documentation for this model."
+    },
+    {
+      "provider": "abliteration",
+      "model": "abliterated-model-large-v2",
+      "check": "thinking",
+      "reason": "Reviewed 2026-11-19: no official thinking/effort documentation for this model."
+    },
+    {
+      "provider": "amazon-bedrock",
+      "model": "deepseek.v3.2",
+      "check": "thinking",
+      "reason": "amazon-bedrock/deepseek.v3.2: the Bedrock model card documents no reasoning/thinking request field, and the key 'v3-2' is too generic to borrow DeepSeek's V3.2 profile safely"
+    },
+    {
+      "provider": "byteplus",
+      "model": "glm-5-2-260617",
+      "check": "thinking",
+      "reason": "Volcengine/BytePlus Ark GLM-5.2: Ark docs not found; models.dev shows minimal..high + on/off, so Z.ai's max may be rejected. Not covered by the exact glm-5-2 keys."
+    },
+    {
+      "provider": "fireworks",
+      "model": "accounts/fireworks/models/ember-1",
+      "check": "thinking",
+      "reason": "no official Fireworks doc for Ember-1 reasoning_effort levels (built on Kimi K3 per blog); kilocode ember-1 profile is OpenRouter-derived, unverified"
+    },
+    {
+      "provider": "google",
+      "model": "gemini-3.1-flash-preview",
+      "check": "thinking",
+      "reason": "no official documentation: the id is not in the Gemini API model list, thinking tables, deprecations page, or Vertex thinking table (google and google-vertex rows only)."
+    },
+    {
+      "provider": "google-vertex",
+      "model": "gemini-3.1-flash-preview",
+      "check": "thinking",
+      "reason": "no official documentation: the id is not in the Gemini API model list, thinking tables, deprecations page, or Vertex thinking table (google and google-vertex rows only)."
+    },
+    {
+      "provider": "kilocode",
+      "model": "callstack/apex",
+      "check": "thinking",
+      "reason": "callstack/apex: no official model documentation found"
+    },
+    {
+      "provider": "kilocode",
+      "model": "elorian/glimpse",
+      "check": "thinking",
+      "reason": "elorian/glimpse: no official docs found"
+    },
+    {
+      "provider": "kilocode",
+      "model": "humansand/ampersand-v0.1",
+      "check": "thinking",
+      "reason": "humansand/ampersand-v0.1: no official model documentation found"
+    },
+    {
+      "provider": "kilocode",
+      "model": "interfaze/interfaze-beta",
+      "check": "thinking",
+      "reason": "interfaze/interfaze-beta: no official thinking documentation found"
+    },
+    {
+      "provider": "kilocode",
+      "model": "kt/midm-k-3.0-pro",
+      "check": "thinking",
+      "reason": "KT Mi:dm K 3.0 Pro: no official API or model-card documentation of a thinking toggle or default found"
+    },
+    {
+      "provider": "kilocode",
+      "model": "paperinstruments/ultramarine-1-flash",
+      "check": "thinking",
+      "reason": "paperinstruments/Ultramarine-1-Flash HF repo is gated; no public docs on thinking control"
+    },
+    {
+      "provider": "kilocode",
+      "model": "quiverai/arrow-2",
+      "check": "thinking",
+      "reason": "Reviewed 2026-11-19: no official thinking/effort documentation for this model."
+    },
+    {
+      "provider": "kilocode",
+      "model": "quiverai/arrow-2-telos",
+      "check": "thinking",
+      "reason": "Reviewed 2026-11-19: no official thinking/effort documentation for this model."
+    },
+    {
+      "provider": "kilocode",
+      "model": "qwen/qwen3-max-thinking",
+      "check": "thinking",
+      "reason": "Gateway id (Vercel/Kilo). Alibaba documents Qwen3-Max-Thinking as qwen3-max-2026-01-23, a hybrid model with thinking OFF by default; whether the gateway id pins thinking on is undocumented."
+    },
+    {
+      "provider": "kilocode",
+      "model": "recursive/flint-v1.0",
+      "check": "thinking",
+      "reason": "recursive/flint-v1.0: no official docs found (current ['low'] profile is OpenRouter-derived, unverified)"
+    },
+    {
+      "provider": "kilocode",
+      "model": "stealth/glyph-cluster",
+      "check": "thinking",
+      "reason": "stealth model (kilocode/stealth/*), no official docs"
+    },
+    {
+      "provider": "openai",
+      "model": "gpt-5.3-codex-spark",
+      "check": "thinking",
+      "reason": "No official effort documentation: not in OpenAI API docs (model page 404) nor current Codex models doc; ChatGPT/Codex-subscription-only. Current hint off..xhigh comes from OpenClaw only."
+    },
+    {
+      "provider": "openrouter",
+      "model": "elorian/glimpse",
+      "check": "thinking",
+      "reason": "elorian/glimpse: no official docs found"
+    },
+    {
+      "provider": "openrouter",
+      "model": "kt/midm-k-3.0-pro",
+      "check": "thinking",
+      "reason": "KT Mi:dm K 3.0 Pro: no official API or model-card documentation of a thinking toggle or default found"
+    },
+    {
+      "provider": "qianfan",
+      "model": "ernie-5.0",
+      "check": "thinking",
+      "reason": "Qianfan docs give enable_thinking default true only for ernie-5.0-thinking-preview; ernie-5.0's own thinking control and default are not documented"
+    },
+    {
+      "provider": "venice",
+      "model": "abliteration-abliterated-model-large-flash",
+      "check": "thinking",
+      "reason": "Reviewed 2026-11-19: no official thinking/effort documentation for this model."
+    },
+    {
+      "provider": "venice",
+      "model": "abliteration-abliterated-model-large-v2",
+      "check": "thinking",
+      "reason": "Reviewed 2026-11-19: no official thinking/effort documentation for this model."
+    },
+    {
+      "provider": "venice",
+      "model": "aion-labs-aion-3-0",
+      "check": "thinking",
+      "reason": "Reviewed 2026-11-19: no official thinking/effort documentation for this model."
+    },
+    {
+      "provider": "venice",
+      "model": "aion-labs-aion-3-0-mini",
+      "check": "thinking",
+      "reason": "Reviewed 2026-11-19: no official thinking/effort documentation for this model."
+    },
+    {
+      "provider": "venice",
+      "model": "aion-labs-aion-3-5",
+      "check": "thinking",
+      "reason": "Reviewed 2026-11-19: no official thinking/effort documentation for this model."
+    },
+    {
+      "provider": "venice",
+      "model": "aion-labs-aion-3-5-mini",
+      "check": "thinking",
+      "reason": "Reviewed 2026-11-19: no official thinking/effort documentation for this model."
+    },
+    {
+      "provider": "venice",
+      "model": "olafangensan-glm-4.7-flash-heretic",
+      "check": "thinking",
+      "reason": "community fine-tune, no official profile"
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "alibaba/qwen3-max-thinking",
+      "check": "thinking",
+      "reason": "Gateway id (Vercel/Kilo). Alibaba documents Qwen3-Max-Thinking as qwen3-max-2026-01-23, a hybrid model with thinking OFF by default; whether the gateway id pins thinking on is undocumented."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "callstack/apex",
+      "check": "thinking",
+      "reason": "callstack/apex: no official model documentation found"
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "humansand/ampersand-v0.1",
+      "check": "thinking",
+      "reason": "humansand/ampersand-v0.1: no official model documentation found"
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "paperinstruments/ultramarine-1-flash",
+      "check": "thinking",
+      "reason": "paperinstruments/Ultramarine-1-Flash HF repo is gated; no public docs on thinking control"
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "quiverai/arrow-2",
+      "check": "thinking",
+      "reason": "Reviewed 2026-11-19: no official thinking/effort documentation for this model."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "quiverai/arrow-2-telos",
+      "check": "thinking",
+      "reason": "Reviewed 2026-11-19: no official thinking/effort documentation for this model."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "recursive/flint-v1.0",
+      "check": "thinking",
+      "reason": "recursive/flint-v1.0: no official docs found (current ['low'] profile is OpenRouter-derived, unverified)"
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "sakana/namazu",
+      "check": "thinking",
+      "reason": "vercel id of sakana-namazu; Sakana console gives no reasoning-effort info (sakana-namazu's off/high profile is OpenRouter-derived)"
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "stealth/glyph-cluster",
+      "check": "thinking",
+      "reason": "stealth model (kilocode/stealth/*), no official docs"
+    },
+    {
+      "provider": "volcengine",
+      "model": "glm-5-2-260617",
+      "check": "thinking",
+      "reason": "Volcengine/BytePlus Ark GLM-5.2: Ark docs not found; models.dev shows minimal..high + on/off, so Z.ai's max may be rejected. Not covered by the exact glm-5-2 keys."
+    },
+    {
+      "provider": "cohere",
+      "model": "north-mini-code-1-0",
+      "check": "zero-price",
+      "reason": "Upstream lists 0; possibly a free preview/stealth model with no published price."
+    },
+    {
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3-ultra-550b-a55b",
+      "check": "zero-price",
+      "reason": "NVIDIA API catalog trial endpoint: free prototyping, no per-token price.",
+      "source": "https://forums.developer.nvidia.com/t/nvidia-nim-faq/300317"
+    },
+    {
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3.5-lightning-30b-a3b",
+      "check": "zero-price",
+      "reason": "NVIDIA API catalog trial endpoint: free prototyping, no per-token price.",
+      "source": "https://forums.developer.nvidia.com/t/nvidia-nim-faq/300317"
+    },
+    {
+      "provider": "nvidia",
+      "model": "nvidia/nemotron-3.5-super-vl-120b-a12b",
+      "check": "zero-price",
+      "reason": "NVIDIA API catalog trial endpoint: free prototyping, no per-token price.",
+      "source": "https://forums.developer.nvidia.com/t/nvidia-nim-faq/300317"
+    },
+    {
+      "provider": "opencode",
+      "model": "big-pickle",
+      "check": "zero-price",
+      "reason": "Upstream lists 0; possibly a free preview/stealth model with no published price."
+    },
+    {
+      "provider": "openrouter",
+      "model": "google/lyria-3-clip-preview",
+      "check": "zero-price",
+      "reason": "OpenRouter publishes 0 per token with no other charge for this preview model."
+    },
+    {
+      "provider": "openrouter",
+      "model": "google/lyria-3-pro-preview",
+      "check": "zero-price",
+      "reason": "OpenRouter publishes 0 per token with no other charge for this preview model."
     }
   ]
 }

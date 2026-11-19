@@ -159,6 +159,17 @@ const overrideSchema = z
     note: nonempty.optional(),
   })
   .strict();
+// A reviewed gap that should stay open in the data (no official value exists yet), so
+// audits and the gap issue stop asking for it. Same model matching as thinking rules.
+const knownGapSchema = z
+  .object({
+    provider: nonempty,
+    model: nonempty,
+    check: z.enum(["thinking", "cost", "zero-price", "model-data"]),
+    reason: nonempty,
+    source: z.url().optional(),
+  })
+  .strict();
 export const supplementSchema = z
   .object({
     schemaVersion: z.literal(1),
@@ -177,6 +188,7 @@ export const supplementSchema = z
     corrections: z.array(correctionSchema).optional(),
     thinking: z.array(thinkingRuleSchema).optional(),
     overrides: z.array(overrideSchema).optional(),
+    knownGaps: z.array(knownGapSchema).optional(),
   })
   .strict();
 

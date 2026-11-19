@@ -2,13 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { applyOverrides, validateSupplement } from "../scripts/catalog.mjs";
 import { parseModelsDev } from "../scripts/models-dev.mjs";
-import {
-  applyThinking,
-  fieldGaps,
-  gapReport,
-  modelKey,
-  thinkingCoverage,
-} from "../scripts/thinking.mjs";
+import { applyThinking, isKnownGap, modelKey, thinkingCoverage } from "../scripts/thinking.mjs";
 
 const row = (id, extra = {}) => ({ id, reasoning: true, ...extra });
 const profile = (providers, provider, id) => {
@@ -276,44 +270,13 @@ test("models.dev input is bounded and must look complete", () => {
   assert.throws(() => parseModelsDev(Buffer.alloc(32 * 1024 * 1024 + 1)), /exceeds/);
 });
 
-test("the gap report groups missing models by provider, largest first", () => {
-  const report = gapReport(
-    {
-      total: 5,
-      complete: 2,
-      missing: ["kilocode/kilo-auto/free", "openrouter/openrouter/auto", "kilocode/a/b"],
-    },
-    ["acme/x: name", "acme/y: replacedBy z (missing)"],
-  );
-  assert.match(report, /\*\*2\/5\*\* \(3 missing\)/);
-  assert.match(report, /other required data: \*\*2\*\*/);
-  assert.ok(report.indexOf("## Missing model data") < report.indexOf("## Missing thinking profiles"));
-  assert.ok(report.indexOf("### kilocode (2)") < report.indexOf("### openrouter (1)"));
-  assert.match(report, /- `a\/b`\n- `kilo-auto\/free`/);
-  assert.match(report, /- `x`: name/);
-});
-
-test("field gaps flag missing name, reasoning, limits and broken replacements on active rows", () => {
-  const bundle = {
-    providers: {
-      acme: {
-        models: [
-          { id: "ok", name: "OK", reasoning: false, contextWindow: 1, maxTokens: 1 },
-          { id: "bare" },
-          { id: "old", status: "disabled" },
-          { id: "dep", name: "D", reasoning: true, contextWindow: 1, maxTokens: 1, status: "deprecated", replacedBy: "old" },
-          { id: "lost", name: "L", reasoning: true, contextWindow: 1, maxTokens: 1, replacedBy: "nowhere" },
-        ],
-      },
-    },
-  };
-  assert.deepEqual(fieldGaps(bundle), [
-    "acme/bare: name",
-    "acme/bare: reasoning",
-    "acme/bare: contextWindow/maxTokens",
-    "acme/dep: replacedBy old (disabled)",
-    "acme/lost: replacedBy nowhere (missing)",
-  ]);
+test("known gaps: router aliases and reviewed entries, matched per check", () => {
+  const knownGaps = [{ provider: "nvidia", model: "z/*", check: "zero-price", reason: "free trial API" }];
+  assert.equal(isKnownGap([], "thinking", "kilocode", "kilo-auto/frontier"), true);
+  assert.equal(isKnownGap([], "cost", "openrouter", "openrouter/fusion"), true);
+  assert.equal(isKnownGap([], "zero-price", "openrouter", "openrouter/fusion"), false);
+  assert.equal(isKnownGap(knownGaps, "zero-price", "nvidia", "z/glm"), true);
+  assert.equal(isKnownGap(knownGaps, "cost", "nvidia", "z/glm"), false);
 });
 
 test("overrides replace or remove upstream values, and reasoning:false drops the profile", () => {

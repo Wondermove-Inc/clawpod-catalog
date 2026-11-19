@@ -6,7 +6,9 @@
   "scripts": {
     "test": "node --test tests/*.test.mjs",
     "publish-catalog": "node scripts/publish-catalog.mjs",
-    "publish-catalog:dry-run": "node scripts/publish-catalog.mjs --dry-run"
+    "publish-catalog:dry-run": "node scripts/publish-catalog.mjs --dry-run",
+    "audit": "node scripts/audit-catalog.mjs",
+    "candidates": "node scripts/find-model-candidates.mjs"
   },
   "dependencies": {
     "zod": "4.3.6"

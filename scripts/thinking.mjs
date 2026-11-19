@@ -174,59 +174,19 @@ export function thinkingCoverage(bundle) {
   return { total, complete: total - missing.length, missing };
 }
 
+// Router aliases: the routed model varies, so there is no fixed price or thinking ladder.
+// Every `openrouter/...` id is one of OpenRouter's own routers (auto, fusion, pareto, ...).
+const ROUTER_ALIAS =
+  /^openrouter\/|(^|\/)(auto|free|balanced|efficient|frontier|small)$|-latest$|\/routers\/|pareto|kilo-auto|jev-router|big-pickle|switchyard/;
+export const isRouterAlias = (id) => ROUTER_ALIAS.test(id.toLowerCase());
+
 /**
- * Active rows missing data the Agent needs, beyond thinking profiles: a display name,
- * a reasoning flag, token limits, or a replacedBy pointing at a missing or retired row.
+ * Whether a gap is expected: a router alias (no fixed thinking ladder or price) or a
+ * reviewed `knownGaps` entry in the supplement for this check.
  */
-export function fieldGaps(bundle) {
-  const gaps = [];
-  const retired = (m) => m.status === "deprecated" || m.status === "disabled";
-  for (const [provider, entry] of Object.entries(bundle.providers)) {
-    for (const model of entry.models) {
-      if (retired(model)) continue;
-      const ref = `${provider}/${model.id}`;
-      if (!model.name) gaps.push(`${ref}: name`);
-      if (typeof model.reasoning !== "boolean") gaps.push(`${ref}: reasoning`);
-      if (!model.contextWindow || !model.maxTokens) gaps.push(`${ref}: contextWindow/maxTokens`);
-    }
-    for (const model of entry.models) {
-      if (!model.replacedBy) continue;
-      const target = entry.models.find((m) => m.id === model.replacedBy);
-      if (!target || retired(target)) {
-        gaps.push(`${provider}/${model.id}: replacedBy ${model.replacedBy} (${target ? target.status : "missing"})`);
-      }
-    }
+export function isKnownGap(knownGaps = [], check, provider, id) {
+  if ((check === "thinking" || check === "cost" || check === "model-data") && isRouterAlias(id)) {
+    return true;
   }
-  return gaps;
-}
-
-function byProvider(refs) {
-  const groups = new Map();
-  for (const ref of refs) {
-    const [provider] = ref.split("/", 1);
-    groups.set(provider, [...(groups.get(provider) ?? []), ref.slice(provider.length + 1)]);
-  }
-  return [...groups].sort((a, b) => b[1].length - a[1].length);
-}
-
-/** Markdown body for the catalog-gap issue and the workflow summary. */
-export function gapReport({ total, complete, missing }, fields = []) {
-  const lines = [
-    `Active reasoning models with thinking levels and a default: **${complete}/${total}** (${missing.length} missing).`,
-    `Active models missing other required data: **${fields.length}**.`,
-    "",
-    "Fix gaps with reviewed `thinking` / `overrides` rules in `sources/clawpod-providers.json` (see `sources/README.md`).",
-    "Router aliases (`auto`, `free`, `*-latest`) and models without official docs are expected to stay here.",
-  ];
-  if (fields.length) {
-    lines.push("", "## Missing model data");
-    for (const [provider, items] of byProvider(fields)) {
-      lines.push("", `### ${provider} (${items.length})`, "", ...items.sort().map((i) => `- \`${i.replace(": ", "\`: ")}`));
-    }
-  }
-  lines.push("", "## Missing thinking profiles");
-  for (const [provider, ids] of byProvider(missing)) {
-    lines.push("", `### ${provider} (${ids.length})`, "", ...ids.sort().map((id) => `- \`${id}\``));
-  }
-  return `${lines.join("\n")}\n`;
+  return knownGaps.some((gap) => gap.check === check && ruleMatches(gap, provider, id));
 }

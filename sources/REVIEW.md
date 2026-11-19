@@ -324,3 +324,22 @@ reasoning 모델의 지원 단계(`compat.thinkingLevels`)와 기본 단계(`com
 - Qwen 가격은 싱가포르 종량제 기준이다. 이 provider가 Coding Plan(월정액) 엔드포인트라면 토큰 단가가 적용되지 않는다.
 - Qwen의 판매 종료 모델 4개(`qwen3-coder-plus`, `qwen3-coder-next`, `qwen3-max-2026-01-23`, `glm-4.7`)는 상태 변경 수단이 수동 모델에만 있어서 상태를 바꾸지 못했다.
 - 전수 검사의 "유료인데 0" 16행 중 8행은 위의 공식 무료다.
+
+# 2026-11-19 유지보수 도구와 검토 완료 빈칸 기록
+
+다른 세션(사람·에이전트)이 같은 기준으로 이어서 작업할 수 있게 도구와 기록을 저장소에 넣었다. 절차와 기준은 `MAINTAINING.md`에 있다.
+
+- `scripts/audit-catalog.mjs`(`npm run audit`): 전수 검사. 의도된 항목(구독형, 라우터 별칭, 검토 완료)과 처리 대상(open)을 나눈다.
+- `scripts/find-model-candidates.mjs`(`npm run candidates`): 수동 provider의 신모델 후보(models.dev, Codex 공식 페이지).
+- `knownGaps`: 공식 값이 없어서 남기는 빈칸 48개를 사유와 함께 기록했다.
+  - Effort 40: 공식 문서 없음, stealth·abliterated·커뮤니티 모델 등
+  - 가격 0 7: NVIDIA 체험 API 등
+  - 한도 1: `gpt-live-1`
+- `overrides`의 `"cost": null` 23개: 2026-11-19 가격 조사에서 공식 토큰 가격이 없다고 확인한 행을 기록했다.
+  - NVIDIA 7, Cohere Tiny Aya 4, Qwen 6, Vercel·Kilo 프로모션·가변 가격 등
+- 이슈 "Thinking effort gaps"를 "Catalog gaps"로 바꿨다. 이슈 보고서는 `npm run audit`와 같은 검사(가격 포함)를 쓰고, 처리 대상(open)만 세어 0이면 닫는다.
+- 이 시점의 처리 대상: 무료 변형 모델 14개의 가격(kilocode 12: `:free` 11개 + `reflection/beam-free`, vercel `-free` 2개). 무료가 확인되면 0을 넣는다(미결정).
+  - 미반영 후보: Bedrock GPT-6.2 Astra/Sol. Vertex Gemini 4 Neon은 승인제(verified enterprise customers 전용)라 보류(`MAINTAINING.md` 9장).
+- 새 세션 에이전트에게 문서만 주고 실제 과제(Gemini 4 Neon 추가, `:free` 가격)를 계획하게 해서 문서 공백 16건을 찾아 고쳤다.
+  - 수동 행 근거 기록 위치, `maxTokens`는 한 번 응답 기준, 미래 날짜 요금, 승인제 정책, Kilo·Vercel·Vertex 출처, 입력 형식 제한, 규칙 추가 위치, 점검일 기록 등.
+  - 이슈 보고서가 가격 항목을 빼고 세던 문제를 고쳐 audit와 같은 기준으로 맞췄다.
