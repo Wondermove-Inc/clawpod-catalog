@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795090899652,
+  "generatedAt": 1795091120953,
   "minVersion": "2026.4.11",
   "sourceCommit": "1579eb4dea9ab434dc8b069e23628aeedf14c027",
   "providers": {
@@ -17761,9 +17761,7 @@
             "output": 1.13,
             "cacheRead": 0.07,
             "cacheWrite": 0
-          },
-          "status": "deprecated",
-          "statusReason": "novita no longer lists this model in its public model inventory."
+          }
         },
         {
           "id": "baidu/ernie-4.5-21B-a3b",
@@ -18565,7 +18563,9 @@
               "max"
             ],
             "defaultThinkingLevel": "max"
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory."
         },
         {
           "id": "moonshotai/kimi-k3.1-pro",
@@ -18681,8 +18681,6 @@
               }
             ]
           },
-          "status": "deprecated",
-          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "off",
@@ -18733,8 +18731,6 @@
               }
             ]
           },
-          "status": "deprecated",
-          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "low",
@@ -18784,8 +18780,6 @@
               }
             ]
           },
-          "status": "deprecated",
-          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "low",
@@ -55534,6 +55528,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1795090880567,
+  "sourceGeneratedAt": 1795091100325,
   "supplementDigest": "47b3cf526500f14adbac4f5b193449b0123d97d8656fe0213b17fa52bad356a6"
 }
