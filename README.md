@@ -24,6 +24,7 @@ flowchart TD
     O["openclaw/openclaw<br/>publish-model-catalog.mts"] -->|"CI에서 생성"| U["upstream 원본 (v1)"]
     U --> V["입력 검증"]
     OR["OpenRouter /api/v1/models"] -->|"CI에서 받기 · 변환"| V
+    MD["models.dev api.json"] -->|"CI에서 받기 · Thinking 단계"| V
     S["sources/clawpod-providers.json<br/>수동 모델 · 출처 · corrections"] --> V
     V --> T["upstream transport 필드·root pricing 제거"]
     T --> M["provider/model ID 병합<br/>중복은 upstream 우선"]
@@ -81,7 +82,8 @@ git clone --depth 1 https://github.com/openclaw/openclaw /tmp/openclaw
 (cd /tmp/openclaw && corepack enable && pnpm install --frozen-lockfile)
 scripts/generate-openclaw-catalog.sh /tmp/openclaw /tmp/openclaw-catalog.json
 node scripts/fetch-openrouter.mjs --out /tmp/openrouter-models.json
-npm run publish-catalog:dry-run -- --source-file /tmp/openclaw-catalog.json --openrouter-file /tmp/openrouter-models.json
+node scripts/fetch-models-dev.mjs --out /tmp/models-dev.json
+npm run publish-catalog:dry-run -- --source-file /tmp/openclaw-catalog.json --openrouter-file /tmp/openrouter-models.json --modelsdev-file /tmp/models-dev.json
 ```
 
 `npm ci`는 local `node_modules`를 변경합니다. 생성 스크립트는 models.dev 등 가격 출처를 실제로 조회하고, 지정한 OpenClaw checkout의 파일을 수정합니다(아래 [1. Generate](#1-generate) 참고). 그래서 전용 clone을 사용하세요. 이어지는 publisher `--dry-run`은 검증·diff 판단을 수행하지만 `models/v1/catalog.json`은 쓰지 않습니다. 이 명령은 offline validator나 test suite가 아닙니다.
@@ -132,6 +134,22 @@ Publisher ingress schema와 consumer acceptance schema는 동일하지 않습니
 - 변환 규칙은 OpenClaw의 OpenRouter live discovery와 같습니다: 텍스트 출력 모델만, `reasoning`/`include_reasoning` 지원 시 reasoning, 이미지 입력 시 `["text","image"]`, `top_provider` 한도 우선, 최대 출력 미상이면 8192, 가격은 USD/백만 토큰. 음수 가격(라우터의 가격 미상 표시)이나 입력·출력 가격이 없으면 `cost`를 생략하고 0원으로 쓰지 않습니다. `:free`·`:batch` 등 OpenRouter가 제공하는 변형 ID도 그대로 포함합니다.
 - OpenRouter 행은 upstream과 같은 우선순위입니다. 수동 보완 파일에는 Agent 전용 별칭 `auto`만 남깁니다. OpenRouter 목록에서 빠진 모델은 다음 게시에서 catalog에서도 빠집니다.
 - 응답이 30초 timeout·16MiB를 넘거나, 사용 가능한 모델이 100개 미만이면(부분 응답 방지) run을 실패시키고 기존 artifact를 유지합니다.
+
+### 1-2. Thinking Effort (`compat.thinkingLevels`, `compat.defaultThinkingLevel`)
+
+`reasoning: true`인 모든 모델에 **지원 단계**(낮은 단계부터 순서대로)와 **새 세션의 기본 단계**를 넣는 것이 목표입니다. 필드 이름과 단계 이름(`off`, `minimal`, `low`, `medium`, `high`, `xhigh`, `adaptive`, `max`, `ultra`)은 OpenClaw 형식 그대로라 Agent가 변환 없이 읽을 수 있습니다. 로직은 [`scripts/thinking.mjs`](scripts/thinking.mjs)에 있습니다.
+
+값마다 아래 순서에서 처음 나오는 출처를 씁니다.
+
+1. 수동 보완 파일의 `thinking` 규칙 (공식 문서로 확인한 값, [sources/README.md](sources/README.md) 참고)
+2. OpenClaw upstream 행이 이미 명시한 값
+3. OpenRouter의 `reasoning` 메타데이터: ID가 같은 OpenRouter 모델, 없으면 ID를 정규화했을 때 같은 모델 하나(`anthropic/claude-opus-5.5` = `us.anthropic.claude-opus-5-5` = `claude-opus-5-5`). 후보가 둘 이상이면 연결하지 않습니다.
+4. models.dev의 `reasoning_options` (지원 단계만, 기본 단계는 없음). `generate` job의 [`scripts/fetch-models-dev.mjs`](scripts/fetch-models-dev.mjs)가 받고, 32MiB·60초 제한과 provider 50개 미만 거부(부분 응답 방지)가 적용됩니다.
+
+- `none`은 `off`로 읽습니다. 끌 수 없는 모델(OpenRouter `mandatory`)에는 `off`가 없습니다. OpenRouter가 기본 꺼짐(`default_enabled: false`)이라고 하면 기본 단계는 `off`입니다.
+- 단계 선택 없이 켜고 끄기만 되는 모델은 OpenClaw 관례대로 `["off","low"]`와 `thinkingLevelLabels: {"low":"on"}`으로 씁니다.
+- upstream `thinkingLevelMap`이 `null`로 막은 단계는 빼고, 기본 단계가 지원 단계에 없으면 기본 단계를 비웁니다(출처 충돌).
+- 채우지 못한 모델은 비워 둡니다. 게시 로그에 `thinking profiles: 채운 수/전체` 줄이 남고, workflow output `thinking_missing`에 빈칸 수가 기록됩니다. 빈칸이 있어도 게시는 막지 않습니다.
 
 Publisher의 8MiB 검사는 streaming download/memory cap이 아닙니다. Consumer의 4MiB streaming body limit와 목적·구현이 다릅니다. 최종 직렬화한 게시 파일에는 별도로 4MiB 한도를 적용합니다.
 
@@ -314,11 +332,11 @@ npm run publish-catalog
 
 ```bash
 npm test
-node scripts/publish-catalog.mjs --source-file /path/to/openclaw-catalog.json --openrouter-file /path/to/openrouter-models.json --dry-run
-node scripts/publish-catalog.mjs --source-file /path/to/openclaw-catalog.json --openrouter-file /path/to/openrouter-models.json
+node scripts/publish-catalog.mjs --source-file /path/to/openclaw-catalog.json --openrouter-file /path/to/openrouter-models.json --modelsdev-file /path/to/models-dev.json --dry-run
+node scripts/publish-catalog.mjs --source-file /path/to/openclaw-catalog.json --openrouter-file /path/to/openrouter-models.json --modelsdev-file /path/to/models-dev.json
 ```
 
-`--source-file`과 `--openrouter-file`은 필수이며, publisher는 네트워크를 사용하지 않고 생성해 둔 원본 bundle을 입력으로 사용합니다. 보완 데이터 병합·시각 회귀 검사·크기 제한은 CI 실행과 같습니다. 이미 보완된 최종 게시 파일을 입력으로 재사용하면 이전 수동 모델이 영구히 남는 문제가 생기므로 거부합니다. 더 새로운 입력이 필요하면 `scripts/generate-openclaw-catalog.sh`로 다시 생성합니다.
+`--source-file`, `--openrouter-file`, `--modelsdev-file`은 모두 필수이며, publisher는 네트워크를 사용하지 않고 생성해 둔 원본 bundle을 입력으로 사용합니다. 보완 데이터 병합·시각 회귀 검사·크기 제한은 CI 실행과 같습니다. 이미 보완된 최종 게시 파일을 입력으로 재사용하면 이전 수동 모델이 영구히 남는 문제가 생기므로 거부합니다. 더 새로운 입력이 필요하면 `scripts/generate-openclaw-catalog.sh`로 다시 생성합니다.
 
 ### Rollback과 사고 대응
 

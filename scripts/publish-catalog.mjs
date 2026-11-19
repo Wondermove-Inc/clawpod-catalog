@@ -9,6 +9,8 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { buildCatalog, countModels, MAX_CATALOG_BYTES, serializeCatalog } from "./catalog.mjs";
 import { convertOpenRouterModels, parseOpenRouterResponse, withOpenRouter } from "./openrouter.mjs";
+import { parseModelsDev } from "./models-dev.mjs";
+import { thinkingCoverage } from "./thinking.mjs";
 
 const LARGE_MODEL_DELTA_NOTICE = 50;
 const defaultRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -17,6 +19,7 @@ function parseArgs(argv) {
   let dryRun = false;
   let sourceFile;
   let openRouterFile;
+  let modelsDevFile;
   for (let i = 0; i < argv.length; i++) {
     if (argv[i] === "--dry-run") {
       dryRun = true;
@@ -26,6 +29,9 @@ function parseArgs(argv) {
     } else if (argv[i] === "--openrouter-file" && argv[i + 1] && !argv[i + 1].startsWith("--")) {
       if (openRouterFile) throw new Error("--openrouter-file may only be specified once");
       openRouterFile = argv[++i];
+    } else if (argv[i] === "--modelsdev-file" && argv[i + 1] && !argv[i + 1].startsWith("--")) {
+      if (modelsDevFile) throw new Error("--modelsdev-file may only be specified once");
+      modelsDevFile = argv[++i];
     } else {
       throw new Error(`unknown or incomplete argument: ${argv[i]}`);
     }
@@ -35,7 +41,11 @@ function parseArgs(argv) {
   if (!openRouterFile) {
     throw new Error("missing required argument: --openrouter-file <OpenRouter /api/v1/models response>");
   }
-  return { dryRun, sourceFile, openRouterFile };
+  // Required so a forgotten flag cannot silently drop thinking levels from most rows.
+  if (!modelsDevFile) {
+    throw new Error("missing required argument: --modelsdev-file <models.dev api.json>");
+  }
+  return { dryRun, sourceFile, openRouterFile, modelsDevFile };
 }
 
 function parseSource(body) {
@@ -67,26 +77,38 @@ export async function publishCatalog({
   log = console.log,
   githubOutput = process.env.GITHUB_OUTPUT,
 } = {}) {
-  const { dryRun, sourceFile, openRouterFile } = parseArgs(argv);
+  const { dryRun, sourceFile, openRouterFile, modelsDevFile } = parseArgs(argv);
   const outputPath = path.join(rootDir, "models", "v1", "catalog.json");
   const minVersion = fs.readFileSync(path.join(rootDir, "MIN_VERSION"), "utf8").trim();
   const supplement = JSON.parse(
     fs.readFileSync(path.join(rootDir, "sources", "clawpod-providers.json"), "utf8"),
   );
-  const openRouter = convertOpenRouterModels(
-    parseOpenRouterResponse(fs.readFileSync(path.resolve(openRouterFile))),
-  );
+  const openRouterResponse = parseOpenRouterResponse(fs.readFileSync(path.resolve(openRouterFile)));
+  const openRouter = convertOpenRouterModels(openRouterResponse);
+  const modelsDev = parseModelsDev(fs.readFileSync(path.resolve(modelsDevFile)));
   const upstream = withOpenRouter(
     parseSource(fs.readFileSync(path.resolve(sourceFile))),
     openRouter,
   );
   const previous = readPrevious(outputPath);
-  const next = buildCatalog({ upstream, supplement, previous: previous.bundle, minVersion, now });
+  const next = buildCatalog({
+    upstream,
+    supplement,
+    previous: previous.bundle,
+    minVersion,
+    now,
+    thinkingSources: { openRouter: openRouterResponse.data, modelsDev },
+  });
   if (!next) {
     log("upstream generatedAt is older than the last accepted upstream; nothing to do");
     writeOutput(githubOutput, "changed", "false");
     return { changed: false, reason: "stale-upstream" };
   }
+  const coverage = thinkingCoverage(next);
+  log(
+    `thinking profiles: ${coverage.complete}/${coverage.total} active reasoning models have levels and a default (${coverage.missing.length} missing)`,
+  );
+  writeOutput(githubOutput, "thinking_missing", String(coverage.missing.length));
   const contents = serializeCatalog(next);
   if (contents === previous.contents) {
     log("published catalog is already current; nothing to do");
