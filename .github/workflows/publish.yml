@@ -103,6 +103,8 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      # Only for the single "Thinking effort gaps" issue (create, edit, close).
+      issues: write
     steps:
       - uses: actions/checkout@v4
 
@@ -126,11 +128,37 @@ jobs:
         run: |
           args=(--source-file "$RUNNER_TEMP/sources/openclaw-catalog.json"
                 --openrouter-file "$RUNNER_TEMP/sources/openrouter-models.json"
-                --modelsdev-file "$RUNNER_TEMP/sources/models-dev.json")
+                --modelsdev-file "$RUNNER_TEMP/sources/models-dev.json"
+                --report-file "$RUNNER_TEMP/thinking-report.md")
           if [ "${{ inputs.dry_run }}" = "true" ]; then
             node scripts/publish-catalog.mjs "${args[@]}" --dry-run
           else
             node scripts/publish-catalog.mjs "${args[@]}"
+          fi
+
+      - name: Report thinking effort gaps
+        if: steps.publish.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MISSING: ${{ steps.publish.outputs.thinking_missing }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          report="$RUNNER_TEMP/thinking-report.md"
+          [ -f "$report" ] || exit 0
+          cat "$report" >> "$GITHUB_STEP_SUMMARY"
+          # Branch dry-runs only get the summary; the issue tracks main.
+          [ "$DRY_RUN" = "true" ] && exit 0
+          title="Thinking effort gaps"
+          number=$(gh issue list --state open --search "in:title \"$title\"" --json number,title \
+            --jq ".[] | select(.title == \"$title\") | .number" | head -n1)
+          # Issue bodies are capped at 65536 characters.
+          head -c 60000 "$report" > "$RUNNER_TEMP/issue-body.md"
+          if [ "$MISSING" = "0" ]; then
+            [ -z "$number" ] || gh issue close "$number" --comment "All active reasoning models have a thinking profile."
+          elif [ -n "$number" ]; then
+            gh issue edit "$number" --body-file "$RUNNER_TEMP/issue-body.md"
+          else
+            gh issue create --title "$title" --body-file "$RUNNER_TEMP/issue-body.md"
           fi
 
       - name: Commit and push

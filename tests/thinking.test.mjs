@@ -2,7 +2,7 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 import { validateSupplement } from "../scripts/catalog.mjs";
 import { parseModelsDev } from "../scripts/models-dev.mjs";
-import { applyThinking, modelKey, thinkingCoverage } from "../scripts/thinking.mjs";
+import { applyThinking, modelKey, thinkingCoverage, thinkingReport } from "../scripts/thinking.mjs";
 
 const row = (id, extra = {}) => ({ id, reasoning: true, ...extra });
 const profile = (providers, provider, id) => {
@@ -224,4 +224,15 @@ test("models.dev input is bounded and must look complete", () => {
   assert.throws(() => parseModelsDev(Buffer.from(JSON.stringify({ p: { models: {} } }))), /partial/);
   assert.throws(() => parseModelsDev(Buffer.from(JSON.stringify({ p: {} }))));
   assert.throws(() => parseModelsDev(Buffer.alloc(32 * 1024 * 1024 + 1)), /exceeds/);
+});
+
+test("the gap report groups missing models by provider, largest first", () => {
+  const report = thinkingReport({
+    total: 5,
+    complete: 2,
+    missing: ["kilocode/kilo-auto/free", "openrouter/openrouter/auto", "kilocode/a/b"],
+  });
+  assert.match(report, /\*\*2\/5\*\* \(3 missing\)/);
+  assert.ok(report.indexOf("### kilocode (2)") < report.indexOf("### openrouter (1)"));
+  assert.match(report, /- `a\/b`\n- `kilo-auto\/free`/);
 });

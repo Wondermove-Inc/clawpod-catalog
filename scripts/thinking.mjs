@@ -163,3 +163,22 @@ export function thinkingCoverage(bundle) {
   }
   return { total, complete: total - missing.length, missing };
 }
+
+/** Markdown body for the thinking-gap issue and the workflow summary. */
+export function thinkingReport({ total, complete, missing }) {
+  const byProvider = new Map();
+  for (const ref of missing) {
+    const [provider] = ref.split("/", 1);
+    byProvider.set(provider, [...(byProvider.get(provider) ?? []), ref.slice(provider.length + 1)]);
+  }
+  const lines = [
+    `Active reasoning models with thinking levels and a default: **${complete}/${total}** (${missing.length} missing).`,
+    "",
+    "Fill a gap with a reviewed `thinking` rule in `sources/clawpod-providers.json` (see `sources/README.md`).",
+    "Router aliases (`auto`, `free`, `*-latest`) and models without official docs are expected to stay here.",
+  ];
+  for (const [provider, ids] of [...byProvider].sort((a, b) => b[1].length - a[1].length)) {
+    lines.push("", `### ${provider} (${ids.length})`, "", ...ids.sort().map((id) => `- \`${id}\``));
+  }
+  return `${lines.join("\n")}\n`;
+}
