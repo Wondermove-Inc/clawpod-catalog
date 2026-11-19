@@ -4,7 +4,9 @@
 
 ClawPoD 에이전트 게이트웨이가 사용하는 **OpenClaw 생성기로 직접 만들어 검증·변환한 모델 카탈로그**입니다.
 
-최종 카탈로그는 **upstream 원본 + OpenRouter 공개 모델 목록 + 이 레포의 수동 보완 모델 + 조건부 가격·상태 보정**으로 만듭니다. 여기서 upstream 원본은 `catalog.openclaw.ai`에서 받지 않고, 6시간 게시 작업이 `openclaw/openclaw`의 `scripts/publish-model-catalog.mts`를 직접 실행해 생성합니다. `openrouter` provider는 매 게시 작업마다 OpenRouter 공식 API(`https://openrouter.ai/api/v1/models`)에서 받아 자동 갱신합니다. 그 뒤 같은 규칙을 적용합니다. 그 밖의 provider API와 Clawpod-Agent 소스는 수동 데이터 검토에 참고만 하며, 게시할 때 자동 수집하거나 실행하지 않습니다.
+최종 카탈로그는 **upstream 원본 + OpenRouter 공개 모델 목록 + 이 레포의 수동 보완 모델 + 조건부 가격·상태 보정**으로 만듭니다. 여기서 upstream 원본은 `catalog.openclaw.ai`에서 받지 않고, 6시간 게시 작업이 `openclaw/openclaw`의 `scripts/publish-model-catalog.mts`를 직접 실행해 생성합니다. `openrouter` provider는 매 게시 작업마다 OpenRouter 공식 API(`https://openrouter.ai/api/v1/models`)에서 받아 자동 갱신합니다. models.dev(`https://models.dev/api.json`)도 매 게시 작업마다 받아 Thinking Effort 단계의 보조 출처로 씁니다. 그 뒤 같은 규칙을 적용합니다. 그 밖의 provider API와 Clawpod-Agent 소스는 수동 데이터 검토에 참고만 하며, 게시할 때 자동 수집하거나 실행하지 않습니다.
+
+데이터를 고치거나 신모델을 반영하는 방법, 판단 기준은 **[MAINTAINING.md](MAINTAINING.md)**에 있습니다.
 
 > 이 저장소는 모델 카탈로그 데이터와 게시 자동화만 담당합니다. 모델 요청을 proxy하지 않으며 provider endpoint, credential, runtime 설정을 배포하지 않습니다.
 
@@ -25,12 +27,15 @@ flowchart TD
     U --> V["입력 검증"]
     OR["OpenRouter /api/v1/models"] -->|"CI에서 받기 · 변환"| V
     MD["models.dev api.json"] -->|"CI에서 받기 · Thinking 단계"| V
-    S["sources/clawpod-providers.json<br/>수동 모델 · 출처 · corrections"] --> V
+    S["sources/clawpod-providers.json<br/>수동 모델 · corrections · overrides · thinking · knownGaps"] --> V
     V --> T["upstream transport 필드·root pricing 제거"]
     T --> M["provider/model ID 병합<br/>중복은 upstream 우선"]
-    M --> C["기존 값 조건과 effectiveAt 확인<br/>가격·상태 보정"]
-    C --> P["게시 시각 결정 · 최종 검증<br/>models/v1/catalog.json 생성"]
+    M --> C["corrections<br/>기존 값 조건과 effectiveAt 확인 · 가격·상태 보정"]
+    C --> OV["overrides<br/>자동 값 덮어쓰기"]
+    OV --> TH["thinking<br/>Effort 단계·기본값 채우기"]
+    TH --> P["게시 시각 결정 · 최종 검증<br/>models/v1/catalog.json 생성"]
     P -->|"변경 시 commit/push"| G["GitHub main raw URL"]
+    P -->|"빈칸 보고"| I["이슈 Catalog gaps"]
     G -->|"소비자 검증 후 저장"| A["clawpod-agent cache"]
     A -->|"다음 프로세스 시작의 planning"| R["models.json"]
 ```
@@ -38,8 +43,10 @@ flowchart TD
 | 구성요소 | 책임 |
 | --- | --- |
 | OpenClaw 생성기 | models.dev·가격 출처에서 원본 모델 metadata와 추적 필드 생성 (`openclaw/openclaw` checkout에서 실행) |
-| 수동 관리 보완 JSON | 추가 provider/model 정의, 출처와 조건부 보정 규칙 기록 |
-| 이 저장소의 publisher | 생성 파일 입력, 검증, 병합, 조건부 보정·날짜 전환, sanitize, 시각 정책, 게시 |
+| OpenRouter API | `openrouter` provider의 모델·가격·reasoning 메타데이터 |
+| models.dev | Thinking Effort 지원 단계의 보조 출처 |
+| 수동 관리 보완 JSON | 수동 provider 모델 정의, 출처, 보정·덮어쓰기·Effort 규칙, 검토 완료 빈칸 기록 |
+| 이 저장소의 publisher | 생성 파일 입력, 검증, 병합, 보정·덮어쓰기·Effort 채우기·날짜 전환, sanitize, 시각 정책, 게시, 빈칸 보고 |
 | GitHub repository | mutable `main` artifact와 변경 이력 제공 |
 | `clawpod-agent` | HTTPS fetch, consumer gate, cache, build-stamp 비교, runtime 적용 결정 |
 
@@ -76,6 +83,8 @@ curl -fsSL "$CATALOG_URL" |
 
 ### 게시 dry-run
 
+데이터를 고친 뒤 결과만 확인하려면 [수동 갱신](#수동-갱신)처럼 최근 CI 실행이 저장한 원본을 받아 쓰는 편이 간단합니다(OpenClaw 설치 불필요). 아래는 원본까지 로컬에서 새로 만드는 방법입니다. OpenClaw 의존성 설치에는 OpenClaw `package.json`의 `engines.node` 버전(2026-11 기준 Node 24.22.1 이상)과 pnpm(corepack)이 필요합니다.
+
 ```bash
 npm ci
 git clone --depth 1 https://github.com/openclaw/openclaw /tmp/openclaw
@@ -108,10 +117,29 @@ Publisher ingress schema와 consumer acceptance schema는 동일하지 않습니
 | 단계 | 주요 동작 |
 | --- | --- |
 | Publisher ingress | Zod로 알려진 필드 형식을 검사합니다. `schemaVersion`은 ingress에서 선택이며 출력은 `1`로 정규화합니다. Unknown field는 허용하지만 빈 모델 배열과 중복 ID는 거부합니다. `anthropic`과 `openai` provider 존재를 별도로 요구합니다. |
-| 게시 변환 | 수동 보완 데이터 병합과 조건부 보정을 적용하고 `baseUrl`·`headers`·`apiKey`·`auth`·`authHeader`를 재귀 제거합니다. Root `pricing`은 제거하지만 모델의 `cost`는 유지합니다. `minVersion`을 재작성하고 가능한 경우 원본을 `sourceMinVersion`으로 보존합니다. |
+| 게시 변환 | 수동 보완 데이터 병합, 조건부 보정(`corrections`), 덮어쓰기(`overrides`), Thinking Effort 채우기(`thinking`)를 적용하고 `baseUrl`·`headers`·`apiKey`·`auth`·`authHeader`를 재귀 제거합니다. Root `pricing`은 제거하지만 모델의 `cost`는 유지합니다. `minVersion`을 재작성하고 가능한 경우 원본을 `sourceMinVersion`으로 보존합니다. |
 | Consumer acceptance | `schemaVersion: 1`, provider별 model 최소 1개, provider 내부 중복 id 금지와 gate field를 검사합니다. 알 수 없는 필드와 transport 설정은 제거하며, 지원하는 모델별 `cost` 필드는 소비합니다. |
 
 따라서 “publisher 검증 통과”만으로 consumer acceptance를 보장한다고 가정하면 안 됩니다. 최종 계약 집행자는 `clawpod-agent`입니다.
+
+### 모델 필드
+
+모델 행은 OpenClaw catalog 형식(`openclaw/openclaw`의 `packages/model-catalog-core/src/model-catalog-types.ts`, `ModelCatalogModel`)을 따릅니다. 새 필드 이름을 만들지 않습니다.
+
+| 필드 | 의미 |
+| --- | --- |
+| `id`, `name`, `api` | 모델 ID, 표시 이름, 호출 API 유형(없으면 provider의 `api`) |
+| `input` | `text`, `image`, `document`, `video` 중 지원 입력 |
+| `reasoning` | 생각(thinking) 모드 지원 여부 |
+| `contextWindow`, `maxTokens` | 컨텍스트와 최대 출력 토큰. Codex는 Agent 운영 예산(272000) |
+| `cost` | USD/백만 토큰: `input`, `output`, `cacheRead`, `cacheWrite`(5분), 선택적 `tieredPricing[{…, range}]`. 모르면 생략, 0은 공식 무료만 |
+| `status`, `replacedBy` | `deprecated`·`disabled`, 같은 provider의 활성 대체 모델 |
+| `compat.thinkingLevels` | 지원 Thinking Effort 단계, 낮은 것부터(`off`, `minimal`, `low`, `medium`, `high`, `xhigh`, `adaptive`, `max`, `ultra`) |
+| `compat.defaultThinkingLevel` | 새 세션의 기본 단계(지원 단계 중 하나) |
+| `compat.thinkingLevelLabels` | 표시 라벨. 켜기/끄기만 되는 모델은 `{"low":"on"}` |
+| 그 밖의 `compat.*`, `thinkingLevelMap`, `mediaInput`, `contextWindows` 등 | upstream(OpenClaw)이 준 값을 그대로 둡니다 |
+
+2026-11 기준 Agent(clawpod-agent) 로더는 이 중 일부만 읽습니다(예: `compat`, `tieredPricing`, `replacedBy`는 읽지 않음). catalog는 Agent가 SOT로 전환할 것을 전제로 OpenClaw 형식대로 모두 게시합니다.
 
 ## 게시 파이프라인
 
@@ -149,9 +177,15 @@ Publisher ingress schema와 consumer acceptance schema는 동일하지 않습니
 - `none`은 `off`로 읽습니다. 끌 수 없는 모델(OpenRouter `mandatory`)에는 `off`가 없습니다. OpenRouter가 기본 꺼짐(`default_enabled: false`)이라고 하면 기본 단계는 `off`입니다.
 - 단계 선택 없이 켜고 끄기만 되는 모델은 OpenClaw 관례대로 `["off","low"]`와 `thinkingLevelLabels: {"low":"on"}`으로 씁니다.
 - upstream `thinkingLevelMap`이 `null`로 막은 단계는 빼고, 기본 단계가 지원 단계에 없으면 기본 단계를 비웁니다(출처 충돌).
-- 2026-11-19 기준 활성 reasoning 모델 1594/1663이 채워져 있습니다. 남은 빈칸은 라우터 별칭과 공식 문서가 없는 모델입니다(sources/REVIEW.md).
-- 채우지 못한 모델은 비워 둡니다. 게시 로그에 `thinking profiles: 채운 수/전체` 줄이 남고, workflow output `thinking_missing`에 빈칸 수가 기록됩니다. 빈칸이 있어도 게시는 막지 않습니다.
-- 빈칸 목록은 매 실행의 workflow 요약에 붙고, main 게시 실행(dry-run 제외)은 GitHub 이슈 **"Catalog gaps"** 하나를 계속 갱신합니다(이전 제목 "Thinking effort gaps"). 이슈에는 Effort 빈칸과 함께, 활성 모델의 이름·reasoning·컨텍스트/최대 출력 누락과 없는 모델이나 종료된 모델을 가리키는 `replacedBy`도 나옵니다. 빈칸이 0이 되면 이슈를 닫습니다. 새 빈칸은 이 이슈를 보고 공식 문서로 확인해 `thinking`·`overrides` 규칙으로 채웁니다. 이를 위해 `publish` job에 `issues: write` 권한이 있습니다.
+- 채우지 못한 모델은 비워 둡니다. 남은 빈칸은 대부분 라우터 별칭과 공식 문서가 없는 모델입니다. 게시 로그에 `thinking profiles: 채운 수/전체` 줄이 남습니다. 빈칸이 있어도 게시는 막지 않습니다.
+
+### 1-3. 빈칸 보고 (이슈 Catalog gaps)
+
+- 게시할 때마다 전수 검사(`scripts/audit-catalog.mjs`, `npm run audit`와 같은 검사)를 실행하고, 그 결과를 workflow 요약에 붙입니다. 검사 항목은 필수 값 누락(이름·reasoning·한도·가격), 의심 값(가격 0, Claude 캐시 쓰기 0 등), Effort 누락·형식, 대체 모델 연결, 전송 필드 유출입니다.
+- 결과는 **open**(처리 대상)과 **known**(의도되거나 검토 완료)으로 나뉩니다. known에는 구독형 가격, 라우터 별칭, 수동 파일 `knownGaps`에 사유가 기록된 항목, `overrides`에서 `"cost": null`로 확정한 가격이 들어갑니다.
+- main 게시 실행(dry-run 제외)은 GitHub 이슈 **"Catalog gaps"** 하나를 계속 갱신합니다(이전 제목 "Thinking effort gaps"). open이 0이면 이슈를 닫고, 닫힌 뒤 새 open이 생기면 같은 제목의 새 이슈를 만듭니다. workflow output은 `catalog_gaps`(open 수)와 `thinking_missing`(Effort 빈칸 전체 수)입니다.
+- 이 단계는 `continue-on-error`라 이슈 API가 실패해도 catalog 커밋은 진행됩니다. 이를 위해 `publish` job에 `issues: write` 권한이 있습니다.
+- 처리 방법은 [MAINTAINING.md](MAINTAINING.md)에 있습니다.
 
 Publisher의 8MiB 검사는 streaming download/memory cap이 아닙니다. Consumer의 4MiB streaming body limit와 목적·구현이 다릅니다. 최종 직렬화한 게시 파일에는 별도로 4MiB 한도를 적용합니다.
 
@@ -162,11 +196,12 @@ Publisher의 8MiB 검사는 streaming download/memory cap이 아닙니다. Consu
 - `generatedAt`이 현재보다 24시간을 초과해 미래이면 거부
 - upstream `generatedAt`이 이전 `sourceGeneratedAt`보다 과거이면 변경하지 않음. 이전 형식의 게시본에는 `generatedAt`을 비교 기준으로 사용
 - 보완 입력은 허용된 필드·API 유형만 수락하며 빈 목록·중복 ID·출처 누락을 거부
+- `thinking` 규칙: 단계 이름·순서·중복, 기본값이 단계 안에 있는지, 근거 URL을 검사. `overrides`·`knownGaps`: 허용 필드와 근거 URL 형식을 검사
 
 ### 3. 보완 데이터 병합, sanitize와 정책 변환
 
 - [`sources/clawpod-providers.json`](sources/clawpod-providers.json)을 매 실행마다 읽어 provider/model ID 기준으로 병합
-- 같은 모델은 upstream 행 전체를 우선하고, 공식 근거와 정확한 기존 값 조건이 있는 `corrections`만 병합 후 적용
+- 같은 모델은 upstream 행 전체를 우선하고, 병합 후 `corrections`(공식 근거와 정확한 기존 값 조건이 있을 때만) → `overrides`(공식 근거로 자동 값을 무조건 덮어씀) → `thinking`(Effort 채우기) 순서로 적용
 - 할인 종료·모델 EOL의 `effectiveAt` 경계가 지나면 다음 정상 게시에서 전환 (provider API 자동 수집 없음)
 - provider API 또는 중복 모델의 유효 API가 충돌하면 게시 중단
 - 중첩된 `baseUrl`, `headers`, `apiKey`, `auth`, `authHeader` 제거
@@ -192,13 +227,13 @@ Schema 검증 실패, 필수 provider(`anthropic`, `openai`) 누락, API 충돌,
 
 2026-09-05부터 8회 연속 실패한 원인이 이 부분입니다. 당시에는 model 수 급변(274 -> 1003)이 review 경로로 routing됐고, 그 경로가 `gh pr create`를 호출했는데 조직 정책이 GitHub Actions의 PR 생성을 금지하고 있어 branch push 직후 run이 실패했습니다. Review 경로 자체를 제거해 해결했습니다.
 
-보완 파일 자체는 **수동 관리**합니다. 6시간 작업은 그 파일을 다시 병합하고 검증된 보정·날짜 전환을 적용합니다. OpenRouter를 제외한 provider API나 Clawpod-Agent 소스에서 보완 모델을 수집하지 않습니다. 수정 절차와 데이터 기준은 [sources/README.md](sources/README.md)를 참고하세요.
+보완 파일 자체는 **수동 관리**합니다. 6시간 작업은 그 파일을 다시 병합하고 검증된 보정·덮어쓰기·Effort 규칙·날짜 전환을 적용합니다. OpenRouter·models.dev 외의 provider API나 Clawpod-Agent 소스에서 보완 모델을 수집하지 않습니다. 수정 절차와 데이터 기준은 [MAINTAINING.md](MAINTAINING.md)와 [sources/README.md](sources/README.md)를 참고하세요.
 
 Workflow는 nominal 6시간 cron(`17 */6 * * *`)과 수동 dispatch로 실행됩니다. 동일 concurrency group에서 동시에 하나만 실행하고 running run은 취소하지 않지만, 대기 중인 pending run은 새 pending run으로 대체될 수 있습니다.
 
 ## 수동 보완 데이터가 반영되는 방식
 
-수동 입력은 [`sources/clawpod-providers.json`](sources/clawpod-providers.json) 한 파일입니다. `providers`는 모델 정의, `provenance`는 provider별 출처, `corrections`는 선택적인 보정 목록입니다. 모델 정의가 공개 artifact로 들어가며, 수동 입력의 출처·규칙 자체는 artifact에 복사하지 않습니다. `supplementDigest`에는 출처·규칙을 포함한 검증된 입력 전체가 반영됩니다.
+수동 입력은 [`sources/clawpod-providers.json`](sources/clawpod-providers.json) 한 파일입니다. `providers`는 모델 정의, `provenance`는 provider별 출처, `corrections`는 조건부 보정, `overrides`는 자동 값 덮어쓰기, `thinking`은 Thinking Effort 규칙, `knownGaps`는 검토 완료 빈칸입니다. 각 칸의 형식은 [sources/README.md](sources/README.md)에 있습니다. 모델 정의가 공개 artifact로 들어가며, 수동 입력의 출처·규칙 자체는 artifact에 복사하지 않습니다. `supplementDigest`에는 출처·규칙을 포함한 검증된 입력 전체가 반영됩니다.
 
 ### 자동으로 하는 일과 수동으로 관리하는 일
 
@@ -206,9 +241,12 @@ Workflow는 nominal 6시간 cron(`17 */6 * * *`)과 수동 dispatch로 실행됩
 | --- | --- |
 | Upstream 모델 목록 | 매 게시 실행에서 원본을 다시 조회 |
 | 보완 모델의 추가·제외·스펙 | 공식 자료와 Agent 소스를 사람이 확인해 JSON 수정 |
-| 가격·상태 오류의 보정 | 사람이 근거 URL·기존 값·수정값을 기록하면 매 게시에서 조건 확인 |
+| 가격·상태 오류의 보정 | 사람이 근거 URL·기존 값·수정값을 기록하면 매 게시에서 조건 확인(`corrections`) |
+| 자동 값(이름·reasoning·한도·가격·대체 모델) 오류 | 사람이 근거와 함께 `overrides`로 기록하면 매 게시에서 덮어씀 |
+| Thinking Effort | OpenRouter·models.dev로 자동 채움. 공식 문서로 확인한 `thinking` 규칙이 우선 |
 | 공지된 할인 종료·EOL | 사람이 기록한 `effectiveAt`을 매 게시에서 평가 |
-| 새로운 모델·가격 변경·할인 연장 발견 | 자동 탐지하지 않음. 수동 재검토 필요 |
+| 자동 provider의 새 모델 | 매 게시에서 자동 추가. 빈칸은 이슈 **Catalog gaps**에 보고 |
+| 수동 provider의 새 모델·가격 변경·할인 연장 | 자동 반영하지 않음. `npm run candidates`로 후보를 찾고 공식 문서로 확인해 수동 반영 |
 
 ### 병합 우선순위와 삭제
 
@@ -216,7 +254,7 @@ Workflow는 nominal 6시간 cron(`17 */6 * * *`)과 수동 dispatch로 실행됩
 | --- | --- |
 | Upstream에 provider가 없음 | 보완 provider와 모델 목록을 추가 |
 | 같은 provider에 model ID가 없음 | 보완 모델을 추가 |
-| 같은 provider/model ID가 양쪽에 있음 | upstream 행 전체를 우선하고 이후 조건부 보정 적용 |
+| 같은 provider/model ID가 양쪽에 있음 | upstream 행 전체를 우선하고 이후 `corrections`·`overrides`·`thinking` 적용 |
 | Provider API 또는 중복 모델의 유효 API가 다름 | 오류로 게시 중단 |
 | 보완에만 있던 모델을 보완 파일에서 삭제 | 다음 재생성에서 제외 |
 | Upstream에도 있는 모델을 보완 파일에서 삭제 | upstream 모델은 유지 |
@@ -257,7 +295,7 @@ Workflow는 nominal 6시간 cron(`17 */6 * * *`)과 수동 dispatch로 실행됩
 
 ### 비용과 상태 필드의 의미
 
-`cost`는 기본적으로 USD/백만 토큰의 표준 기본 요금입니다. 구독 비용이나 미확인 가격은 보완 입력에서 `cost`를 생략합니다. `0`은 미확인의 대체값으로 쓰지 않습니다. Upstream에 별도의 비용이 있으면 일반 병합 규칙에 따라 그 값은 남을 수 있습니다.
+`cost`는 기본적으로 USD/백만 토큰의 표준 기본 요금입니다. 구독 비용이나 미확인 가격은 `cost`를 생략합니다. `0`은 미확인의 대체값으로 쓰지 않고, 공식적으로 무료일 때만 씁니다. Upstream의 비용이 틀렸거나 근거가 없으면 `overrides`로 고치거나 `"cost": null`로 지웁니다.
 
 기본 비용은 지역·장문·Priority·Batch·캐시 TTL 등 모든 조건을 표현하지 않습니다. Codex의 context 운영 예산, xAI·MiniMax의 출력 기본값, Mantle의 transport 호환성 설정도 공식 최대 사양과 구분해야 합니다. 적용 범위는 [검토 기록](sources/REVIEW.md)에 기록합니다.
 
@@ -290,8 +328,8 @@ Consumer 세부 구현은 [`clawpod-agent` model catalog 문서](https://github.
 | 계층 | 현재 방어 | 남는 위험 |
 | --- | --- | --- |
 | Publisher | ingress·보완 schema 검사, 필수 provider, API 충돌 검사, 미래 skew·회귀 guard, transport/auth key 제거, 출력 크기 제한 | loose unknown field, root 수준 `pricing` 제거, upstream 신뢰 |
-| Workflow | schedule/dispatch trigger, 게시 workflow의 `contents: write`, output의 env 전달, concurrency | approval 미강제, repository 설정 의존, workflow 자체의 write 권한 |
-| Actions toolchain | Node.js 22 설정, lockfile 기반 `npm ci` | `actions/*@v4` major-version ref, `ubuntu-latest` rolling runner |
+| Workflow | schedule/dispatch trigger, 외부 코드(OpenClaw)는 읽기 전용 `generate` job에서만 실행, `publish` job만 `contents: write`·`issues: write`, output의 env 전달, concurrency | approval 미강제, repository 설정 의존, workflow 자체의 write 권한 |
+| Actions toolchain | 게시 workflow는 Node.js 24(`generate`는 `check-latest`로 24.x 최신), 테스트 workflow는 Node.js 22, lockfile 기반 `npm ci`, OpenClaw는 `pnpm install --frozen-lockfile` | `actions/*@v4` major-version ref, `ubuntu-latest` rolling runner, OpenClaw `main`을 매번 그대로 실행 |
 | Transport | GitHub HTTPS raw URL | mutable `main`, commit pin·checksum·signature 없음 |
 | Consumer | HTTPS, SSRF guard, timeout, streaming size limit, acceptance gate, sanitize, temp+rename | 동시 writer race, restart 전 미적용, 유효 cache 장기 유지, model metadata·목록이 planning에 미치는 영향 |
 
@@ -315,13 +353,14 @@ Credential, token, internal endpoint 또는 secret을 catalog와 workflow output
 
 모델·가격·상태·Thinking Effort를 수정할 때는 다음 순서로 작업합니다.
 
-1. `sources/clawpod-providers.json`을 수정합니다. 어느 칸에 쓸지는 아래 [신모델 대응 절차](#신모델-대응-절차)의 표를 따릅니다.
+1. `sources/clawpod-providers.json`을 수정합니다. 어느 칸에 쓸지와 값 기준은 [MAINTAINING.md](MAINTAINING.md)를 따릅니다.
 2. 근거 URL과 판단(가격 적용 조건·종료 시각·제외 이유 등)을 `sources/REVIEW.md`에 기록합니다.
 3. 최근 성공한 게시 실행이 저장한 원본 3개를 받아 catalog를 다시 생성하고 테스트합니다. 로컬에 OpenClaw를 설치할 필요가 없습니다. 원본은 7일간 보관됩니다.
 
 ```bash
 npm ci
 run=$(gh run list --workflow publish.yml --branch main --status success -L 1 --json databaseId --jq '.[0].databaseId')
+rm -rf /tmp/catalog-sources   # 같은 곳에 두 번 받으면 실패해도 종료 코드 0이라 옛 원본을 쓰게 됩니다
 gh run download "$run" -n catalog-sources -D /tmp/catalog-sources
 git checkout origin/main -- models/v1/catalog.json   # main 게시본 기준으로 다시 만듭니다
 node scripts/publish-catalog.mjs \
@@ -334,67 +373,16 @@ npm test
 
 입력·검토 기록·생성된 `models/v1/catalog.json`의 diff를 함께 검토하고 커밋합니다. Generated artifact는 직접 편집하지 않습니다. `/tmp/catalog-gaps.md`로 남은 빈칸을 확인합니다. 테스트는 구조와 게시 동작을 확인하며 공식 가격·가용성의 최신성을 대신 검증하지 않습니다.
 
-PR을 올린 뒤 workflow를 바꿨다면 브랜치에서 `gh workflow run publish.yml --ref <branch> -f dry_run=true`로 확인합니다. 작업 브랜치를 푸시한 것만으로 공개 `main` raw URL이 바뀌지는 않습니다. 변경을 `main`에 병합한 뒤 공개 artifact와 게시 workflow를 확인해야 합니다. 로컬 게시 명령은 Git commit/push를 수행하지 않으며, 자동 게시 workflow의 commit 단계가 그 작업을 담당합니다.
+`npm run audit`으로 전수 검사를 실행해 open 항목이 늘지 않았는지도 확인합니다(이슈 Catalog gaps와 같은 검사). PR을 올린 뒤 workflow를 바꿨다면 브랜치에서 `gh workflow run publish.yml --ref <branch> -f dry_run=true`로 확인합니다. 작업 브랜치를 푸시한 것만으로 공개 `main` raw URL이 바뀌지는 않습니다. 변경을 `main`에 병합한 뒤 공개 artifact와 게시 workflow를 확인해야 합니다. 로컬 게시 명령은 Git commit/push를 수행하지 않으며, 자동 게시 workflow의 commit 단계가 그 작업을 담당합니다.
 
 ### 신모델 대응 절차
 
-새 모델은 두 경로로 들어옵니다. 경로마다 해야 할 일이 다릅니다.
+신모델 반영, 빈칸 처리, 정기 점검, 판단 기준(가격·한도·reasoning·Effort·상태), 장애 대응은 **[MAINTAINING.md](MAINTAINING.md)**에 모두 정리돼 있습니다. 요약하면 이렇습니다.
 
-| 경로 | 해당 provider | 자동 여부 | 사람이 할 일 |
-| --- | --- | --- | --- |
-| 자동 | OpenClaw가 만드는 provider(`anthropic`, `openai`, `google`, `ollama-cloud`, 중계 provider 등), `openrouter` | 6시간마다 모델·가격 자동 추가 | 이슈 **Catalog gaps**에 나온 빈칸만 채움 |
-| 수동 | `openai-codex`, `amazon-bedrock`, `amazon-bedrock-mantle`, `anthropic-vertex`, `google-vertex`, `minimax-portal` 등 `sources/clawpod-providers.json`의 `providers` | 자동으로 안 들어옴 | 공식 문서를 보고 직접 추가 |
-
-**1. 빈칸 확인 (자동 경로)**
-
-이슈 **Catalog gaps**를 봅니다. 6시간마다 갱신되고, 아래 두 목록이 나옵니다.
-- **Missing model data:** 이름·reasoning·컨텍스트/최대 출력이 없거나, `replacedBy`가 없는 모델이나 종료된 모델을 가리키는 행
-- **Missing thinking profiles:** 지원 단계나 기본 단계가 없는 reasoning 모델
-
-라우터 별칭(`auto`, `free`, `*-latest`)과 공식 문서가 없는 모델은 남아 있는 것이 정상입니다(`sources/REVIEW.md`에 기록).
-
-**2. 신모델 찾기 (수동 경로)**
-
-신모델 발표 소식이 있을 때, 그리고 정기적으로(권장: 월 1회) 아래 출처와 수동 provider의 현재 목록을 대조합니다.
-models.dev(`https://models.dev/api.json`)를 같은 provider끼리 비교하면 빠르게 후보를 뽑을 수 있습니다.
-단, models.dev는 2차 출처라 후보를 찾는 데만 씁니다.
-
-| provider | 공식 출처 | models.dev 키 |
-| --- | --- | --- |
-| `openai-codex` | https://learn.chatgpt.com/docs/models | (없음) |
-| `amazon-bedrock`, `amazon-bedrock-mantle` | AWS 모델 카드(docs.aws.amazon.com/bedrock), AWS Price List feed | `amazon-bedrock` |
-| `anthropic-vertex` | Vertex Claude 모델 페이지, Vertex 가격(Global) | `google-vertex-anthropic` |
-| `google-vertex` | Vertex Gemini 문서·가격 | `google-vertex` |
-| `minimax`, `minimax-portal` | https://platform.minimax.io/docs | `minimax`, `minimax-coding-plan` |
-
-**3. 반영할 곳 고르기**
-
-| 상황 | 쓰는 곳 | 비고 |
-| --- | --- | --- |
-| 수동 provider에 새 모델 | `providers.<provider>.models`에 행 추가 | reasoning 모델이면 Effort도 함께 정합니다(`thinking` 규칙이 계열 접두사로 이미 걸리는지 확인) |
-| 자동 값이 틀렸거나 비어 있음(이름·reasoning·한도·가격·대체 모델) | `overrides` | 가격을 모르면 0이 아니라 `"cost": null` |
-| Effort가 비었거나 틀림 | `thinking` | `provider: "*"`와 계열 접두사(`claude-opus-5*` 등)를 쓰면 모든 중계 provider와 다음 변형 모델에 함께 적용됩니다 |
-| 수동 모델의 종료·가격 날짜 전환 | `corrections` (`effectiveAt`) | 자동 provider 행의 상태는 아직 바꿀 수 없습니다 |
-
-모든 값은 공식 문서로 확인하고, 규칙마다 `source`(공식 URL)를 적습니다. 판단이 필요했던 내용은 `note`와 `sources/REVIEW.md`에 남깁니다.
-
-**4. 재생성·검증·PR**
-
-[수동 갱신](#수동-갱신)의 명령으로 catalog를 다시 만들고 `npm test`를 통과시킵니다. 그다음 `/tmp/catalog-gaps.md`에서 빈칸이 줄었는지 확인하고 PR을 올립니다.
-머지 후에는 바로 반영하려면 `gh workflow run publish.yml --ref main`으로 수동 실행하고, 아니면 다음 6시간 주기를 기다립니다.
-
-**5. 정기 재확인 목록**
-
-자동으로 처리되지 않아 사람이 다시 봐야 하는 항목입니다. 처리하면 이 목록에서 지웁니다.
-
-| 시점 | 항목 |
-| --- | --- |
-| 2026-12-01 이후 | Gemini 2.5 Pro/Flash가 새 모델로 라우팅됨. `google` provider의 Gemini 2.5 Effort 규칙 재검토. 자동 provider `google`의 Gemini 4 Argon/Carbon 가격 인상이 반영됐는지 확인(`google-vertex`는 날짜 규칙으로 자동) |
-| 수시 | Kilo·Vercel 프로모션 0원 모델(Glyph Cluster, Flint)의 유료 전환 |
-| Agent SOT 전환 시 | Sonnet 5.5의 `off`(`between_tools`로만 가능), Codex 모델 기본 Effort가 API 기본값과 같은지 |
-| 상태 변경 수단이 생기면 | Qwen 판매 종료 모델 4개(`qwen3-coder-plus`, `qwen3-coder-next`, `qwen3-max-2026-01-23`, `glm-4.7`) deprecated 처리 |
-
-`corrections`의 날짜 규칙(Sonnet 4.5 EOL 2027-04-08, Gemini 4 Vertex 가격 2026-12-01 등)은 자동으로 적용되므로 이 목록에 넣지 않습니다.
+1. `npm run candidates`로 수동 provider의 신모델 후보를 찾고, `npm run audit`과 이슈 **Catalog gaps**로 빈칸을 확인합니다.
+2. 공식 문서로 값을 확인합니다(models.dev·OpenRouter는 후보 찾기용 2차 출처).
+3. 수동 파일의 알맞은 칸에 씁니다: 수동 행은 `providers`, 자동 값 수정은 `overrides`, Effort는 `thinking`, 날짜 전환은 `corrections`, 값이 없는 빈칸은 `knownGaps`.
+4. [수동 갱신](#수동-갱신)의 명령으로 재생성·검증하고, `sources/REVIEW.md`에 기록한 뒤 PR을 올립니다.
 
 ### 오프라인 검증·재생성
 
@@ -420,8 +408,11 @@ node scripts/publish-catalog.mjs --source-file /path/to/openclaw-catalog.json --
 | --- | --- |
 | Dry-run 결과가 `nothing to do` | upstream `generatedAt`이 게시본의 `sourceGeneratedAt`보다 과거인지, 변환 결과가 현재 artifact와 byte 단위로 같은지 확인 |
 | Workflow가 `main`에 commit하지 않음 | 변경 유무(`changed`), `dry_run` 값, publish step의 검증 실패 여부 |
-| `Fetch OpenRouter model list` 단계 실패 | OpenRouter API 장애·응답 형식 변경·모델 수 100개 미만 여부. 장애가 풀리면 다음 실행에서 자동 복구 |
-| `Generate OpenClaw catalog` 단계 실패 | 로그의 OpenClaw 에러 메시지(외부 출처 장애·형식 변경 등), `MAX_PRICING_CATALOG_BYTES` 패치 경고, 필요하면 `openclaw_ref`로 정상 동작하던 commit을 지정해 수동 실행 |
+| `Fetch OpenRouter model list` / `Fetch models.dev catalog` 단계 실패 | 외부 API 장애·응답 형식 변경·부분 응답(OpenRouter 모델 100개 미만, models.dev provider 50개 미만) 여부. 장애가 풀리면 다음 실행에서 자동 복구 |
+| `Install OpenClaw dependencies` 실패, `requires Node >=…` | OpenClaw가 Node 최소 버전을 올림. `check-latest`로 24.x 최신을 받으므로 메이저 버전이 바뀐 경우에만 `node-version` 수정 |
+| `Generate OpenClaw catalog` 단계 실패 | 로그의 OpenClaw 에러 메시지(외부 출처 장애·형식 변경 등). `… exceeds …` 크기 제한이면 `scripts/generate-openclaw-catalog.sh`의 `raise_limit`에 상수 추가. 상수 줄이 바뀌면 패치 경고가 남음. 필요하면 `openclaw_ref`로 정상 동작하던 commit을 지정해 수동 실행 |
+| `Report catalog gaps` 단계 실패 | GitHub 이슈 API 오류. 커밋에는 영향 없고 다음 실행에서 다시 갱신 |
+| 이슈 Catalog gaps에 같은 항목이 계속 남음 | 공식 값이 없으면 `knownGaps`에 사유를 기록해 known으로 옮김([MAINTAINING.md](MAINTAINING.md)) |
 | Consumer에 즉시 반영되지 않음 | 6시간 TTL, stored cache, build stamp, source URL, process restart 여부 |
 | Consumer가 vendored snapshot 사용 | cache 부재·손상, URL mismatch, build stamp 부재/신선도, refresh 비활성화, acceptance 오류 |
 | Fetch 실패 후 이전 결과가 계속 보임 | 기존 valid cache가 유지될 수 있으며 최대 보존 기간이 없음 |
@@ -438,23 +429,30 @@ node scripts/publish-catalog.mjs --source-file /path/to/openclaw-catalog.json --
 - `MIN_VERSION` 변경은 게시 artifact의 `minVersion` 정책을 바꿉니다. Consumer runtime gate를 바꾸는 것은 아닙니다.
 - README의 운영·보안 주장은 source와 함께 갱신하세요.
 
-`npm test`는 네트워크·인증 없이 병합, 시각 처리, 오류 시 보존, dry-run 및 보완 데이터를 검증합니다. PR 검증 workflow와 6시간 게시 workflow 모두 실행합니다.
+`npm test`는 네트워크·인증 없이 병합, 시각 처리, 오류 시 보존, dry-run, 보완 데이터, OpenRouter·models.dev 변환, Thinking Effort 규칙, 덮어쓰기, 빈칸 판정, 검사 스크립트를 검증합니다. PR 검증 workflow와 6시간 게시 workflow 모두 실행합니다. 데이터 내용은 `npm run audit`(전수 검사)로 따로 확인합니다.
 
 ## Repository 구조
 
 | 경로 | 설명 |
 | --- | --- |
 | [`models/v1/catalog.json`](models/v1/catalog.json) | Consumer가 조회하는 게시 artifact |
-| [`scripts/publish-catalog.mjs`](scripts/publish-catalog.mjs) | Fetch·검증·변환·diff 분류 구현 |
-| [`scripts/catalog.mjs`](scripts/catalog.mjs) | 병합·검증·시각 정책 |
+| [`MAINTAINING.md`](MAINTAINING.md) | **데이터 유지보수 가이드**: 판단 기준, 신모델 대응, 재생성·검증·PR, 장애 대응 |
+| [`CLAUDE.md`](CLAUDE.md) | 에이전트 세션이 자동으로 읽는 안내(MAINTAINING.md로 연결) |
+| [`scripts/publish-catalog.mjs`](scripts/publish-catalog.mjs) | 입력 검증·병합·게시, 빈칸 보고서 출력 |
+| [`scripts/catalog.mjs`](scripts/catalog.mjs) | 병합·`corrections`·`overrides`·검증·시각 정책, 수동 파일 스키마 |
+| [`scripts/thinking.mjs`](scripts/thinking.mjs) | Thinking Effort 채우기, `modelKey`, 규칙 매칭, 라우터 별칭·검토 완료 빈칸 판정 |
+| [`scripts/openrouter.mjs`](scripts/openrouter.mjs), [`scripts/models-dev.mjs`](scripts/models-dev.mjs) | 외부 목록 변환·검증 (`fetch-*.mjs`가 CI에서 받음) |
+| [`scripts/generate-openclaw-catalog.sh`](scripts/generate-openclaw-catalog.sh) | OpenClaw 생성기 실행(크기 제한 패치) |
+| [`scripts/audit-catalog.mjs`](scripts/audit-catalog.mjs) | 전수 검사 (`npm run audit`)와 이슈 Catalog gaps 보고서 |
+| [`scripts/find-model-candidates.mjs`](scripts/find-model-candidates.mjs) | 수동 provider 신모델 후보 (`npm run candidates`) |
 | [`sources/clawpod-providers.json`](sources/clawpod-providers.json) | 수동 관리 보완 데이터와 출처 |
 | [`sources/README.md`](sources/README.md) | 보완 데이터 갱신 방법과 범위 |
 | [`sources/REVIEW.md`](sources/REVIEW.md) | 공식 자료 검토 근거, 가격 범위와 제외 목록 |
-| [`tests/catalog.test.mjs`](tests/catalog.test.mjs) | 오프라인 회귀 테스트 |
+| [`tests/`](tests) | 오프라인 회귀 테스트 (`npm test`) |
 | [`.github/workflows/test.yml`](.github/workflows/test.yml) | PR·main 테스트 |
 | [`.github/workflows/publish.yml`](.github/workflows/publish.yml) | Schedule·manual dispatch·commit automation |
 | [`MIN_VERSION`](MIN_VERSION) | 게시 artifact의 ClawPoD `minVersion` 정책 입력 |
-| [`package.json`](package.json) | Publisher와 dry-run command |
+| [`package.json`](package.json) | `test`, `publish-catalog`, `audit`, `candidates` 명령 |
 | [`package-lock.json`](package-lock.json) | npm dependency lock |
 
 ## 지원 및 라이선스

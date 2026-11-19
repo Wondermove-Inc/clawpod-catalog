@@ -57,20 +57,18 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 
 ## 수정 절차
 
-1. `providers.<provider>.models`를 수정하고 같은 provider의 `provenance`를 갱신합니다.
-2. `scripts/generate-openclaw-catalog.sh`로 원본을 생성한 뒤(루트 README의 "게시 dry-run" 참고), `node scripts/fetch-openrouter.mjs --out <OpenRouter 파일>`와 `node scripts/fetch-models-dev.mjs --out <models.dev 파일>`로 목록을 받은 뒤,
-   `npm run publish-catalog:dry-run -- --source-file <생성 파일> --openrouter-file <OpenRouter 파일> --modelsdev-file <models.dev 파일>`로 입력 검증과 병합 결과를 확인합니다.
-3. 같은 입력으로 `npm run publish-catalog -- ...`를 실행해 생성합니다.
-4. `npm test`를 실행하고 입력·출력 diff를 함께 검토합니다. 테스트는 생성 파일에 보완 모델이 모두 반영됐는지도 확인합니다.
-5. 보완 JSON, 출처 문서, 생성된 `models/v1/catalog.json`을 함께 커밋합니다.
+전체 절차와 판단 기준은 루트의 [MAINTAINING.md](../MAINTAINING.md)에 있습니다. 요약하면 이렇습니다.
 
-생성한 원본을 저장해 두었다면 같은 `--source-file`로
-오프라인 재생성이 가능합니다. 새 형식의 **최종 artifact를 upstream 입력으로
-재사용할 수 없습니다.** 이미 병합된 수동 모델이 삭제되지 않고 남는 것을 막기 위함입니다.
+1. 알맞은 칸(`providers`, `corrections`, `overrides`, `thinking`, `knownGaps`)을 고치고, 수동 행을 바꿨으면 같은 provider의 `provenance.notes`에 날짜와 요약을 덧붙입니다.
+2. 최근 성공한 게시 실행의 `catalog-sources` artifact를 받아 catalog를 재생성합니다. 명령은 MAINTAINING.md 7장에 있고, 로컬에 OpenClaw를 설치할 필요가 없습니다.
+3. `npm test`와 `npm run audit`를 실행하고 입력·출력 diff를 함께 검토합니다. 테스트는 생성 파일에 보완 모델이 모두 반영됐는지도 확인합니다.
+4. 보완 JSON, `REVIEW.md` 기록, 생성된 `models/v1/catalog.json`을 함께 커밋합니다.
+
+새 형식의 **최종 artifact를 upstream 입력으로 재사용할 수 없습니다.** 이미 병합된 수동 모델이 삭제되지 않고 남는 것을 막기 위함입니다.
 
 ## 입력 계약과 병합 규칙
 
-- Root에는 `schemaVersion: 1`, `provenance`, `providers`와 선택적 `corrections`만 허용합니다.
+- Root에는 `schemaVersion: 1`, `provenance`, `providers`와 선택적 `corrections`, `overrides`, `thinking`, `knownGaps`만 허용합니다.
 - Provider에는 `api`, 비어 있지 않은 `models`가 필요합니다.
 - Model에는 `id`, `name`, `input`, `reasoning`, `contextWindow`, `maxTokens`가 필요합니다.
   선택 필드는 `api`, `contextTokens`, `cost`, `status`, `replacedBy`입니다.
@@ -106,7 +104,7 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 
 - `model`은 정확한 ID이거나, `*`로 끝나는 접두사입니다. 접두사 규칙을 쓰면 같은 계열의 새 모델도 자동으로 걸립니다.
 - `provider`를 `"*"`로 쓰면 모든 provider에 적용되고, `model`은 정규화한 ID(`scripts/thinking.mjs`의 `modelKey`)로 비교합니다.
-  소문자로 바꾸고 `vendor/` 접두사, `:변형`, `@접미사`, 지역 접두사(`us.` 등), `anthropic.` 같은 제조사 접두사, 끝의 `-v1`을 빼고
+  소문자로 바꾸고 `vendor/` 접두사, `:변형`, `@접미사`, 지역 접두사(`us.` 등), `anthropic.` 같은 제조사 접두사, 끝의 `-v<숫자>`를 빼고
   `.`과 `_`를 `-`로 바꾼 값입니다. 예를 들어 `anthropic/claude-opus-5.5`와 `us.anthropic.claude-opus-5-5`는 모두 `claude-opus-5-5`입니다.
   규칙 하나로 모든 중계 provider의 같은 모델이 채워집니다. 특정 provider만 다르게 하려면 그 규칙을 `*` 규칙보다 앞에 둡니다.
 - `levels`는 `off`, `minimal`, `low`, `medium`, `high`, `xhigh`, `adaptive`, `max`, `ultra` 중에서 낮은 단계부터 중복 없이 적습니다.
@@ -137,6 +135,25 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 - 적용 순서: 병합 → `corrections` → `overrides` → `thinking`.
   그래서 `overrides`로 `reasoning: true`가 된 모델도 `thinking` 규칙으로 Effort가 채워집니다.
 - 상태(`status`) 변경은 계속 `corrections`로 합니다.
+
+## 검토 완료 빈칸 (`knownGaps`)
+
+공식 값이 없어서 비워 둘 수밖에 없는 빈칸을 사유와 함께 기록합니다. 여기 기록된 빈칸은 `npm run audit`과
+이슈 **Catalog gaps**에서 "known"으로 분류되어 처리 대상에서 빠집니다. 같은 조사를 반복하지 않기 위한 기록입니다.
+
+```json
+{ "provider": "nvidia", "model": "nvidia/nemotron-3-ultra-550b-a55b", "check": "zero-price",
+  "reason": "NVIDIA API catalog trial endpoint: free prototyping, no per-token price.",
+  "source": "https://forums.developer.nvidia.com/t/nvidia-nim-faq/300317" }
+```
+
+- `check`: `thinking`(Effort 없음), `cost`(가격 없음), `zero-price`(가격 0이 의도됨), `model-data`(이름·reasoning·한도 없음)
+- 모델 매칭은 `thinking` 규칙과 같지만, **항상 provider와 원래 ID로 정확히** 지정합니다. `*`로 넓게 걸면 다른 모델의 진짜 빈칸까지 가려집니다.
+- 공식 값이 나오면 해당 항목을 지우고 값을 넣습니다.
+- 라우터 별칭(`auto`, `free`, `*-latest`, `openrouter/*`)은 따로 적지 않아도 known으로 분류됩니다.
+
+가격 빈칸을 "검토했지만 공식 가격이 없음"으로 확정할 때는 `knownGaps` 대신 `overrides`에 `"cost": null`과 근거를 써도 됩니다.
+upstream이 나중에 근거 없는 가격을 넣어도 계속 비워 둡니다.
 
 ## 검증된 보정과 날짜 전환
 
