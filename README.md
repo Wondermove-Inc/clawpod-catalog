@@ -119,7 +119,9 @@ Publisher ingress schema와 consumer acceptance schema는 동일하지 않습니
 
 - 생성기: `openclaw/openclaw`의 `scripts/publish-model-catalog.mts --pricing` (기본 `main`, 수동 실행 시 `openclaw_ref` 입력으로 변경 가능)
 - 실행: [`scripts/generate-openclaw-catalog.sh`](scripts/generate-openclaw-catalog.sh)가 생성 후 결과 파일을 `publish-catalog.mjs --source-file`에 넘깁니다. `catalog.openclaw.ai`는 조회하지 않습니다.
-- 로컬 패치: OpenClaw는 가격 출처 응답을 5MiB로 제한하는데, 2026-09-29 models.dev가 이를 넘어 OpenClaw 자체 게시가 멈췄습니다. 스크립트가 이 한도를 32MiB로 올립니다. upstream에서 해당 줄이 바뀌면 패치하지 않고 경고만 남깁니다.
+- 로컬 패치 (upstream에서 해당 줄이 바뀌면 패치하지 않고 경고만 남깁니다):
+  - 가격 출처 응답 제한 5MiB → 32MiB: 2026-09-29 models.dev가 5MiB를 넘어 OpenClaw 자체 게시가 멈췄습니다.
+  - 생성 bundle 제한 4MiB → 32MiB: OpenClaw 클라이언트용 한도로, 2026-11-18 bundle이 4.49MB가 되어 생성이 실패했습니다. 우리는 이 bundle에서 가격 등을 빼고 게시하며, 최종 catalog의 4MiB 한도는 publisher가 따로 검사합니다.
 - OpenClaw 코드와 npm 의존성은 외부 코드이므로 읽기 권한만 있는 `generate` job에서 실행합니다. 쓰기 권한이 있는 `publish` job에는 생성된 JSON 파일만 넘어가고, publisher가 그 파일을 검증합니다.
 - 생성 실패(외부 출처 장애, OpenClaw 변경 등)는 run을 실패시키고 기존 artifact를 유지합니다.
 - 생성 파일이 8MiB를 초과하면 게시 전 거부, JSON parse 오류는 fail closed
