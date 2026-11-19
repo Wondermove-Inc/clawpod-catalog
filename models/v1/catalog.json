@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795082577085,
+  "generatedAt": 1795083552509,
   "minVersion": "2026.4.11",
-  "sourceCommit": "9d6f4a94adf50e6f8af2485868bc0b1e3e65f720",
+  "sourceCommit": "dbf41b9173f6c3eb128221387533a1096ab1c43a",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -1666,9 +1666,9 @@
           "contextWindow": 1000000,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.3,
-            "output": 1.2,
-            "cacheRead": 0.03,
+            "input": 0.195,
+            "output": 0.78,
+            "cacheRead": 0.02,
             "cacheWrite": 0
           },
           "compat": {
@@ -2034,9 +2034,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 1.225,
-            "output": 3.85,
-            "cacheRead": 0.245,
+            "input": 0.8,
+            "output": 2.5,
+            "cacheRead": 0.16,
             "cacheWrite": 0
           },
           "compat": {
@@ -6060,6 +6060,33 @@
           }
         },
         {
+          "id": "gemini-4-neon",
+          "name": "Gemini 4 Neon",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 3,
+            "output": 15,
+            "cacheRead": 0.15,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
           "id": "gemini-flash-latest",
           "name": "Gemini Flash Latest",
           "input": [
@@ -6473,10 +6500,10 @@
           "contextWindow": 1000000,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.5,
-            "output": 2.5,
-            "cacheRead": 0.05,
-            "cacheWrite": 0.625
+            "input": 0.1,
+            "output": 0.5,
+            "cacheRead": 0.01,
+            "cacheWrite": 0.125
           },
           "compat": {
             "thinkingLevels": [
@@ -6559,7 +6586,7 @@
           "cost": {
             "input": 0.3,
             "output": 1.2,
-            "cacheRead": 0.006,
+            "cacheRead": 0.007,
             "cacheWrite": 0
           },
           "compat": {
@@ -6582,9 +6609,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 1.32,
-            "output": 3.96,
-            "cacheRead": 0.044,
+            "input": 0.111,
+            "output": 4.44,
+            "cacheRead": 0.097,
             "cacheWrite": 0
           },
           "compat": {
@@ -6607,9 +6634,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.44,
-            "output": 1.32,
-            "cacheRead": 0.028,
+            "input": 0.055,
+            "output": 0.3,
+            "cacheRead": 0.035,
             "cacheWrite": 0
           },
           "compat": {
@@ -6703,7 +6730,7 @@
         },
         {
           "id": "~openai/gpt-astra-latest",
-          "name": "OpenAI: GPT Astra Latest ($$$$)",
+          "name": "OpenAI: GPT Astra Latest",
           "input": [
             "document",
             "image",
@@ -6713,10 +6740,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 16,
-            "output": 60,
-            "cacheRead": 0.8,
-            "cacheWrite": 20
+            "input": 8,
+            "output": 40,
+            "cacheRead": 0.4,
+            "cacheWrite": 10
           },
           "compat": {
             "thinkingLevels": [
@@ -6741,10 +6768,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.2,
-            "output": 0.75,
-            "cacheRead": 0.02,
-            "cacheWrite": 0.25
+            "input": 0.1,
+            "output": 0.5,
+            "cacheRead": 0.01,
+            "cacheWrite": 0.125
           },
           "compat": {
             "thinkingLevels": [
@@ -6798,10 +6825,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 4,
-            "output": 15,
-            "cacheRead": 0.2,
-            "cacheWrite": 5
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.1,
+            "cacheWrite": 2.5
           },
           "compat": {
             "thinkingLevels": [
@@ -6826,10 +6853,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 2,
-            "output": 7.5,
-            "cacheRead": 0.1,
-            "cacheWrite": 2.5
+            "input": 1,
+            "output": 5,
+            "cacheRead": 0.05,
+            "cacheWrite": 1.25
           },
           "compat": {
             "thinkingLevels": [
@@ -6872,9 +6899,9 @@
           "contextWindow": 500000,
           "maxTokens": 450000,
           "cost": {
-            "input": 4,
-            "output": 12,
-            "cacheRead": 1,
+            "input": 2,
+            "output": 6,
+            "cacheRead": 0.5,
             "cacheWrite": 0
           },
           "compat": {
@@ -7311,10 +7338,10 @@
           "contextWindow": 1000000,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.5,
-            "output": 2.5,
-            "cacheRead": 0.05,
-            "cacheWrite": 0.625
+            "input": 0.1,
+            "output": 0.5,
+            "cacheRead": 0.01,
+            "cacheWrite": 0.125
           },
           "compat": {
             "thinkingLevels": [
@@ -7537,10 +7564,10 @@
           "contextWindow": 1000000,
           "maxTokens": 64000,
           "cost": {
-            "input": 6,
-            "output": 22.5,
-            "cacheRead": 0.6,
-            "cacheWrite": 7.5
+            "input": 3,
+            "output": 15,
+            "cacheRead": 0.3,
+            "cacheWrite": 3.75
           },
           "compat": {
             "thinkingLevels": [
@@ -7715,8 +7742,8 @@
           "contextWindow": 262144,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.5,
-            "output": 4,
+            "input": 0.25,
+            "output": 2,
             "cacheRead": 0,
             "cacheWrite": 0
           },
@@ -7742,8 +7769,8 @@
           "contextWindow": 262144,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.2,
-            "output": 0.8,
+            "input": 0.1,
+            "output": 0.4,
             "cacheRead": 0,
             "cacheWrite": 0
           },
@@ -7964,12 +7991,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 163840,
-          "maxTokens": 32768,
+          "contextWindow": 128000,
+          "maxTokens": 32000,
           "cost": {
-            "input": 0.5,
-            "output": 2.15,
-            "cacheRead": 0.35,
+            "input": 0.571,
+            "output": 2.286,
+            "cacheRead": 0,
             "cacheWrite": 0
           },
           "compat": {
@@ -8106,11 +8133,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 384000,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.44,
-            "output": 1.32,
-            "cacheRead": 0.028,
+            "input": 0.055,
+            "output": 0.3,
+            "cacheRead": 0.035,
             "cacheWrite": 0
           },
           "compat": {
@@ -8159,9 +8186,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 1.6,
-            "output": 3.2,
-            "cacheRead": 0.135,
+            "input": 0.9,
+            "output": 1.5,
+            "cacheRead": 0.25,
             "cacheWrite": 0
           },
           "compat": {
@@ -8183,9 +8210,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 1.32,
-            "output": 3.96,
-            "cacheRead": 0.044,
+            "input": 0.111,
+            "output": 4.44,
+            "cacheRead": 0.097,
             "cacheWrite": 0
           },
           "compat": {
@@ -8233,11 +8260,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 393216,
           "cost": {
             "input": 0.3,
             "output": 1.2,
-            "cacheRead": 0.006,
+            "cacheRead": 0.007,
             "cacheWrite": 0
           },
           "compat": {
@@ -8385,9 +8412,9 @@
           "contextWindow": 1048576,
           "maxTokens": 65536,
           "cost": {
-            "input": 1.25,
-            "output": 7.5,
-            "cacheRead": 0.125,
+            "input": 0.625,
+            "output": 5,
+            "cacheRead": 0.0625,
             "cacheWrite": 0.1875
           },
           "compat": {
@@ -8567,9 +8594,9 @@
           "contextWindow": 1048576,
           "maxTokens": 65536,
           "cost": {
-            "input": 4,
-            "output": 18,
-            "cacheRead": 0.4,
+            "input": 2,
+            "output": 12,
+            "cacheRead": 0.2,
             "cacheWrite": 0.375
           },
           "compat": {
@@ -8647,9 +8674,9 @@
           "contextWindow": 1048576,
           "maxTokens": 65536,
           "cost": {
-            "input": 0.75,
-            "output": 3.75,
-            "cacheRead": 0.075,
+            "input": 0.375,
+            "output": 1.875,
+            "cacheRead": 0.0375,
             "cacheWrite": 0.020833
           },
           "compat": {
@@ -8794,6 +8821,33 @@
           }
         },
         {
+          "id": "google/gemini-4-neon",
+          "name": "Google: Gemini 4 Neon",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 943718,
+          "cost": {
+            "input": 3,
+            "output": 15,
+            "cacheRead": 0.15,
+            "cacheWrite": 0.041667
+          },
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
           "id": "google/gemini-nano-banana-2.1",
           "name": "Nano Banana 2.1",
           "input": [
@@ -8845,7 +8899,7 @@
           ],
           "reasoning": false,
           "contextWindow": 131072,
-          "maxTokens": 117964,
+          "maxTokens": 16384,
           "cost": {
             "input": 0.064,
             "output": 0.128,
@@ -9108,6 +9162,27 @@
             "output": 0.9,
             "cacheRead": 0.06,
             "cacheWrite": 0
+          }
+        },
+        {
+          "id": "inclusionai/ling-3.2-flash:free",
+          "name": "inclusionAI: Ling 3.2 Flash (free)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 262144,
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low"
+            ],
+            "defaultThinkingLevel": "low",
+            "thinkingLevelLabels": {
+              "low": "on"
+            }
           }
         },
         {
@@ -10369,9 +10444,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.7,
-            "output": 3.75,
-            "cacheRead": 0.17,
+            "input": 0.6,
+            "output": 3.5,
+            "cacheRead": 0.16,
             "cacheWrite": 0
           },
           "compat": {
@@ -10879,9 +10954,9 @@
           "contextWindow": 1047576,
           "maxTokens": 32768,
           "cost": {
-            "input": 2,
-            "output": 8,
-            "cacheRead": 0.5,
+            "input": 3.5,
+            "output": 14,
+            "cacheRead": 0.875,
             "cacheWrite": 0
           }
         },
@@ -10915,9 +10990,9 @@
           "contextWindow": 1047576,
           "maxTokens": 32768,
           "cost": {
-            "input": 0.4,
-            "output": 1.6,
-            "cacheRead": 0.1,
+            "input": 0.7,
+            "output": 2.8,
+            "cacheRead": 0.175,
             "cacheWrite": 0
           }
         },
@@ -11023,9 +11098,9 @@
           "contextWindow": 128000,
           "maxTokens": 16384,
           "cost": {
-            "input": 2.5,
-            "output": 10,
-            "cacheRead": 1.25,
+            "input": 4.25,
+            "output": 17,
+            "cacheRead": 2.125,
             "cacheWrite": 0
           }
         },
@@ -11077,9 +11152,9 @@
           "contextWindow": 128000,
           "maxTokens": 16384,
           "cost": {
-            "input": 0.15,
-            "output": 0.6,
-            "cacheRead": 0.075,
+            "input": 0.25,
+            "output": 1,
+            "cacheRead": 0.125,
             "cacheWrite": 0
           }
         },
@@ -11140,9 +11215,9 @@
           "contextWindow": 400000,
           "maxTokens": 128000,
           "cost": {
-            "input": 1.25,
-            "output": 10,
-            "cacheRead": 0.125,
+            "input": 2.5,
+            "output": 20,
+            "cacheRead": 0.25,
             "cacheWrite": 0
           }
         },
@@ -11185,9 +11260,9 @@
           "contextWindow": 400000,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.25,
-            "output": 2,
-            "cacheRead": 0.025,
+            "input": 0.45,
+            "output": 3.6,
+            "cacheRead": 0.045,
             "cacheWrite": 0
           }
         },
@@ -11378,9 +11453,9 @@
           "contextWindow": 400000,
           "maxTokens": 128000,
           "cost": {
-            "input": 1.25,
-            "output": 10,
-            "cacheRead": 0.125,
+            "input": 2.5,
+            "output": 20,
+            "cacheRead": 0.25,
             "cacheWrite": 0
           }
         },
@@ -11451,9 +11526,9 @@
           "contextWindow": 400000,
           "maxTokens": 128000,
           "cost": {
-            "input": 1.75,
-            "output": 14,
-            "cacheRead": 0.175,
+            "input": 3.5,
+            "output": 28,
+            "cacheRead": 0.35,
             "cacheWrite": 0
           }
         },
@@ -11523,9 +11598,9 @@
           "contextWindow": 400000,
           "maxTokens": 128000,
           "cost": {
-            "input": 1.75,
-            "output": 14,
-            "cacheRead": 0.175,
+            "input": 3.5,
+            "output": 28,
+            "cacheRead": 0.35,
             "cacheWrite": 0
           }
         },
@@ -11541,9 +11616,9 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 5,
-            "output": 22.5,
-            "cacheRead": 0.5,
+            "input": 2.5,
+            "output": 15,
+            "cacheRead": 0.25,
             "cacheWrite": 0
           },
           "compat": {
@@ -11569,9 +11644,9 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 2.5,
-            "output": 15,
-            "cacheRead": 0.25,
+            "input": 5,
+            "output": 30,
+            "cacheRead": 0.5,
             "cacheWrite": 0
           }
         },
@@ -11615,9 +11690,9 @@
           "contextWindow": 400000,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.75,
-            "output": 4.5,
-            "cacheRead": 0.075,
+            "input": 1.5,
+            "output": 9,
+            "cacheRead": 0.15,
             "cacheWrite": 0
           }
         },
@@ -11661,8 +11736,8 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 60,
-            "output": 270,
+            "input": 30,
+            "output": 180,
             "cacheRead": 0,
             "cacheWrite": 0
           },
@@ -11687,9 +11762,9 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 10,
-            "output": 45,
-            "cacheRead": 1,
+            "input": 5,
+            "output": 30,
+            "cacheRead": 0.5,
             "cacheWrite": 0
           },
           "compat": {
@@ -11705,7 +11780,7 @@
         },
         {
           "id": "openai/gpt-5.5-fast",
-          "name": "OpenAI: GPT 5.5 (Fast)",
+          "name": "OpenAI: GPT 5.5 (Fast) ($$$$)",
           "input": [
             "text",
             "image",
@@ -11715,9 +11790,9 @@
           "contextWindow": 1000000,
           "maxTokens": 128000,
           "cost": {
-            "input": 5,
-            "output": 30,
-            "cacheRead": 0.5,
+            "input": 12.5,
+            "output": 75,
+            "cacheRead": 1.25,
             "cacheWrite": 0
           }
         },
@@ -11733,8 +11808,8 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 60,
-            "output": 270,
+            "input": 30,
+            "output": 180,
             "cacheRead": 0,
             "cacheWrite": 0
           },
@@ -11759,10 +11834,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.4,
-            "output": 1.8,
-            "cacheRead": 0.04,
-            "cacheWrite": 0.5
+            "input": 0.2,
+            "output": 1.2,
+            "cacheRead": 0.02,
+            "cacheWrite": 0.25
           },
           "compat": {
             "thinkingLevels": [
@@ -11788,10 +11863,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.2,
-            "output": 1.2,
-            "cacheRead": 0.02,
-            "cacheWrite": 0.25
+            "input": 0.4,
+            "output": 2.4,
+            "cacheRead": 0.04,
+            "cacheWrite": 0.5
           }
         },
         {
@@ -11806,10 +11881,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.4,
-            "output": 1.8,
-            "cacheRead": 0.04,
-            "cacheWrite": 0.5
+            "input": 0.2,
+            "output": 1.2,
+            "cacheRead": 0.02,
+            "cacheWrite": 0.25
           },
           "compat": {
             "thinkingLevels": [
@@ -11835,10 +11910,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 8,
-            "output": 30,
-            "cacheRead": 0.8,
-            "cacheWrite": 10
+            "input": 4,
+            "output": 20,
+            "cacheRead": 0.4,
+            "cacheWrite": 5
           },
           "compat": {
             "thinkingLevels": [
@@ -11864,10 +11939,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 4,
-            "output": 20,
-            "cacheRead": 0.4,
-            "cacheWrite": 5
+            "input": 8,
+            "output": 40,
+            "cacheRead": 0.8,
+            "cacheWrite": 10
           }
         },
         {
@@ -11882,10 +11957,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 8,
-            "output": 30,
-            "cacheRead": 0.8,
-            "cacheWrite": 10
+            "input": 4,
+            "output": 20,
+            "cacheRead": 0.4,
+            "cacheWrite": 5
           },
           "compat": {
             "thinkingLevels": [
@@ -11911,10 +11986,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 4,
-            "output": 18,
-            "cacheRead": 0.4,
-            "cacheWrite": 5
+            "input": 2,
+            "output": 12,
+            "cacheRead": 0.2,
+            "cacheWrite": 2.5
           },
           "compat": {
             "thinkingLevels": [
@@ -11940,10 +12015,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 2,
-            "output": 12,
-            "cacheRead": 0.2,
-            "cacheWrite": 2.5
+            "input": 4,
+            "output": 24,
+            "cacheRead": 0.4,
+            "cacheWrite": 5
           }
         },
         {
@@ -11958,10 +12033,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 4,
-            "output": 18,
-            "cacheRead": 0.4,
-            "cacheWrite": 5
+            "input": 2,
+            "output": 12,
+            "cacheRead": 0.2,
+            "cacheWrite": 2.5
           },
           "compat": {
             "thinkingLevels": [
@@ -11987,10 +12062,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 20,
-            "output": 75,
-            "cacheRead": 2,
-            "cacheWrite": 25
+            "input": 10,
+            "output": 50,
+            "cacheRead": 1,
+            "cacheWrite": 12.5
           },
           "compat": {
             "thinkingLevels": [
@@ -12015,10 +12090,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 10,
-            "output": 50,
-            "cacheRead": 1,
-            "cacheWrite": 12.5
+            "input": 20,
+            "output": 100,
+            "cacheRead": 2,
+            "cacheWrite": 25
           }
         },
         {
@@ -12033,10 +12108,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 20,
-            "output": 75,
-            "cacheRead": 2,
-            "cacheWrite": 25
+            "input": 10,
+            "output": 50,
+            "cacheRead": 1,
+            "cacheWrite": 12.5
           },
           "compat": {
             "thinkingLevels": [
@@ -12061,10 +12136,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.2,
-            "output": 0.75,
-            "cacheRead": 0.02,
-            "cacheWrite": 0.25
+            "input": 0.1,
+            "output": 0.5,
+            "cacheRead": 0.01,
+            "cacheWrite": 0.125
           },
           "compat": {
             "thinkingLevels": [
@@ -12090,10 +12165,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.1,
-            "output": 0.5,
-            "cacheRead": 0.01,
-            "cacheWrite": 0.125
+            "input": 0.2,
+            "output": 1,
+            "cacheRead": 0.02,
+            "cacheWrite": 0.25
           }
         },
         {
@@ -12108,10 +12183,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.2,
-            "output": 0.75,
-            "cacheRead": 0.02,
-            "cacheWrite": 0.25
+            "input": 0.1,
+            "output": 0.5,
+            "cacheRead": 0.01,
+            "cacheWrite": 0.125
           },
           "compat": {
             "thinkingLevels": [
@@ -12137,10 +12212,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 4,
-            "output": 15,
-            "cacheRead": 0.4,
-            "cacheWrite": 5
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.2,
+            "cacheWrite": 2.5
           },
           "compat": {
             "thinkingLevels": [
@@ -12166,10 +12241,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 2,
-            "output": 10,
-            "cacheRead": 0.2,
-            "cacheWrite": 2.5
+            "input": 4,
+            "output": 20,
+            "cacheRead": 0.4,
+            "cacheWrite": 5
           }
         },
         {
@@ -12184,10 +12259,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 4,
-            "output": 15,
-            "cacheRead": 0.4,
-            "cacheWrite": 5
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.2,
+            "cacheWrite": 2.5
           },
           "compat": {
             "thinkingLevels": [
@@ -12213,10 +12288,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 4,
-            "output": 15,
-            "cacheRead": 0.2,
-            "cacheWrite": 5
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.1,
+            "cacheWrite": 2.5
           },
           "compat": {
             "thinkingLevels": [
@@ -12241,10 +12316,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 2,
-            "output": 10,
-            "cacheRead": 0.1,
-            "cacheWrite": 2.5
+            "input": 4,
+            "output": 20,
+            "cacheRead": 0.2,
+            "cacheWrite": 5
           }
         },
         {
@@ -12259,10 +12334,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 4,
-            "output": 15,
-            "cacheRead": 0.2,
-            "cacheWrite": 5
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.1,
+            "cacheWrite": 2.5
           },
           "compat": {
             "thinkingLevels": [
@@ -12287,10 +12362,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 2,
-            "output": 7.5,
-            "cacheRead": 0.1,
-            "cacheWrite": 2.5
+            "input": 1,
+            "output": 5,
+            "cacheRead": 0.05,
+            "cacheWrite": 1.25
           },
           "compat": {
             "thinkingLevels": [
@@ -12316,10 +12391,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 1,
-            "output": 5,
-            "cacheRead": 0.05,
-            "cacheWrite": 1.25
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.1,
+            "cacheWrite": 2.5
           }
         },
         {
@@ -12334,10 +12409,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 2,
-            "output": 7.5,
-            "cacheRead": 0.1,
-            "cacheWrite": 2.5
+            "input": 1,
+            "output": 5,
+            "cacheRead": 0.05,
+            "cacheWrite": 1.25
           },
           "compat": {
             "thinkingLevels": [
@@ -12352,7 +12427,7 @@
         },
         {
           "id": "openai/gpt-6.2-astra",
-          "name": "OpenAI: GPT-6.2 Astra ($$$$)",
+          "name": "OpenAI: GPT-6.2 Astra",
           "input": [
             "text",
             "image",
@@ -12362,10 +12437,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 16,
-            "output": 60,
-            "cacheRead": 0.8,
-            "cacheWrite": 20
+            "input": 8,
+            "output": 40,
+            "cacheRead": 0.4,
+            "cacheWrite": 10
           },
           "compat": {
             "thinkingLevels": [
@@ -12380,7 +12455,7 @@
         },
         {
           "id": "openai/gpt-6.2-astra-fast",
-          "name": "OpenAI: GPT-6.2 Astra (Fast)",
+          "name": "OpenAI: GPT-6.2 Astra (Fast) ($$$$)",
           "input": [
             "text",
             "image",
@@ -12390,15 +12465,15 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 8,
-            "output": 40,
-            "cacheRead": 0.4,
-            "cacheWrite": 10
+            "input": 16,
+            "output": 80,
+            "cacheRead": 0.8,
+            "cacheWrite": 20
           }
         },
         {
           "id": "openai/gpt-6.2-astra-pro",
-          "name": "OpenAI: GPT-6.2 Astra Pro ($$$$)",
+          "name": "OpenAI: GPT-6.2 Astra Pro",
           "input": [
             "document",
             "image",
@@ -12408,10 +12483,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 16,
-            "output": 60,
-            "cacheRead": 0.8,
-            "cacheWrite": 20
+            "input": 8,
+            "output": 40,
+            "cacheRead": 0.4,
+            "cacheWrite": 10
           },
           "compat": {
             "thinkingLevels": [
@@ -12436,10 +12511,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 4,
-            "output": 15,
-            "cacheRead": 0.2,
-            "cacheWrite": 5
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.1,
+            "cacheWrite": 2.5
           },
           "compat": {
             "thinkingLevels": [
@@ -12464,10 +12539,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 2,
-            "output": 10,
-            "cacheRead": 0.1,
-            "cacheWrite": 2.5
+            "input": 4,
+            "output": 20,
+            "cacheRead": 0.2,
+            "cacheWrite": 5
           }
         },
         {
@@ -12482,10 +12557,10 @@
           "contextWindow": 1050000,
           "maxTokens": 128000,
           "cost": {
-            "input": 4,
-            "output": 15,
-            "cacheRead": 0.2,
-            "cacheWrite": 5
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.1,
+            "cacheWrite": 2.5
           },
           "compat": {
             "thinkingLevels": [
@@ -12696,9 +12771,9 @@
           "contextWindow": 200000,
           "maxTokens": 100000,
           "cost": {
-            "input": 2,
-            "output": 8,
-            "cacheRead": 0.5,
+            "input": 3.5,
+            "output": 14,
+            "cacheRead": 0.875,
             "cacheWrite": 0
           }
         },
@@ -13040,10 +13115,10 @@
           "contextWindow": 1000000,
           "maxTokens": 32768,
           "cost": {
-            "input": 0.78,
-            "output": 2.34,
-            "cacheRead": 0.156,
-            "cacheWrite": 0.975
+            "input": 0.26,
+            "output": 0.78,
+            "cacheRead": 0.052,
+            "cacheWrite": 0.325
           }
         },
         {
@@ -13221,10 +13296,10 @@
           "contextWindow": 1000000,
           "maxTokens": 65536,
           "cost": {
-            "input": 0.52,
-            "output": 2.6,
-            "cacheRead": 0.104,
-            "cacheWrite": 0.65
+            "input": 0.195,
+            "output": 0.975,
+            "cacheRead": 0.039,
+            "cacheWrite": 0.24375
           }
         },
         {
@@ -13503,8 +13578,8 @@
           "contextWindow": 1000000,
           "maxTokens": 65536,
           "cost": {
-            "input": 0.325,
-            "output": 1.95,
+            "input": 0.26,
+            "output": 1.56,
             "cacheRead": 0,
             "cacheWrite": 0
           },
@@ -13529,10 +13604,10 @@
           "contextWindow": 1000000,
           "maxTokens": 65536,
           "cost": {
-            "input": 0.375,
-            "output": 2.25,
+            "input": 0.3,
+            "output": 1.8,
             "cacheRead": 0,
-            "cacheWrite": 0.46875
+            "cacheWrite": 0.375
           },
           "compat": {
             "thinkingLevels": [
@@ -13609,10 +13684,10 @@
           "contextWindow": 1000000,
           "maxTokens": 65536,
           "cost": {
-            "input": 0.75,
-            "output": 3,
+            "input": 0.1875,
+            "output": 1.125,
             "cacheRead": 0,
-            "cacheWrite": 0.9375
+            "cacheWrite": 0.234375
           },
           "compat": {
             "thinkingLevels": [
@@ -13635,10 +13710,10 @@
           "contextWindow": 1000000,
           "maxTokens": 65536,
           "cost": {
-            "input": 1.3,
-            "output": 3.9,
+            "input": 0.5,
+            "output": 3,
             "cacheRead": 0.05,
-            "cacheWrite": 1.625
+            "cacheWrite": 0.625
           },
           "compat": {
             "thinkingLevels": [
@@ -13661,10 +13736,10 @@
           "contextWindow": 1000000,
           "maxTokens": 65536,
           "cost": {
-            "input": 0.2,
-            "output": 0.8,
-            "cacheRead": 0.04,
-            "cacheWrite": 0.25
+            "input": 0.03,
+            "output": 0.13,
+            "cacheRead": 0.006,
+            "cacheWrite": 0.038
           },
           "compat": {
             "thinkingLevels": [
@@ -13714,10 +13789,10 @@
           "contextWindow": 1000000,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.96,
-            "output": 3.84,
-            "cacheRead": 0.192,
-            "cacheWrite": 1.2
+            "input": 0.4,
+            "output": 1.6,
+            "cacheRead": 0.08,
+            "cacheWrite": 0.5
           },
           "compat": {
             "thinkingLevels": [
@@ -13942,6 +14017,25 @@
           "maxTokens": 262144
         },
         {
+          "id": "recursive/flint-v1.0:free",
+          "name": "Recursive: Flint (free)",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 235929,
+          "compat": {
+            "thinkingLevels": [
+              "low"
+            ],
+            "defaultThinkingLevel": "low",
+            "thinkingLevelLabels": {
+              "low": "on"
+            }
+          }
+        },
+        {
           "id": "reflection/beam-1.0-501b-a23b",
           "name": "Reflection: Beam 1.0 501B A23B",
           "input": [
@@ -13949,7 +14043,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 131072,
           "cost": {
             "input": 0.25,
             "output": 1,
@@ -14073,9 +14167,9 @@
           "contextWindow": 1000000,
           "maxTokens": 128000,
           "cost": {
-            "input": 10,
-            "output": 45,
-            "cacheRead": 1,
+            "input": 5,
+            "output": 30,
+            "cacheRead": 0.5,
             "cacheWrite": 0
           },
           "compat": {
@@ -14099,9 +14193,9 @@
           "contextWindow": 1000000,
           "maxTokens": 128000,
           "cost": {
-            "input": 10,
-            "output": 45,
-            "cacheRead": 1,
+            "input": 5,
+            "output": 30,
+            "cacheRead": 0.5,
             "cacheWrite": 0
           },
           "compat": {
@@ -14524,9 +14618,9 @@
           "contextWindow": 2000000,
           "maxTokens": 1800000,
           "cost": {
-            "input": 2.5,
-            "output": 5,
-            "cacheRead": 0.4,
+            "input": 1.25,
+            "output": 2.5,
+            "cacheRead": 0.2,
             "cacheWrite": 0
           },
           "compat": {
@@ -14642,9 +14736,9 @@
           "contextWindow": 1000000,
           "maxTokens": 900000,
           "cost": {
-            "input": 2.5,
-            "output": 5,
-            "cacheRead": 0.4,
+            "input": 1.25,
+            "output": 2.5,
+            "cacheRead": 0.2,
             "cacheWrite": 0
           },
           "compat": {
@@ -14669,9 +14763,9 @@
           "contextWindow": 500000,
           "maxTokens": 450000,
           "cost": {
-            "input": 4,
-            "output": 12,
-            "cacheRead": 0.6,
+            "input": 2,
+            "output": 6,
+            "cacheRead": 0.3,
             "cacheWrite": 0
           },
           "compat": {
@@ -14695,9 +14789,9 @@
           "contextWindow": 500000,
           "maxTokens": 450000,
           "cost": {
-            "input": 4,
-            "output": 12,
-            "cacheRead": 1,
+            "input": 2,
+            "output": 6,
+            "cacheRead": 0.5,
             "cacheWrite": 0
           },
           "compat": {
@@ -14722,9 +14816,9 @@
           "contextWindow": 500000,
           "maxTokens": 450000,
           "cost": {
-            "input": 4,
-            "output": 12,
-            "cacheRead": 1,
+            "input": 2,
+            "output": 6,
+            "cacheRead": 0.5,
             "cacheWrite": 0
           },
           "compat": {
@@ -14749,9 +14843,9 @@
           "contextWindow": 256000,
           "maxTokens": 230400,
           "cost": {
-            "input": 2,
-            "output": 4,
-            "cacheRead": 0.4,
+            "input": 1,
+            "output": 2,
+            "cacheRead": 0.2,
             "cacheWrite": 0
           },
           "compat": {
@@ -15096,8 +15190,8 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 202752,
-          "maxTokens": 182476,
+          "contextWindow": 204800,
+          "maxTokens": 131072,
           "cost": {
             "input": 1.4,
             "output": 4.4,
@@ -15203,8 +15297,8 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "contextWindow": 1048575,
+          "maxTokens": 943717,
           "cost": {
             "input": 0.15,
             "output": 0.5,
@@ -16672,7 +16766,9 @@
             "output": 0.89,
             "cacheRead": 0,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory."
         },
         {
           "id": "deepseek/deepseek-r1-0528",
@@ -17070,6 +17166,8 @@
             "cacheRead": 0.03,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "low"
@@ -17121,7 +17219,9 @@
             "output": 2.4,
             "cacheRead": 0.06,
             "cacheWrite": 0.375
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory."
         },
         {
           "id": "minimax/minimax-m3",
@@ -17160,6 +17260,8 @@
               }
             ]
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "off",
@@ -17186,6 +17288,8 @@
             "cacheRead": 0.015,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "low",
@@ -17211,7 +17315,9 @@
             "output": 2.2,
             "cacheRead": 0,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory."
         },
         {
           "id": "moonshotai/kimi-k2-0905",
@@ -17375,7 +17481,9 @@
               "max"
             ],
             "defaultThinkingLevel": "max"
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory."
         },
         {
           "id": "moonshotai/kimi-k3.1-pro",
@@ -17443,6 +17551,154 @@
             "thinkingLevelLabels": {
               "low": "on"
             }
+          }
+        },
+        {
+          "id": "openai/gpt-6.1-terra",
+          "name": "GPT-6.1 Terra",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1050000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 1,
+            "output": 5,
+            "cacheRead": 0.05,
+            "cacheWrite": 0,
+            "tieredPricing": [
+              {
+                "cacheRead": 0.05,
+                "cacheWrite": 0,
+                "input": 1,
+                "output": 5,
+                "range": [
+                  0,
+                  272000
+                ]
+              },
+              {
+                "cacheRead": 0.1,
+                "cacheWrite": 0,
+                "input": 2,
+                "output": 10,
+                "range": [
+                  272000
+                ]
+              }
+            ]
+          },
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "openai/gpt-6.2-astra",
+          "name": "GPT-6.2 Astra",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1050000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 8,
+            "output": 40,
+            "cacheRead": 0.4,
+            "cacheWrite": 0,
+            "tieredPricing": [
+              {
+                "cacheRead": 0.4,
+                "cacheWrite": 0,
+                "input": 8,
+                "output": 40,
+                "range": [
+                  0,
+                  272000
+                ]
+              },
+              {
+                "cacheRead": 0.8,
+                "cacheWrite": 0,
+                "input": 16,
+                "output": 60,
+                "range": [
+                  272000
+                ]
+              }
+            ]
+          },
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "openai/gpt-6.2-sol",
+          "name": "GPT-6.2 Sol",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1050000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 2,
+            "output": 10,
+            "cacheRead": 0.1,
+            "cacheWrite": 0,
+            "tieredPricing": [
+              {
+                "cacheRead": 0.1,
+                "cacheWrite": 0,
+                "input": 2,
+                "output": 10,
+                "range": [
+                  0,
+                  272000
+                ]
+              },
+              {
+                "cacheRead": 0.2,
+                "cacheWrite": 0,
+                "input": 4,
+                "output": 15,
+                "range": [
+                  272000
+                ]
+              }
+            ]
+          },
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "medium"
           }
         },
         {
@@ -17965,9 +18221,9 @@
           "contextWindow": 1000000,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.07,
-            "output": 0.281,
-            "cacheRead": 0.003,
+            "input": 0.035,
+            "output": 0.1405,
+            "cacheRead": 0.0015,
             "cacheWrite": 0
           },
           "compat": {
@@ -25004,6 +25260,32 @@
           }
         },
         {
+          "id": "gemini-4-neon",
+          "name": "Gemini 4 Neon",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 3.75,
+            "output": 18.75,
+            "cacheRead": 0.1875,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
           "id": "gemma-4-uncensored",
           "name": "Gemma 4 Uncensored",
           "input": [
@@ -29781,6 +30063,33 @@
             "input": 1.5,
             "output": 7.5,
             "cacheRead": 0.075,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "google/gemini-4-neon",
+          "name": "Gemini 4 Neon",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 1000000,
+          "cost": {
+            "input": 3,
+            "output": 15,
+            "cacheRead": 0.15,
             "cacheWrite": 0
           },
           "compat": {
@@ -36364,9 +36673,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.036,
-            "output": 0.5,
-            "cacheRead": 0.01
+            "input": 0.035,
+            "output": 0.15,
+            "cacheRead": 0.0015
           },
           "compat": {
             "thinkingLevels": [
@@ -36412,7 +36721,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0434,
+            "input": 0.047,
             "output": 0.3,
             "cacheRead": 0.035
           },
@@ -38254,11 +38563,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 384000,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.06,
-            "output": 0.18,
-            "cacheRead": 0.015
+            "input": 0.047,
+            "output": 0.3,
+            "cacheRead": 0.035
           },
           "compat": {
             "thinkingLevels": [
@@ -38400,11 +38709,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 393216,
           "cost": {
-            "input": 0.036,
-            "output": 0.5,
-            "cacheRead": 0.01
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.003
           },
           "compat": {
             "thinkingLevels": [
@@ -39394,6 +39703,58 @@
           }
         },
         {
+          "id": "google/gemini-4-neon",
+          "name": "Google: Gemini 4 Neon",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 943718,
+          "cost": {
+            "input": 3,
+            "output": 15,
+            "cacheRead": 0.15,
+            "cacheWrite": 0.08333333
+          },
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "google/gemini-4-neon:batch",
+          "name": "Google: Gemini 4 Neon (batch)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 943718,
+          "cost": {
+            "input": 1.5,
+            "output": 7.5,
+            "cacheRead": 0.075,
+            "cacheWrite": 0.08333333
+          },
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
           "id": "google/gemini-nano-banana-2.1",
           "name": "Google: Nano Banana 2.1",
           "input": [
@@ -39498,11 +39859,10 @@
           ],
           "reasoning": false,
           "contextWindow": 131072,
-          "maxTokens": 117964,
+          "maxTokens": 16384,
           "cost": {
             "input": 0.08,
-            "output": 0.45,
-            "cacheRead": 0.04
+            "output": 0.16
           }
         },
         {
@@ -41010,9 +41370,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.7,
-            "output": 3.75,
-            "cacheRead": 0.17
+            "input": 0.6,
+            "output": 3.5,
+            "cacheRead": 0.16
           },
           "compat": {
             "thinkingLevels": [
@@ -41085,9 +41445,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.2403,
-            "output": 8.4023,
-            "cacheRead": 0.2
+            "input": 0.253,
+            "output": 8.8,
+            "cacheRead": 0.18
           },
           "compat": {
             "thinkingLevels": [
@@ -44734,8 +45094,8 @@
           "contextWindow": 262144,
           "maxTokens": 65536,
           "cost": {
-            "input": 0.3,
-            "output": 2.4
+            "input": 0.195,
+            "output": 1.56
           },
           "compat": {
             "thinkingLevels": [
@@ -44808,9 +45168,9 @@
           "contextWindow": 262144,
           "maxTokens": 40960,
           "cost": {
-            "input": 0.154,
-            "output": 0.226,
-            "cacheRead": 0.138
+            "input": 0.17,
+            "output": 0.25,
+            "cacheRead": 0.153
           },
           "compat": {
             "thinkingLevels": [
@@ -45360,11 +45720,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 131072,
           "cost": {
-            "input": 0.3,
+            "input": 0.25,
             "output": 1,
-            "cacheRead": 0.04
+            "cacheRead": 0.05
           },
           "compat": {
             "thinkingLevels": [
@@ -46750,12 +47110,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 202752,
-          "maxTokens": 182476,
+          "contextWindow": 204800,
+          "maxTokens": 131072,
           "cost": {
-            "input": 1.4,
-            "output": 4.4,
-            "cacheRead": 0.26
+            "input": 1.19,
+            "output": 3.74,
+            "cacheRead": 0.6
           },
           "compat": {
             "thinkingLevels": [
@@ -46778,9 +47138,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.007,
-            "output": 6.8,
-            "cacheRead": 0.006
+            "input": 0.62,
+            "output": 2.42,
+            "cacheRead": 0.14
           },
           "compat": {
             "thinkingLevels": [
@@ -52697,6 +53057,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1795005014885,
+  "sourceGeneratedAt": 1795083534921,
   "supplementDigest": "bd0fd1a471a4788a65e4c86fe912f4ec419749936b58b5ababe06a588d8851d0"
 }
