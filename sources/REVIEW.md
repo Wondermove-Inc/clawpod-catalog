@@ -363,3 +363,4 @@ reasoning 모델의 지원 단계(`compat.thinkingLevels`)와 기본 단계(`com
 - Converse는 명시적 캐싱을 지원하지 않아 Bedrock 행에는 `cacheWrite`를 넣지 않았다. Mantle은 Chat Completions에서 지원해 30분 캐시 쓰기 가격을 넣었다. 기존 Mantle GPT-6.1 Terra 행에는 `cacheWrite`가 없다(미확인이라 그대로 둠).
 - Mantle의 OpenAI 모델은 AWS 카드상 `/openai/v1` 경로로 제공된다. Agent가 `/v1`을 쓰는 문제는 기존 Mantle 비-Claude 행과 같다.
 - Gemini 4 Neon은 verified enterprise customers 전용이라 승인제 기준으로 보류했다(`MAINTAINING.md` 9장).
+- 브랜치 dry-run의 최신 원본에서 `novita/baidu/cobuddy`가 Effort 빈칸 open으로 다시 나타났다. 2026-11-19 Effort 조사에서 "공식 문서 없음"으로 건너뛴 모델이라 같은 사유로 `knownGaps`에 추가했다.

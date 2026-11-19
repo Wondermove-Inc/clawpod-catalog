@@ -10118,6 +10118,12 @@
       "reason": "stealth model (kilocode/stealth/*), no official docs"
     },
     {
+      "provider": "novita",
+      "model": "baidu/cobuddy",
+      "check": "thinking",
+      "reason": "novita/baidu/cobuddy: no official thinking documentation found (2026-11-19 review)."
+    },
+    {
       "provider": "openai",
       "model": "gpt-5.3-codex-spark",
       "check": "thinking",
