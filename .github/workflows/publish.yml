@@ -85,12 +85,16 @@ jobs:
       - name: Fetch OpenRouter model list
         run: node scripts/fetch-openrouter.mjs --out "$RUNNER_TEMP/sources/openrouter-models.json"
 
+      - name: Fetch models.dev catalog
+        run: node scripts/fetch-models-dev.mjs --out "$RUNNER_TEMP/sources/models-dev.json"
+
       - uses: actions/upload-artifact@v4
         with:
           name: catalog-sources
           path: |
             ${{ runner.temp }}/sources/openclaw-catalog.json
             ${{ runner.temp }}/sources/openrouter-models.json
+            ${{ runner.temp }}/sources/models-dev.json
           if-no-files-found: error
           retention-days: 7
 
@@ -121,7 +125,8 @@ jobs:
         id: publish
         run: |
           args=(--source-file "$RUNNER_TEMP/sources/openclaw-catalog.json"
-                --openrouter-file "$RUNNER_TEMP/sources/openrouter-models.json")
+                --openrouter-file "$RUNNER_TEMP/sources/openrouter-models.json"
+                --modelsdev-file "$RUNNER_TEMP/sources/models-dev.json")
           if [ "${{ inputs.dry_run }}" = "true" ]; then
             node scripts/publish-catalog.mjs "${args[@]}" --dry-run
           else

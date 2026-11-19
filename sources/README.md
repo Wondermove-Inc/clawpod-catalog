@@ -58,9 +58,9 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 ## 수정 절차
 
 1. `providers.<provider>.models`를 수정하고 같은 provider의 `provenance`를 갱신합니다.
-2. `scripts/generate-openclaw-catalog.sh`로 원본을 생성한 뒤(루트 README의 "게시 dry-run" 참고), `node scripts/fetch-openrouter.mjs --out <OpenRouter 파일>`로 OpenRouter 목록을 받은 뒤,
-   `npm run publish-catalog:dry-run -- --source-file <생성 파일> --openrouter-file <OpenRouter 파일>`로 입력 검증과 병합 결과를 확인합니다.
-3. `npm run publish-catalog -- --source-file <생성 파일> --openrouter-file <OpenRouter 파일>`로 생성합니다.
+2. `scripts/generate-openclaw-catalog.sh`로 원본을 생성한 뒤(루트 README의 "게시 dry-run" 참고), `node scripts/fetch-openrouter.mjs --out <OpenRouter 파일>`와 `node scripts/fetch-models-dev.mjs --out <models.dev 파일>`로 목록을 받은 뒤,
+   `npm run publish-catalog:dry-run -- --source-file <생성 파일> --openrouter-file <OpenRouter 파일> --modelsdev-file <models.dev 파일>`로 입력 검증과 병합 결과를 확인합니다.
+3. 같은 입력으로 `npm run publish-catalog -- ...`를 실행해 생성합니다.
 4. `npm test`를 실행하고 입력·출력 diff를 함께 검토합니다. 테스트는 생성 파일에 보완 모델이 모두 반영됐는지도 확인합니다.
 5. 보완 JSON, 출처 문서, 생성된 `models/v1/catalog.json`을 함께 커밋합니다.
 
@@ -88,6 +88,27 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
   모델은 유지됩니다. 반대로 upstream이 모델을 삭제해도 보완 파일에 남아 있으면 다시 추가됩니다.
   모델 폐기 시 두 소스의 상태를 확인하고 보완 파일도 함께 수정해야 합니다.
 - 전체 보완 파일이 없거나 손상되면 게시를 중단합니다. 조용히 보완 provider를 누락시키지 않습니다.
+
+## Thinking Effort 규칙 (`thinking`)
+
+`thinking`은 공식 문서로 확인한 Thinking Effort 값입니다. 자동 출처(OpenClaw·OpenRouter·models.dev)보다 먼저 적용되며,
+자동 출처가 없거나 틀린 모델에 씁니다. 순서대로 확인해 처음 맞는 규칙 하나만 적용합니다.
+
+```json
+{
+  "provider": "anthropic-vertex",
+  "model": "claude-opus-5-*",
+  "levels": ["low", "medium", "high", "xhigh", "max"],
+  "default": "high",
+  "source": "https://..."
+}
+```
+
+- `model`은 정확한 ID이거나, `*`로 끝나는 접두사입니다. 접두사 규칙을 쓰면 같은 계열의 새 모델도 자동으로 걸립니다.
+- `levels`는 `off`, `minimal`, `low`, `medium`, `high`, `xhigh`, `adaptive`, `max`, `ultra` 중에서 낮은 단계부터 중복 없이 적습니다.
+  끌 수 있는 모델만 `off`를 넣습니다. `default`는 `levels` 중 하나여야 합니다.
+- 켜고 끄기만 되는 모델은 `["off", "low"]`와 `"labels": {"low": "on"}`으로 적습니다.
+- `reasoning: true`인 행에만 적용합니다. 근거와 판단은 REVIEW.md에 기록합니다.
 
 ## 검증된 보정과 날짜 전환
 

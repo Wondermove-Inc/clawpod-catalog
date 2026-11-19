@@ -12,6 +12,7 @@ import {
   validateSupplement,
   MAX_PUBLISHED_BYTES,
 } from "../scripts/catalog.mjs";
+import { MIN_MODELS_DEV_PROVIDERS } from "../scripts/models-dev.mjs";
 import { MIN_OPENROUTER_MODELS } from "../scripts/openrouter.mjs";
 import { publishCatalog } from "../scripts/publish-catalog.mjs";
 
@@ -325,8 +326,29 @@ function workspace(t) {
   fs.writeFileSync(source, JSON.stringify(f.upstream));
   const openRouter = path.join(dir, "openrouter.json");
   fs.writeFileSync(openRouter, JSON.stringify(openRouterResponse()));
-  const inputs = ["--source-file", source, "--openrouter-file", openRouter];
-  return { dir, source, openRouter, inputs, output: path.join(dir, "models/v1/catalog.json"), f };
+  const modelsDev = path.join(dir, "models-dev.json");
+  fs.writeFileSync(modelsDev, JSON.stringify(modelsDevResponse()));
+  const inputs = [
+    "--source-file",
+    source,
+    "--openrouter-file",
+    openRouter,
+    "--modelsdev-file",
+    modelsDev,
+  ];
+  return {
+    dir,
+    source,
+    openRouter,
+    modelsDev,
+    inputs,
+    output: path.join(dir, "models/v1/catalog.json"),
+    f,
+  };
+}
+
+function modelsDevResponse(count = MIN_MODELS_DEV_PROVIDERS) {
+  return Object.fromEntries(Array.from({ length: count }, (_, i) => [`p${i}`, { models: {} }]));
 }
 
 function openRouterResponse(count = MIN_OPENROUTER_MODELS) {
@@ -374,8 +396,16 @@ test("offline CLI dry-run, write, repeat, and source-only changes obey persisten
 });
 
 test("unreadable, malformed, invalid or oversized source files leave the artifact untouched", async (t) => {
-  const { dir, source, openRouter, inputs, output } = workspace(t);
+  const { dir, source, openRouter, modelsDev, inputs, output } = workspace(t);
   const options = { rootDir: dir, now: NOW, log: () => {}, githubOutput: null };
+  const withFiles = (sourceFile, openRouterFile, modelsDevFile) => [
+    "--source-file",
+    sourceFile,
+    "--openrouter-file",
+    openRouterFile,
+    "--modelsdev-file",
+    modelsDevFile,
+  ];
   await publishCatalog({ ...options, argv: inputs });
   const before = fs.readFileSync(output, "utf8");
   const bad = path.join(dir, "bad.json");
@@ -383,7 +413,7 @@ test("unreadable, malformed, invalid or oversized source files leave the artifac
     fs.rmSync(bad, { force: true });
     if (contents !== undefined) fs.writeFileSync(bad, contents);
     await assert.rejects(
-      publishCatalog({ ...options, argv: ["--source-file", bad, "--openrouter-file", openRouter] }),
+      publishCatalog({ ...options, argv: withFiles(bad, openRouter, modelsDev) }),
     );
     assert.equal(fs.readFileSync(output, "utf8"), before);
   }
@@ -397,8 +427,20 @@ test("unreadable, malformed, invalid or oversized source files leave the artifac
     fs.rmSync(bad, { force: true });
     if (contents !== undefined) fs.writeFileSync(bad, contents);
     await assert.rejects(
-      publishCatalog({ ...options, argv: ["--source-file", source, "--openrouter-file", bad] }),
+      publishCatalog({ ...options, argv: withFiles(source, bad, modelsDev) }),
     );
+    assert.equal(fs.readFileSync(output, "utf8"), before);
+  }
+  for (const contents of [
+    undefined,
+    "not JSON",
+    "[]",
+    JSON.stringify(modelsDevResponse(MIN_MODELS_DEV_PROVIDERS - 1)),
+    "x".repeat(32 * 1024 * 1024 + 1),
+  ]) {
+    fs.rmSync(bad, { force: true });
+    if (contents !== undefined) fs.writeFileSync(bad, contents);
+    await assert.rejects(publishCatalog({ ...options, argv: withFiles(source, openRouter, bad) }));
     assert.equal(fs.readFileSync(output, "utf8"), before);
   }
   fs.writeFileSync(output, "corrupt previous file");
@@ -418,6 +460,9 @@ test("invalid or missing command arguments fail before write", async (t) => {
     ["--source-file", "a"],
     ["--source-file", "a", "--openrouter-file"],
     ["--source-file", "a", "--openrouter-file", "b", "--openrouter-file", "c"],
+    ["--source-file", "a", "--openrouter-file", "b"],
+    ["--source-file", "a", "--openrouter-file", "b", "--modelsdev-file"],
+    ["--source-file", "a", "--openrouter-file", "b", "--modelsdev-file", "c", "--modelsdev-file", "d"],
   ]) {
     await assert.rejects(publishCatalog({ rootDir: dir, argv }), /argument|once/);
   }

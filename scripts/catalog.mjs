@@ -1,6 +1,7 @@
 import { createHash } from "node:crypto";
 import { isDeepStrictEqual } from "node:util";
 import { z } from "zod";
+import { applyThinking, THINKING_LEVELS } from "./thinking.mjs";
 
 export const MAX_CATALOG_BYTES = 8 * 1024 * 1024;
 export const MAX_PUBLISHED_BYTES = 4 * 1024 * 1024;
@@ -98,6 +99,27 @@ const correctionSchema = z.discriminatedUnion("kind", [
     })
     .strict(),
 ]);
+const thinkingLevel = z.enum(THINKING_LEVELS);
+// Reviewed thinking profile for one model, or a family when `model` ends in `*`.
+const thinkingRuleSchema = z
+  .object({
+    provider: nonempty,
+    model: nonempty,
+    levels: z.array(thinkingLevel).min(1),
+    default: thinkingLevel,
+    labels: z.record(thinkingLevel, nonempty).optional(),
+    source: z.url(),
+  })
+  .strict()
+  .refine((rule) => rule.levels.includes(rule.default), "default must be one of the levels")
+  .refine(
+    (rule) =>
+      rule.levels.every(
+        (level, i) =>
+          i === 0 || THINKING_LEVELS.indexOf(rule.levels[i - 1]) < THINKING_LEVELS.indexOf(level),
+      ),
+    "levels must be unique and ordered low to high",
+  );
 export const supplementSchema = z
   .object({
     schemaVersion: z.literal(1),
@@ -114,6 +136,7 @@ export const supplementSchema = z
     ),
     providers: z.record(z.string().regex(/^[a-z0-9][a-z0-9-]*$/), supplementalProviderSchema),
     corrections: z.array(correctionSchema).optional(),
+    thinking: z.array(thinkingRuleSchema).optional(),
   })
   .strict();
 
@@ -245,6 +268,7 @@ export function buildCatalog({
   previous,
   minVersion,
   now = Date.now(),
+  thinkingSources = {},
 }) {
   const bundle = bundleSchema.parse(upstream);
   const supplement = validateSupplement(rawSupplement);
@@ -284,10 +308,13 @@ export function buildCatalog({
     schemaVersion: 1,
     minVersion: minVersion.trim(),
     ...(bundle.minVersion ? { sourceMinVersion: bundle.minVersion } : {}),
-    providers: applyCorrections(
-      mergeProviders(rest.providers, supplement.providers),
-      supplement.corrections,
-      now,
+    providers: applyThinking(
+      applyCorrections(
+        mergeProviders(rest.providers, supplement.providers),
+        supplement.corrections,
+        now,
+      ),
+      { ...thinkingSources, rules: supplement.thinking },
     ),
     sourceGeneratedAt,
     supplementDigest: createHash("sha256").update(JSON.stringify(supplement)).digest("hex"),
