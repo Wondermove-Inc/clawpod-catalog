@@ -4,7 +4,8 @@
 // (src/auto-reply/thinking.shared.ts), so the Agent can read them as they are.
 //
 // Each value comes from the first source that has it:
-//   1. supplement `thinking` rules (reviewed against official docs)
+//   1. supplement `thinking` rules (reviewed against official docs); the first match wins,
+//      so list provider-specific rules before `*` rules
 //   2. values the upstream OpenClaw row already states
 //   3. OpenRouter's reasoning metadata: the OpenRouter model with the same ID,
 //      otherwise (off the openrouter provider) the one with the same normalized ID
@@ -99,9 +100,14 @@ function indexOpenRouter(rows = []) {
   return { byId, byKey };
 }
 
+// A `*` provider rule names the model by its modelKey(), so one rule covers the same
+// model on every gateway ("claude-opus-5-5" matches "anthropic/claude-opus-5.5").
 function ruleMatches(rule, provider, id) {
-  if (rule.provider !== provider) return false;
-  return rule.model.endsWith("*") ? id.startsWith(rule.model.slice(0, -1)) : id === rule.model;
+  if (rule.provider !== "*" && rule.provider !== provider) return false;
+  const target = rule.provider === "*" ? modelKey(id) : id;
+  return rule.model.endsWith("*")
+    ? target.startsWith(rule.model.slice(0, -1))
+    : target === rule.model;
 }
 
 /**

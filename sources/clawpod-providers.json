@@ -5108,5 +5108,3647 @@
       "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
       "effectiveAt": 1807142400000
     }
+  ],
+  "thinking": [
+    {
+      "provider": "amazon-bedrock",
+      "model": "us.moonshotai.kimi-k3*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-moonshot-ai-kimi-k3.md",
+      "note": "AWS Bedrock model cards (K3 and K3.1 = https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-moonshot-ai-kimi-k3-1-highspeed.md): reasoning_effort none|low|medium|high|xhigh|max, unset = max, none turns reasoning off; minimal unsupported. Raw-id prefix covers kimi-k3 and kimi-k3.1."
+    },
+    {
+      "provider": "amazon-bedrock",
+      "model": "global.moonshotai.kimi-k3*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-moonshot-ai-kimi-k3.md",
+      "note": "AWS Bedrock model cards (K3 and K3.1 = https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-moonshot-ai-kimi-k3-1-highspeed.md): reasoning_effort none|low|medium|high|xhigh|max, unset = max, none turns reasoning off; minimal unsupported. Raw-id prefix covers kimi-k3 and kimi-k3.1."
+    },
+    {
+      "provider": "amazon-bedrock",
+      "model": "in.moonshotai.kimi-k3*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-moonshot-ai-kimi-k3.md",
+      "note": "AWS Bedrock model cards (K3 and K3.1 = https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-moonshot-ai-kimi-k3-1-highspeed.md): reasoning_effort none|low|medium|high|xhigh|max, unset = max, none turns reasoning off; minimal unsupported. Raw-id prefix covers kimi-k3 and kimi-k3.1."
+    },
+    {
+      "provider": "venice",
+      "model": "kimi-k3*",
+      "levels": [
+        "off",
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://api.venice.ai/api/v1/models?type=text",
+      "note": "Venice model metadata for kimi-k3, kimi-k3-1-pro, kimi-k3-1-pro-highspeed, kimi-k3-fast-api: reasoningEffortOptions none/low/high/max, default max (host runs open weights, which support thinking=False)."
+    },
+    {
+      "provider": "openrouter",
+      "model": "deepseek/deepseek-v4-pro",
+      "levels": [
+        "off",
+        "high",
+        "xhigh"
+      ],
+      "default": "high",
+      "source": "https://openrouter.ai/deepseek/deepseek-v4-pro",
+      "note": "OpenRouter route accepts reasoning.effort none/high/xhigh for V4 (xhigh = DeepSeek max); OpenClaw docs/tools/thinking.md: OpenRouter-routed DeepSeek V4 exposes xhigh and falls max back to xhigh. Keeps current profile on this gateway."
+    },
+    {
+      "provider": "openrouter",
+      "model": "deepseek/deepseek-v4-flash",
+      "levels": [
+        "off",
+        "high",
+        "xhigh"
+      ],
+      "default": "high",
+      "source": "https://openrouter.ai/deepseek/deepseek-v4-flash",
+      "note": "Same as openrouter deepseek-v4-pro: OpenRouter vocabulary none/high/xhigh for original V4."
+    },
+    {
+      "provider": "kilocode",
+      "model": "deepseek/deepseek-v4-pro",
+      "levels": [
+        "off",
+        "high",
+        "xhigh"
+      ],
+      "default": "high",
+      "source": "https://openrouter.ai/deepseek/deepseek-v4-pro",
+      "note": "Kilo gateway mirrors OpenRouter ids/efforts (none/high/xhigh) for original V4."
+    },
+    {
+      "provider": "kilocode",
+      "model": "deepseek/deepseek-v4-flash",
+      "levels": [
+        "off",
+        "high",
+        "xhigh"
+      ],
+      "default": "high",
+      "source": "https://openrouter.ai/deepseek/deepseek-v4-flash",
+      "note": "Kilo gateway mirrors OpenRouter ids/efforts (none/high/xhigh) for original V4."
+    },
+    {
+      "provider": "*",
+      "model": "claude-opus-5-5*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "source": "https://platform.claude.com/docs/en/build-with-claude/effort",
+      "note": "Effort low..max; default medium (effort page: 'Claude Opus 5.5 and Claude Haiku 5.5 default to medium'). Thinking can't be disabled: thinking.disabled and budget_tokens both 400 (thinking page per-model table, https://platform.claude.com/docs/en/build-with-claude/thinking). No thinking field = adaptive. Covers -fast gateway ids (fast mode = same model)."
+    },
+    {
+      "provider": "*",
+      "model": "claude-opus-5",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://platform.claude.com/docs/en/build-with-claude/effort",
+      "note": "Effort low..max, default high. Omitting thinking runs adaptive; thinking.disabled accepted at effort high or below -> off offered (https://platform.claude.com/docs/en/build-with-claude/thinking)."
+    },
+    {
+      "provider": "*",
+      "model": "claude-opus-5-fast",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://platform.claude.com/docs/en/build-with-claude/effort",
+      "note": "Fast-mode gateway id of Claude Opus 5 (same model, speed:fast); same thinking surface as claude-opus-5."
+    },
+    {
+      "provider": "*",
+      "model": "claude-sonnet-5-5*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://platform.claude.com/docs/en/build-with-claude/effort",
+      "note": "Effort low..max, default high. thinking.disabled 400s but thinking {type:'between_tools'} turns up-front thinking off at effort <= high -> mapped to off, as OpenClaw does (https://platform.claude.com/docs/en/build-with-claude/thinking). No thinking field = adaptive."
+    },
+    {
+      "provider": "*",
+      "model": "claude-sonnet-5",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://platform.claude.com/docs/en/build-with-claude/effort",
+      "note": "Effort low..max, default high. Omitting thinking runs adaptive; thinking.disabled = thinking off (https://platform.claude.com/docs/en/build-with-claude/thinking)."
+    },
+    {
+      "provider": "*",
+      "model": "claude-haiku-5-5*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "source": "https://platform.claude.com/docs/en/build-with-claude/effort",
+      "note": "Effort low..max, default medium. Omitting thinking runs adaptive; thinking.disabled accepted at effort <= high (https://platform.claude.com/docs/en/build-with-claude/thinking)."
+    },
+    {
+      "provider": "*",
+      "model": "claude-fable-5*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://platform.claude.com/docs/en/build-with-claude/effort",
+      "note": "Fable 5/5.1/5.2 (+ -fast ids): effort low..max, API default high; thinking always on, disabled/budget_tokens 400 (https://platform.claude.com/docs/en/build-with-claude/thinking)."
+    },
+    {
+      "provider": "*",
+      "model": "claude-mythos-preview",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://platform.claude.com/docs/en/build-with-claude/effort",
+      "note": "Effort supports low/medium/high/max but not xhigh (effort page: xhigh list excludes Mythos Preview, max list includes it). Default high. No thinking field = adaptive; disabled 400s; budget_tokens still accepted (https://platform.claude.com/docs/en/build-with-claude/thinking)."
+    },
+    {
+      "provider": "*",
+      "model": "claude-mythos-5*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://platform.claude.com/docs/en/build-with-claude/effort",
+      "note": "Mythos 5/5.1/5.2 = same API surface as Fable 5/5.1/5.2: effort low..max, default high; thinking always on, disabled 400s (https://platform.claude.com/docs/en/build-with-claude/thinking)."
+    },
+    {
+      "provider": "*",
+      "model": "claude-opus-4-8*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "off",
+      "source": "https://platform.claude.com/docs/en/build-with-claude/thinking",
+      "note": "No thinking field = thinking off; adaptive is the only on-mode, depth via effort low..max incl. xhigh (https://platform.claude.com/docs/en/build-with-claude/effort); budget_tokens 400. Covers -fast ids."
+    },
+    {
+      "provider": "*",
+      "model": "claude-opus-4-7*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "off",
+      "source": "https://platform.claude.com/docs/en/build-with-claude/thinking",
+      "note": "No thinking field = thinking off; adaptive + effort low..max incl. xhigh (https://platform.claude.com/docs/en/build-with-claude/effort); budget_tokens 400."
+    },
+    {
+      "provider": "*",
+      "model": "claude-opus-4-6*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "max"
+      ],
+      "default": "off",
+      "source": "https://platform.claude.com/docs/en/build-with-claude/thinking",
+      "note": "No thinking field = thinking off; adaptive + effort low/medium/high/max (no xhigh, https://platform.claude.com/docs/en/build-with-claude/effort); budget_tokens deprecated."
+    },
+    {
+      "provider": "*",
+      "model": "claude-sonnet-4-6*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "max"
+      ],
+      "default": "off",
+      "source": "https://platform.claude.com/docs/en/build-with-claude/thinking",
+      "note": "No thinking field = thinking off; adaptive + effort low/medium/high/max (no xhigh, https://platform.claude.com/docs/en/build-with-claude/effort); budget_tokens deprecated."
+    },
+    {
+      "provider": "*",
+      "model": "claude-opus-4-5*",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "off",
+      "source": "https://platform.claude.com/docs/en/build-with-claude/extended-thinking",
+      "note": "Manual extended thinking only (budget_tokens >= 1024; adaptive 400s); no thinking field = off (https://platform.claude.com/docs/en/build-with-claude/thinking). Effort low/medium/high also accepted and composes with the budget. OpenClaw base ladder."
+    },
+    {
+      "provider": "*",
+      "model": "claude-sonnet-4-5*",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "off",
+      "source": "https://platform.claude.com/docs/en/build-with-claude/extended-thinking",
+      "note": "Manual extended thinking only (budget_tokens); no thinking field = off; no effort (https://platform.claude.com/docs/en/build-with-claude/thinking). Deprecated, retires 2026-11-30."
+    },
+    {
+      "provider": "*",
+      "model": "claude-haiku-4-5*",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "off",
+      "source": "https://platform.claude.com/docs/en/build-with-claude/extended-thinking",
+      "note": "Manual extended thinking only (budget_tokens); no thinking field = off; no effort (https://platform.claude.com/docs/en/build-with-claude/thinking)."
+    },
+    {
+      "provider": "*",
+      "model": "claude-opus-4-1*",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "off",
+      "source": "https://platform.claude.com/docs/en/build-with-claude/extended-thinking",
+      "note": "'Earlier Claude 4 models': manual extended thinking with budget_tokens only, off unless requested. Retired on the Claude API (2026-08-05); profile kept for gateways still listing it."
+    },
+    {
+      "provider": "*",
+      "model": "claude-opus-4-20250514",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "off",
+      "source": "https://platform.claude.com/docs/en/build-with-claude/extended-thinking",
+      "note": "Claude Opus 4 ('earlier Claude 4 models'): manual extended thinking with budget_tokens only, off unless requested. Retired on the Claude API (2026-06-15); Bedrock rows only."
+    },
+    {
+      "provider": "*",
+      "model": "gemini-4-neon",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "high",
+      "source": "https://ai.google.dev/gemini-api/docs/thinking",
+      "note": "thinking_level low/medium/high/xhigh, default high ('Both models default to high and support xhigh'); thinking cannot be disabled. Same on Vertex (https://cloud.google.com/vertex-ai/generative-ai/docs/thinking)."
+    },
+    {
+      "provider": "*",
+      "model": "gemini-4-hydrogen",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "high",
+      "source": "https://ai.google.dev/gemini-api/docs/thinking",
+      "note": "thinking_level low/medium/high/xhigh, default high; thinking cannot be disabled. Same on Vertex (https://cloud.google.com/vertex-ai/generative-ai/docs/thinking)."
+    },
+    {
+      "provider": "*",
+      "model": "gemini-4-carbon",
+      "levels": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://ai.google.dev/gemini-api/docs/thinking",
+      "note": "thinking_level low/medium/high, default medium; cannot disable. Exact key: Vertex 'Gemini 4 Carbon for cyber' defaults to high."
+    },
+    {
+      "provider": "*",
+      "model": "gemini-4-argon",
+      "levels": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://ai.google.dev/gemini-api/docs/thinking",
+      "note": "thinking_level low/medium/high, default medium; cannot disable. Exact key: Vertex 'Argon Cyber Permissive' defaults to high."
+    },
+    {
+      "provider": "*",
+      "model": "gemini-3-8-flash",
+      "levels": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://ai.google.dev/gemini-api/docs/thinking",
+      "note": "thinking_level low/medium/high (minimal not supported), default medium."
+    },
+    {
+      "provider": "*",
+      "model": "gemini-3-7-flash",
+      "levels": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://cloud.google.com/vertex-ai/generative-ai/docs/thinking",
+      "note": "Vertex table: low/medium/high, default medium. Deprecated on Gemini API and auto-routed to gemini-3.8-flash (same ladder/default)."
+    },
+    {
+      "provider": "*",
+      "model": "gemini-3-6-flash",
+      "levels": [
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://ai.google.dev/gemini-api/docs/thinking",
+      "note": "thinking_level minimal..high, default medium; no full thinking-off (minimal = near-off)."
+    },
+    {
+      "provider": "*",
+      "model": "gemini-3-5-flash-lite",
+      "levels": [
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "minimal",
+      "source": "https://ai.google.dev/gemini-api/docs/thinking",
+      "note": "thinking_level minimal..high, default minimal; no full thinking-off."
+    },
+    {
+      "provider": "*",
+      "model": "gemini-3-5-flash",
+      "levels": [
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://cloud.google.com/vertex-ai/generative-ai/docs/thinking",
+      "note": "Vertex table: minimal..high, default medium. Deprecated on Gemini API and auto-routed to gemini-3.6-flash (same ladder/default)."
+    },
+    {
+      "provider": "*",
+      "model": "gemini-3-1-pro-preview*",
+      "levels": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://ai.google.dev/gemini-api/docs/thinking",
+      "note": "thinking_level low/medium/high, default high (table 'On (high)'; Vertex also HIGH). Covers -customtools variant."
+    },
+    {
+      "provider": "*",
+      "model": "gemini-3-1-flash-lite-image*",
+      "levels": [
+        "minimal",
+        "high"
+      ],
+      "default": "minimal",
+      "source": "https://aistudio.google.com/docs/image-generation.md?generate-content=true",
+      "note": "Image thinking levels minimal/high, default minimal; thinking cannot be disabled in the API."
+    },
+    {
+      "provider": "*",
+      "model": "gemini-3-1-flash-lite*",
+      "levels": [
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "minimal",
+      "source": "https://ai.google.dev/gemini-api/docs/thinking",
+      "note": "thinking_level minimal..high, default minimal; Gemini 3 Flash-Lite has no full thinking-off. Covers -preview."
+    },
+    {
+      "provider": "*",
+      "model": "gemini-3-1-flash-image*",
+      "levels": [
+        "minimal",
+        "high"
+      ],
+      "default": "minimal",
+      "source": "https://aistudio.google.com/docs/image-generation.md?generate-content=true",
+      "note": "Nano Banana 2: thinking levels minimal/high, default minimal; Gemini 3 image models' thinking cannot be disabled. Covers -preview."
+    },
+    {
+      "provider": "*",
+      "model": "gemini-nano-banana-2-1",
+      "levels": [
+        "minimal",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://aistudio.google.com/docs/image-generation.md?generate-content=true",
+      "note": "Thinking levels minimal/medium/high, default medium (model page + image-generation table; Vertex agrees)."
+    },
+    {
+      "provider": "*",
+      "model": "gemini-3-flash-preview",
+      "levels": [
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://ai.google.dev/gemini-api/docs/thinking",
+      "note": "thinking_level minimal..high, default high (table 'On (high)'; Vertex HIGH). Gemini 3 Flash has no full thinking-off."
+    },
+    {
+      "provider": "*",
+      "model": "gemini-3-flash",
+      "levels": [
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://ai.google.dev/gemini-api/docs/thinking",
+      "note": "Gateway id (kilocode/vercel 'Gemini 3 Flash', same price) for Google's only Gemini 3 Flash model, gemini-3-flash-preview; same profile."
+    },
+    {
+      "provider": "*",
+      "model": "gemini-3-pro-image*",
+      "levels": [
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://cloud.google.com/vertex-ai/generative-ai/docs/thinking",
+      "note": "Nano Banana Pro: thinking always on, cannot be disabled, no selectable level (Vertex lists only HIGH). Always-on mapping."
+    },
+    {
+      "provider": "*",
+      "model": "gemini-2-5-pro*",
+      "levels": [
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "adaptive"
+      ],
+      "default": "adaptive",
+      "source": "https://aistudio.google.com/docs/thinking.md?generate-content=true",
+      "note": "generateContent thinkingBudget 128..32768, cannot disable, -1 dynamic is the default -> budget ladder without off + adaptive. Deprecated; from 2026-12-01 requests route to gemini-3.8-flash."
+    },
+    {
+      "provider": "*",
+      "model": "gemini-2-5-flash-lite",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "adaptive"
+      ],
+      "default": "off",
+      "source": "https://aistudio.google.com/docs/thinking.md?generate-content=true",
+      "note": "thinkingBudget 512..24576, 0 disables, -1 dynamic; default 'Model does not think' -> off."
+    },
+    {
+      "provider": "*",
+      "model": "gemini-2-5-flash",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "adaptive"
+      ],
+      "default": "adaptive",
+      "source": "https://aistudio.google.com/docs/thinking.md?generate-content=true",
+      "note": "thinkingBudget 0..24576, 0 disables, -1 dynamic is the default -> adaptive. Deprecated; from 2026-12-01 routes to gemini-3.5-flash-lite."
+    },
+    {
+      "provider": "*",
+      "model": "gemma-4-*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "off",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://ai.google.dev/gemma/docs/core/model_card_4",
+      "note": "Thinking is a switch: on only when the <|think|> token starts the system prompt (enable_thinking=True in the chat template), otherwise off; no budget/effort control."
+    },
+    {
+      "provider": "*",
+      "model": "gemma4",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "off",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://ai.google.dev/gemma/docs/core/model_card_4",
+      "note": "Ollama tag for Gemma 4 (gemma4, gemma4:31b): same on/off thinking switch, off unless enabled."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-oss*",
+      "levels": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-oss-120b",
+      "note": "Harmony reasoning level low/medium/high, cannot be disabled; 'By default, the model will do medium level reasoning' (https://developers.openai.com/cookbook/articles/openai-harmony). Covers gpt-oss-120b/20b, ollama gpt-oss:*, and gpt-oss-safeguard-* (HF card: 'Configurable reasoning effort (low, medium, high)')."
+    },
+    {
+      "provider": "*",
+      "model": "openai-gpt-oss*",
+      "levels": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-oss-120b",
+      "note": "Venice id for gpt-oss-120b; same Harmony low/medium/high ladder, default medium, no off."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-6-2-astra*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.2-astra",
+      "note": "GPT-6.2 Astra: 'The API rejects requests that set reasoning effort to none'; GPT-6.2 guide: 'If you currently use none or minimal, use low instead', start with medium; API reference reasoning.effort default medium; max per reasoning guide/OpenClaw manifest (low..max). -pro/-fast gateway ids = same model with reasoning.mode=pro / Fast tier (effort independent of mode)."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-6-2-sol*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.2-sol",
+      "note": "GPT-6.2 Sol: 'The API rejects requests that set reasoning effort to none'; GPT-6.2 guide: 'If you currently use none or minimal, use low instead', start with medium; API reference reasoning.effort default medium; max per reasoning guide/OpenClaw manifest (low..max). -pro/-fast gateway ids = same model with reasoning.mode=pro / Fast tier (effort independent of mode)."
+    },
+    {
+      "provider": "*",
+      "model": "openai-gpt-62-astra*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.2-astra",
+      "note": "GPT-6.2 Astra (Venice): 'The API rejects requests that set reasoning effort to none'; GPT-6.2 guide: 'If you currently use none or minimal, use low instead', start with medium; API reference reasoning.effort default medium; max per reasoning guide/OpenClaw manifest (low..max). -pro/-fast gateway ids = same model with reasoning.mode=pro / Fast tier (effort independent of mode)."
+    },
+    {
+      "provider": "*",
+      "model": "openai-gpt-62-sol*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.2-sol",
+      "note": "GPT-6.2 Sol (Venice): 'The API rejects requests that set reasoning effort to none'; GPT-6.2 guide: 'If you currently use none or minimal, use low instead', start with medium; API reference reasoning.effort default medium; max per reasoning guide/OpenClaw manifest (low..max). -pro/-fast gateway ids = same model with reasoning.mode=pro / Fast tier (effort independent of mode)."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-6-1-sol*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+      "note": "'reasoning.effort supports low, medium (default), high, xhigh, and max'; no none/minimal. -pro/-fast = pro mode / Fast tier of same model."
+    },
+    {
+      "provider": "*",
+      "model": "openai-gpt-61-sol*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+      "note": "Venice GPT-6.1 Sol (incl. -ultrafast tier): low, medium (default), high, xhigh, max."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-6-1-terra-pro",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.1-terra",
+      "note": "Gateway id for GPT-6.1 Terra in pro mode. Base model supports none, but OpenRouter lists pro without none (mandatory); OpenAI docs do not say whether none is allowed in pro mode for 6.1 Terra, so keep current low..max, default medium."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-6-1-terra*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.1-terra",
+      "note": "'reasoning.effort supports none, low, medium (default), high, xhigh, and max'; none -> off."
+    },
+    {
+      "provider": "*",
+      "model": "openai-gpt-61-terra*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.1-terra",
+      "note": "Venice GPT-6.1 Terra: none, low, medium (default), high, xhigh, max."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-6-astra*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-astra",
+      "note": "'reasoning.effort supports low, medium, high, xhigh, and max'; 'does not support none' (reasoning guide). No explicit model default; API reference default medium."
+    },
+    {
+      "provider": "*",
+      "model": "openai-gpt-6-astra*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-astra",
+      "note": "Venice GPT-6 Astra (+pro): low..max, default medium."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-6-sol*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-sol",
+      "note": "'reasoning.effort supports none, low, medium (default), high, xhigh, and max'. Reasoning guide: 'GPT-6 Sol, and GPT-6 Luna also default to medium'. -pro/-fast = pro mode / Fast tier."
+    },
+    {
+      "provider": "*",
+      "model": "openai-gpt-6-sol*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-sol",
+      "note": "Venice GPT-6 Sol: none..max, default medium."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-6-luna*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-luna",
+      "note": "'reasoning.effort supports none, low, medium (default), high, xhigh, and max'. Reasoning guide: 'GPT-6 Sol, and GPT-6 Luna also default to medium'. -pro/-fast = pro mode / Fast tier."
+    },
+    {
+      "provider": "*",
+      "model": "openai-gpt-6-luna*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-luna",
+      "note": "Venice GPT-6 Luna: none..max, default medium."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-5-6*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-sol",
+      "note": "GPT-5.6 Sol/Terra/Luna pages: 'Reasoning.effort supports: none, low, medium (default), high, xhigh, and max'; gpt-5.6 alias routes to Sol. Guide: 'If you omit it, GPT-5.6 defaults to medium in both standard and pro modes' and pro mode 'works with any GPT-5.6 model and its supported reasoning efforts' -> -pro and -fast gateway ids share the ladder."
+    },
+    {
+      "provider": "*",
+      "model": "openai-gpt-56*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-sol",
+      "note": "Venice GPT-5.6 Sol/Terra/Luna (+pro): none..max, default medium; pro mode accepts the same efforts (https://developers.openai.com/api/docs/guides/latest-model/gpt-5.6)."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-5-5-pro*",
+      "levels": [
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "high",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.5-pro",
+      "note": "'Reasoning.effort supports: medium, high (default) and xhigh.'"
+    },
+    {
+      "provider": "*",
+      "model": "openai-gpt-55-pro*",
+      "levels": [
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "high",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.5-pro",
+      "note": "Venice GPT-5.5 Pro: medium, high (default), xhigh."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-5-5",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.5",
+      "note": "'Reasoning.effort supports: none, low, medium (default), high and xhigh.'"
+    },
+    {
+      "provider": "*",
+      "model": "gpt-5-5-fast",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.5",
+      "note": "Fast-tier gateway id of gpt-5.5: none, low, medium (default), high, xhigh. (Exact keys used so undocumented gpt-5.5-mini is not caught.)"
+    },
+    {
+      "provider": "*",
+      "model": "openai-gpt-55*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.5",
+      "note": "Venice GPT-5.5: none, low, medium (default), high, xhigh."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-5-4-pro*",
+      "levels": [
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.4-pro",
+      "note": "'Reasoning.effort supports: medium (default), high and xhigh.'"
+    },
+    {
+      "provider": "*",
+      "model": "openai-gpt-54-pro*",
+      "levels": [
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.4-pro",
+      "note": "Venice GPT-5.4 Pro: medium (default), high, xhigh; no none."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-5-4*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "off",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.4",
+      "note": "gpt-5.4 / -mini / -nano pages: 'Reasoning.effort supports: none (default), low, medium, high and xhigh'; GPT-5.4 guide: none 'is the default setting'. Covers -fast variants."
+    },
+    {
+      "provider": "*",
+      "model": "openai-gpt-54*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "off",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.4",
+      "note": "Venice GPT-5.4 / 5.4 mini: none (default), low, medium, high, xhigh."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-5-3-codex",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.3-codex",
+      "note": "'GPT-5.3-Codex supports low, medium, high, and xhigh reasoning effort settings' (no none); API reference default medium."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-5-3-codex-fast",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.3-codex",
+      "note": "Fast-tier gateway id of gpt-5.3-codex: low..xhigh, default medium."
+    },
+    {
+      "provider": "*",
+      "model": "openai-gpt-53-codex",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.3-codex",
+      "note": "Venice GPT-5.3 Codex: low..xhigh, default medium."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-5-2-pro*",
+      "levels": [
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.2-pro",
+      "note": "'GPT-5.2 Pro supports reasoning.effort: medium, high, xhigh'; no model-specific default stated, API reference default medium."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-5-2-codex*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.2-codex",
+      "note": "'GPT-5.2-Codex supports low, medium, high, and xhigh'; API reference default medium."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-5-2",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "off",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.2",
+      "note": "'Reasoning.effort supports: none (default), low, medium, high and xhigh'; GPT-5.2 guide: none 'is the default setting in GPT-5.2'."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-5-2-fast",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "off",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.2",
+      "note": "Fast-tier gateway id of gpt-5.2: none (default)..xhigh. (Exact keys so non-reasoning gpt-5.2-chat is not caught.)"
+    },
+    {
+      "provider": "*",
+      "model": "openai-gpt-52*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "off",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.2",
+      "note": "Venice GPT-5.2: none (default), low, medium, high, xhigh."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-5-1-codex-max*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.1-codex-max",
+      "note": "Model page no longer lists efforts (shut down); low..xhigh per OpenRouter/models.dev, API reference default medium. Unchanged from current."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-5-1-codex*",
+      "levels": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.1-codex",
+      "note": "Codex models: low/medium/high (OpenRouter/models.dev), API reference default medium. Covers gpt-5.1-codex-mini."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-5-1",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "off",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.1",
+      "note": "'Reasoning.effort supports: none (default), low, medium, and high.'"
+    },
+    {
+      "provider": "*",
+      "model": "gpt-5-1-thinking*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "off",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.1",
+      "note": "Vercel/Kilo 'GPT 5.1 Thinking' ids route to API gpt-5.1 (models.dev lists the same none..high ladder): none (default), low, medium, high."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-5-pro*",
+      "levels": [
+        "high"
+      ],
+      "default": "high",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5-pro",
+      "note": "'GPT-5 pro defaults to (and only supports) reasoning.effort: high'."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-5-codex*",
+      "levels": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5-codex",
+      "note": "Page lists no efforts; GPT-5-Codex does not accept minimal (OpenRouter/models.dev low/medium/high); API reference default medium."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-5-mini*",
+      "levels": [
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5",
+      "note": "GPT-5 family: 'reasoning.effort supports minimal, low, medium, and high', default medium (https://developers.openai.com/api/docs/guides/latest-model/gpt-5). Covers gpt-5-mini-fast."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-5-nano*",
+      "levels": [
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5",
+      "note": "GPT-5 family: minimal/low/medium/high, default medium."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-5-fast",
+      "levels": [
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5",
+      "note": "Fast-tier gateway id of gpt-5: minimal/low/medium/high, default medium."
+    },
+    {
+      "provider": "*",
+      "model": "o3*",
+      "levels": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/guides/reasoning",
+      "note": "o-series reasoning_effort low/medium/high: GPT-5.2 guide 'Earlier reasoning models like o3 supported only low, medium, and high' (https://developers.openai.com/api/docs/guides/latest-model/gpt-5.2); API reference default medium. Covers o3, o3-fast, o3-mini, o3-pro (o3-pro effort list not on its page; low/medium/high per gateway docs)."
+    },
+    {
+      "provider": "*",
+      "model": "o4-mini*",
+      "levels": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/guides/reasoning",
+      "note": "o-series: low/medium/high, default medium (API reference default; GPT-5.2 guide on o-series ladder)."
+    },
+    {
+      "provider": "*",
+      "model": "o1",
+      "levels": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/guides/reasoning",
+      "note": "o1: reasoning_effort low/medium/high, default medium (API reference default; o-series ladder)."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-realtime-2-1*",
+      "levels": [
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "low",
+      "source": "https://developers.openai.com/api/reference/resources/realtime/subresources/client_secrets/methods/create",
+      "note": "Realtime session reasoning.effort enum minimal/low/medium/high/xhigh with '(default: \"low\")'; no none."
+    },
+    {
+      "provider": "*",
+      "model": "grok-4-20-multi-agent*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "medium",
+      "source": "https://docs.x.ai/developers/model-capabilities/text/multi-agent",
+      "note": "reasoning.effort selects agent count (low/medium = 4 agents, high/xhigh = 16). xAI documents no default; medium (4 agents) from OpenRouter default_effort. Covers -0309 snapshot and -beta alias (both aliases of grok-4.20-multi-agent-0309)."
+    },
+    {
+      "provider": "*",
+      "model": "grok-4-20",
+      "levels": [
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.x.ai/developers/models/grok-4.20",
+      "note": "xAI alias grok-4.20 -> grok-4.20-0309-reasoning ('Reasoning: Yes'); reasoning_effort only on grok-4.5+ (reasoning guide), so always-on with no control. Non-reasoning is a separate model id."
+    },
+    {
+      "provider": "*",
+      "model": "grok-4-20-0309-reasoning",
+      "levels": [
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.x.ai/developers/models/grok-4.20",
+      "note": "Reasoning model with no effort control (effort only on grok-4.5+): always-on."
+    },
+    {
+      "provider": "*",
+      "model": "grok-4-20-reasoning*",
+      "levels": [
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.x.ai/developers/models/grok-4.20",
+      "note": "grok-4.20-reasoning and grok-4.20-beta-reasoning are documented aliases of grok-4.20-0309-reasoning: always-on, no control."
+    },
+    {
+      "provider": "*",
+      "model": "grok-4-3*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "low",
+      "source": "https://docs.x.ai/developers/models/grok-4.3",
+      "note": "'Reasoning efforts (supported): none, low, medium, high, xhigh'; '(default): low'. none -> off; no minimal."
+    },
+    {
+      "provider": "*",
+      "model": "grok-build*",
+      "levels": [
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.x.ai/developers/models/grok-build-0.1",
+      "note": "'Reasoning: Yes' with no reasoning efforts listed; reasoning_effort only documented for grok-4.5+ -> always-on, no control."
+    },
+    {
+      "provider": "*",
+      "model": "mistral-large-4*",
+      "levels": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://docs.mistral.ai/inference/conversations/reasoning",
+      "note": "Mistral Large 4 'supports three reasoning levels' low/medium/high; 'If you omit reasoning_effort, Mistral Large 4 uses high'; 'does not accept none, minimal, xhigh, or max' and 'always reasons'. Covers mistral-large-4, -4-0, -4-0-8."
+    },
+    {
+      "provider": "*",
+      "model": "mistral-large-latest",
+      "levels": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://docs.mistral.ai/models/mistral-large-4-0",
+      "note": "Docs list mistral-large-latest as an API name of Mistral Large 4 (GA 2026-11-05); same low/medium/high, default high."
+    },
+    {
+      "provider": "*",
+      "model": "mistral-medium-3-5*",
+      "levels": [
+        "off",
+        "high"
+      ],
+      "default": "off",
+      "source": "https://docs.mistral.ai/inference/conversations/reasoning",
+      "note": "Medium 3.5 reasoning_effort accepts only none/high (none -> off). Default when omitted: official chat template sets reasoning_effort='none' if undefined (https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/blob/main/chat_template.jinja); API docs silent."
+    },
+    {
+      "provider": "*",
+      "model": "mistral-medium-2604",
+      "levels": [
+        "off",
+        "high"
+      ],
+      "default": "off",
+      "source": "https://docs.mistral.ai/inference/conversations/reasoning",
+      "note": "Mistral Medium 3.5 (version 26.04): none/high, default none per official chat template."
+    },
+    {
+      "provider": "*",
+      "model": "mistral-medium-latest",
+      "levels": [
+        "off",
+        "high"
+      ],
+      "default": "off",
+      "source": "https://docs.mistral.ai/models/mistral-medium-3-5-26-04",
+      "note": "Docs list mistral-medium-latest as API name of Mistral Medium 3.5: none/high, default none."
+    },
+    {
+      "provider": "*",
+      "model": "magistral*",
+      "levels": [
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.mistral.ai/resources/deprecated/native-reasoning",
+      "note": "Native reasoning (Magistral) models 'always generate thinking traces'; 'reasoning is always active and no extra parameter is required' -> always-on."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-8-max",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "xhigh"
+      ],
+      "default": "xhigh",
+      "source": "https://docs.qwencloud.com/api-reference/chat/openai-chat",
+      "note": "Hybrid, thinking on by default (thinking guide https://docs.qwencloud.com/developer-guides/text-generation/thinking). reasoning_effort low|medium|xhigh, default xhigh (= thinking_budget 131072); none -> enable_thinking=false, so off offered; minimal->low, high/max->xhigh are only compat aliases. 1:1 mapping. Exact keys so qwen3-8-max-prime (no Qwen doc) is not caught."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-8-max-0902",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "xhigh"
+      ],
+      "default": "xhigh",
+      "source": "https://docs.qwencloud.com/api-reference/chat/openai-chat",
+      "note": "Hybrid, thinking on by default (thinking guide https://docs.qwencloud.com/developer-guides/text-generation/thinking). reasoning_effort low|medium|xhigh, default xhigh (= thinking_budget 131072); none -> enable_thinking=false, so off offered; minimal->low, high/max->xhigh are only compat aliases. 1:1 mapping. Same model on another host/snapshot."
+    },
+    {
+      "provider": "*",
+      "model": "qwen-3-8-max",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "xhigh"
+      ],
+      "default": "xhigh",
+      "source": "https://docs.qwencloud.com/api-reference/chat/openai-chat",
+      "note": "Hybrid, thinking on by default (thinking guide https://docs.qwencloud.com/developer-guides/text-generation/thinking). reasoning_effort low|medium|xhigh, default xhigh (= thinking_budget 131072); none -> enable_thinking=false, so off offered; minimal->low, high/max->xhigh are only compat aliases. 1:1 mapping. Same model on another host/snapshot."
+    },
+    {
+      "provider": "*",
+      "model": "fireworks/models/qwen3p8-max",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "xhigh"
+      ],
+      "default": "xhigh",
+      "source": "https://docs.qwencloud.com/api-reference/chat/openai-chat",
+      "note": "Hybrid, thinking on by default (thinking guide https://docs.qwencloud.com/developer-guides/text-generation/thinking). reasoning_effort low|medium|xhigh, default xhigh (= thinking_budget 131072); none -> enable_thinking=false, so off offered; minimal->low, high/max->xhigh are only compat aliases. 1:1 mapping. Same model on another host/snapshot."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-8-flash*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "xhigh"
+      ],
+      "default": "xhigh",
+      "source": "https://docs.qwencloud.com/api-reference/chat/openai-chat",
+      "note": "Hybrid, thinking on by default (thinking guide https://docs.qwencloud.com/developer-guides/text-generation/thinking). reasoning_effort low|medium|xhigh, default xhigh (= thinking_budget 131072); none -> enable_thinking=false, so off offered; minimal->low, high/max->xhigh are only compat aliases. 1:1 mapping. API reference lists qwen3.8-flash and qwen3.8-27b with the same effort contract; HF card Qwen/Qwen3.8-27B: 'Thinking mode is on by default and can be disabled per request'. Prefix covers -tee."
+    },
+    {
+      "provider": "*",
+      "model": "qwen-3-8-flash",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "xhigh"
+      ],
+      "default": "xhigh",
+      "source": "https://docs.qwencloud.com/api-reference/chat/openai-chat",
+      "note": "Hybrid, thinking on by default (thinking guide https://docs.qwencloud.com/developer-guides/text-generation/thinking). reasoning_effort low|medium|xhigh, default xhigh (= thinking_budget 131072); none -> enable_thinking=false, so off offered; minimal->low, high/max->xhigh are only compat aliases. 1:1 mapping. API reference lists qwen3.8-flash and qwen3.8-27b with the same effort contract; HF card Qwen/Qwen3.8-27B: 'Thinking mode is on by default and can be disabled per request'. Prefix covers -tee."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-8-27b*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "xhigh"
+      ],
+      "default": "xhigh",
+      "source": "https://docs.qwencloud.com/api-reference/chat/openai-chat",
+      "note": "Hybrid, thinking on by default (thinking guide https://docs.qwencloud.com/developer-guides/text-generation/thinking). reasoning_effort low|medium|xhigh, default xhigh (= thinking_budget 131072); none -> enable_thinking=false, so off offered; minimal->low, high/max->xhigh are only compat aliases. 1:1 mapping. API reference lists qwen3.8-flash and qwen3.8-27b with the same effort contract; HF card Qwen/Qwen3.8-27B: 'Thinking mode is on by default and can be disabled per request'. Prefix covers -tee."
+    },
+    {
+      "provider": "*",
+      "model": "qwen-3-8-27b",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "xhigh"
+      ],
+      "default": "xhigh",
+      "source": "https://docs.qwencloud.com/api-reference/chat/openai-chat",
+      "note": "Hybrid, thinking on by default (thinking guide https://docs.qwencloud.com/developer-guides/text-generation/thinking). reasoning_effort low|medium|xhigh, default xhigh (= thinking_budget 131072); none -> enable_thinking=false, so off offered; minimal->low, high/max->xhigh are only compat aliases. 1:1 mapping. API reference lists qwen3.8-flash and qwen3.8-27b with the same effort contract; HF card Qwen/Qwen3.8-27B: 'Thinking mode is on by default and can be disabled per request'. Prefix covers -tee."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-8-omni-flash*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "xhigh"
+      ],
+      "default": "xhigh",
+      "source": "https://docs.qwencloud.com/api-reference/chat/openai-chat",
+      "note": "Hybrid, thinking on by default; reasoning_effort default xhigh, choose low|medium|xhigh; minimal->low, high/max->xhigh, none disables thinking."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-8-2-4t-a95b*",
+      "levels": [
+        "low",
+        "medium",
+        "xhigh"
+      ],
+      "default": "xhigh",
+      "source": "https://docs.qwencloud.com/api-reference/chat/openai-chat",
+      "note": "Thinking-only (thinking guide https://docs.qwencloud.com/developer-guides/text-generation/thinking: 'Open-source series (thinking-only): qwen3.8-2.4t-a95b'). reasoning_effort low|medium|xhigh, default xhigh; no off."
+    },
+    {
+      "provider": "*",
+      "model": "qwen-3-8-2-4t-a95b",
+      "levels": [
+        "low",
+        "medium",
+        "xhigh"
+      ],
+      "default": "xhigh",
+      "source": "https://docs.qwencloud.com/api-reference/chat/openai-chat",
+      "note": "Thinking-only (thinking guide https://docs.qwencloud.com/developer-guides/text-generation/thinking: 'Open-source series (thinking-only): qwen3.8-2.4t-a95b'). reasoning_effort low|medium|xhigh, default xhigh; no off."
+    },
+    {
+      "provider": "*",
+      "model": "fireworks/models/qwen3p8-2p4t-a95b",
+      "levels": [
+        "low",
+        "medium",
+        "xhigh"
+      ],
+      "default": "xhigh",
+      "source": "https://docs.qwencloud.com/api-reference/chat/openai-chat",
+      "note": "Thinking-only (thinking guide https://docs.qwencloud.com/developer-guides/text-generation/thinking: 'Open-source series (thinking-only): qwen3.8-2.4t-a95b'). reasoning_effort low|medium|xhigh, default xhigh; no off."
+    },
+    {
+      "provider": "*",
+      "model": "qwen4-max",
+      "levels": [
+        "off",
+        "low",
+        "high",
+        "xhigh"
+      ],
+      "default": "high",
+      "source": "https://docs.qwencloud.com/api-reference/chat/openai-chat",
+      "note": "enable_thinking default true; reasoning_effort default high: minimal/low->low, medium/high->high, xhigh/max->xhigh, none disables. Real tiers low|high|xhigh + off. Exact key: qwen4-max-preview has a different contract (low|medium|xhigh, default xhigh, https://docs.qwencloud.com/models/qwen4-max-preview.md)."
+    },
+    {
+      "provider": "*",
+      "model": "qwen-4-max",
+      "levels": [
+        "off",
+        "low",
+        "high",
+        "xhigh"
+      ],
+      "default": "high",
+      "source": "https://docs.qwencloud.com/api-reference/chat/openai-chat",
+      "note": "enable_thinking default true; reasoning_effort default high: minimal/low->low, medium/high->high, xhigh/max->xhigh, none disables. Real tiers low|high|xhigh + off. Exact key: qwen4-max-preview has a different contract (low|medium|xhigh, default xhigh, https://docs.qwencloud.com/models/qwen4-max-preview.md)."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-7-max*",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://docs.qwencloud.com/developer-guides/text-generation/thinking",
+      "note": "Hybrid, enable_thinking default true (https://docs.qwencloud.com/developer-guides/text-generation/thinking); depth only via thinking_budget (no reasoning_effort for this series), default budget = model's max chain-of-thought length (https://docs.qwencloud.com/api-reference/chat/openai-chat) -> budget ladder off..high, default high (closest to the max-budget default). qwen3.7-max-preview / -2026-05-17 are thinking-only (Singapore) but are not in the catalog."
+    },
+    {
+      "provider": "*",
+      "model": "qwen-3-7-max",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://docs.qwencloud.com/developer-guides/text-generation/thinking",
+      "note": "Hybrid, enable_thinking default true (https://docs.qwencloud.com/developer-guides/text-generation/thinking); depth only via thinking_budget (no reasoning_effort for this series), default budget = model's max chain-of-thought length (https://docs.qwencloud.com/api-reference/chat/openai-chat) -> budget ladder off..high, default high (closest to the max-budget default)."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-7-plus*",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://docs.qwencloud.com/developer-guides/text-generation/thinking",
+      "note": "Hybrid, enable_thinking default true (https://docs.qwencloud.com/developer-guides/text-generation/thinking); depth only via thinking_budget (no reasoning_effort for this series), default budget = model's max chain-of-thought length (https://docs.qwencloud.com/api-reference/chat/openai-chat) -> budget ladder off..high, default high (closest to the max-budget default)."
+    },
+    {
+      "provider": "*",
+      "model": "qwen-3-7-plus",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://docs.qwencloud.com/developer-guides/text-generation/thinking",
+      "note": "Hybrid, enable_thinking default true (https://docs.qwencloud.com/developer-guides/text-generation/thinking); depth only via thinking_budget (no reasoning_effort for this series), default budget = model's max chain-of-thought length (https://docs.qwencloud.com/api-reference/chat/openai-chat) -> budget ladder off..high, default high (closest to the max-budget default)."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-7-flash*",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://docs.qwencloud.com/developer-guides/text-generation/thinking",
+      "note": "Hybrid, enable_thinking default true (https://docs.qwencloud.com/developer-guides/text-generation/thinking); depth only via thinking_budget (no reasoning_effort for this series), default budget = model's max chain-of-thought length (https://docs.qwencloud.com/api-reference/chat/openai-chat) -> budget ladder off..high, default high (closest to the max-budget default)."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-6-plus*",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://docs.qwencloud.com/developer-guides/text-generation/thinking",
+      "note": "Hybrid, enable_thinking default true (https://docs.qwencloud.com/developer-guides/text-generation/thinking); depth only via thinking_budget (no reasoning_effort for this series), default budget = model's max chain-of-thought length (https://docs.qwencloud.com/api-reference/chat/openai-chat) -> budget ladder off..high, default high (closest to the max-budget default)."
+    },
+    {
+      "provider": "*",
+      "model": "qwen-3-6-plus",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://docs.qwencloud.com/developer-guides/text-generation/thinking",
+      "note": "Hybrid, enable_thinking default true (https://docs.qwencloud.com/developer-guides/text-generation/thinking); depth only via thinking_budget (no reasoning_effort for this series), default budget = model's max chain-of-thought length (https://docs.qwencloud.com/api-reference/chat/openai-chat) -> budget ladder off..high, default high (closest to the max-budget default)."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-6-flash*",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://docs.qwencloud.com/developer-guides/text-generation/thinking",
+      "note": "Hybrid, enable_thinking default true (https://docs.qwencloud.com/developer-guides/text-generation/thinking); depth only via thinking_budget (no reasoning_effort for this series), default budget = model's max chain-of-thought length (https://docs.qwencloud.com/api-reference/chat/openai-chat) -> budget ladder off..high, default high (closest to the max-budget default)."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-5-plus*",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://docs.qwencloud.com/developer-guides/text-generation/thinking",
+      "note": "Hybrid, enable_thinking default true (https://docs.qwencloud.com/developer-guides/text-generation/thinking); depth only via thinking_budget (no reasoning_effort for this series), default budget = model's max chain-of-thought length (https://docs.qwencloud.com/api-reference/chat/openai-chat) -> budget ladder off..high, default high (closest to the max-budget default). Prefix covers dated snapshots (-02-15, -20260420, -02-23)."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-5-flash*",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://docs.qwencloud.com/developer-guides/text-generation/thinking",
+      "note": "Hybrid, enable_thinking default true (https://docs.qwencloud.com/developer-guides/text-generation/thinking); depth only via thinking_budget (no reasoning_effort for this series), default budget = model's max chain-of-thought length (https://docs.qwencloud.com/api-reference/chat/openai-chat) -> budget ladder off..high, default high (closest to the max-budget default). Prefix covers dated snapshots (-02-15, -20260420, -02-23)."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-6-27b*",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://huggingface.co/Qwen/Qwen3.6-27B",
+      "note": "Open-weight hybrid: HF card 'Qwen3.6 models operate in thinking mode by default' (disable via enable_thinking=false); Qwen Cloud supports thinking_budget for the Qwen3.6 series (https://docs.qwencloud.com/api-reference/chat/openai-chat), default = max CoT length -> budget ladder off..high, default high. Prefix covers -tee."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-6-35b-a3b*",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B",
+      "note": "Open-weight hybrid: HF card 'Qwen3.6 models operate in thinking mode by default' (disable via enable_thinking=false); Qwen Cloud supports thinking_budget for the Qwen3.6 series (https://docs.qwencloud.com/api-reference/chat/openai-chat), default = max CoT length -> budget ladder off..high, default high. Prefix covers -tee."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-5-27b*",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://huggingface.co/Qwen/Qwen3.5-27B",
+      "note": "Open-weight hybrid: HF card 'Qwen3.5 models operate in thinking mode by default' (disable via enable_thinking=false); Qwen Cloud supports thinking_budget for the Qwen3.5 series (https://docs.qwencloud.com/api-reference/chat/openai-chat), default = max CoT length -> budget ladder off..high, default high. Prefix covers -tee."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-5-35b-a3b*",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://huggingface.co/Qwen/Qwen3.5-27B",
+      "note": "Open-weight hybrid: HF card 'Qwen3.5 models operate in thinking mode by default' (disable via enable_thinking=false); Qwen Cloud supports thinking_budget for the Qwen3.5 series (https://docs.qwencloud.com/api-reference/chat/openai-chat), default = max CoT length -> budget ladder off..high, default high. Prefix covers -tee."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-5-122b-a10b*",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://huggingface.co/Qwen/Qwen3.5-27B",
+      "note": "Open-weight hybrid: HF card 'Qwen3.5 models operate in thinking mode by default' (disable via enable_thinking=false); Qwen Cloud supports thinking_budget for the Qwen3.5 series (https://docs.qwencloud.com/api-reference/chat/openai-chat), default = max CoT length -> budget ladder off..high, default high. Prefix covers -tee."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-5-397b-a17b*",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://huggingface.co/Qwen/Qwen3.5-27B",
+      "note": "Open-weight hybrid: HF card 'Qwen3.5 models operate in thinking mode by default' (disable via enable_thinking=false); Qwen Cloud supports thinking_budget for the Qwen3.5 series (https://docs.qwencloud.com/api-reference/chat/openai-chat), default = max CoT length -> budget ladder off..high, default high. Prefix covers -tee."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-5-9b*",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://huggingface.co/Qwen/Qwen3.5-9B",
+      "note": "Open-weight hybrid: HF card 'Qwen3.5 models operate in thinking mode by default' (disable via enable_thinking=false); Qwen Cloud supports thinking_budget for the Qwen3.5 series (https://docs.qwencloud.com/api-reference/chat/openai-chat), default = max CoT length -> budget ladder off..high, default high. Prefix covers -tee."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-32b",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B",
+      "note": "Qwen3 (2504) open-weight hybrid: HF card 'enable_thinking ... Default is True'; Qwen Cloud supports thinking_budget for Qwen3 (https://docs.qwencloud.com/api-reference/chat/openai-chat), default = max CoT length -> budget ladder off..high, default high. Exact keys: a prefix would catch the -2507 instruct/thinking-only variants."
+    },
+    {
+      "provider": "*",
+      "model": "qwen-3-32b",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B",
+      "note": "Qwen3 (2504) open-weight hybrid: HF card 'enable_thinking ... Default is True'; Qwen Cloud supports thinking_budget for Qwen3 (https://docs.qwencloud.com/api-reference/chat/openai-chat), default = max CoT length -> budget ladder off..high, default high. Exact keys: a prefix would catch the -2507 instruct/thinking-only variants."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-14b",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B",
+      "note": "Qwen3 (2504) open-weight hybrid: HF card 'enable_thinking ... Default is True'; Qwen Cloud supports thinking_budget for Qwen3 (https://docs.qwencloud.com/api-reference/chat/openai-chat), default = max CoT length -> budget ladder off..high, default high. Exact keys: a prefix would catch the -2507 instruct/thinking-only variants."
+    },
+    {
+      "provider": "*",
+      "model": "qwen-3-14b",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B",
+      "note": "Qwen3 (2504) open-weight hybrid: HF card 'enable_thinking ... Default is True'; Qwen Cloud supports thinking_budget for Qwen3 (https://docs.qwencloud.com/api-reference/chat/openai-chat), default = max CoT length -> budget ladder off..high, default high. Exact keys: a prefix would catch the -2507 instruct/thinking-only variants."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-30b-a3b",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B",
+      "note": "Qwen3 (2504) open-weight hybrid: HF card 'enable_thinking ... Default is True'; Qwen Cloud supports thinking_budget for Qwen3 (https://docs.qwencloud.com/api-reference/chat/openai-chat), default = max CoT length -> budget ladder off..high, default high. Exact keys: a prefix would catch the -2507 instruct/thinking-only variants."
+    },
+    {
+      "provider": "*",
+      "model": "qwen-3-30b",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://huggingface.co/Qwen/Qwen3-32B",
+      "note": "Qwen3 (2504) open-weight hybrid: HF card 'enable_thinking ... Default is True'; Qwen Cloud supports thinking_budget for Qwen3 (https://docs.qwencloud.com/api-reference/chat/openai-chat), default = max CoT length -> budget ladder off..high, default high. Exact keys: a prefix would catch the -2507 instruct/thinking-only variants."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-vl-plus*",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "off",
+      "source": "https://www.alibabacloud.com/help/en/model-studio/vision",
+      "note": "Hybrid; page: 'The default value for the qwen3-vl-plus series models is false'; thinking_budget supported for Qwen3-VL (https://docs.qwencloud.com/api-reference/chat/openai-chat), default = max CoT length -> budget ladder, default off."
+    },
+    {
+      "provider": "*",
+      "model": "qwen3-omni-30b-a3b-thinking",
+      "levels": [
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/Qwen/Qwen3-Omni-30B-A3B-Thinking",
+      "note": "Dedicated Thinking checkpoint (thinker only), always reasons, no switch or effort -> always-on."
+    },
+    {
+      "provider": "*",
+      "model": "kimi-k3-1-pro*",
+      "levels": [
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://platform.kimi.ai/docs/guide/kimi-k3-1-pro-quickstart",
+      "note": "Moonshot: K3 series always thinks ('You can't - K3 always thinks'); thinking param 'Not supported' for K3 series (https://platform.kimi.ai/docs/api/chat); reasoning_effort low|high|max, default max (https://platform.kimi.ai/docs/guide/use-reasoning-effort.md). 1:1 mapping, no off. Covers -highspeed."
+    },
+    {
+      "provider": "*",
+      "model": "kimi-k3*",
+      "levels": [
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://platform.kimi.ai/docs/guide/kimi-k3-quickstart",
+      "note": "Moonshot: K3 series always thinks ('You can't - K3 always thinks'); thinking param 'Not supported' for K3 series (https://platform.kimi.ai/docs/api/chat); reasoning_effort low|high|max, default max (https://platform.kimi.ai/docs/guide/use-reasoning-effort.md). 1:1 mapping, no off. Also covers kimi-k3-fast (Vercel: K3 on lower-latency serving path), kimi-k3-tee (Chutes), kimi-k3-1 off Bedrock."
+    },
+    {
+      "provider": "*",
+      "model": "fireworks/models/kimi-k3*",
+      "levels": [
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://platform.kimi.ai/docs/guide/kimi-k3-quickstart",
+      "note": "Fireworks K3 / K3.1 Pro (key form fireworks/models/kimi-k3p1-pro); Fireworks documents no model-specific reasoning contract, Moonshot contract applied."
+    },
+    {
+      "provider": "*",
+      "model": "fireworks/routers/kimi-k3-fast",
+      "levels": [
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://platform.kimi.ai/docs/guide/kimi-k3-quickstart",
+      "note": "Fireworks documents this router as the Fast serverless tier of Kimi K3 (https://fireworks.ai/models/fireworks/kimi-k3); pinned by name."
+    },
+    {
+      "provider": "*",
+      "model": "kimi-k2-8*",
+      "levels": [
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://www.kimi.com/code/docs/en/kimi-code/models.html",
+      "note": "Kimi Code: K2.8 Preview reasoning_effort low/high/max, default max; Tencent Cloud (https://intl.cloud.tencent.com/document/product/1300/80635): 'Thinking only (Cannot be disabled)'."
+    },
+    {
+      "provider": "*",
+      "model": "kimi-for-coding-highspeed",
+      "levels": [
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://www.kimi.com/code/docs/en/kimi-code/models.html",
+      "note": "Kimi Code: = K2.7 Code Highspeed, Thinking ON, effort not adjustable; disabling thinking reroutes to another model -> always-on."
+    },
+    {
+      "provider": "*",
+      "model": "kimi-for-coding",
+      "levels": [
+        "off",
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://www.kimi.com/code/docs/en/kimi-code/models.html",
+      "note": "Kimi Code: kimi-for-coding = K2.8 Preview: reasoning_effort low/high/max, no effort = max; off/disabled served by K2.8 Preview without thinking."
+    },
+    {
+      "provider": "*",
+      "model": "kimi-k2-7-code*",
+      "levels": [
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://platform.kimi.ai/docs/api/models-overview.md",
+      "note": "Thinking always on; reasoning_effort not supported; thinking.type 'disabled' errors (https://platform.kimi.ai/docs/api/chat). Covers -highspeed."
+    },
+    {
+      "provider": "*",
+      "model": "kimi-k2-6*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://platform.kimi.ai/docs/api/models-overview.md",
+      "note": "Thinking on by default, thinking.type disabled turns it off, no reasoning_effort. Covers -tee."
+    },
+    {
+      "provider": "*",
+      "model": "kimi-k2-5*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/moonshotai/Kimi-K2.5",
+      "note": "Official card: Thinking mode default, Instant mode via thinking {type: disabled}; platform pages retired (model 404 on Moonshot API)."
+    },
+    {
+      "provider": "*",
+      "model": "kimi-k2-thinking*",
+      "levels": [
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/moonshotai/Kimi-K2-Thinking",
+      "note": "Dedicated always-thinking model, no switch or effort."
+    },
+    {
+      "provider": "*",
+      "model": "minimax-m3-1-flash*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://platform.minimax.io/docs/api-reference/text-anthropic-api",
+      "note": "Thinking always on; thinking disabled / effort none -> HTTP 400 (error 2013). output_config.effort (Anthropic) / reasoning_effort (OpenAI, https://platform.minimax.io/docs/api-reference/text-openai-api) low|medium|high|xhigh|max, default max; 1:1. Covers -preview and Venice id."
+    },
+    {
+      "provider": "*",
+      "model": "fireworks/models/minimax-m3p1-flash",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://platform.minimax.io/docs/api-reference/text-anthropic-api",
+      "note": "Fireworks-hosted M3.1-Flash; MiniMax contract reused."
+    },
+    {
+      "provider": "*",
+      "model": "fireworks/models/minimax-m3",
+      "levels": [
+        "off",
+        "adaptive"
+      ],
+      "default": "adaptive",
+      "source": "https://platform.minimax.io/docs/api-reference/text-openai-api",
+      "note": "thinking.type disabled|adaptive, no effort/budget (reasoning_effort is M3.1-Flash only). OpenAI endpoint: omitted = thinking on, disabled = answers directly. Anthropic endpoint (https://platform.minimax.io/docs/api-reference/text-anthropic-api): omitted = off, adaptive = on. Default adaptive (OpenAI-compatible gateways). Fireworks-hosted M3."
+    },
+    {
+      "provider": "*",
+      "model": "minimax-m-3-0",
+      "levels": [
+        "off",
+        "adaptive"
+      ],
+      "default": "adaptive",
+      "source": "https://platform.minimax.io/docs/api-reference/text-openai-api",
+      "note": "thinking.type disabled|adaptive, no effort/budget (reasoning_effort is M3.1-Flash only). OpenAI endpoint: omitted = thinking on, disabled = answers directly. Anthropic endpoint (https://platform.minimax.io/docs/api-reference/text-anthropic-api): omitted = off, adaptive = on. Default adaptive (OpenAI-compatible gateways). tencent-tokenplan alias of MiniMax-M3."
+    },
+    {
+      "provider": "*",
+      "model": "minimax-m3*",
+      "levels": [
+        "off",
+        "adaptive"
+      ],
+      "default": "adaptive",
+      "source": "https://platform.minimax.io/docs/api-reference/text-openai-api",
+      "note": "thinking.type disabled|adaptive, no effort/budget (reasoning_effort is M3.1-Flash only). OpenAI endpoint: omitted = thinking on, disabled = answers directly. Anthropic endpoint (https://platform.minimax.io/docs/api-reference/text-anthropic-api): omitted = off, adaptive = on. Default adaptive (OpenAI-compatible gateways). Covers venice minimax-m3-preview; must follow minimax-m3-1-flash*."
+    },
+    {
+      "provider": "*",
+      "model": "minimax-m2*",
+      "levels": [
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "http://web.archive.org/web/20261027110446/https://platform.minimax.io/docs/api-reference/text-anthropic-api",
+      "note": "MiniMax Thinking Control table (M2.x row, archived; row removed from live page): omitted = on, disabled 'Accepted but ignored; thinking remains on'; no effort -> always-on. Covers m2-1/m2-5/m2-7 and venice minimax-m25/m27."
+    },
+    {
+      "provider": "*",
+      "model": "mimo-v2-6*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://mimo.mi.com/docs/en-US/quick-start/usage-guide/text-generation/deep-thinking",
+      "note": "thinking.type enabled|disabled; 'Enabled by default: mimo-v2.6-flash, mimo-v2.6-pro, mimo-v2.6-pro-ultraspeed'. Responses API: 'Custom tuning of reasoning effort is currently unsupported', none disables, everything else = enabled (https://mimo.mi.com/static/docs/api/chat/responses-post.md). Pure on/off. Covers pro-ultraspeed."
+    },
+    {
+      "provider": "*",
+      "model": "xiaomi-mimo-v2-6*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://mimo.mi.com/docs/en-US/quick-start/usage-guide/text-generation/deep-thinking",
+      "note": "thinking.type enabled|disabled; 'Enabled by default: mimo-v2.6-flash, mimo-v2.6-pro, mimo-v2.6-pro-ultraspeed'. Responses API: 'Custom tuning of reasoning effort is currently unsupported', none disables, everything else = enabled (https://mimo.mi.com/static/docs/api/chat/responses-post.md). Pure on/off. Venice id (Venice advertises none/low/medium/high but MiMo does not differentiate)."
+    },
+    {
+      "provider": "*",
+      "model": "mimo-v2-5*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5/raw/main/tokenizer_config.json",
+      "note": "Chat template has only enable_thinking, default true (https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro/raw/main/tokenizer_config.json); MiMo API retired v2.5/v2.5-pro 2026-10-21 and routes them to v2.6 (on/off, default on: https://mimo.mi.com/static/docs/updates/deprecate.md)."
+    },
+    {
+      "provider": "*",
+      "model": "xiaomi-mimo-v2-5*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5/raw/main/tokenizer_config.json",
+      "note": "Chat template has only enable_thinking, default true (https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro/raw/main/tokenizer_config.json); MiMo API retired v2.5/v2.5-pro 2026-10-21 and routes them to v2.6 (on/off, default on: https://mimo.mi.com/static/docs/updates/deprecate.md). Venice id."
+    },
+    {
+      "provider": "*",
+      "model": "glm-5-3*",
+      "levels": [
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://docs.z.ai/guides/llm/glm-5.3",
+      "note": "thinking.type enabled only (disabled errors; Qwen Cloud also: 'glm-5.3 series always perform thinking'); reasoning_effort low|high|max, default max; 1:1, no off. Same enum on https://docs.z.ai/guides/vlm/glm-5.3-flash. Covers -flash, -flashx, -flashx-legal, -prime (OpenRouter: high-speed GLM-5.3, same efforts), -fast, Ark -flash-260828, Venice -flash-uncensored."
+    },
+    {
+      "provider": "*",
+      "model": "zai-glm-5-3*",
+      "levels": [
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://docs.z.ai/guides/llm/glm-5.3",
+      "note": "Mistral-hosted GLM-5.3 / 5.3-Flash; vendor contract. thinking.type enabled only (disabled errors; Qwen Cloud also: 'glm-5.3 series always perform thinking'); reasoning_effort low|high|max, default max; 1:1, no off. Same enum on https://docs.z.ai/guides/vlm/glm-5.3-flash."
+    },
+    {
+      "provider": "*",
+      "model": "z-ai-glm-5-3*",
+      "levels": [
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://docs.z.ai/guides/llm/glm-5.3",
+      "note": "Venice-hosted GLM-5.3 / 5.3-Flash; vendor contract. thinking.type enabled only (disabled errors; Qwen Cloud also: 'glm-5.3 series always perform thinking'); reasoning_effort low|high|max, default max; 1:1, no off. Same enum on https://docs.z.ai/guides/vlm/glm-5.3-flash."
+    },
+    {
+      "provider": "*",
+      "model": "fireworks/models/glm-5p3*",
+      "levels": [
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://docs.z.ai/guides/llm/glm-5.3",
+      "note": "Fireworks-hosted GLM-5.3 / 5.3-Flash; vendor contract. thinking.type enabled only (disabled errors; Qwen Cloud also: 'glm-5.3 series always perform thinking'); reasoning_effort low|high|max, default max; 1:1, no off. Same enum on https://docs.z.ai/guides/vlm/glm-5.3-flash."
+    },
+    {
+      "provider": "*",
+      "model": "fireworks/routers/glm-5p3*",
+      "levels": [
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://docs.z.ai/guides/llm/glm-5.3",
+      "note": "Fireworks fast/spot routers pinned to GLM-5.3 by name; GLM-5.3 / 5.3-Flash; vendor contract. thinking.type enabled only (disabled errors; Qwen Cloud also: 'glm-5.3 series always perform thinking'); reasoning_effort low|high|max, default max; 1:1, no off. Same enum on https://docs.z.ai/guides/vlm/glm-5.3-flash."
+    },
+    {
+      "provider": "*",
+      "model": "glm-5-2",
+      "levels": [
+        "off",
+        "high",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://docs.z.ai/api-reference/llm/chat-completion",
+      "note": "reasoning_effort max (default)|xhigh|high|medium|low|minimal|none: none/minimal = no thinking, low/medium -> high, xhigh -> max, so three real states off/high/max; thinking.type enabled by default. Also https://docs.z.ai/guides/capabilities/thinking, HF chat_template (no effort = Max). Exact keys so Ark glm-5-2-260617 (different effort surface) is not caught."
+    },
+    {
+      "provider": "*",
+      "model": "glm-5-2-fast",
+      "levels": [
+        "off",
+        "high",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://docs.z.ai/api-reference/llm/chat-completion",
+      "note": "reasoning_effort max (default)|xhigh|high|medium|low|minimal|none: none/minimal = no thinking, low/medium -> high, xhigh -> max, so three real states off/high/max; thinking.type enabled by default. Also https://docs.z.ai/guides/capabilities/thinking, HF chat_template (no effort = Max). Exact keys so Ark glm-5-2-260617 (different effort surface) is not caught."
+    },
+    {
+      "provider": "*",
+      "model": "glm-5-2-tee",
+      "levels": [
+        "off",
+        "high",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://docs.z.ai/api-reference/llm/chat-completion",
+      "note": "reasoning_effort max (default)|xhigh|high|medium|low|minimal|none: none/minimal = no thinking, low/medium -> high, xhigh -> max, so three real states off/high/max; thinking.type enabled by default. Also https://docs.z.ai/guides/capabilities/thinking, HF chat_template (no effort = Max). Exact keys so Ark glm-5-2-260617 (different effort surface) is not caught."
+    },
+    {
+      "provider": "*",
+      "model": "glm-5-2-fp8",
+      "levels": [
+        "off",
+        "high",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://docs.z.ai/api-reference/llm/chat-completion",
+      "note": "reasoning_effort max (default)|xhigh|high|medium|low|minimal|none: none/minimal = no thinking, low/medium -> high, xhigh -> max, so three real states off/high/max; thinking.type enabled by default. Also https://docs.z.ai/guides/capabilities/thinking, HF chat_template (no effort = Max). Exact keys so Ark glm-5-2-260617 (different effort surface) is not caught."
+    },
+    {
+      "provider": "*",
+      "model": "zai-org-glm-5-2",
+      "levels": [
+        "off",
+        "high",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://docs.z.ai/api-reference/llm/chat-completion",
+      "note": "reasoning_effort max (default)|xhigh|high|medium|low|minimal|none: none/minimal = no thinking, low/medium -> high, xhigh -> max, so three real states off/high/max; thinking.type enabled by default. Also https://docs.z.ai/guides/capabilities/thinking, HF chat_template (no effort = Max). Exact keys so Ark glm-5-2-260617 (different effort surface) is not caught."
+    },
+    {
+      "provider": "*",
+      "model": "glm-5-1*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.z.ai/guides/capabilities/thinking",
+      "note": "thinking.type enabled (default; model decides per turn) / disabled; no reasoning_effort on Z.ai below GLM-5.2 -> on/off switch, default on."
+    },
+    {
+      "provider": "*",
+      "model": "zai-org-glm-5-1",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.z.ai/guides/capabilities/thinking",
+      "note": "thinking.type enabled (default; model decides per turn) / disabled; no reasoning_effort on Z.ai below GLM-5.2 -> on/off switch, default on."
+    },
+    {
+      "provider": "*",
+      "model": "glm-5v-turbo*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.bigmodel.cn/cn/guide/capabilities/thinking",
+      "note": "thinking.type enabled (default; model decides per turn) / disabled; no reasoning_effort on Z.ai below GLM-5.2 -> on/off switch, default on."
+    },
+    {
+      "provider": "*",
+      "model": "z-ai-glm-5v-turbo",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.bigmodel.cn/cn/guide/capabilities/thinking",
+      "note": "thinking.type enabled (default; model decides per turn) / disabled; no reasoning_effort on Z.ai below GLM-5.2 -> on/off switch, default on."
+    },
+    {
+      "provider": "*",
+      "model": "glm-5-turbo*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.bigmodel.cn/cn/guide/capabilities/thinking",
+      "note": "thinking.type enabled (default; model decides per turn) / disabled; no reasoning_effort on Z.ai below GLM-5.2 -> on/off switch, default on."
+    },
+    {
+      "provider": "*",
+      "model": "z-ai-glm-5-turbo",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.bigmodel.cn/cn/guide/capabilities/thinking",
+      "note": "thinking.type enabled (default; model decides per turn) / disabled; no reasoning_effort on Z.ai below GLM-5.2 -> on/off switch, default on."
+    },
+    {
+      "provider": "*",
+      "model": "glm-5",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.z.ai/guides/capabilities/thinking",
+      "note": "thinking.type enabled (default; model decides per turn) / disabled; no reasoning_effort on Z.ai below GLM-5.2 -> on/off switch, default on."
+    },
+    {
+      "provider": "*",
+      "model": "glm-5-fp8",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.z.ai/guides/capabilities/thinking",
+      "note": "thinking.type enabled (default; model decides per turn) / disabled; no reasoning_effort on Z.ai below GLM-5.2 -> on/off switch, default on."
+    },
+    {
+      "provider": "*",
+      "model": "zai-org-glm-5",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.z.ai/guides/capabilities/thinking",
+      "note": "thinking.type enabled (default; model decides per turn) / disabled; no reasoning_effort on Z.ai below GLM-5.2 -> on/off switch, default on."
+    },
+    {
+      "provider": "*",
+      "model": "glm-4-7-flash*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.z.ai/guides/llm/glm-4.7",
+      "note": "thinking.type enabled (default; model decides per turn) / disabled; no reasoning_effort on Z.ai below GLM-5.2 -> on/off switch, default on."
+    },
+    {
+      "provider": "*",
+      "model": "glm-4-7",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.z.ai/guides/capabilities/thinking-mode",
+      "note": "thinking.type enabled (default; model decides per turn) / disabled; no reasoning_effort on Z.ai below GLM-5.2 -> on/off switch, default on."
+    },
+    {
+      "provider": "*",
+      "model": "zai-org-glm-4-7",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.z.ai/guides/capabilities/thinking-mode",
+      "note": "thinking.type enabled (default; model decides per turn) / disabled; no reasoning_effort on Z.ai below GLM-5.2 -> on/off switch, default on."
+    },
+    {
+      "provider": "*",
+      "model": "glm-4-6v*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.bigmodel.cn/cn/guide/capabilities/thinking",
+      "note": "thinking.type enabled (default; model decides per turn) / disabled; no reasoning_effort on Z.ai below GLM-5.2 -> on/off switch, default on."
+    },
+    {
+      "provider": "*",
+      "model": "glm-4-6",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.z.ai/guides/llm/glm-4.6",
+      "note": "thinking.type enabled (default; model decides per turn) / disabled; no reasoning_effort on Z.ai below GLM-5.2 -> on/off switch, default on."
+    },
+    {
+      "provider": "*",
+      "model": "glm-4-5v*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.bigmodel.cn/cn/guide/capabilities/thinking",
+      "note": "thinking.type enabled (default; model decides per turn) / disabled; no reasoning_effort on Z.ai below GLM-5.2 -> on/off switch, default on."
+    },
+    {
+      "provider": "*",
+      "model": "glm-4-5*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.z.ai/guides/llm/glm-4.5",
+      "note": "thinking.type enabled (default; model decides per turn) / disabled; no reasoning_effort on Z.ai below GLM-5.2 -> on/off switch, default on."
+    },
+    {
+      "provider": "*",
+      "model": "deepseek-v4-pro-260425",
+      "levels": [
+        "off",
+        "high",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://www.volcengine.com/docs/82379/1449737",
+      "note": "Ark deep-thinking table: deepseek-v4-pro-260425 default effort high, minimal turns thinking off; original V4 (0424) has Non-think/Think High/Think Max only (HF DeepSeek-V4-Pro card)."
+    },
+    {
+      "provider": "*",
+      "model": "deepseek-v4-flash-260425",
+      "levels": [
+        "off",
+        "high",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://www.volcengine.com/docs/82379/1449737",
+      "note": "Original V4-Flash (0424) snapshot on BytePlus; same three modes as V4-Pro-260425 (HF deepseek-ai/DeepSeek-V4-Pro card: 'both support three reasoning effort modes'). Not itself listed in Ark table."
+    },
+    {
+      "provider": "*",
+      "model": "deepseek-v4-pro-ga*",
+      "levels": [
+        "off",
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://www.volcengine.com/docs/82379/1449737",
+      "note": "Ark table: deepseek-v4-pro-ga-260813 default high; none/minimal -> off, medium -> low, xhigh -> high, max native."
+    },
+    {
+      "provider": "*",
+      "model": "deepseek-v4-flash-ga*",
+      "levels": [
+        "off",
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://www.volcengine.com/docs/82379/1449737",
+      "note": "Ark table: deepseek-v4-flash-ga-260731 default high; none/minimal -> off, medium -> low, xhigh -> high, max native."
+    },
+    {
+      "provider": "*",
+      "model": "deepseek-v4-pro*",
+      "levels": [
+        "off",
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek API reasoning_effort none/low/high/max, thinking on by default at high (low added for V4-Pro/V4-Flash at V4-Pro GA 2026-08-13, api-docs.deepseek.com/updates). `deepseek-v4-pro` on the DeepSeek API is now V4-Pro-0813. Original 0424 weights only have high/max; DeepSeek's pre-August mapping sent low -> high, so offering low is harmless there."
+    },
+    {
+      "provider": "*",
+      "model": "deepseek-v4-flash*",
+      "levels": [
+        "off",
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek API none/low/high/max, default high. Covers -0731 (+-tee/-fast), -vision-exp (2026-08-21, after low was added), -latest; DeepSeek API `deepseek-v4-flash` now routes to V4.1 Flash. Original 0424 V4-Flash weights only have high/max (low -> high)."
+    },
+    {
+      "provider": "*",
+      "model": "deepseek-v4-1-flash*",
+      "levels": [
+        "off",
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek API (deepseek-flash = V4.1-Flash-1017) none/low/high/max, default high; Ark table for deepseek-v4-1-flash-261017/260910/economy also default high, none -> off, minimal -> low, medium/xhigh -> high. Covers -1017, -fast, -ultrafast, -uncensored, -economy hosting variants."
+    },
+    {
+      "provider": "*",
+      "model": "deepseek-flash*",
+      "levels": [
+        "off",
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "`deepseek-flash` is the DeepSeek API model name (V4.1-Flash-1017); -latest alias pinned to it. none/low/high/max, thinking on by default at high."
+    },
+    {
+      "provider": "*",
+      "model": "deepseek-pro-latest",
+      "levels": [
+        "off",
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "~deepseek/deepseek-pro-latest pinned to deepseek-v4-pro (V4-Pro-0813): none/low/high/max, default high."
+    },
+    {
+      "provider": "*",
+      "model": "fireworks/models/deepseek-v4p1-flash*",
+      "levels": [
+        "off",
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "Fireworks-hosted DeepSeek V4.1 Flash (+1017); model ladder from DeepSeek API. Fireworks reasoning_effort docs (docs.fireworks.ai/guides/reasoning) list low/medium/high and map enable_thinking; max acceptance on Fireworks not documented."
+    },
+    {
+      "provider": "*",
+      "model": "fireworks/routers/deepseek-v4p1-flash*",
+      "levels": [
+        "off",
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "Fireworks spot/ultrafast routers pinned to DeepSeek V4.1 Flash(-1017) deployments, not multi-model routers; same model ladder."
+    },
+    {
+      "provider": "*",
+      "model": "fireworks/routers/deepseek-flash-latest",
+      "levels": [
+        "off",
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "Fireworks router pinned to DeepSeek's current flash model (same as ~deepseek/deepseek-flash-latest); every flash generation since 0731 uses none/low/high/max."
+    },
+    {
+      "provider": "*",
+      "model": "deepseek-v3-2-thinking",
+      "levels": [
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "Thinking-only variant of V3.2 (DeepSeek's deepseek-reasoner mode); always-on, no effort control."
+    },
+    {
+      "provider": "*",
+      "model": "deepseek-v3-2*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "off",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2",
+      "note": "Hybrid V3.2/V3.2-Exp: thinking vs non-thinking mode via chat encoding (thinking_mode), no effort levels; non-thinking is the default chat mode (deepseek-chat)."
+    },
+    {
+      "provider": "*",
+      "model": "deepseek-v3-1*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "off",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/deepseek-ai/DeepSeek-V3.1",
+      "note": "Hybrid V3.1/V3.1-Terminus: chat template `thinking` flag (default non-thinking), no effort control."
+    },
+    {
+      "provider": "*",
+      "model": "deepseek-chat-v3-1",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "off",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/deepseek-ai/DeepSeek-V3.1",
+      "note": "Gateway name for DeepSeek V3.1: on/off via chat template thinking flag, default off."
+    },
+    {
+      "provider": "*",
+      "model": "deepseek-r1*",
+      "levels": [
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/deepseek-ai/DeepSeek-R1-0528",
+      "note": "R1 / R1-0528 / R1-Turbo always reason; no toggle or effort."
+    },
+    {
+      "provider": "*",
+      "model": "nemotron-3-5-content-safety",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "off",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/nvidia/Nemotron-3.5-Content-Safety",
+      "note": "enable_thinking chat-template kwarg; template defaults to /no_think when enable_thinking is not passed. On/off only."
+    },
+    {
+      "provider": "*",
+      "model": "nemotron-3-5-super-vl*",
+      "levels": [
+        "off",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16",
+      "note": "Card: reasoning levels off, on (medium), on. enable_thinking=False -> off, medium_effort=True -> medium, full -> high; template defaults enable_thinking=True, medium_effort=False."
+    },
+    {
+      "provider": "*",
+      "model": "nvidia-nemotron-3-5-super-vl*",
+      "levels": [
+        "off",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16",
+      "note": "Same model as nemotron-3-5-super-vl (together/venice ids)."
+    },
+    {
+      "provider": "*",
+      "model": "nemotron-3-5-lightning*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16",
+      "note": "Card: 'thinking enabled (the default), and thinking disabled' via enable_thinking; no effort levels."
+    },
+    {
+      "provider": "*",
+      "model": "nemotron-3-ultra*",
+      "levels": [
+        "off",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16",
+      "note": "enable_thinking on/off, medium_effort=True for medium, full thinking = high; 'Reasoning ON (default)'. Matches OpenRouter none/medium/high default high."
+    },
+    {
+      "provider": "*",
+      "model": "nvidia-nemotron-3-ultra*",
+      "levels": [
+        "off",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16",
+      "note": "Same model as nemotron-3-ultra (baseten id)."
+    },
+    {
+      "provider": "*",
+      "model": "nemotron-3-super*",
+      "levels": [
+        "off",
+        "low",
+        "medium"
+      ],
+      "default": "medium",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16",
+      "note": "enable_thinking on/off (default True) plus low_effort=True; mapped like OpenRouter (none/low/medium, default medium): low_effort -> low, full thinking -> medium."
+    },
+    {
+      "provider": "*",
+      "model": "nvidia-nemotron-3-super*",
+      "levels": [
+        "off",
+        "low",
+        "medium"
+      ],
+      "default": "medium",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16",
+      "note": "Same model as nemotron-3-super (deepinfra id)."
+    },
+    {
+      "provider": "*",
+      "model": "nemotron-super-3*",
+      "levels": [
+        "off",
+        "low",
+        "medium"
+      ],
+      "default": "medium",
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16",
+      "note": "Bedrock id for Nemotron 3 Super; model-level ladder (Bedrock-specific control not documented)."
+    },
+    {
+      "provider": "*",
+      "model": "nemotron-3-nano*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16",
+      "note": "enable_thinking on/off, default True; reasoning_budget is a client-side helper, not an API effort. Also covers Nemotron-3-Nano-Omni-30B-A3B-Reasoning (card: 'On by default; toggle via enable_thinking')."
+    },
+    {
+      "provider": "*",
+      "model": "nemotron-nano-3*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16",
+      "note": "Bedrock id for Nemotron 3 Nano 30B; same on/off default on."
+    },
+    {
+      "provider": "*",
+      "model": "nemotron-nano-12b-v2-vl*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "off",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-12B-v2-VL-BF16",
+      "note": "/think or /no_think in system/user message; chat template initializes enable_thinking=false (and forces off for video), so default off."
+    },
+    {
+      "provider": "*",
+      "model": "nemotron-nano-9b*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/nvidia/NVIDIA-Nemotron-Nano-9B-v2",
+      "note": "/think or no signal -> reasoning on; /no_think -> off. Budget control is client-side only."
+    },
+    {
+      "provider": "*",
+      "model": "doubao-seed-evolving*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://www.volcengine.com/docs/82379/1449737",
+      "note": "Ark table: default high; minimal/none -> off; low/medium/high native; xhigh/max -> high. thinking enabled by default."
+    },
+    {
+      "provider": "*",
+      "model": "doubao-seed-2-1*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://www.volcengine.com/docs/82379/1449737",
+      "note": "Ark table (doubao-seed-2-1-pro/lite/turbo): default high; minimal/none -> off; xhigh/max -> high."
+    },
+    {
+      "provider": "*",
+      "model": "dola-seed-2-1*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://www.volcengine.com/docs/82379/1449737",
+      "note": "BytePlus brand of Seed 2.1 Turbo (dola-seed-2-1-turbo-260628 = doubao-seed-2-1-turbo-260628); BytePlus deep-thinking table row is blank, Volcengine table gives default high, minimal/none -> off, xhigh/max -> high."
+    },
+    {
+      "provider": "*",
+      "model": "seed-2-1*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://www.volcengine.com/docs/82379/1449737",
+      "note": "Seed 2.1 on gateways (OpenRouter/Kilo bytedance-seed/seed-2-1-turbo); same model as doubao-seed-2-1-turbo."
+    },
+    {
+      "provider": "*",
+      "model": "doubao-seed-2-0*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://www.volcengine.com/docs/82379/1449737",
+      "note": "Ark table (doubao-seed-2-0-lite/mini/pro/code-preview): default medium; minimal -> off, none -> minimal(off), xhigh/max -> high."
+    },
+    {
+      "provider": "*",
+      "model": "doubao-seed-character*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://www.volcengine.com/docs/82379/1449737",
+      "note": "Ark table puts doubao-seed-character-260628 in the Seed 2.0 group: default medium, minimal/none -> off, xhigh/max -> high."
+    },
+    {
+      "provider": "*",
+      "model": "seed-2-0*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://docs.byteplus.com/en/docs/ModelArk/deep-thinking",
+      "note": "BytePlus/Volcengine tables (seed-2-0-lite/mini/pro/code-preview): default medium; minimal turns thinking off (same as none), xhigh/max -> high."
+    },
+    {
+      "provider": "*",
+      "model": "step-3-5-flash-2603",
+      "levels": [
+        "low",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://platform.stepfun.ai/docs/en/api-reference/chat/chat-completion-create",
+      "note": "reasoning_effort: 'step-3.5-flash-2603 accepts low and high only'; model page calls low an optional low-reasoning mode, so default is high. Cannot disable."
+    },
+    {
+      "provider": "*",
+      "model": "step-3-5-flash",
+      "levels": [
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://platform.stepfun.ai/docs/en/guides/models/step-3.5-flash",
+      "note": "Base step-3.5-flash is a reasoning model with no reasoning_effort support (only the -2603 variant has low/high)."
+    },
+    {
+      "provider": "*",
+      "model": "step-3-7-flash*",
+      "levels": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://platform.stepfun.ai/docs/en/guides/models/step-3.7-flash",
+      "note": "reasoning_effort low/medium/high, medium is the default; no off."
+    },
+    {
+      "provider": "*",
+      "model": "step-5*",
+      "levels": [
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://platform.stepfun.ai/docs/en/guides/models/step-5-preview",
+      "note": "step-5-preview supports reasoning_effort low/medium/high; reasoning guide marks medium as default."
+    },
+    {
+      "provider": "*",
+      "model": "ling-3*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/inclusionAI/Ling-3.0-flash",
+      "note": "Ling 3.x (3.0-flash/-VL/-Fin/-Sante/-tiny, 3.1-flash/-1019): 'Thinking is enabled by default'; disable with chat_template_kwargs enable_thinking=false; no effort levels (Bailing V3 template thinking_option on/off)."
+    },
+    {
+      "provider": "*",
+      "model": "longcat-2-0*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/meituan-longcat/LongCat-2.0",
+      "note": "LongCat API thinking {type: enabled|disabled} (budget fixed at 65536, not adjustable; longcat.chat/platform/docs/api/model-params); LongCat-2.0 template enable_thinking default true."
+    },
+    {
+      "provider": "*",
+      "model": "longcat-2-5*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "off",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/meituan-longcat/LongCat-2.5",
+      "note": "LongCat API thinking enabled/disabled only (thinking_budget fixed); LongCat-2.5 chat template sets enable_thinking default(false). LongCat API docs do not state a default."
+    },
+    {
+      "provider": "*",
+      "model": "command-a-plus*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.cohere.com/docs/reasoning",
+      "note": "Cohere reasoning models: thinking enabled by default, type disabled turns it off; OpenAI-compat reasoning_effort only none/high (docs.cohere.com/docs/compatibility-api). Optional token_budget is not mapped by OpenClaw's Cohere route."
+    },
+    {
+      "provider": "*",
+      "model": "north-mini-code*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.cohere.com/docs/reasoning",
+      "note": "Cohere hybrid reasoning model (HF CohereLabs/North-Mini-Code-1.0: interleaved thinking, works best on); Cohere thinking enabled by default, compat reasoning_effort none/high only."
+    },
+    {
+      "provider": "*",
+      "model": "nova-2-lite*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "off",
+      "source": "https://docs.aws.amazon.com/nova/latest/nova2-userguide/extended-thinking.html",
+      "note": "reasoningConfig type enabled/disabled (default disabled) + maxReasoningEffort low/medium/high."
+    },
+    {
+      "provider": "*",
+      "model": "mercury-3*",
+      "levels": [
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "low",
+      "source": "https://docs.inceptionlabs.ai/capabilities/instant",
+      "note": "reasoning_effort instant/low/medium/high; omitted -> low for mercury-3. instant mapped to minimal (no documented full off)."
+    },
+    {
+      "provider": "*",
+      "model": "motif-3*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/Motif-Technologies/Motif-3",
+      "note": "Chat template opens <think> unless enable_thinking=false; no effort levels."
+    },
+    {
+      "provider": "*",
+      "model": "dots-3-note-preview*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/dots-studio/dots3-note-prev",
+      "note": "enable_thinking chat-template kwarg, template default true; no effort levels."
+    },
+    {
+      "provider": "*",
+      "model": "laguna-xs-2-1*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/poolside/Laguna-XS-2.1",
+      "note": "Card: 'Reasoning is on by default; pass enable_thinking=False'; served with default enable_thinking true (raw template default is false without that server flag)."
+    },
+    {
+      "provider": "*",
+      "model": "macaron-v1-tall*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/mindlab-research/Macaron-V1-Tall",
+      "note": "Qwen3.6-based template: <think> opened unless enable_thinking=false; no effort levels."
+    },
+    {
+      "provider": "*",
+      "model": "macaron-v1-venti*",
+      "levels": [
+        "off",
+        "high",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://huggingface.co/mindlab-research/Macaron-V1-Venti",
+      "note": "Chat template: reasoning_effort 'high' else 'max' (default Max); enable_thinking=false disables."
+    },
+    {
+      "provider": "*",
+      "model": "solar-pro4*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "off",
+      "source": "https://console.upstage.ai/docs/capabilities/generate/reasoning",
+      "note": "Omitted -> reasoning OFF; none/minimal turn it off; low/medium/high/xhigh/max turn it on."
+    },
+    {
+      "provider": "*",
+      "model": "solar-mini4*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "off",
+      "source": "https://console.upstage.ai/docs/capabilities/generate/reasoning",
+      "note": "Same rules as solar-pro4 per Upstage reasoning page."
+    },
+    {
+      "provider": "*",
+      "model": "granite-4-2*",
+      "levels": [
+        "off",
+        "low",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://huggingface.co/ibm-granite/granite-4.2-8b",
+      "note": "Thinking (default) / non-thinking (enable_thinking=False) / low-effort (low_effort=True or reasoning_effort=low)."
+    },
+    {
+      "provider": "*",
+      "model": "ternary-bonsai-2-27b*",
+      "levels": [
+        "off",
+        "medium",
+        "xhigh"
+      ],
+      "default": "xhigh",
+      "source": "https://huggingface.co/prism-ml/Ternary-Bonsai-2-27B-gguf",
+      "note": "Card: xhigh reasoning effort by default, medium for shorter; low not supported (behaves like xhigh); non-thinking mode available."
+    },
+    {
+      "provider": "*",
+      "model": "ternary-bonsai-2-9b*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/prism-ml/Ternary-Bonsai-2-9B-gguf",
+      "note": "Qwen3.5-9B-based: thinking mode default, chat_template_kwargs enable_thinking=false for non-thinking; no effort levels."
+    },
+    {
+      "provider": "*",
+      "model": "muse-spark-1-3-contributor*",
+      "levels": [
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "high",
+      "source": "https://dev.meta.ai/docs/reasoning",
+      "note": "Meta Model API reasoning_effort; none returns HTTP 400 (always reasons); max not available on muse-spark-1.3-contributor; omitted default is high on every Muse Spark version."
+    },
+    {
+      "provider": "*",
+      "model": "muse-spark-1-3*",
+      "levels": [
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://dev.meta.ai/docs/reasoning",
+      "note": "muse-spark-1.3 supports minimal..max (max listed for 1.3); cannot be turned off; default high."
+    },
+    {
+      "provider": "*",
+      "model": "muse-spark-open*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "xhigh",
+      "source": "https://dev.meta.ai/docs/muse-spark-open/deploy",
+      "note": "Open weights: reasoning_effort low/medium/high/xhigh; template rejects none; template default xhigh (hosted providers may override). Covers muse-spark-open-816b-a42b."
+    },
+    {
+      "provider": "*",
+      "model": "fireworks/models/muse-spark-open",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "xhigh",
+      "source": "https://dev.meta.ai/docs/muse-spark-open/deploy",
+      "note": "Fireworks-hosted Muse Spark Open; same weights/template as muse-spark-open."
+    },
+    {
+      "provider": "*",
+      "model": "muse-spark-1-*",
+      "levels": [
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "high",
+      "source": "https://dev.meta.ai/docs/reasoning",
+      "note": "Muse Spark 1.1/1.2/1.2-contributor: max documented only for 1.3/wonder/ember; none -> 400; default high on every Muse Spark version."
+    },
+    {
+      "provider": "*",
+      "model": "muse-wonder*",
+      "levels": [
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://dev.meta.ai/docs/reasoning",
+      "note": "Muse Wonder accepts minimal..max, none -> 400; omitted default max. Covers muse-wonder and muse-wonder-1-0."
+    },
+    {
+      "provider": "*",
+      "model": "muse-ember*",
+      "levels": [
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://dev.meta.ai/docs/reasoning",
+      "note": "Muse Ember accepts minimal..max, none -> 400; omitted default max. Covers muse-ember and muse-ember-1-0."
+    },
+    {
+      "provider": "*",
+      "model": "muse-glimmer*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh"
+      ],
+      "default": "high",
+      "source": "https://dev.meta.ai/docs/muse-glimmer/deploy",
+      "note": "Open weights: reasoning_strength low/medium/high/xhigh (HF meta-models/Muse-Glimmer-30B); template default high; cannot be turned off."
+    },
+    {
+      "provider": "*",
+      "model": "k3-1-pro*",
+      "levels": [
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://www.kimi.com/code/docs/en/kimi-code/models.html",
+      "note": "Kimi Code k3.1-pro(-highspeed): reasoning_effort low/high/max, default high; disabling thinking rejected (HTTP 400)."
+    },
+    {
+      "provider": "*",
+      "model": "k3",
+      "levels": [
+        "off",
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://www.kimi.com/code/docs/en/kimi-code/models.html",
+      "note": "Kimi Code K3: low/high/max, default high; thinking disabled is accepted (served by K2.8 Preview without thinking). Matches OpenClaw Kimi Code profile."
+    },
+    {
+      "provider": "*",
+      "model": "k3-256k",
+      "levels": [
+        "off",
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://www.kimi.com/code/docs/en/kimi-code/models.html",
+      "note": "Same as k3."
+    },
+    {
+      "provider": "*",
+      "model": "hy4*",
+      "levels": [
+        "off",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://www.tencentcloud.com/document/product/1300/80637",
+      "note": "Tencent Cloud: reasoning_effort high/no_think (hy4-flash, hy4), none/high (hy4-preview); default high. HF Hy4-preview template rejects other values."
+    },
+    {
+      "provider": "*",
+      "model": "lfm-3-1-7b",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/LiquidAI/LFM3-1.7B",
+      "note": "Reasoning on by default; enable_thinking=False disables (card warns it can be inconsistent); pure on/off."
+    },
+    {
+      "provider": "*",
+      "model": "lfm2-5-24b-a2b",
+      "levels": [
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/LiquidAI/LFM2.5-24B-A2B",
+      "note": "Pure reasoning model; template always opens <think>. Vercel id of lfm-2-5-24b-a2b."
+    },
+    {
+      "provider": "*",
+      "model": "beam",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://developers.reflection.ai/reasoning",
+      "note": "Beam 1.0 always reasons; reasoning_effort low/medium/high/xhigh/max; models endpoint example default_effort max (can vary by org). Matches beam-1-0-501b-a23b."
+    },
+    {
+      "provider": "*",
+      "model": "beam-free",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://developers.reflection.ai/reasoning",
+      "note": "Reflection free route for Beam 1.0 (assumed same model; beam-free itself not documented)."
+    },
+    {
+      "provider": "*",
+      "model": "perceptron-mk1-5",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://docs.perceptron.inc/perceptron-mk1.5/capabilities/thinking",
+      "note": "reasoning_effort none/minimal/low/medium/high; minimal currently maps to low so dropped. Omitted default not documented; high from OpenRouter default_effort."
+    },
+    {
+      "provider": "*",
+      "model": "perceptron-mk1",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "off",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://docs.perceptron.inc/perceptron-mk1/models/perceptron-mk1",
+      "note": "Mk1 has only on/off (vision_config.enable_thinking; SDK reasoning=True enables it) -> off by default."
+    },
+    {
+      "provider": "*",
+      "model": "moondream3*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/moondream/moondream3-preview",
+      "note": "Card: query runs in reasoning mode by default; reasoning can be disabled per request. Moondream 3.1 assumed to share the query/reasoning API."
+    },
+    {
+      "provider": "*",
+      "model": "hermes-4-405b",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "off",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/NousResearch/Hermes-4-405B",
+      "note": "Hybrid reasoning via chat-template thinking=True or deep-thinking system prompt; template sets thinking=false when undefined."
+    },
+    {
+      "provider": "*",
+      "model": "google-gemma-4-*",
+      "levels": [
+        "off",
+        "low"
+      ],
+      "default": "off",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://huggingface.co/google/gemma-4-31B-it",
+      "note": "Gemma 4 thinking is on/off only (<|think|> token / enable_thinking), template default false. Venice ids google-gemma-4-26b-a4b-it and -31b-it."
+    }
   ]
 }

@@ -149,6 +149,7 @@ Publisher ingress schema와 consumer acceptance schema는 동일하지 않습니
 - `none`은 `off`로 읽습니다. 끌 수 없는 모델(OpenRouter `mandatory`)에는 `off`가 없습니다. OpenRouter가 기본 꺼짐(`default_enabled: false`)이라고 하면 기본 단계는 `off`입니다.
 - 단계 선택 없이 켜고 끄기만 되는 모델은 OpenClaw 관례대로 `["off","low"]`와 `thinkingLevelLabels: {"low":"on"}`으로 씁니다.
 - upstream `thinkingLevelMap`이 `null`로 막은 단계는 빼고, 기본 단계가 지원 단계에 없으면 기본 단계를 비웁니다(출처 충돌).
+- 2026-11-19 기준 활성 reasoning 모델 1594/1663이 채워져 있습니다. 남은 빈칸은 라우터 별칭과 공식 문서가 없는 모델입니다(sources/REVIEW.md).
 - 채우지 못한 모델은 비워 둡니다. 게시 로그에 `thinking profiles: 채운 수/전체` 줄이 남고, workflow output `thinking_missing`에 빈칸 수가 기록됩니다. 빈칸이 있어도 게시는 막지 않습니다.
 
 Publisher의 8MiB 검사는 streaming download/memory cap이 아닙니다. Consumer의 4MiB streaming body limit와 목적·구현이 다릅니다. 최종 직렬화한 게시 파일에는 별도로 4MiB 한도를 적용합니다.
