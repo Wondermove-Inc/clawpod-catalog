@@ -160,6 +160,17 @@ test("upstream null map entries and conflicting defaults are dropped", () => {
   assert.equal(profile(out, "acme", "n").default, undefined);
 });
 
+test("malformed upstream thinking fields are ignored instead of failing the build", () => {
+  const openRouter = [
+    { id: "acme/m", reasoning: { mandatory: true, supported_efforts: ["low", "high"], default_effort: "high" } },
+  ];
+  const providers = {
+    acme: { models: [row("m", { compat: { thinkingLevels: "low,high" }, thinkingLevelMap: "x" })] },
+  };
+  const out = applyThinking(providers, { openRouter });
+  assert.deepEqual(profile(out, "acme", "m"), { levels: ["low", "high"], default: "high", labels: undefined });
+});
+
 test("model keys link the same model across gateways, and ambiguity links nothing", () => {
   for (const id of [
     "anthropic/claude-opus-5.5",
