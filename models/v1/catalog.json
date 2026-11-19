@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795087401346,
+  "generatedAt": 1795088088700,
   "minVersion": "2026.4.11",
-  "sourceCommit": "bd9166435e98460dee2f6bfa53c301ca1ff96a98",
+  "sourceCommit": "8a23d7c11d37183b00f5bd0ba4c942bbfe03e116",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -17713,7 +17713,9 @@
             "output": 1.13,
             "cacheRead": 0.07,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory."
         },
         {
           "id": "baidu/ernie-4.5-21B-a3b",
@@ -18515,9 +18517,7 @@
               "max"
             ],
             "defaultThinkingLevel": "max"
-          },
-          "status": "deprecated",
-          "statusReason": "novita no longer lists this model in its public model inventory."
+          }
         },
         {
           "id": "moonshotai/kimi-k3.1-pro",
@@ -18633,6 +18633,8 @@
               }
             ]
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "off",
@@ -18683,6 +18685,8 @@
               }
             ]
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "low",
@@ -18732,6 +18736,8 @@
               }
             ]
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "low",
@@ -47138,9 +47144,9 @@
           "contextWindow": 262144,
           "maxTokens": 40960,
           "cost": {
-            "input": 0.17,
-            "output": 0.25,
-            "cacheRead": 0.153
+            "input": 0.157,
+            "output": 0.23,
+            "cacheRead": 0.141
           },
           "compat": {
             "thinkingLevels": [
@@ -55306,6 +55312,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1795087382979,
+  "sourceGeneratedAt": 1795088065832,
   "supplementDigest": "a5e39658b9dc3b3f5dd7d905e68d1a59428bca513a914f9ff6ca9d7db8d644fb"
 }
