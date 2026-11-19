@@ -170,20 +170,58 @@ export function thinkingCoverage(bundle) {
   return { total, complete: total - missing.length, missing };
 }
 
-/** Markdown body for the thinking-gap issue and the workflow summary. */
-export function thinkingReport({ total, complete, missing }) {
-  const byProvider = new Map();
-  for (const ref of missing) {
-    const [provider] = ref.split("/", 1);
-    byProvider.set(provider, [...(byProvider.get(provider) ?? []), ref.slice(provider.length + 1)]);
+/**
+ * Active rows missing data the Agent needs, beyond thinking profiles: a display name,
+ * a reasoning flag, token limits, or a replacedBy pointing at a missing or retired row.
+ */
+export function fieldGaps(bundle) {
+  const gaps = [];
+  const retired = (m) => m.status === "deprecated" || m.status === "disabled";
+  for (const [provider, entry] of Object.entries(bundle.providers)) {
+    for (const model of entry.models) {
+      if (retired(model)) continue;
+      const ref = `${provider}/${model.id}`;
+      if (!model.name) gaps.push(`${ref}: name`);
+      if (typeof model.reasoning !== "boolean") gaps.push(`${ref}: reasoning`);
+      if (!model.contextWindow || !model.maxTokens) gaps.push(`${ref}: contextWindow/maxTokens`);
+    }
+    for (const model of entry.models) {
+      if (!model.replacedBy) continue;
+      const target = entry.models.find((m) => m.id === model.replacedBy);
+      if (!target || retired(target)) {
+        gaps.push(`${provider}/${model.id}: replacedBy ${model.replacedBy} (${target ? target.status : "missing"})`);
+      }
+    }
   }
+  return gaps;
+}
+
+function byProvider(refs) {
+  const groups = new Map();
+  for (const ref of refs) {
+    const [provider] = ref.split("/", 1);
+    groups.set(provider, [...(groups.get(provider) ?? []), ref.slice(provider.length + 1)]);
+  }
+  return [...groups].sort((a, b) => b[1].length - a[1].length);
+}
+
+/** Markdown body for the catalog-gap issue and the workflow summary. */
+export function gapReport({ total, complete, missing }, fields = []) {
   const lines = [
     `Active reasoning models with thinking levels and a default: **${complete}/${total}** (${missing.length} missing).`,
+    `Active models missing other required data: **${fields.length}**.`,
     "",
-    "Fill a gap with a reviewed `thinking` rule in `sources/clawpod-providers.json` (see `sources/README.md`).",
+    "Fix gaps with reviewed `thinking` / `overrides` rules in `sources/clawpod-providers.json` (see `sources/README.md`).",
     "Router aliases (`auto`, `free`, `*-latest`) and models without official docs are expected to stay here.",
   ];
-  for (const [provider, ids] of [...byProvider].sort((a, b) => b[1].length - a[1].length)) {
+  if (fields.length) {
+    lines.push("", "## Missing model data");
+    for (const [provider, items] of byProvider(fields)) {
+      lines.push("", `### ${provider} (${items.length})`, "", ...items.sort().map((i) => `- \`${i.replace(": ", "\`: ")}`));
+    }
+  }
+  lines.push("", "## Missing thinking profiles");
+  for (const [provider, ids] of byProvider(missing)) {
     lines.push("", `### ${provider} (${ids.length})`, "", ...ids.sort().map((id) => `- \`${id}\``));
   }
   return `${lines.join("\n")}\n`;
