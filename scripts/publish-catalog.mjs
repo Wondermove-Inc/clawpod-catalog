@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 import { buildCatalog, countModels, MAX_CATALOG_BYTES, serializeCatalog } from "./catalog.mjs";
 import { convertOpenRouterModels, parseOpenRouterResponse, withOpenRouter } from "./openrouter.mjs";
 import { parseModelsDev } from "./models-dev.mjs";
-import { thinkingCoverage, thinkingReport } from "./thinking.mjs";
+import { fieldGaps, gapReport, thinkingCoverage } from "./thinking.mjs";
 
 const LARGE_MODEL_DELTA_NOTICE = 50;
 const defaultRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -112,8 +112,11 @@ export async function publishCatalog({
   log(
     `thinking profiles: ${coverage.complete}/${coverage.total} active reasoning models have levels and a default (${coverage.missing.length} missing)`,
   );
+  const fields = fieldGaps(next);
+  if (fields.length) log(`model data gaps: ${fields.length} active rows (see the report)`);
   writeOutput(githubOutput, "thinking_missing", String(coverage.missing.length));
-  if (reportFile) fs.writeFileSync(path.resolve(reportFile), thinkingReport(coverage));
+  writeOutput(githubOutput, "catalog_gaps", String(coverage.missing.length + fields.length));
+  if (reportFile) fs.writeFileSync(path.resolve(reportFile), gapReport(coverage, fields));
   const contents = serializeCatalog(next);
   if (contents === previous.contents) {
     log("published catalog is already current; nothing to do");
