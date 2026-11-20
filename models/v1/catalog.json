@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795175206680,
+  "generatedAt": 1795177836524,
   "minVersion": "2026.4.11",
-  "sourceCommit": "d248a76be69b6856750a2c2cf8c67053b39b02f9",
+  "sourceCommit": "c8931b32d3d632aee4aaba45ef7e7a229564ffc0",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -55232,6 +55232,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1795175188669,
+  "sourceGeneratedAt": 1795177815520,
   "supplementDigest": "a53e205eb2153140dcf67468149551858e13bd268d1fd22430daeab59f1d8116"
 }
