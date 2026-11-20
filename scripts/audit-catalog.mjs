@@ -13,6 +13,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 // Subscription / plan providers: no per-token USD price exists, so cost stays omitted.
 export const SUBSCRIPTION_PROVIDERS = new Set([
   "openai-codex",
+  "codex",
   "minimax-portal",
   "github-copilot",
   "ollama-cloud",

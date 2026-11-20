@@ -445,3 +445,33 @@ Agent에서 지금 단계를 고르면 effort가 요청에 실리는데 catalog�
 - 애매한 행(설명과 파라미터가 다름, 고치지 않음): `kilocode/mistralai/mistral-small`(Kilo 설명은 "currently runs Mistral Small 4 … reasoning"이지만 `supported_parameters`에 reasoning 없음), `openrouter/openai/gpt-5.2-chat`(설명은 "adaptive reasoning"이지만 reasoning 파라미터 없음, 조절 불가). gateway API가 reasoning 파라미터를 받는다고 표시하면 다시 본다.
 - `ollama-cloud/mistral-large-3:675b`가 종료됐다는 사실은 이 작업 범위(reasoning) 밖이라 상태를 바꾸지 않았다. 다음 정기 점검 때 처리한다.
 - `npm run audit` open은 작업 전후 모두 1이다(`openrouter/~deepseek/deepseek-pro-latest`, 이 작업과 무관).
+
+# 2026-11-21 `codex` 행 신설, `openai` Pi 전용 행, `openai-codex/gpt-5.6`
+
+ClawPoD Agent가 `openai`·`openai-codex`·`codex` 플러그인이 코드로 지어 넣던 모델 값을 지우기 전에(Agent 3차 묶음 B), 그 값이 catalog에 있게 했다. 추가 32행, 기존 행 변화 0.
+
+| 묶음 | 행 | 값 | 근거 |
+| --- | --- | --- | --- |
+| `codex` 신설 (21) | `openai-codex` 수동 21행과 같은 ID: `gpt-5.1`, `gpt-5.1-codex-max`, `gpt-5.1-codex-mini`, `gpt-5.2`, `gpt-5.2-codex`, `gpt-5.3-codex`, `gpt-5.3-codex-spark`, `gpt-5.4`, `gpt-5.4-mini`, `gpt-5.5`, `gpt-5.5-mini`, `gpt-5.6-luna`/`-sol`/`-terra`, `gpt-6-astra`, `gpt-6-sol`, `gpt-6-luna`, `gpt-6.1-sol`, `gpt-6.1-terra`, `gpt-6.2-astra`, `gpt-6.2-sol` | 같은 ID의 `openai-codex` 행과 이름·창·출력·입력·reasoning·상태·대체 모델이 같음. 가격은 비움(구독형) | Codex 하네스(Agent `extensions/codex/provider.ts`)는 `openai-codex`와 같은 ChatGPT Codex 백엔드(`https://chatgpt.com/backend-api`)를 쓴다. 모델 근거는 `openai-codex`와 같다: https://learn.chatgpt.com/docs/models |
+| `openai` 보완 (10) | `chat-latest`, `gpt-4`, `gpt-4-turbo`, `gpt-4.1-nano`, `gpt-4o-2024-05-13`, `gpt-5-chat-latest`, `o1`, `o1-pro`, `o3-mini`, `o4-mini` | 이름·창·출력·입력·reasoning·가격은 Pi 1.5.2 그대로 | **Pi 판과 파일 해시(승인된 예외):** `@earendil-works/pi-ai@1.5.2` `dist/providers/data/openai.json`(sha256 `df2fe1f312051bbe29801ef903ab370c701a74a680f1370e96eb465eacd1d82d`)의 `openai-responses` 행. 상류 `openai` 블록(36행)에 없는 Pi 행이 정확히 이 10개와 `gpt-5.6-cyber`다 |
+| 위 `openai` 행의 상태 (9) | `gpt-4`, `gpt-4-turbo`, `gpt-4o-2024-05-13`, `o1`, `o1-pro`, `o3-mini` → `disabled`, 대체 `gpt-5.6-sol`. `gpt-4.1-nano` → 대체 `gpt-5.6-luna`. `o4-mini` → 대체 `gpt-5.6-terra`. 모두 2026-10-23 종료. `gpt-5-chat-latest` → `disabled`, 대체 `gpt-5.6-sol`, 2026-07-23 종료 | | https://developers.openai.com/api/docs/deprecations (`.md` 원문, 공지 2026-04-22). `o1-pro`의 문서상 대체는 `gpt-5.6-sol` (`reasoning.mode: pro`)이다. 대체 모델 셋은 상류 `openai`의 활성 행이다 |
+| `openai-codex/gpt-5.6` (1) | `gpt-5.6-sol` 행과 같은 값·상태(`deprecated`), 이름 `gpt-5.6` | | Agent 별칭 행(`extensions/openai/openai-codex-provider.ts`가 `gpt-5.6`을 `gpt-5.6-sol`로 받음). OpenAI API 문서: "The `gpt-5.6` alias routes requests to GPT-5.6 Sol"(https://developers.openai.com/api/docs/models/gpt-5.6). Codex 백엔드가 `gpt-5.6`을 그대로 받는지는 공식 근거가 없어 Agent RND에서 확인한다 |
+
+스크립트·테스트:
+- `scripts/audit-catalog.mjs`: 구독형 목록에 `codex`를 넣었다. `openai-codex`와 같은 구독 백엔드라 토큰 단가가 없다.
+- `tests/catalog.test.mjs`: 보완 provider 목록에 `codex`·`openai`를 넣었다. 게시된 catalog에서 `codex`의 모든 행이 같은 ID의 `openai-codex` 행과 같은지 확인한다. `codex` ID 목록이 `openai-codex` ID 목록에서 `gpt-5.6`만 뺀 것과 같은지도 확인한다. 기존 비채팅 행 테스트는 fixture `openai`에 새 보완 행이 붙으므로, 보완 행을 뺀 ID로 비교하게 고쳤다.
+
+## 넣지 않은 행
+
+| 행 | 이유 |
+| --- | --- |
+| `openai/gpt-5.6-cyber` | **승인제**(3장). https://developers.openai.com/api/docs/models/gpt-5.6-cyber : "help approved defenders …", "available to all Daybreak Red customers. To use it through the API, enable Daybreak Red for the project". https://openai.com/daybreak/ : "we verify applicants and review how they plan to use OpenAI's models before approving access". 일반 공개되면 추가한다(`MAINTAINING.md` 9장 보류 행). 공식 값은 창 400,000·최대 입력 272,000·출력 128,000·text·image·$12.5/$75/cacheRead $1.25이다. Pi의 `cacheWrite` 15.625는 공식 페이지에 없다 |
+| `openai/gpt-5.5-mini`, `openai/gpt-5.5-nano` | https://developers.openai.com/api/docs/models/gpt-5.5-mini 는 404(2026-11-21)이고, 모델 목록과 폐기 문서에도 없다. 값은 Agent 플러그인이 지은 것이라 넣지 않는다(모르면 비운다) |
+
+## 판단과 한계
+
+- `chat-latest`의 상태는 폐기 문서와 모델 목록에 없어 비웠다. 폐기 문서에는 `gpt-5.x-chat-latest`만 있다. 이 행의 Effort 빈칸은 기존 라우터 별칭 규칙(`-latest`, `scripts/thinking.mjs` `isRouterAlias`)으로 이미 known이고 Effort도 채우지 않는다. 그래서 `knownGaps`를 따로 넣지 않았다.
+- 새 `openai` 행의 Effort는 기존 `*` 규칙에서 나온다: `o1`·`o3-mini`·`o4-mini`는 low~high(기본 medium), `o1-pro`는 low~high(기본 없음). 모두 종료된 행이다.
+- `codex` 행의 Effort는 `openai-codex`와 같다. 규칙이 `provider: "*"`이고 정규화 ID로 비교하기 때문이며, 테스트로 고정했다. Codex 하네스는 `max`를 app-server의 `high`로 보낸다(Agent 쪽 사항, catalog는 공식 단계를 그대로 둔다).
+- 재생성 원본은 publish run 44792525826의 artifact다. main `4078af0`과 같은 `sourceGeneratedAt` 1795199248061이다. `git diff models/v1/catalog.json`에서 추가 32행과 최상위 `generatedAt`·`supplementDigest` 말고는 바뀐 것이 없다.
+- `npm run audit` open은 작업 전후 모두 0이다. thinking 누락은 65에서 66이 됐다(`openai/chat-latest`, 라우터 별칭이라 known). 구독형 cost 누락은 111에서 118이 됐다(`codex` 현역 7행, known).

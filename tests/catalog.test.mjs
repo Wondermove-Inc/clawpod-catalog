@@ -16,6 +16,7 @@ import {
 import { MIN_MODELS_DEV_PROVIDERS } from "../scripts/models-dev.mjs";
 import { MIN_OPENROUTER_MODELS } from "../scripts/openrouter.mjs";
 import { publishCatalog } from "../scripts/publish-catalog.mjs";
+import { SUBSCRIPTION_PROVIDERS } from "../scripts/audit-catalog.mjs";
 
 const NOW = Date.UTC(2026, 8, 8);
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -486,6 +487,8 @@ test("committed supplemental data covers the requested providers and preserves p
     Object.keys(s.providers).sort(),
     [
       "openai-codex",
+      "codex",
+      "openai",
       "google",
       "google-vertex",
       "xai",
@@ -583,6 +586,22 @@ test("committed artifact includes every manual model and fits the publication co
   assert.deepEqual(stripTransportKeys(artifact), artifact);
   assert.equal(artifact.pricing, undefined);
   assert.ok(Buffer.byteLength(serializeCatalog(artifact)) <= MAX_PUBLISHED_BYTES);
+});
+
+test("committed artifact gives the Codex harness the same rows as ChatGPT sign-in Codex", () => {
+  const artifact = read(path.join(root, "models/v1/catalog.json"));
+  const codex = artifact.providers.codex;
+  const twin = new Map(artifact.providers["openai-codex"].models.map((m) => [m.id, m]));
+  assert.ok(codex, "missing provider codex");
+  assert.equal(codex.api, artifact.providers["openai-codex"].api);
+  // Same ChatGPT Codex backend: values, lifecycle and effort must not drift apart.
+  for (const m of codex.models) assert.deepEqual(m, twin.get(m.id), `codex/${m.id}`);
+  // gpt-5.6 is only the openai-codex plugin's alias row (REVIEW 2026-11-21).
+  assert.deepEqual(
+    codex.models.map((m) => m.id).sort(),
+    [...twin.keys()].filter((id) => id !== "gpt-5.6").sort(),
+  );
+  assert.ok(SUBSCRIPTION_PROVIDERS.has("codex"));
 });
 
 test("valid JSON with corrupt previous schema or provenance cannot disable rollback protection", () => {
@@ -860,6 +879,10 @@ test("committed non-chat rules drop the reviewed realtime rows", () => {
   };
   const next = buildCatalog(f);
   const ids = (p) => next.providers[p].models.map((m) => m.id);
-  assert.deepEqual(ids("openai"), ["gpt", "gpt-audio"]);
+  const manual = new Set(supplement.providers.openai.models.map((m) => m.id));
+  assert.deepEqual(
+    ids("openai").filter((id) => !manual.has(id)),
+    ["gpt", "gpt-audio"],
+  );
   assert.deepEqual(ids("vercel-ai-gateway"), ["openai/gpt-6.2-sol"]);
 });
