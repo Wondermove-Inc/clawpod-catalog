@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795170804418,
+  "generatedAt": 1795174907098,
   "minVersion": "2026.4.11",
   "sourceCommit": "217bb899f09f044a04424bc6ce23b737e48942bc",
   "providers": {
@@ -6451,8 +6451,7 @@
             "thinkingLevels": [
               "low",
               "medium",
-              "high",
-              "xhigh"
+              "high"
             ],
             "defaultThinkingLevel": "high"
           },
@@ -6481,8 +6480,7 @@
             "thinkingLevels": [
               "low",
               "medium",
-              "high",
-              "xhigh"
+              "high"
             ],
             "defaultThinkingLevel": "high"
           }
@@ -6601,13 +6599,10 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "low"
+              "minimal",
+              "high"
             ],
-            "defaultThinkingLevel": "off",
-            "thinkingLevelLabels": {
-              "low": "on"
-            }
+            "defaultThinkingLevel": "minimal"
           }
         },
         {
@@ -6627,13 +6622,10 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "low"
+              "minimal",
+              "high"
             ],
-            "defaultThinkingLevel": "off",
-            "thinkingLevelLabels": {
-              "low": "on"
-            }
+            "defaultThinkingLevel": "minimal"
           }
         },
         {
@@ -49490,8 +49482,7 @@
             "thinkingLevels": [
               "low",
               "medium",
-              "high",
-              "xhigh"
+              "high"
             ],
             "defaultThinkingLevel": "high"
           }
@@ -55242,5 +55233,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795170786230,
-  "supplementDigest": "ed4c6d569c626ff6994b18d639ea881f17090b9cd8cfd10fe8d8328b7d1b8105"
+  "supplementDigest": "a53e205eb2153140dcf67468149551858e13bd268d1fd22430daeab59f1d8116"
 }
