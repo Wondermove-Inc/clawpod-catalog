@@ -6539,20 +6539,6 @@
     },
     {
       "provider": "*",
-      "model": "gpt-realtime-2-1*",
-      "levels": [
-        "minimal",
-        "low",
-        "medium",
-        "high",
-        "xhigh"
-      ],
-      "default": "low",
-      "source": "https://developers.openai.com/api/reference/resources/realtime/subresources/client_secrets/methods/create",
-      "note": "Realtime session reasoning.effort enum minimal/low/medium/high/xhigh with '(default: \"low\")'; no none."
-    },
-    {
-      "provider": "*",
       "model": "grok-4-20-multi-agent*",
       "levels": [
         "low",
@@ -9765,15 +9751,6 @@
     },
     {
       "provider": "vercel-ai-gateway",
-      "model": "openai/gpt-live-1",
-      "set": {
-        "cost": null
-      },
-      "source": "https://ai-gateway.vercel.sh/v1/models",
-      "note": "Reviewed 2026-11-19: no official per-token price. Realtime audio model, billed per session second (realtime_session_duration_cost_per_second 0.0008334, about $0.05/min). There is no per-token price."
-    },
-    {
-      "provider": "vercel-ai-gateway",
       "model": "reflection/beam",
       "set": {
         "cost": null
@@ -10398,13 +10375,6 @@
   ],
   "knownGaps": [
     {
-      "provider": "vercel-ai-gateway",
-      "model": "openai/gpt-live-1",
-      "check": "model-data",
-      "reason": "Realtime audio model billed per second of session; no official token context/output limits.",
-      "source": "https://ai-gateway.vercel.sh/v1/models"
-    },
-    {
       "provider": "abliteration",
       "model": "abliterated-model",
       "check": "thinking",
@@ -10694,6 +10664,56 @@
       "model": "google/lyria-3-pro-preview",
       "check": "zero-price",
       "reason": "OpenRouter publishes 0 per token with no other charge for this preview model."
+    }
+  ],
+  "nonChatModels": [
+    {
+      "provider": "openai",
+      "model": "gpt-realtime-2.1",
+      "reason": "OpenAI model page lists only the Realtime endpoint (v1/realtime); Chat Completions and Responses are not supported.",
+      "source": "https://developers.openai.com/api/docs/models/gpt-realtime-2.1"
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "openai/gpt-realtime-1.5",
+      "reason": "AI Gateway model type is realtime: used through a WebSocket realtime session, not the chat endpoints. OpenAI model page lists only the Realtime endpoint (v1/realtime); Chat Completions and Responses are not supported.",
+      "source": "https://vercel.com/ai-gateway/models/openai/gpt-realtime-1.5"
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "openai/gpt-realtime-2",
+      "reason": "AI Gateway model type is realtime: used through a WebSocket realtime session, not the chat endpoints. OpenAI model page lists only the Realtime endpoint (v1/realtime); Chat Completions and Responses are not supported.",
+      "source": "https://vercel.com/ai-gateway/models/openai/gpt-realtime-2"
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "openai/gpt-realtime-2.1",
+      "reason": "AI Gateway model type is realtime: used through a WebSocket realtime session, not the chat endpoints. OpenAI model page lists only the Realtime endpoint (v1/realtime); Chat Completions and Responses are not supported.",
+      "source": "https://vercel.com/ai-gateway/models/openai/gpt-realtime-2.1"
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "openai/gpt-realtime-mini",
+      "reason": "AI Gateway model type is realtime: used through a WebSocket realtime session, not the chat endpoints. OpenAI model page lists only the Realtime endpoint (v1/realtime); Chat Completions and Responses are not supported.",
+      "source": "https://vercel.com/ai-gateway/models/openai/gpt-realtime-mini"
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "openai/gpt-live-1",
+      "reason": "AI Gateway model type is realtime: GPT-Live uses its own WebSocket endpoint (v1/live/sessions), not the chat endpoints. OpenAI model page lists only the Live endpoint; Chat Completions and Responses are not supported.",
+      "source": "https://vercel.com/ai-gateway/models/openai/gpt-live-1"
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "google/gemini-3.8-live",
+      "reason": "AI Gateway model type is realtime: used through a WebSocket realtime session, not the chat endpoints. Google lists it as an audio-to-audio Live API model whose only response modality is audio (https://ai.google.dev/gemini-api/docs/models/gemini-3.8-live).",
+      "source": "https://vercel.com/ai-gateway/models/google/gemini-3.8-live"
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "google/gemini-3.8-live-extended-thinking",
+      "reason": "AI Gateway model type is realtime: used through a WebSocket realtime session, not the chat endpoints. Google lists it as an audio-to-audio Live API model whose only response modality is audio (https://ai.google.dev/gemini-api/docs/models/gemini-3.8-live-extended-thinking).",
+      "source": "https://vercel.com/ai-gateway/models/google/gemini-3.8-live-extended-thinking"
     }
   ]
 }

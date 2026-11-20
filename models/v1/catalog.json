@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795166891995,
+  "generatedAt": 1795170332197,
   "minVersion": "2026.4.11",
   "sourceCommit": "7d1d7d035ce611b0d99f52f218ccd7b80297dac5",
   "providers": {
@@ -22128,33 +22128,6 @@
           }
         },
         {
-          "id": "gpt-realtime-2.1",
-          "name": "GPT-Realtime-2.1",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 128000,
-          "maxTokens": 32000,
-          "cost": {
-            "input": 4,
-            "output": 24,
-            "cacheRead": 0.4,
-            "cacheWrite": 0
-          },
-          "compat": {
-            "thinkingLevels": [
-              "minimal",
-              "low",
-              "medium",
-              "high",
-              "xhigh"
-            ],
-            "defaultThinkingLevel": "low"
-          }
-        },
-        {
           "id": "o3",
           "name": "o3",
           "input": [
@@ -31437,38 +31410,6 @@
           }
         },
         {
-          "id": "google/gemini-3.8-live",
-          "name": "Gemini 3.8 Live",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 131072,
-          "maxTokens": 65536,
-          "cost": {
-            "input": 0.75,
-            "output": 4.5,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "google/gemini-3.8-live-extended-thinking",
-          "name": "Gemini 3.8 Live Extended Thinking",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 131072,
-          "maxTokens": 65536,
-          "cost": {
-            "input": 0.75,
-            "output": 4.5,
-            "cacheRead": 0,
-            "cacheWrite": 0
-          }
-        },
-        {
           "id": "google/gemini-4-argon",
           "name": "Gemini 4 Argon",
           "input": [
@@ -34832,14 +34773,6 @@
           }
         },
         {
-          "id": "openai/gpt-live-1",
-          "name": "GPT-Live 1",
-          "input": [
-            "text"
-          ],
-          "reasoning": false
-        },
-        {
           "id": "openai/gpt-oss-120b",
           "name": "GPT OSS 120B",
           "input": [
@@ -34933,80 +34866,6 @@
               "high"
             ],
             "defaultThinkingLevel": "medium"
-          }
-        },
-        {
-          "id": "openai/gpt-realtime-1.5",
-          "name": "GPT-Realtime-1.5",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 32000,
-          "maxTokens": 4096,
-          "cost": {
-            "input": 4,
-            "output": 16,
-            "cacheRead": 0.4,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "openai/gpt-realtime-2",
-          "name": "gpt-realtime-2",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 128000,
-          "maxTokens": 32000,
-          "cost": {
-            "input": 4,
-            "output": 24,
-            "cacheRead": 0.4,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "openai/gpt-realtime-2.1",
-          "name": "gpt-realtime-2.1",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 128000,
-          "maxTokens": 32000,
-          "cost": {
-            "input": 4,
-            "output": 24,
-            "cacheRead": 0.4,
-            "cacheWrite": 0
-          },
-          "compat": {
-            "thinkingLevels": [
-              "minimal",
-              "low",
-              "medium",
-              "high",
-              "xhigh"
-            ],
-            "defaultThinkingLevel": "low"
-          }
-        },
-        {
-          "id": "openai/gpt-realtime-mini",
-          "name": "GPT-Realtime mini",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 32000,
-          "maxTokens": 4096,
-          "cost": {
-            "input": 0.6,
-            "output": 2.4,
-            "cacheRead": 0.06,
-            "cacheWrite": 0
           }
         },
         {
@@ -55383,5 +55242,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795166869862,
-  "supplementDigest": "01895adcc48b73cf539561916c0a3df7c72d883b2f009af1b62fab6d3ff7ef78"
+  "supplementDigest": "ed4c6d569c626ff6994b18d639ea881f17090b9cd8cfd10fe8d8328b7d1b8105"
 }

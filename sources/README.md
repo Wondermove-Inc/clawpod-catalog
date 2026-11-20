@@ -59,7 +59,7 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 
 전체 절차와 판단 기준은 루트의 [MAINTAINING.md](../MAINTAINING.md)에 있습니다. 요약하면 이렇습니다.
 
-1. 알맞은 칸(`providers`, `corrections`, `overrides`, `thinking`, `knownGaps`)을 고치고, 수동 행을 바꿨으면 같은 provider의 `provenance.notes`에 날짜와 요약을 덧붙입니다.
+1. 알맞은 칸(`providers`, `corrections`, `overrides`, `thinking`, `knownGaps`, `nonChatModels`)을 고치고, 수동 행을 바꿨으면 같은 provider의 `provenance.notes`에 날짜와 요약을 덧붙입니다.
 2. 최근 성공한 게시 실행의 `catalog-sources` artifact를 받아 catalog를 재생성합니다. 명령은 MAINTAINING.md 7장에 있고, 로컬에 OpenClaw를 설치할 필요가 없습니다.
 3. `npm test`와 `npm run audit`를 실행하고 입력·출력 diff를 함께 검토합니다. 테스트는 생성 파일에 보완 모델이 모두 반영됐는지도 확인합니다.
 4. 보완 JSON, `REVIEW.md` 기록, 생성된 `models/v1/catalog.json`을 함께 커밋합니다.
@@ -68,7 +68,7 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 
 ## 입력 계약과 병합 규칙
 
-- Root에는 `schemaVersion: 1`, `provenance`, `providers`와 선택적 `corrections`, `overrides`, `thinking`, `knownGaps`만 허용합니다.
+- Root에는 `schemaVersion: 1`, `provenance`, `providers`와 선택적 `corrections`, `overrides`, `thinking`, `knownGaps`, `nonChatModels`만 허용합니다.
 - Provider에는 `api`, 비어 있지 않은 `models`가 필요합니다.
 - Model에는 `id`, `name`, `input`, `reasoning`, `contextWindow`, `maxTokens`가 필요합니다.
   선택 필드는 `api`, `contextTokens`, `cost`, `status`, `replacedBy`입니다.
@@ -155,6 +155,23 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 
 가격 빈칸을 "검토했지만 공식 가격이 없음"으로 확정할 때는 `knownGaps` 대신 `overrides`에 `"cost": null`과 근거를 써도 됩니다.
 upstream이 나중에 근거 없는 가격을 넣어도 계속 비워 둡니다.
+
+## 채팅용이 아닌 행 (`nonChatModels`)
+
+자동으로 들어온 행 중 채팅 API(Chat Completions·Responses·Messages 등)로 쓸 수 없는 모델을 행 단위로 적습니다.
+적힌 행은 병합 직후 catalog에서 빠집니다. Agent는 catalog에 없는 행을 목록에 내지 않습니다.
+
+```json
+{ "provider": "openai", "model": "gpt-realtime-2.1",
+  "reason": "OpenAI model page lists only the Realtime endpoint (v1/realtime); Chat Completions and Responses are not supported.",
+  "source": "https://developers.openai.com/api/docs/models/gpt-realtime-2.1" }
+```
+
+- **항상 provider와 원래 ID로 정확히** 지정합니다. `*`나 접두사는 스키마가 막습니다.
+- `reason`과 `source`(공식 URL)는 필수입니다. 그 모델이 채팅 API를 지원하지 않는다는 공식 근거를 적습니다.
+- 이미지·오디오를 출력하는 모델이라도 채팅 API로 쓸 수 있으면 적지 않습니다(예: OpenRouter의 이미지 모델, OpenAI `gpt-audio`).
+- 뺀 행에 걸리던 `thinking`·`overrides`·`knownGaps` 규칙은 지웁니다.
+- 제조사가 채팅 API를 열면 해당 항목을 지웁니다.
 
 ## 검증된 보정과 날짜 전환
 

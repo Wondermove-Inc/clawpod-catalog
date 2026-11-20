@@ -174,6 +174,12 @@ const knownGapSchema = z
     source: z.url().optional(),
   })
   .strict();
+// An upstream row whose model has no chat API (for example a realtime-only voice
+// model). It is dropped from the catalog. One exact row per rule: no wildcards.
+const exactId = nonempty.refine((id) => id !== "*" && !id.endsWith("*"), "exact ID required");
+const nonChatModelSchema = z
+  .object({ provider: exactId, model: exactId, reason: nonempty, source: z.url() })
+  .strict();
 export const supplementSchema = z
   .object({
     schemaVersion: z.literal(1),
@@ -193,6 +199,7 @@ export const supplementSchema = z
     thinking: z.array(thinkingRuleSchema).optional(),
     overrides: z.array(overrideSchema).optional(),
     knownGaps: z.array(knownGapSchema).optional(),
+    nonChatModels: z.array(nonChatModelSchema).optional(),
   })
   .strict();
 
@@ -279,6 +286,15 @@ export function applyCorrections(providers, corrections = [], now = Date.now()) 
       model.status = correction.to;
       if (correction.replacedBy) model.replacedBy = correction.replacedBy;
     }
+  }
+  return result;
+}
+
+export function dropNonChatModels(providers, rules = []) {
+  const drop = new Set(rules.map((rule) => `${rule.provider}\u0000${rule.model}`));
+  const result = structuredClone(providers);
+  for (const [provider, entry] of Object.entries(result)) {
+    entry.models = entry.models.filter((model) => !drop.has(`${provider}\u0000${model.id}`));
   }
   return result;
 }
@@ -390,7 +406,10 @@ export function buildCatalog({
     providers: applyThinking(
       applyOverrides(
         applyCorrections(
-          mergeProviders(rest.providers, supplement.providers),
+          dropNonChatModels(
+            mergeProviders(rest.providers, supplement.providers),
+            supplement.nonChatModels,
+          ),
           supplement.corrections,
           now,
         ),
