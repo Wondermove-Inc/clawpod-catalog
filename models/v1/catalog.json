@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795166621279,
+  "generatedAt": 1795166891995,
   "minVersion": "2026.4.11",
-  "sourceCommit": "a4b3ef2814900a2084877214f57764aee55a262b",
+  "sourceCommit": "7d1d7d035ce611b0d99f52f218ccd7b80297dac5",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -3849,9 +3849,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.135,
-            "output": 0.45,
-            "cacheRead": 0.027000000000000003,
+            "input": 0.10049999999999999,
+            "output": 0.33499999999999996,
+            "cacheRead": 0.0201,
             "cacheWrite": 0
           },
           "compat": {
@@ -7059,7 +7059,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 384000,
+          "maxTokens": 943718,
           "cost": {
             "input": 0.44,
             "output": 1.32,
@@ -8328,32 +8328,6 @@
           }
         },
         {
-          "id": "cohere/north-mini-code:free",
-          "name": "Cohere: North Mini Code (free)",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 256000,
-          "maxTokens": 64000,
-          "status": "deprecated",
-          "statusReason": "kilocode no longer lists this model in its public model inventory.",
-          "cost": {
-            "input": 0,
-            "output": 0
-          },
-          "compat": {
-            "thinkingLevels": [
-              "off",
-              "low"
-            ],
-            "defaultThinkingLevel": "low",
-            "thinkingLevelLabels": {
-              "low": "on"
-            }
-          }
-        },
-        {
           "id": "deepseek/deepseek-chat",
           "name": "DeepSeek Chat",
           "input": [
@@ -8723,7 +8697,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 393216,
           "cost": {
             "input": 0.3,
             "output": 1.2,
@@ -10425,9 +10399,9 @@
           "contextWindow": 1048576,
           "maxTokens": 524288,
           "cost": {
-            "input": 0.075,
-            "output": 0.3,
-            "cacheRead": 0.0075,
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.015,
             "cacheWrite": 0
           },
           "compat": {
@@ -13765,9 +13739,9 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.03,
+            "input": 0.035,
             "output": 0.25,
-            "cacheRead": 0.0015,
+            "cacheRead": 0.003,
             "cacheWrite": 0
           },
           "compat": {
@@ -15548,7 +15522,7 @@
         },
         {
           "id": "x-ai/grok-4.20",
-          "name": "SpaceXAI: Grok 4.20",
+          "name": "SpaceXSI: Grok 4.20",
           "input": [
             "text",
             "image",
@@ -15575,7 +15549,7 @@
         },
         {
           "id": "x-ai/grok-4.20-multi-agent-beta",
-          "name": "SpaceXAI: Grok 4.20 Multi Agent Beta",
+          "name": "SpaceXSI: Grok 4.20 Multi Agent Beta",
           "input": [
             "text",
             "image",
@@ -15602,7 +15576,7 @@
         },
         {
           "id": "x-ai/grok-4.20-non-reasoning",
-          "name": "SpaceXAI: Grok 4.20 Non-Reasoning",
+          "name": "SpaceXSI: Grok 4.20 Non-Reasoning",
           "input": [
             "text",
             "image",
@@ -15620,7 +15594,7 @@
         },
         {
           "id": "x-ai/grok-4.20-non-reasoning-beta",
-          "name": "SpaceXAI: Grok 4.20 Beta Non-Reasoning",
+          "name": "SpaceXSI: Grok 4.20 Beta Non-Reasoning",
           "input": [
             "text",
             "image",
@@ -15638,7 +15612,7 @@
         },
         {
           "id": "x-ai/grok-4.20-reasoning",
-          "name": "SpaceXAI: Grok 4.20 Reasoning",
+          "name": "SpaceXSI: Grok 4.20 Reasoning",
           "input": [
             "text",
             "image",
@@ -15665,7 +15639,7 @@
         },
         {
           "id": "x-ai/grok-4.20-reasoning-beta",
-          "name": "SpaceXAI: Grok 4.20 Beta Reasoning",
+          "name": "SpaceXSI: Grok 4.20 Beta Reasoning",
           "input": [
             "text",
             "image",
@@ -15997,7 +15971,7 @@
           "cost": {
             "input": 0.3,
             "output": 0.9,
-            "cacheRead": 0.05,
+            "cacheRead": 0.055,
             "cacheWrite": 0
           },
           "compat": {
@@ -16271,8 +16245,8 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048575,
-          "maxTokens": 943717,
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
           "cost": {
             "input": 0.15,
             "output": 0.5,
@@ -42088,9 +42062,9 @@
           "contextWindow": 1000000,
           "maxTokens": 262144,
           "cost": {
-            "input": 0.045,
-            "output": 0.135,
-            "cacheRead": 0.009
+            "input": 0.06,
+            "output": 0.18,
+            "cacheRead": 0.012
           },
           "compat": {
             "thinkingLevels": [
@@ -48907,7 +48881,7 @@
           "cost": {
             "input": 0.3,
             "output": 0.9,
-            "cacheRead": 0.055
+            "cacheRead": 0.05
           },
           "compat": {
             "thinkingLevels": [
@@ -55408,6 +55382,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1795156581491,
+  "sourceGeneratedAt": 1795166869862,
   "supplementDigest": "01895adcc48b73cf539561916c0a3df7c72d883b2f009af1b62fab6d3ff7ef78"
 }
