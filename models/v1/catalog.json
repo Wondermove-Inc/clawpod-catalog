@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795177836524,
+  "generatedAt": 1795199265735,
   "minVersion": "2026.4.11",
-  "sourceCommit": "c8931b32d3d632aee4aaba45ef7e7a229564ffc0",
+  "sourceCommit": "7af6a10fd32884e50c06822723f853dafc5a1b1b",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -15963,7 +15963,7 @@
           "cost": {
             "input": 0.3,
             "output": 0.9,
-            "cacheRead": 0.055,
+            "cacheRead": 0.05,
             "cacheWrite": 0
           },
           "compat": {
@@ -38488,9 +38488,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.2565,
+            "input": 0.0999,
             "output": 8,
-            "cacheRead": 0.26
+            "cacheRead": 0.0999
           },
           "compat": {
             "thinkingLevels": [
@@ -38510,11 +38510,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 131072,
           "cost": {
-            "input": 0.047,
-            "output": 0.3,
-            "cacheRead": 0.035
+            "input": 0.044,
+            "output": 0.132,
+            "cacheRead": 0.0014
           },
           "compat": {
             "thinkingLevels": [
@@ -40345,7 +40345,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.047,
+            "input": 0.0443,
             "output": 0.3,
             "cacheRead": 0.035
           },
@@ -41638,10 +41638,11 @@
           ],
           "reasoning": false,
           "contextWindow": 131072,
-          "maxTokens": 16384,
+          "maxTokens": 117964,
           "cost": {
             "input": 0.08,
-            "output": 0.16
+            "output": 0.45,
+            "cacheRead": 0.04
           }
         },
         {
@@ -42603,9 +42604,9 @@
           "contextWindow": 1048576,
           "maxTokens": 524288,
           "cost": {
-            "input": 0.15,
-            "output": 0.6,
-            "cacheRead": 0.015
+            "input": 0.075,
+            "output": 0.3,
+            "cacheRead": 0.0075
           },
           "compat": {
             "thinkingLevels": [
@@ -46875,10 +46876,10 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 81920,
+          "maxTokens": 65536,
           "cost": {
-            "input": 0.26,
-            "output": 2.6
+            "input": 0.195,
+            "output": 1.56
           },
           "compat": {
             "thinkingLevels": [
@@ -47287,7 +47288,7 @@
           "maxTokens": 235929,
           "cost": {
             "input": 0.06,
-            "output": 2.2,
+            "output": 1.96,
             "cacheRead": 0.059
           },
           "compat": {
@@ -47868,9 +47869,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625
           },
           "compat": {
             "thinkingLevels": [
@@ -47960,9 +47961,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378
           },
           "compat": {
             "thinkingLevels": [
@@ -55232,6 +55233,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1795177815520,
+  "sourceGeneratedAt": 1795199248061,
   "supplementDigest": "a53e205eb2153140dcf67468149551858e13bd268d1fd22430daeab59f1d8116"
 }
