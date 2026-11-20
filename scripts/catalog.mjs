@@ -134,6 +134,8 @@ const overrideSchema = z
         name: nonempty.optional(),
         reasoning: z.boolean().optional(),
         contextWindow: z.number().int().positive().optional(),
+        // Effective budget below the window; for rows upstream leaves without one.
+        contextTokens: z.number().int().positive().optional(),
         maxTokens: z.number().int().positive().optional(),
         // Same shape as upstream rows: base rates plus optional context-length tiers.
         cost: z

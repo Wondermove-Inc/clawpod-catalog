@@ -9993,6 +9993,407 @@
       },
       "source": "https://www.alibabacloud.com/help/en/model-studio/model-depreciation",
       "note": "Reviewed 2026-11-19: listed as deprecated on 2026-10-10 and removed from the Model Studio price list."
+    },
+    {
+      "provider": "openai",
+      "model": "gpt-5.4",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.4",
+      "note": "Reviewed 2026-11-20: upstream row has no contextTokens; sibling openai rows carry 272000 from upstream. Official page: prompts over 272K input tokens are billed at the long-context rate (a pricing boundary, not a published budget)."
+    },
+    {
+      "provider": "openai",
+      "model": "gpt-6.1-terra",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.1-terra",
+      "note": "Reviewed 2026-11-20: upstream row has no contextTokens; sibling openai rows carry 272000 from upstream. Official page: prompts over 272K input tokens are billed at the long-context rate (a pricing boundary, not a published budget)."
+    },
+    {
+      "provider": "openrouter",
+      "model": "openai/gpt-5.6-luna",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-luna",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-5.6-luna row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "openrouter",
+      "model": "openai/gpt-5.6-sol",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-sol",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-5.6-sol row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "openrouter",
+      "model": "openai/gpt-5.6-terra",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-terra",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-5.6-terra row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "openrouter",
+      "model": "openai/gpt-6-astra",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-astra",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6-astra row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "openrouter",
+      "model": "openai/gpt-6-luna",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-luna",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6-luna row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "openrouter",
+      "model": "openai/gpt-6-sol",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-sol",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6-sol row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "openrouter",
+      "model": "openai/gpt-6.1-sol",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6.1-sol row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "openrouter",
+      "model": "openai/gpt-6.2-astra",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.2-astra",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6.2-astra row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "openrouter",
+      "model": "openai/gpt-6.2-sol",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.2-sol",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6.2-sol row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "kilocode",
+      "model": "openai/gpt-5.6-luna",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-luna",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-5.6-luna row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "kilocode",
+      "model": "openai/gpt-5.6-sol",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-sol",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-5.6-sol row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "kilocode",
+      "model": "openai/gpt-5.6-terra",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-terra",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-5.6-terra row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "kilocode",
+      "model": "openai/gpt-6-astra",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-astra",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6-astra row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "kilocode",
+      "model": "openai/gpt-6-luna",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-luna",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6-luna row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "kilocode",
+      "model": "openai/gpt-6-sol",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-sol",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6-sol row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "kilocode",
+      "model": "openai/gpt-6.1-sol",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6.1-sol row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "kilocode",
+      "model": "openai/gpt-6.2-astra",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.2-astra",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6.2-astra row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "kilocode",
+      "model": "openai/gpt-6.2-sol",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.2-sol",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6.2-sol row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "openai/gpt-5.6-luna",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-luna",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-5.6-luna row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "openai/gpt-5.6-sol",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-sol",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-5.6-sol row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "openai/gpt-5.6-terra",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-terra",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-5.6-terra row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "openai/gpt-6-astra",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-astra",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6-astra row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "openai/gpt-6-luna",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-luna",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6-luna row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "openai/gpt-6-sol",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6-sol",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6-sol row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "openai/gpt-6.1-sol",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.1-sol",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6.1-sol row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "openai/gpt-6.2-astra",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.2-astra",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6.2-astra row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "openai/gpt-6.2-sol",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.2-sol",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6.2-sol row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "novita",
+      "model": "openai/gpt-6.2-astra",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.2-astra",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6.2-astra row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "novita",
+      "model": "openai/gpt-6.2-sol",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.2-sol",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6.2-sol row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "gmi",
+      "model": "openai/gpt-5.6-sol",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-sol",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-5.6-sol row (272000 from upstream). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "kilocode",
+      "model": "openai/gpt-5.4",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.4",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-5.4 row (272000, set by an override in this file). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "openai/gpt-5.4",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.4",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-5.4 row (272000, set by an override in this file). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "openrouter",
+      "model": "openai/gpt-5.4",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.4",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-5.4 row (272000, set by an override in this file). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "kilocode",
+      "model": "openai/gpt-6.1-terra",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.1-terra",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6.1-terra row (272000, set by an override in this file). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "novita",
+      "model": "openai/gpt-6.1-terra",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.1-terra",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6.1-terra row (272000, set by an override in this file). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "openai/gpt-6.1-terra",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.1-terra",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6.1-terra row (272000, set by an override in this file). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "openrouter",
+      "model": "openai/gpt-6.1-terra",
+      "set": {
+        "contextTokens": 272000
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-6.1-terra",
+      "note": "Reviewed 2026-11-20: aggregator row has no contextTokens; same budget as the direct openai/gpt-6.1-terra row (272000, set by an override in this file). Official page: prompts over 272K input tokens are billed at the long-context rate."
+    },
+    {
+      "provider": "github-copilot",
+      "model": "gpt-5.4",
+      "set": {
+        "contextTokens": 128000,
+        "maxTokens": 8192
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
+      "note": "Not an official value: no per-model Copilot limit is published; keeps the Agent's current budget (clawpod-agent extensions/github-copilot/models-defaults.ts). Approved exception, reviewed 2026-11-20."
+    },
+    {
+      "provider": "github-copilot",
+      "model": "gpt-5.4-mini",
+      "set": {
+        "contextTokens": 128000,
+        "maxTokens": 8192
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
+      "note": "Not an official value: no per-model Copilot limit is published; keeps the Agent's current budget (clawpod-agent extensions/github-copilot/models-defaults.ts). Approved exception, reviewed 2026-11-20."
+    },
+    {
+      "provider": "github-copilot",
+      "model": "gpt-5.5",
+      "set": {
+        "contextTokens": 128000,
+        "maxTokens": 8192
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
+      "note": "Not an official value: no per-model Copilot limit is published; keeps the Agent's current budget (clawpod-agent extensions/github-copilot/models-defaults.ts). Approved exception, reviewed 2026-11-20."
+    },
+    {
+      "provider": "github-copilot",
+      "model": "gemini-2.5-pro",
+      "set": {
+        "contextTokens": 128000,
+        "maxTokens": 8192
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
+      "note": "Not an official value: no per-model Copilot limit is published; keeps the Agent's current budget (clawpod-agent extensions/github-copilot/models-defaults.ts). Approved exception, reviewed 2026-11-20."
+    },
+    {
+      "provider": "github-copilot",
+      "model": "gemini-3.5-flash",
+      "set": {
+        "contextTokens": 128000,
+        "maxTokens": 8192
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
+      "note": "Not an official value: no per-model Copilot limit is published; keeps the Agent's current budget (clawpod-agent extensions/github-copilot/models-defaults.ts). Approved exception, reviewed 2026-11-20."
     }
   ],
   "knownGaps": [

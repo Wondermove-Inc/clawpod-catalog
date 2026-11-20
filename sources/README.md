@@ -129,7 +129,8 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 
 - 모델 찾는 방식은 `thinking` 규칙과 같습니다(정확한 ID, `*`로 끝나는 접두사, `provider: "*"`는 정규화한 ID).
   `thinking`과 달리 맞는 규칙이 모두 순서대로 적용됩니다.
-- `set`에 쓸 수 있는 필드는 `name`, `reasoning`, `contextWindow`, `maxTokens`, `cost`(`tieredPricing` 포함), `replacedBy`, `status`(`deprecated`·`disabled`)입니다.
+- `set`에 쓸 수 있는 필드는 `name`, `reasoning`, `contextWindow`, `contextTokens`, `maxTokens`, `cost`(`tieredPricing` 포함), `replacedBy`, `status`(`deprecated`·`disabled`)입니다.
+  `contextTokens`는 창(`contextWindow`)보다 작은 실사용 입력 예산입니다. 상류 행에 없을 때 넣습니다.
   `null`은 필드를 지웁니다. 가격을 모르면 0이 아니라 `"cost": null`로 비웁니다.
 - `reasoning: false`로 바꾸면 그 모델의 Thinking Effort 값도 함께 지웁니다.
 - 적용 순서: 병합 → `corrections` → `overrides` → `thinking`.

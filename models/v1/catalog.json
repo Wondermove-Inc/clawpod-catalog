@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795156596875,
+  "generatedAt": 1795166621279,
   "minVersion": "2026.4.11",
   "sourceCommit": "a4b3ef2814900a2084877214f57764aee55a262b",
   "providers": {
@@ -4923,7 +4923,7 @@
             "image"
           ],
           "contextWindow": 1048576,
-          "maxTokens": 65536,
+          "maxTokens": 8192,
           "cost": {
             "input": 1.25,
             "output": 10,
@@ -4946,7 +4946,8 @@
           },
           "replacedBy": "gemini-3.1-pro-preview",
           "status": "deprecated",
-          "reasoning": true
+          "reasoning": true,
+          "contextTokens": 128000
         },
         {
           "id": "gemini-3.1-pro-preview",
@@ -4988,7 +4989,7 @@
             "image"
           ],
           "contextWindow": 1048576,
-          "maxTokens": 65536,
+          "maxTokens": 8192,
           "cost": {
             "input": 1.5,
             "output": 9,
@@ -5011,7 +5012,8 @@
           },
           "replacedBy": "gemini-3.6-flash",
           "status": "deprecated",
-          "reasoning": true
+          "reasoning": true,
+          "contextTokens": 128000
         },
         {
           "id": "gemini-3.6-flash",
@@ -5092,7 +5094,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1050000,
-          "maxTokens": 128000,
+          "maxTokens": 8192,
           "cost": {
             "input": 2.5,
             "output": 15,
@@ -5143,7 +5145,8 @@
             "max": null,
             "minimal": "low",
             "xhigh": "xhigh"
-          }
+          },
+          "contextTokens": 128000
         },
         {
           "id": "gpt-5.4-mini",
@@ -5154,8 +5157,8 @@
           ],
           "reasoning": true,
           "contextWindow": 400000,
-          "contextTokens": 272000,
-          "maxTokens": 128000,
+          "contextTokens": 128000,
+          "maxTokens": 8192,
           "cost": {
             "input": 0.75,
             "output": 4.5,
@@ -5196,8 +5199,8 @@
           ],
           "reasoning": true,
           "contextWindow": 1050000,
-          "contextTokens": 272000,
-          "maxTokens": 128000,
+          "contextTokens": 128000,
+          "maxTokens": 8192,
           "cost": {
             "input": 5,
             "output": 30,
@@ -5862,7 +5865,8 @@
               "max"
             ],
             "defaultThinkingLevel": "medium"
-          }
+          },
+          "contextTokens": 272000
         },
         {
           "id": "Qwen/Qwen3.7-Max",
@@ -12308,6 +12312,7 @@
             "cacheRead": 0.25,
             "cacheWrite": 0
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -12556,6 +12561,7 @@
             "cacheRead": 0.02,
             "cacheWrite": 0.25
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -12643,6 +12649,7 @@
             "cacheRead": 0.4,
             "cacheWrite": 5
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -12730,6 +12737,7 @@
             "cacheRead": 0.2,
             "cacheWrite": 2.5
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -12817,6 +12825,7 @@
             "cacheRead": 1,
             "cacheWrite": 12.5
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "low",
@@ -12901,6 +12910,7 @@
             "cacheRead": 0.01,
             "cacheWrite": 0.125
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -12988,6 +12998,7 @@
             "cacheRead": 0.2,
             "cacheWrite": 2.5
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -13075,6 +13086,7 @@
             "cacheRead": 0.1,
             "cacheWrite": 2.5
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "low",
@@ -13159,6 +13171,7 @@
             "cacheRead": 0.05,
             "cacheWrite": 1.25
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -13245,6 +13258,7 @@
             "cacheRead": 0.4,
             "cacheWrite": 10
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "low",
@@ -13329,6 +13343,7 @@
             "cacheRead": 0.1,
             "cacheWrite": 2.5
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "low",
@@ -18658,6 +18673,7 @@
           },
           "status": "deprecated",
           "statusReason": "novita no longer lists this model in its public model inventory.",
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -18710,6 +18726,7 @@
           },
           "status": "deprecated",
           "statusReason": "novita no longer lists this model in its public model inventory.",
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "low",
@@ -18761,6 +18778,7 @@
           },
           "status": "deprecated",
           "statusReason": "novita no longer lists this model in its public model inventory.",
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "low",
@@ -21103,6 +21121,7 @@
               }
             ]
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -21880,6 +21899,7 @@
               }
             ]
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -33540,6 +33560,7 @@
               }
             ]
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -33872,6 +33893,7 @@
               }
             ]
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -33972,6 +33994,7 @@
               }
             ]
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -34072,6 +34095,7 @@
               }
             ]
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -34172,6 +34196,7 @@
               }
             ]
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "low",
@@ -34270,6 +34295,7 @@
               }
             ]
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -34370,6 +34396,7 @@
               }
             ]
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -34470,6 +34497,7 @@
               }
             ]
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "low",
@@ -34568,6 +34596,7 @@
               }
             ]
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -34668,6 +34697,7 @@
               }
             ]
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "low",
@@ -34766,6 +34796,7 @@
               }
             ]
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "low",
@@ -44651,6 +44682,7 @@
             "output": 15,
             "cacheRead": 0.25
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -44978,6 +45010,7 @@
             "cacheRead": 0.02,
             "cacheWrite": 0.25
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -45088,6 +45121,7 @@
             "cacheRead": 0.4,
             "cacheWrite": 5
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -45200,6 +45234,7 @@
             "cacheRead": 0.2,
             "cacheWrite": 2.5
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -45310,6 +45345,7 @@
             "cacheRead": 1,
             "cacheWrite": 12.5
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "low",
@@ -45418,6 +45454,7 @@
             "cacheRead": 0.01,
             "cacheWrite": 0.125
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -45530,6 +45567,7 @@
             "cacheRead": 0.2,
             "cacheWrite": 2.5
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -45642,6 +45680,7 @@
             "cacheRead": 0.1,
             "cacheWrite": 2.5
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "low",
@@ -45750,6 +45789,7 @@
             "cacheRead": 0.05,
             "cacheWrite": 1.25
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "off",
@@ -45860,6 +45900,7 @@
             "cacheRead": 0.4,
             "cacheWrite": 10
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "low",
@@ -45968,6 +46009,7 @@
             "cacheRead": 0.1,
             "cacheWrite": 2.5
           },
+          "contextTokens": 272000,
           "compat": {
             "thinkingLevels": [
               "low",
@@ -55367,5 +55409,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795156581491,
-  "supplementDigest": "47b3cf526500f14adbac4f5b193449b0123d97d8656fe0213b17fa52bad356a6"
+  "supplementDigest": "01895adcc48b73cf539561916c0a3df7c72d883b2f009af1b62fab6d3ff7ef78"
 }
