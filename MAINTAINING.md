@@ -42,9 +42,9 @@
 | 구분 | provider | 새 모델 |
 | --- | --- | --- |
 | 자동 | OpenClaw가 만드는 provider 전부(`anthropic`, `openai`, `google`, `xai`, `zai`, `ollama-cloud`, 중계 provider 등), `openrouter` | 6시간마다 자동 추가 |
-| 수동 | `openai-codex`, `amazon-bedrock`, `amazon-bedrock-mantle`, `anthropic-vertex`, `google-vertex`, `minimax-portal` (그 밖에 수동 파일 `providers`에 있는 행) | 사람이 공식 문서를 보고 추가 |
+| 수동 | `openai-codex`, `codex`, `amazon-bedrock`, `amazon-bedrock-mantle`, `anthropic-vertex`, `google-vertex`, `minimax-portal` (그 밖에 수동 파일 `providers`에 있는 행) | 사람이 공식 문서를 보고 추가 |
 
-`google`, `xai`, `zai`, `minimax`는 자동 행과 수동 행이 섞여 있습니다. 수동 파일 `providers`에 있는 ID가 해당 provider의 수동 행입니다.
+`openai`, `google`, `xai`, `zai`, `minimax`는 자동 행과 수동 행이 섞여 있습니다. 수동 파일 `providers`에 있는 ID가 해당 provider의 수동 행입니다.
 
 ## 2. 파일 지도
 
@@ -89,7 +89,7 @@ npm run audit                                          # 전수 검사: open 항
 
 | 대상 | 공식 출처 |
 | --- | --- |
-| Codex(`openai-codex`) 모델·종료 | https://learn.chatgpt.com/docs/models (페이지 원문을 직접 받아 확인. 요약 도구는 모델명을 섞어서 답한 적이 있음) |
+| Codex(`openai-codex`, `codex`) 모델·종료 | https://learn.chatgpt.com/docs/models (페이지 원문을 직접 받아 확인. 요약 도구는 모델명을 섞어서 답한 적이 있음). `codex`(Codex 하네스)는 같은 백엔드라 `openai-codex`와 같은 행을 둡니다. `openai-codex`를 고치면 `codex`도 같이 고칩니다(`openai-codex`의 Agent 별칭 `gpt-5.6`만 예외, 테스트가 확인) |
 | Bedrock 모델 ID·지역 profile | AWS 모델 카드 `https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-<vendor>-<model>.html` |
 | Bedrock 가격 | AWS Price List feed `https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonBedrock/current/us-east-1/index.json`, 그리고 `AmazonBedrockFoundationModels` offer(Claude Global 가격은 여기에 있음). 가격 페이지는 JS로 로딩되므로 feed를 받아서 확인 |
 | Bedrock 수명주기 | https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html |
@@ -254,7 +254,7 @@ npm run audit
 | 시점 | 항목 |
 | --- | --- |
 | 마지막 정기 점검 | **2026-11-19** (다음 점검 때 `npm run candidates -- --since 2026-11-19`). 이 날 `npm run audit` open 0, 후보는 아래 보류 1건뿐 |
-| 보류 (승인제) | Vertex Gemini 4 Neon(11/18, verified enterprise customers 전용). 일반 공개되면 추가: Global $3/$15/cacheRead $0.15, 한 번 응답 65,536, 단계 low~xhigh 기본 high(`thinking` 규칙 이미 있음). 단, 아래 "Agent Pi 갱신 시" 행이 남아 있으면 `google-vertex`/`gemini-4-neon` 규칙(low~high)도 함께 넣습니다 |
+| 보류 (승인제) | `openai/gpt-5.6-cyber`(11/21, Daybreak Red 승인 고객 전용). 일반 공개되면 Pi 1.5.2 값(창 400,000·`contextTokens` 272,000·출력 128,000, text·image)과 공식 가격으로 추가. Vertex Gemini 4 Neon(11/18, verified enterprise customers 전용). 일반 공개되면 추가: Global $3/$15/cacheRead $0.15, 한 번 응답 65,536, 단계 low~xhigh 기본 high(`thinking` 규칙 이미 있음). 단, 아래 "Agent Pi 갱신 시" 행이 남아 있으면 `google-vertex`/`gemini-4-neon` 규칙(low~high)도 함께 넣습니다 |
 | 2026-12-01 이후 | Gemini 2.5 Pro/Flash가 새 모델로 라우팅됨. `google` provider의 Gemini 2.5 Effort 규칙을 재검토. 자동 provider `google`의 Gemini 4 Argon/Carbon 가격 인상이 반영됐는지 확인(`google-vertex`는 날짜 규칙으로 자동) |
 | 2027-01-12 이후 | Gemini 4 Hydrogen(그리고 Neon)의 캐시 쓰기 요금(입력의 1.25배)이 생김. `google-vertex` 행에 `cacheWrite` 추가 |
 | 수시 | 무료·프로모션 0원 모델의 유료 전환: Glyph Cluster, Flint(Kilo·Vercel)와 무료 변형 14개(kilocode `:free`, vercel `-free`). 가격 0은 `overrides`에 있으니, 출처 API에서 가격이 생기면 해당 규칙을 지우거나 고칩니다 |

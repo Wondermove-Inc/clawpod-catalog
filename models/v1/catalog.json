@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795199265735,
+  "generatedAt": 1795212282827,
   "minVersion": "2026.4.11",
   "sourceCommit": "7af6a10fd32884e50c06822723f853dafc5a1b1b",
   "providers": {
@@ -22161,6 +22161,223 @@
             "cacheRead": 0,
             "cacheWrite": 0
           },
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "chat-latest",
+          "name": "Chat Latest",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 400000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 5,
+            "output": 30,
+            "cacheRead": 0.5,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "gpt-4",
+          "name": "GPT-4",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 8192,
+          "maxTokens": 8192,
+          "cost": {
+            "input": 30,
+            "output": 60,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "status": "disabled",
+          "replacedBy": "gpt-5.6-sol"
+        },
+        {
+          "id": "gpt-4-turbo",
+          "name": "GPT-4 Turbo",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": false,
+          "contextWindow": 128000,
+          "maxTokens": 4096,
+          "cost": {
+            "input": 10,
+            "output": 30,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "status": "disabled",
+          "replacedBy": "gpt-5.6-sol"
+        },
+        {
+          "id": "gpt-4.1-nano",
+          "name": "GPT-4.1 nano",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": false,
+          "contextWindow": 1047576,
+          "maxTokens": 32768,
+          "cost": {
+            "input": 0.1,
+            "output": 0.4,
+            "cacheRead": 0.025,
+            "cacheWrite": 0
+          },
+          "status": "disabled",
+          "replacedBy": "gpt-5.6-luna"
+        },
+        {
+          "id": "gpt-4o-2024-05-13",
+          "name": "GPT-4o (2024-05-13)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": false,
+          "contextWindow": 128000,
+          "maxTokens": 4096,
+          "cost": {
+            "input": 5,
+            "output": 15,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "status": "disabled",
+          "replacedBy": "gpt-5.6-sol"
+        },
+        {
+          "id": "gpt-5-chat-latest",
+          "name": "GPT-5 Chat Latest",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": false,
+          "contextWindow": 128000,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 1.25,
+            "output": 10,
+            "cacheRead": 0.125,
+            "cacheWrite": 0
+          },
+          "status": "disabled",
+          "replacedBy": "gpt-5.6-sol"
+        },
+        {
+          "id": "o1",
+          "name": "o1",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 200000,
+          "maxTokens": 100000,
+          "cost": {
+            "input": 15,
+            "output": 60,
+            "cacheRead": 7.5,
+            "cacheWrite": 0
+          },
+          "status": "disabled",
+          "replacedBy": "gpt-5.6-sol",
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "o1-pro",
+          "name": "o1-pro",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 200000,
+          "maxTokens": 100000,
+          "cost": {
+            "input": 150,
+            "output": 600,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "status": "disabled",
+          "replacedBy": "gpt-5.6-sol",
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high"
+            ]
+          }
+        },
+        {
+          "id": "o3-mini",
+          "name": "o3-mini",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 200000,
+          "maxTokens": 100000,
+          "cost": {
+            "input": 1.1,
+            "output": 4.4,
+            "cacheRead": 0.55,
+            "cacheWrite": 0
+          },
+          "status": "disabled",
+          "replacedBy": "gpt-5.6-sol",
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "o4-mini",
+          "name": "o4-mini",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 200000,
+          "maxTokens": 100000,
+          "cost": {
+            "input": 1.1,
+            "output": 4.4,
+            "cacheRead": 0.275,
+            "cacheWrite": 0
+          },
+          "status": "disabled",
+          "replacedBy": "gpt-5.6-terra",
           "compat": {
             "thinkingLevels": [
               "low",
@@ -55228,11 +55445,498 @@
             ],
             "defaultThinkingLevel": "medium"
           }
+        },
+        {
+          "id": "gpt-5.6",
+          "name": "gpt-5.6",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000,
+          "status": "deprecated",
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        }
+      ]
+    },
+    "codex": {
+      "api": "openai-codex-responses",
+      "models": [
+        {
+          "id": "gpt-5.1",
+          "name": "GPT-5.1",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000,
+          "status": "deprecated",
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "off"
+          }
+        },
+        {
+          "id": "gpt-5.1-codex-max",
+          "name": "GPT-5.1 Codex Max",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000,
+          "status": "deprecated",
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "gpt-5.1-codex-mini",
+          "name": "GPT-5.1 Codex Mini",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000,
+          "status": "deprecated",
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "gpt-5.2",
+          "name": "GPT-5.2",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000,
+          "status": "deprecated",
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ],
+            "defaultThinkingLevel": "off"
+          }
+        },
+        {
+          "id": "gpt-5.2-codex",
+          "name": "GPT-5.2 Codex",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000,
+          "status": "deprecated",
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "gpt-5.3-codex",
+          "name": "GPT-5.3 Codex",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000,
+          "status": "deprecated",
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "gpt-5.3-codex-spark",
+          "name": "gpt-5.3-codex-spark",
+          "api": "openai-codex-responses",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 128000,
+          "maxTokens": 128000,
+          "status": "disabled"
+        },
+        {
+          "id": "gpt-5.4",
+          "name": "GPT-5.4",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000,
+          "status": "disabled",
+          "replacedBy": "gpt-6-sol",
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ],
+            "defaultThinkingLevel": "off"
+          }
+        },
+        {
+          "id": "gpt-5.4-mini",
+          "name": "GPT-5.4 Mini",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000,
+          "status": "disabled",
+          "replacedBy": "gpt-6-luna",
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ],
+            "defaultThinkingLevel": "off"
+          }
+        },
+        {
+          "id": "gpt-5.5",
+          "name": "gpt-5.5",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000,
+          "status": "disabled",
+          "replacedBy": "gpt-6.1-sol",
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "gpt-5.5-mini",
+          "name": "gpt-5.5-mini",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000,
+          "status": "deprecated"
+        },
+        {
+          "id": "gpt-5.6-luna",
+          "name": "gpt-5.6-luna",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000,
+          "status": "deprecated",
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "gpt-5.6-sol",
+          "name": "gpt-5.6-sol",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000,
+          "status": "deprecated",
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "gpt-5.6-terra",
+          "name": "gpt-5.6-terra",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000,
+          "status": "deprecated",
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "gpt-6-astra",
+          "name": "gpt-6-astra",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000,
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "gpt-6-sol",
+          "name": "gpt-6-sol",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000,
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "gpt-6.1-sol",
+          "name": "gpt-6.1-sol",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000,
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "gpt-6.1-terra",
+          "name": "gpt-6.1-terra",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000,
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "gpt-6-luna",
+          "name": "gpt-6-luna",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000,
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "gpt-6.2-astra",
+          "name": "gpt-6.2-astra",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000,
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "gpt-6.2-sol",
+          "name": "gpt-6.2-sol",
+          "api": "openai-codex-responses",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 272000,
+          "maxTokens": 128000,
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
         }
       ]
     }
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795199248061,
-  "supplementDigest": "a53e205eb2153140dcf67468149551858e13bd268d1fd22430daeab59f1d8116"
+  "supplementDigest": "a597557d5e3886cb0523315901594162eb06ffd7284b6211d59fa9513e9b994b"
 }
