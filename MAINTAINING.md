@@ -117,8 +117,9 @@ npm run audit                                          # 전수 검사: open 항
 - 표현할 수 없는 조건(장문 할증의 일부, Batch, Priority, Fast 모드)은 기본 단가만 넣고 `note`나 REVIEW에 적습니다.
 - **미래 날짜부터 새로 생기는 요금**(예: Gemini 4 Hydrogen·Neon의 캐시 쓰기 요금이 2027-01-12부터 생김)은 지금 표현할 수 없습니다. `corrections`는 기존 값이 있어야 바꿀 수 있기 때문입니다. 지금은 넣지 않고, 9장 표에 그 날짜의 재확인 행을 추가합니다.
 
-### 한도 (`contextWindow`, `maxTokens`)
-- 공식 값을 씁니다. `maxTokens`는 **한 번의 응답으로 받을 수 있는 최대 출력**입니다. 여러 번 이어 받는 장문 생성 한도가 아닙니다. 예: Gemini 4의 공식 "Maximum output tokens"는 1,048,576이지만, 한 번 응답은 65,536이라서 65,536을 씁니다.
+### 한도 (`contextWindow`, `contextTokens`, `maxTokens`)
+- 공식 값을 씁니다.
+- `contextTokens`는 창보다 작은 **실사용 입력 예산**입니다(예: OpenAI 1.05M 창 모델의 272,000. 공식 문서의 장문 요금 경계와 같습니다). 상류 행에 없으면 `overrides`로 넣습니다. 프로바이더와 정확한 ID로 적습니다(`*`나 접두사는 다른 provider의 행이나 `-pro`·`:batch` 변형까지 덮습니다). `maxTokens`는 **한 번의 응답으로 받을 수 있는 최대 출력**입니다. 여러 번 이어 받는 장문 생성 한도가 아닙니다. 예: Gemini 4의 공식 "Maximum output tokens"는 1,048,576이지만, 한 번 응답은 65,536이라서 65,536을 씁니다.
 - **Codex는 예외입니다:** `contextWindow` 272000은 Agent 운영 예산이고, 서비스 최대치로 바꾸지 않습니다(`maxTokens` 128000).
 - 공식 최대 출력이 없으면 같은 모델의 다른 공식 행 값이나 보수적인 운영값을 쓰고, `note`에 "공식 값 아님"이라고 적습니다.
 - 한도가 없는 행은 Agent가 사용하지 않습니다(예: 음성 모델 `gpt-live-1`).
@@ -159,7 +160,7 @@ npm run audit                                          # 전수 검사: open 항
 | 상황 | 칸 |
 | --- | --- |
 | 수동 provider의 새 모델, 수동 행의 값 수정 | `providers.<provider>.models` 배열 끝에 추가. `provenance.<provider>.notes`에 날짜와 요약 추가 |
-| 자동 행의 이름·reasoning·한도·가격·대체 모델이 틀리거나 비어 있음 | `overrides` |
+| 자동 행의 이름·reasoning·한도(`contextTokens` 포함)·가격·대체 모델이 틀리거나 비어 있음 | `overrides` |
 | Effort가 비었거나 틀림 | `thinking` |
 | 수동 행의 가격·상태 조건부 보정, 날짜 전환 | `corrections` |
 | 자동 행의 상태(사용 비권장·종료) | `overrides`의 `status` |
@@ -254,6 +255,7 @@ npm run audit
 | 2026-12-01 이후 | Gemini 2.5 Pro/Flash가 새 모델로 라우팅됨. `google` provider의 Gemini 2.5 Effort 규칙을 재검토. 자동 provider `google`의 Gemini 4 Argon/Carbon 가격 인상이 반영됐는지 확인(`google-vertex`는 날짜 규칙으로 자동) |
 | 2027-01-12 이후 | Gemini 4 Hydrogen(그리고 Neon)의 캐시 쓰기 요금(입력의 1.25배)이 생김. `google-vertex` 행에 `cacheWrite` 추가 |
 | 수시 | 무료·프로모션 0원 모델의 유료 전환: Glyph Cluster, Flint(Kilo·Vercel)와 무료 변형 14개(kilocode `:free`, vercel `-free`). 가격 0은 `overrides`에 있으니, 출처 API에서 가격이 생기면 해당 규칙을 지우거나 고칩니다 |
+| 수시 | `github-copilot` 퇴역 5행(`gpt-5.4`, `gpt-5.4-mini`, `gpt-5.5`, `gemini-2.5-pro`, `gemini-3.5-flash`)의 `contextTokens` 128000·`maxTokens` 8192는 공식 값이 아니라 Agent 값입니다(승인된 예외, REVIEW 2026-11-20). Copilot 공식 모델별 한도가 공개되면 해당 `overrides` 규칙을 지우거나 고칩니다 |
 | Agent SOT 전환 시 | Sonnet 5.5의 `off`(`between_tools`로만 가능), Codex 모델 기본 Effort가 API 기본값과 같은지, Agent의 `max` 단계 지원 |
 
 `corrections`의 날짜 규칙(Sonnet 4.5 EOL 2027-04-08, Gemini 4 Vertex 가격 2026-12-01 등)은 자동으로 적용되므로 여기에 넣지 않습니다.

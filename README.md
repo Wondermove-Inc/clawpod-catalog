@@ -242,7 +242,7 @@ Workflow는 nominal 6시간 cron(`17 */6 * * *`)과 수동 dispatch로 실행됩
 | Upstream 모델 목록 | 매 게시 실행에서 원본을 다시 조회 |
 | 보완 모델의 추가·제외·스펙 | 공식 자료와 Agent 소스를 사람이 확인해 JSON 수정 |
 | 가격·상태 오류의 보정 | 사람이 근거 URL·기존 값·수정값을 기록하면 매 게시에서 조건 확인(`corrections`) |
-| 자동 값(이름·reasoning·한도·가격·대체 모델) 오류 | 사람이 근거와 함께 `overrides`로 기록하면 매 게시에서 덮어씀 |
+| 자동 값(이름·reasoning·한도(실사용 상한 `contextTokens` 포함)·가격·대체 모델) 오류 | 사람이 근거와 함께 `overrides`로 기록하면 매 게시에서 덮어씀 |
 | Thinking Effort | OpenRouter·models.dev로 자동 채움. 공식 문서로 확인한 `thinking` 규칙이 우선 |
 | 공지된 할인 종료·EOL | 사람이 기록한 `effectiveAt`을 매 게시에서 평가 |
 | 자동 provider의 새 모델 | 매 게시에서 자동 추가. 빈칸은 이슈 **Catalog gaps**에 보고 |

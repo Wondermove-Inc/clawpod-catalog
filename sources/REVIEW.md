@@ -364,3 +364,27 @@ reasoning 모델의 지원 단계(`compat.thinkingLevels`)와 기본 단계(`com
 - Mantle의 OpenAI 모델은 AWS 카드상 `/openai/v1` 경로로 제공된다. Agent가 `/v1`을 쓰는 문제는 기존 Mantle 비-Claude 행과 같다.
 - Gemini 4 Neon은 verified enterprise customers 전용이라 승인제 기준으로 보류했다(`MAINTAINING.md` 9장).
 - 브랜치 dry-run의 최신 원본에서 `novita/baidu/cobuddy`가 Effort 빈칸 open으로 다시 나타났다. 2026-11-19 Effort 조사에서 "공식 문서 없음"으로 건너뛴 모델이라 같은 사유로 `knownGaps`에 추가했다.
+
+# 2026-11-20 실사용 상한(`contextTokens`) 보정
+
+ClawPoD Agent가 catalog 값을 먼저 쓰게 되면(Agent 계획 4.3), 실사용 상한이 빠진 행은 실제로 쓰는 창이 크게 늘어난다. 그 전에 빠진 상한을 채웠다.
+
+- `scripts/catalog.mjs`: `overrides.set`이 `contextTokens`(양의 정수)를 받게 했다. 적용 함수는 그대로다.
+- 다른 `openai` 행의 272,000은 OpenClaw 상류 행의 값이다. 이 저장소의 규칙이 붙인 값이 아니다.
+- 규칙은 모두 provider와 정확한 ID로 적었다. `*`는 `github-copilot`·`opencode`의 같은 모델(상류 922,000)까지, 접두사는 `-pro`·`:batch` 변형까지 덮기 때문이다.
+
+| 묶음 | 행 | 이전 | 넣은 값 | 근거 |
+| --- | --- | --- | --- | --- |
+| a (2) | `openai/gpt-5.4`, `openai/gpt-6.1-terra` | 창 1,050,000, 상한 없음 | `contextTokens` 272000 | OpenAI 모델 페이지 `https://developers.openai.com/api/docs/models/<id>`: 272K 입력을 넘으면 장문 요금. 상류 형제 `openai` 행(`gpt-5.5`, `gpt-5.6-*`, `gpt-6-*`, `gpt-6.1-sol`, `gpt-6.2-*`)과 같은 값 |
+| b (30) | `openrouter`·`kilocode`·`vercel-ai-gateway` 각 9(`openai/gpt-5.6-luna`, `-5.6-sol`, `-5.6-terra`, `-6-astra`, `-6-luna`, `-6-sol`, `-6.1-sol`, `-6.2-astra`, `-6.2-sol`), `novita` 2(`-6.2-astra`, `-6.2-sol`), `gmi` 1(`-5.6-sol`) | 창 1,050,000, 상한 없음 | `contextTokens` 272000 | 같은 OpenAI 모델 페이지. 직결 `openai` 행이 상류에서 272000을 가진 모델 |
+| b′ (7) | `openai/gpt-5.4`(`kilocode`, `vercel-ai-gateway`, `openrouter`), `openai/gpt-6.1-terra`(`kilocode`, `novita`, `vercel-ai-gateway`, `openrouter`) | 창 1,050,000, 상한 없음 | `contextTokens` 272000 | 같은 OpenAI 모델 페이지. 직결 행은 묶음 a로 272000 |
+| c (5) | `github-copilot`의 `gpt-5.4`, `gpt-5.4-mini`, `gpt-5.5`, `gemini-2.5-pro`, `gemini-3.5-flash`(모두 deprecated) | 창 1,050,000 / 400,000 / 1,050,000 / 1,048,576 / 1,048,576, 상한은 `gpt-5.4-mini`·`gpt-5.5`만 272000, 최대 출력 128,000 또는 65,536 | `contextTokens` 128000, `maxTokens` 8192 | **공식 값 아님(승인된 예외).** Agent의 지금 값(clawpod-agent `extensions/github-copilot/models-defaults.ts`의 `DEFAULT_CONTEXT_WINDOW` 128000, `DEFAULT_MAX_TOKENS` 8192) |
+
+OpenAI 모델 페이지 11개(`gpt-5.4`, `gpt-5.6-luna/sol/terra`, `gpt-6-astra/luna/sol`, `gpt-6.1-sol/terra`, `gpt-6.2-astra/sol`)는 2026-11-20에 원문을 받아 272K 문장과 1.05M 창을 확인했다.
+
+## 판단과 한계
+
+- 272,000은 OpenAI가 실사용 상한으로 공개한 값이 아니라 장문 요금의 경계다. 상류 OpenClaw가 같은 계열 행에 쓰는 값과 맞춘 것이다. 상류가 이 행들에 값을 주면 규칙이 그 값을 덮으므로, 그때 규칙을 지울지 본다.
+- 묶음 c는 이 저장소의 "모든 수동 값에는 공식 근거" 원칙의 예외다. Copilot의 모델별 공식 한도를 찾지 못했고, 사용자가 Agent 값 유래 행을 예외로 승인했다. 근거 표기는 구독형 `"cost": null` 규칙의 선례를 따라 `source`에 이 문서 주소를, `note`에 "Not an official value"와 사유를 적었다. 공식 한도가 나오면 지운다(`MAINTAINING.md` 9장).
+- `openrouter/auto`, `kilocode/openrouter/auto`(창 2,000,000, reasoning 켜짐)는 OpenRouter·Kilo 모델 API 값과 같아 고치지 않았다.
+- `npm run audit` open은 작업 전후 모두 1이다(`openrouter/~deepseek/deepseek-pro-latest`의 cacheRead 0.2 > input 0.198, 상류 OpenRouter 값. 이 작업과 무관).

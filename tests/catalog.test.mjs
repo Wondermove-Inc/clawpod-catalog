@@ -5,6 +5,7 @@ import path from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
 import {
+  applyOverrides,
   buildCatalog,
   mergeProviders,
   serializeCatalog,
@@ -772,4 +773,27 @@ test("reviewed data publishes corrected prices, subscription unknowns, and retir
     get("amazon-bedrock", "anthropic.claude-3-haiku-20240307-v1:0", later).status,
     "disabled",
   );
+});
+
+test("committed overrides give the reviewed OpenAI rows their context budget", () => {
+  const { overrides } = read(path.join(root, "sources/clawpod-providers.json"));
+  const row = (id, extra) => ({ id, contextWindow: 1050000, maxTokens: 128000, ...extra });
+  const out = applyOverrides(
+    {
+      openai: { models: [row("gpt-5.4"), row("gpt-5.4-pro")] },
+      openrouter: { models: [row("openai/gpt-6.2-sol"), row("openai/gpt-6.2-sol:batch")] },
+      "github-copilot": { models: [row("gpt-5.6-sol", { contextTokens: 922000 }), row("gpt-5.4")] },
+    },
+    overrides,
+  );
+  const get = (p, id) => out[p].models.find((m) => m.id === id);
+  assert.equal(get("openai", "gpt-5.4").contextTokens, 272000);
+  assert.equal(get("openrouter", "openai/gpt-6.2-sol").contextTokens, 272000);
+  // Exact-id rules: variants and other providers' rows keep what upstream gave them.
+  assert.equal(get("openai", "gpt-5.4-pro").contextTokens, undefined);
+  assert.equal(get("openrouter", "openai/gpt-6.2-sol:batch").contextTokens, undefined);
+  assert.equal(get("github-copilot", "gpt-5.6-sol").contextTokens, 922000);
+  // Retired Copilot rows keep the Agent's current budget (approved exception, REVIEW 2026-11-20).
+  assert.equal(get("github-copilot", "gpt-5.4").contextTokens, 128000);
+  assert.equal(get("github-copilot", "gpt-5.4").maxTokens, 8192);
 });
