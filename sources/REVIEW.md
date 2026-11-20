@@ -388,3 +388,28 @@ OpenAI 모델 페이지 11개(`gpt-5.4`, `gpt-5.6-luna/sol/terra`, `gpt-6-astra/
 - 묶음 c는 이 저장소의 "모든 수동 값에는 공식 근거" 원칙의 예외다. Copilot의 모델별 공식 한도를 찾지 못했고, 사용자가 Agent 값 유래 행을 예외로 승인했다. 근거 표기는 구독형 `"cost": null` 규칙의 선례를 따라 `source`에 이 문서 주소를, `note`에 "Not an official value"와 사유를 적었다. 공식 한도가 나오면 지운다(`MAINTAINING.md` 9장).
 - `openrouter/auto`, `kilocode/openrouter/auto`(창 2,000,000, reasoning 켜짐)는 OpenRouter·Kilo 모델 API 값과 같아 고치지 않았다.
 - `npm run audit` open은 작업 전후 모두 1이다(`openrouter/~deepseek/deepseek-pro-latest`의 cacheRead 0.2 > input 0.198, 상류 OpenRouter 값. 이 작업과 무관).
+
+# 2026-11-20 채팅 API가 없는 행 제외 (`nonChatModels`)
+
+ClawPoD Agent는 catalog의 활성 행을 모델 목록에 그대로 낸다. 채팅 API로 쓸 수 없는 실시간 음성 모델 행이 섞여 있어서, 고르면 요청이 실패할 모델이 목록에 나왔다. 이 행들을 catalog에서 뺐다.
+
+- 자동 행을 빼는 수단이 없어서 수동 파일에 `nonChatModels`(provider·원래 ID 정확히, `reason`·`source` 필수)를 추가했다. `scripts/catalog.mjs`가 병합 직후 이 행들을 뺀다. 상태(`deprecated`)로 표시하지 않은 이유: 이 모델들은 종료·비권장이 아니라 처음부터 채팅용이 아니다.
+- 원문 확인: OpenAI 모델 페이지는 HTML을 받아 Endpoints 절의 지원 표시(지원 아이콘 vs 회색 처리)를 읽었다. 같은 방법으로 `gpt-audio`는 Chat Completions 지원으로 읽혀 판별 방법을 교차 확인했다. Vercel은 모델 API `https://ai-gateway.vercel.sh/v1/models`의 `type`과 모델 페이지(`.md`)를, Google은 모델 페이지(`.md.txt`)를 받았다.
+
+| 행 | 근거 |
+| --- | --- |
+| `openai/gpt-realtime-2.1` | https://developers.openai.com/api/docs/models/gpt-realtime-2.1 : 지원 엔드포인트는 Realtime(`v1/realtime`)뿐, Chat Completions·Responses 미지원 |
+| `vercel-ai-gateway/openai/gpt-realtime-1.5`, `-2`, `-2.1`, `-mini` | Vercel 모델 API `type: "realtime"`(채팅 모델은 `language`), 모델 페이지 `https://vercel.com/ai-gateway/models/openai/<id>`: WebSocket 실시간 세션(`gateway.experimental_realtime`)으로만 사용. OpenAI 모델 페이지 `https://developers.openai.com/api/docs/models/<id>`: Realtime뿐, Chat Completions·Responses 미지원 |
+| `vercel-ai-gateway/openai/gpt-live-1` | Vercel `type: "realtime"`, 모델 페이지와 https://vercel.com/docs/ai-gateway/modalities/realtime.md : GPT-Live는 별도 WebSocket 엔드포인트(`v1/live/sessions`). OpenAI 모델 페이지: Live 엔드포인트뿐, Chat Completions·Responses 미지원 |
+| `vercel-ai-gateway/google/gemini-3.8-live`, `-live-extended-thinking` | Vercel `type: "realtime"`, 모델 페이지 예시는 `experimental_realtime`뿐, 실시간 문서가 "Other realtime models"로 나열. Google https://ai.google.dev/gemini-api/docs/models/gemini-3.8-live (와 `-extended-thinking`): audio-to-audio Live API 모델, "Audio is the only supported response modality" |
+
+뺀 행에만 걸리던 규칙 3개를 지웠다: `thinking` `*`/`gpt-realtime-2-1*`, `overrides` `vercel-ai-gateway`/`openai/gpt-live-1`(`cost: null`), `knownGaps` `vercel-ai-gateway`/`openai/gpt-live-1`(`model-data`).
+
+## 판단과 한계
+
+- 확인 범위: catalog 전체 ID를 실시간·음성·임베딩·이미지 등 키워드로 훑었다. `vercel-ai-gateway` 252행은 Vercel 모델 API `type`과 모두 대조했다(`language` 245, `realtime` 7 → 7행 모두 제외). `openai` 활성 행 31개는 OpenAI 모델 페이지의 엔드포인트를 모두 읽었다: `gpt-realtime-2.1` 말고는 모두 Chat Completions나 Responses를 지원한다.
+- 빼지 않은 것: `openai/gpt-audio`·`gpt-audio-mini`(kilocode·openrouter, OpenAI 페이지에서 Chat Completions 지원), OpenRouter·Kilo의 이미지·음악 모델(OpenRouter 채팅 API로 제공), `mistral`의 `voxtral-small-*`(https://docs.mistral.ai/getting-started/models/models_overview/ : "audio input capabilities for instruct use cases"). `nvidia/nemotron-voicechat`은 이미 `deprecated`라 목록에 나오지 않아 조사하지 않았다.
+- `openai/gpt-5.3-codex-spark`는 OpenAI 모델 페이지가 404라 엔드포인트를 확인하지 못했다. 근거가 없어 그대로 뒀다.
+- Gemini 3.8 Live 두 행은 Google 문서가 "generateContent 미지원"을 직접 적지 않는다. Vercel의 분류(`realtime`)와 Google의 "응답은 오디오뿐" 문장을 근거로 삼았다.
+- 상류가 같은 종류의 새 행을 넣으면 다시 나온다. 정기 점검 때 Vercel `type`이 `language`가 아닌 행과 OpenAI의 `gpt-realtime*`·`gpt-live*` 행을 확인한다.
+- `npm run audit` open은 작업 전후 모두 1이다(`openrouter/~deepseek/deepseek-pro-latest`, 이 작업과 무관). 기존에 아무 행에도 걸리지 않던 `overrides` `kilocode`/`cohere/north-mini-code:free`(상류에서 행이 빠짐)는 이 작업 범위 밖이라 그대로 뒀다.

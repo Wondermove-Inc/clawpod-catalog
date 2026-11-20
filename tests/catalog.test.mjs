@@ -797,3 +797,69 @@ test("committed overrides give the reviewed OpenAI rows their context budget", (
   assert.equal(get("github-copilot", "gpt-5.4").contextTokens, 128000);
   assert.equal(get("github-copilot", "gpt-5.4").maxTokens, 8192);
 });
+
+test("rows the supplement lists as non-chat are dropped by exact provider and id", () => {
+  const f = fixture();
+  f.upstream.providers.openai.models.push(localModel("voice-only"));
+  f.upstream.providers.gateway = {
+    api: "openai-completions",
+    models: [localModel("openai/voice-only"), localModel("openai/voice-only-2")],
+  };
+  f.supplement.nonChatModels = [
+    {
+      provider: "gateway",
+      model: "openai/voice-only",
+      source: "https://example.com/voice-only",
+      reason: "Realtime endpoint only",
+    },
+    {
+      provider: "openai",
+      model: "voice-only",
+      source: "https://example.com/voice-only",
+      reason: "Realtime endpoint only",
+    },
+  ];
+  const next = buildCatalog(f);
+  const ids = (p) => next.providers[p].models.map((m) => m.id);
+  assert.deepEqual(ids("openai"), ["gpt"]);
+  // Exact ids only: a sibling id stays.
+  assert.deepEqual(ids("gateway"), ["openai/voice-only-2"]);
+});
+
+for (const [label, rule] of [
+  ["a provider wildcard", { provider: "*", model: "voice-only" }],
+  ["a model prefix", { provider: "openai", model: "voice-*" }],
+  ["a missing source", { provider: "openai", model: "voice-only", source: undefined }],
+  ["a missing reason", { provider: "openai", model: "voice-only", reason: undefined }],
+]) {
+  test(`non-chat rules reject ${label}`, () => {
+    const f = fixture();
+    f.supplement.nonChatModels = [
+      { source: "https://example.com/x", reason: "Realtime endpoint only", ...rule },
+    ];
+    assert.throws(() => buildCatalog(f));
+  });
+}
+
+test("committed non-chat rules drop the reviewed realtime rows", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const f = { ...fixture(), supplement };
+  const realtime = [
+    "openai/gpt-realtime-1.5",
+    "openai/gpt-realtime-2",
+    "openai/gpt-realtime-2.1",
+    "openai/gpt-realtime-mini",
+    "openai/gpt-live-1",
+    "google/gemini-3.8-live",
+    "google/gemini-3.8-live-extended-thinking",
+  ];
+  f.upstream.providers.openai.models.push(localModel("gpt-realtime-2.1"), localModel("gpt-audio"));
+  f.upstream.providers["vercel-ai-gateway"] = {
+    api: "anthropic-messages",
+    models: [...realtime, "openai/gpt-6.2-sol"].map((id) => localModel(id)),
+  };
+  const next = buildCatalog(f);
+  const ids = (p) => next.providers[p].models.map((m) => m.id);
+  assert.deepEqual(ids("openai"), ["gpt", "gpt-audio"]);
+  assert.deepEqual(ids("vercel-ai-gateway"), ["openai/gpt-6.2-sol"]);
+});

@@ -29,6 +29,7 @@
    (이 문서가 설명하는 빈칸 보고·`knownGaps`·`npm run audit`는 2026-11-19 PR #20 이후 동작입니다.)
    1. OpenClaw 결과 + OpenRouter 변환 결과(`scripts/openrouter.mjs`)
    2. 수동 파일의 `providers` 병합. **같은 provider/model ID가 있으면 자동 쪽 행이 이기고**, 수동 행은 자동 쪽에 없을 때만 들어갑니다.
+      그다음 수동 파일 `nonChatModels`에 적힌 행(채팅 API가 없는 모델)을 뺍니다.
    3. `corrections`: 기존 값이 정확히 일치할 때만 적용하는 가격·상태 보정. 날짜 조건(`effectiveAt`)을 걸 수 있습니다.
    4. `overrides`: 자동 값을 무조건 덮어씁니다(`null`이면 지움).
    5. `thinking`: Effort 채우기. 출처 순서는 수동 규칙 → OpenClaw 행에 이미 있는 값 → OpenRouter → models.dev 순입니다.
@@ -53,7 +54,7 @@
 | `sources/README.md` | 수동 파일 각 칸의 형식과 규칙 |
 | `sources/REVIEW.md` | 날짜별 검토 기록(근거, 판단, 한계). 새 작업마다 절을 추가 |
 | `scripts/publish-catalog.mjs` | 최종본 생성(CLI) |
-| `scripts/catalog.mjs` | 병합·`corrections`·`overrides`·검증, 수동 파일 스키마 |
+| `scripts/catalog.mjs` | 병합·`nonChatModels`·`corrections`·`overrides`·검증, 수동 파일 스키마 |
 | `scripts/thinking.mjs` | Effort 채우기, `modelKey`, 규칙 매칭(`ruleMatches`), 라우터 별칭·검토 완료 빈칸 판정(`isRouterAlias`, `isKnownGap`) |
 | `scripts/openrouter.mjs`, `scripts/models-dev.mjs` | 외부 목록 변환·검증 |
 | `scripts/audit-catalog.mjs` | **전수 검사** (`npm run audit`)와 이슈 Catalog gaps 보고서(`gapReport`) |
@@ -78,6 +79,7 @@ npm run audit                                          # 전수 검사: open 항
 **후보 분류**
 - `npm run candidates`는 후보만 보여 줍니다.
 - 채팅용 텍스트 모델이 아니면 추가하지 않습니다: 이미지·영상·음성 생성, 임베딩, 실시간 음성 등.
+- 자동 행 중에 채팅 API(Chat Completions·Responses·Messages 등)로 쓸 수 없는 모델이 있으면(예: 실시간 음성 전용) `nonChatModels`에 행 단위로 적어 뺍니다. 이미지·오디오를 출력하더라도 채팅 API로 쓸 수 있으면 빼지 않습니다.
 - `google-vertex`는 Gemini·Gemma만, `anthropic-vertex`는 Claude만 다룹니다. Vertex의 다른 partner 모델(Grok 등)은 범위 밖입니다.
 - **승인제 모델은 추가하지 않습니다.** 승인·초대·allowlist·"verified enterprise customers only" 같은 조건이 붙은 모델은 일반 공개되면 추가하고, 그 전까지는 REVIEW에 사유만 남깁니다(예: Mythos 5.2, Gemini 4 Neon). 이미 들어 있는 승인제 행(Mythos Preview 등)은 유지합니다.
 
@@ -122,7 +124,7 @@ npm run audit                                          # 전수 검사: open 항
 - `contextTokens`는 창보다 작은 **실사용 입력 예산**입니다(예: OpenAI 1.05M 창 모델의 272,000. 공식 문서의 장문 요금 경계와 같습니다). 상류 행에 없으면 `overrides`로 넣습니다. 프로바이더와 정확한 ID로 적습니다(`*`나 접두사는 다른 provider의 행이나 `-pro`·`:batch` 변형까지 덮습니다). `maxTokens`는 **한 번의 응답으로 받을 수 있는 최대 출력**입니다. 여러 번 이어 받는 장문 생성 한도가 아닙니다. 예: Gemini 4의 공식 "Maximum output tokens"는 1,048,576이지만, 한 번 응답은 65,536이라서 65,536을 씁니다.
 - **Codex는 예외입니다:** `contextWindow` 272000은 Agent 운영 예산이고, 서비스 최대치로 바꾸지 않습니다(`maxTokens` 128000).
 - 공식 최대 출력이 없으면 같은 모델의 다른 공식 행 값이나 보수적인 운영값을 쓰고, `note`에 "공식 값 아님"이라고 적습니다.
-- 한도가 없는 행은 Agent가 사용하지 않습니다(예: 음성 모델 `gpt-live-1`).
+- 한도가 없는 행은 Agent가 사용하지 않습니다.
 
 ### 입력 형식 (`input`)
 - 수동 행(`providers`)과 `overrides`에는 `text`, `image`만 쓸 수 있습니다(스키마 제한). 문서·음성·영상 입력을 지원해도 수동 행에는 넣지 않고, 필요하면 REVIEW에 적습니다. 자동 행(OpenClaw)의 `document`·`video`는 그대로 둡니다.
@@ -164,6 +166,7 @@ npm run audit                                          # 전수 검사: open 항
 | Effort가 비었거나 틀림 | `thinking` |
 | 수동 행의 가격·상태 조건부 보정, 날짜 전환 | `corrections` |
 | 자동 행의 상태(사용 비권장·종료) | `overrides`의 `status` |
+| 채팅 API로 쓸 수 없는 자동 행(실시간 음성 전용 등) | `nonChatModels` (provider와 원래 ID 정확히, `reason`·`source` 필수). 행이 catalog에서 빠집니다 |
 | 공식 값이 없어서 비워 둘 수밖에 없는 빈칸 | `knownGaps` (`check`: `thinking` / `cost` / `zero-price` / `model-data`, `reason` 필수) |
 
 ### 모델 매칭 (`thinking`, `overrides`, `knownGaps` 공통)
