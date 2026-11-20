@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795170332197,
+  "generatedAt": 1795170804418,
   "minVersion": "2026.4.11",
-  "sourceCommit": "7d1d7d035ce611b0d99f52f218ccd7b80297dac5",
+  "sourceCommit": "217bb899f09f044a04424bc6ce23b737e48942bc",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -40499,9 +40499,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.3,
-            "output": 1.2,
-            "cacheRead": 0.006
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.003
           },
           "compat": {
             "thinkingLevels": [
@@ -55241,6 +55241,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1795166869862,
+  "sourceGeneratedAt": 1795170786230,
   "supplementDigest": "ed4c6d569c626ff6994b18d639ea881f17090b9cd8cfd10fe8d8328b7d1b8105"
 }
