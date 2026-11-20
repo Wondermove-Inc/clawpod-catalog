@@ -413,3 +413,35 @@ ClawPoD Agent는 catalog의 활성 행을 모델 목록에 그대로 낸다. 채
 - Gemini 3.8 Live 두 행은 Google 문서가 "generateContent 미지원"을 직접 적지 않는다. Vercel의 분류(`realtime`)와 Google의 "응답은 오디오뿐" 문장을 근거로 삼았다.
 - 상류가 같은 종류의 새 행을 넣으면 다시 나온다. 정기 점검 때 Vercel `type`이 `language`가 아닌 행과 OpenAI의 `gpt-realtime*`·`gpt-live*` 행을 확인한다.
 - `npm run audit` open은 작업 전후 모두 1이다(`openrouter/~deepseek/deepseek-pro-latest`, 이 작업과 무관). 기존에 아무 행에도 걸리지 않던 `overrides` `kilocode`/`cohere/north-mini-code:free`(상류에서 행이 빠짐)는 이 작업 범위 밖이라 그대로 뒀다.
+
+# 2026-11-20 Google API 행의 Effort 단계와 reasoning 꺼짐 행 점검
+
+ClawPoD Agent가 모델별 Effort 단계를 catalog에서 읽기 전에(Agent 계획 5.1) 고칠 행을 정리했다. 바꾼 행은 5개이고 모두 `thinking` 규칙(provider·정확한 ID)이다.
+
+| 행 | 이전 | 바꾼 값 | 근거 |
+| --- | --- | --- | --- |
+| `google/gemini-4-hydrogen`, `google/gemini-4-neon` (api `google-generative-ai`) | low, medium, high, xhigh (기본 high) | low, medium, high (기본 high) | **공식 값 아님(승인된 예외).** Google 공식 문서상 두 모델은 `xhigh`를 받는다(https://ai.google.dev/gemini-api/docs/thinking : "Both models default to `high` and support `xhigh`"). 그러나 Agent가 쓰는 Pi 1.5.2 Google 어댑터(`@earendil-works/pi-ai` `dist/api/google-shared.js:19-31`의 `resolveGoogleThinkingLevel`)는 minimal·low·medium·high만 받고 그 밖에서 예외를 던져 요청이 실패한다 |
+| `google-vertex/gemini-4-hydrogen` (api `google-vertex`) | 같음 | 같음 | 같은 예외. 공식 문서 https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/gemini/4-hydrogen : "Hydrogen supports thinking levels LOW, MEDIUM, HIGH (default), and XHIGH". Vertex 경로도 같은 Pi 함수를 쓴다(`dist/api/google-vertex.js:250`) |
+| `google/gemma-4-31b-it`, `google/gemma-4-26b-a4b-it` | off, low (기본 off, `{"low":"on"}`) | minimal, high (기본 minimal, 표시 이름 없음) | https://gemma.ai/deployment/gemini-api/ (`ai.google.dev/gemma/docs/core/gemma_on_gemini_api`가 리다이렉트): "you can control it using the API by setting the thinking level to "high" for enabled or "minimal" for disabled". 기본 minimal은 모델 카드(https://ai.google.dev/gemma/docs/core/model_card_4, 생각은 켜야만 켜짐)를 따랐다 |
+
+- Google API(`google-generative-ai`·`google-vertex`) 행은 37개(`google` 21, `google-vertex` 15, `opencode` 1)다. 단계 목록에 `xhigh`·`max`가 있는 행은 위 3개뿐이고 `max`는 0이다(`opencode/gemini-3.6-flash`는 `xhigh`가 없다).
+- 다른 gateway(`openrouter`, `kilocode`, `vercel-ai-gateway`, `venice` 등)의 Gemini 4 Hydrogen·Neon은 Pi Google 어댑터를 지나지 않으므로 공식대로 `xhigh`를 유지한다. 다른 provider의 Gemma 4 행도 그대로다(`*` 규칙 `gemma-4-*`).
+- 규칙은 provider 지정이라 첫 `*` 규칙 앞에 넣었다. Gemma 4에 표시 이름 `{"low":"on"}`을 붙이지 않은 이유: 켜기/끄기 관례는 `low`를 켬으로 쓰는데, 이 모델의 Gemini API 값은 `minimal`(끔)·`high`(켬)이다. 선례: `gemini-3-1-flash-lite-image*`의 `["minimal","high"]`.
+
+## reasoning 꺼짐 행 점검 (바꾼 행 0)
+
+Agent에서 지금 단계를 고르면 effort가 요청에 실리는데 catalog가 reasoning을 꺼짐으로 적은 행 198개(kilocode 80, openrouter 117, ollama-cloud 1)를 공식 출처와 대조했다. 공식 근거로 reasoning을 지원하는 행이 없어 고친 행은 없다.
+
+| 묶음 | 행 수 | 판단 | 근거 |
+| --- | --- | --- | --- |
+| openrouter | 117 | reasoning 미지원(그대로) | OpenRouter 모델 API https://openrouter.ai/api/v1/models (2026-11-20 받음): 117행 모두 `supported_parameters`에 `reasoning`·`include_reasoning`이 없다 |
+| kilocode | 80 | reasoning 미지원(그대로) | Kilo 모델 API https://api.kilo.ai/api/openrouter/models (2026-11-20 받음): 80행 모두 `supported_parameters`에 `reasoning`·`include_reasoning`이 없다 |
+| ollama-cloud `mistral-large-3:675b` | 1 | reasoning 미지원(그대로) | https://ollama.com/library/mistral-large-3 : 기능 목록에 thinking이 없다(Vision, Multilingual, System Prompt, Agentic 등). 이 페이지와 Ollama API는 이 모델이 2026-11-09에 종료(retired)됐다고 적는다 |
+
+## 판단과 한계
+
+- Google 3행은 이 저장소의 "모든 수동 값에는 공식 근거" 원칙의 예외다(사용자가 승인한 Agent 유래 예외). 근거 표기는 2026-11-20 Copilot 한도 예외를 따라 `source`에 이 문서 주소를, `note`에 공식 문서 URL·Pi 어댑터 위치·"Approved exception"을 적었다. **Agent가 Pi를 올려 Google 어댑터가 `xhigh`를 받게 되면 이 세 규칙을 지워 `xhigh`를 다시 넣는다**(`MAINTAINING.md` 9장).
+- Gemma 4: `thinkingConfig`를 보내지 않을 때의 기본 동작은 Gemini API 페이지에 없다. 기본 minimal은 모델 카드(생각은 켜야만 켜짐)에 따른 것이다.
+- 애매한 행(설명과 파라미터가 다름, 고치지 않음): `kilocode/mistralai/mistral-small`(Kilo 설명은 "currently runs Mistral Small 4 … reasoning"이지만 `supported_parameters`에 reasoning 없음), `openrouter/openai/gpt-5.2-chat`(설명은 "adaptive reasoning"이지만 reasoning 파라미터 없음, 조절 불가). gateway API가 reasoning 파라미터를 받는다고 표시하면 다시 본다.
+- `ollama-cloud/mistral-large-3:675b`가 종료됐다는 사실은 이 작업 범위(reasoning) 밖이라 상태를 바꾸지 않았다. 다음 정기 점검 때 처리한다.
+- `npm run audit` open은 작업 전후 모두 1이다(`openrouter/~deepseek/deepseek-pro-latest`, 이 작업과 무관).

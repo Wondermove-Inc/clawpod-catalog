@@ -362,3 +362,26 @@ test("override rules are validated", () => {
     assert.throws(() => validateSupplement({ ...base, overrides: [bad] }), JSON.stringify(bad));
   }
 });
+
+test("committed rules: Google API Gemini 4 rows stop at high, Gemini API Gemma 4 is minimal/high", async () => {
+  const fs = await import("node:fs");
+  const { thinking } = JSON.parse(
+    fs.readFileSync(new URL("../sources/clawpod-providers.json", import.meta.url), "utf8"),
+  );
+  const providers = {
+    google: { models: [row("gemini-4-hydrogen"), row("gemini-4-neon"), row("gemma-4-31b-it"), row("gemma-4-26b-a4b-it")] },
+    "google-vertex": { models: [row("gemini-4-hydrogen")] },
+    openrouter: { models: [row("google/gemini-4-hydrogen"), row("google/gemma-4-31b-it")] },
+  };
+  const out = applyThinking(providers, { rules: thinking });
+  // Approved exception (REVIEW 2026-11-20): the Agent's Pi Google adapter throws on xhigh.
+  for (const [p, id] of [["google", "gemini-4-hydrogen"], ["google", "gemini-4-neon"], ["google-vertex", "gemini-4-hydrogen"]]) {
+    assert.deepEqual(profile(out, p, id), { levels: ["low", "medium", "high"], default: "high", labels: undefined }, `${p}/${id}`);
+  }
+  for (const id of ["gemma-4-31b-it", "gemma-4-26b-a4b-it"]) {
+    assert.deepEqual(profile(out, "google", id), { levels: ["minimal", "high"], default: "minimal", labels: undefined }, id);
+  }
+  // Other gateways keep the official ladders.
+  assert.deepEqual(profile(out, "openrouter", "google/gemini-4-hydrogen").levels, ["low", "medium", "high", "xhigh"]);
+  assert.deepEqual(profile(out, "openrouter", "google/gemma-4-31b-it").levels, ["off", "low"]);
+});

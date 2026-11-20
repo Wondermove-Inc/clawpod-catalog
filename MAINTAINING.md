@@ -254,11 +254,12 @@ npm run audit
 | 시점 | 항목 |
 | --- | --- |
 | 마지막 정기 점검 | **2026-11-19** (다음 점검 때 `npm run candidates -- --since 2026-11-19`). 이 날 `npm run audit` open 0, 후보는 아래 보류 1건뿐 |
-| 보류 (승인제) | Vertex Gemini 4 Neon(11/18, verified enterprise customers 전용). 일반 공개되면 추가: Global $3/$15/cacheRead $0.15, 한 번 응답 65,536, 단계 low~xhigh 기본 high(`thinking` 규칙 이미 있음) |
+| 보류 (승인제) | Vertex Gemini 4 Neon(11/18, verified enterprise customers 전용). 일반 공개되면 추가: Global $3/$15/cacheRead $0.15, 한 번 응답 65,536, 단계 low~xhigh 기본 high(`thinking` 규칙 이미 있음). 단, 아래 "Agent Pi 갱신 시" 행이 남아 있으면 `google-vertex`/`gemini-4-neon` 규칙(low~high)도 함께 넣습니다 |
 | 2026-12-01 이후 | Gemini 2.5 Pro/Flash가 새 모델로 라우팅됨. `google` provider의 Gemini 2.5 Effort 규칙을 재검토. 자동 provider `google`의 Gemini 4 Argon/Carbon 가격 인상이 반영됐는지 확인(`google-vertex`는 날짜 규칙으로 자동) |
 | 2027-01-12 이후 | Gemini 4 Hydrogen(그리고 Neon)의 캐시 쓰기 요금(입력의 1.25배)이 생김. `google-vertex` 행에 `cacheWrite` 추가 |
 | 수시 | 무료·프로모션 0원 모델의 유료 전환: Glyph Cluster, Flint(Kilo·Vercel)와 무료 변형 14개(kilocode `:free`, vercel `-free`). 가격 0은 `overrides`에 있으니, 출처 API에서 가격이 생기면 해당 규칙을 지우거나 고칩니다 |
 | 수시 | `github-copilot` 퇴역 5행(`gpt-5.4`, `gpt-5.4-mini`, `gpt-5.5`, `gemini-2.5-pro`, `gemini-3.5-flash`)의 `contextTokens` 128000·`maxTokens` 8192는 공식 값이 아니라 Agent 값입니다(승인된 예외, REVIEW 2026-11-20). Copilot 공식 모델별 한도가 공개되면 해당 `overrides` 규칙을 지우거나 고칩니다 |
+| Agent Pi 갱신 시 | `google`·`google-vertex`의 Gemini 4 Hydrogen·Neon 3행은 공식 단계에서 `xhigh`를 뺀 값입니다(Agent의 Pi 1.5.2 Google 어댑터가 `xhigh`에서 예외를 던짐, 승인된 예외, REVIEW 2026-11-20). Agent가 올린 Pi의 Google 어댑터가 `xhigh`를 받으면 `thinking`의 provider 지정 규칙 3개를 지웁니다. 그 전에는 Google API(`google-generative-ai`·`google-vertex`) 행에 새로 `xhigh`·`max`가 생기면 같은 방식으로 뺍니다 |
 | Agent SOT 전환 시 | Sonnet 5.5의 `off`(`between_tools`로만 가능), Codex 모델 기본 Effort가 API 기본값과 같은지, Agent의 `max` 단계 지원 |
 
 `corrections`의 날짜 규칙(Sonnet 4.5 EOL 2027-04-08, Gemini 4 Vertex 가격 2026-12-01 등)은 자동으로 적용되므로 여기에 넣지 않습니다.
