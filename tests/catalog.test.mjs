@@ -506,6 +506,7 @@ test("committed supplemental data covers the requested providers and preserves p
       "byteplus",
       "volcengine",
       "together",
+      "synthetic",
     ].sort(),
   );
   const codex = s.providers["openai-codex"].models.find((m) => m.id === "gpt-6-astra");
@@ -1256,6 +1257,83 @@ test("Together effort rule names one row and leaves the upstream Together rows a
     after.providers.together.models.filter((m) => m.id !== TOGETHER_ID),
     before.providers.together.models,
   );
+});
+
+const SYNTHETIC_REASONING_IDS = ["hf:zai-org/GLM-4.7-Flash", "hf:zai-org/GLM-5.3-Flash", "hf:Qwen/Qwen3.8-27B"];
+const SYNTHETIC_IDS = ["hf:openai/gpt-oss-120b", ...SYNTHETIC_REASONING_IDS];
+
+test("reviewed Synthetic rows publish the Agent table values, official prices and the Agent's current effort", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  assert.equal(supplement.providers.synthetic?.api, "anthropic-messages");
+  assert.deepEqual(supplement.providers.synthetic.models.map((m) => m.id).sort(), [...SYNTHETIC_IDS].sort());
+  assert.deepEqual(supplement.provenance.synthetic.files, ["extensions/synthetic/models.ts"]);
+  // Usage-based prices are published per token, so this is not a subscription-only provider.
+  assert.equal(SUBSCRIPTION_PROVIDERS.has("synthetic"), false);
+  const next = buildCatalog({ ...fixture(), supplement });
+  assert.equal(next.providers.synthetic.api, "anthropic-messages");
+  assert.deepEqual(next.providers.synthetic.models.map((m) => m.id).sort(), [...SYNTHETIC_IDS].sort());
+  const get = (id) => next.providers.synthetic.models.find((m) => m.id === id);
+  const row = (id, name, input, reasoning, contextWindow, cost) => ({
+    id,
+    name,
+    input,
+    reasoning,
+    contextWindow,
+    maxTokens: 8_192,
+    cost,
+    ...(reasoning ? { compat: OPENCODE_KEPT } : {}),
+  });
+  // Reasoning stays off like the Agent table, so the row gets no effort profile. An exact-id
+  // override after the * gpt-oss-* rule (which sets reasoning:true) keeps it off.
+  const kept = supplement.overrides.filter((r) => r.provider === "synthetic");
+  assert.deepEqual(kept.map((r) => [r.model, r.set]), [["hf:openai/gpt-oss-120b", { reasoning: false }]]);
+  assert.ok(
+    supplement.overrides.indexOf(kept[0]) > supplement.overrides.findIndex((r) => r.provider === "*" && r.model === "gpt-oss-*"),
+  );
+  assert.deepEqual(
+    get("hf:openai/gpt-oss-120b"),
+    row("hf:openai/gpt-oss-120b", "GPT OSS 120B", ["text"], false, 128_000, { input: 0.1, output: 0.1, cacheRead: 0.02, cacheWrite: 0 }),
+  );
+  assert.deepEqual(
+    get("hf:zai-org/GLM-4.7-Flash"),
+    row("hf:zai-org/GLM-4.7-Flash", "GLM 4.7 Flash", ["text"], true, 196_608, { input: 0.1, output: 0.5, cacheRead: 0.02, cacheWrite: 0 }),
+  );
+  assert.deepEqual(
+    get("hf:zai-org/GLM-5.3-Flash"),
+    row("hf:zai-org/GLM-5.3-Flash", "GLM 5.3 Flash", ["text", "image"], true, 524_288, { input: 0.15, output: 0.5, cacheRead: 0.04, cacheWrite: 0 }),
+  );
+  assert.deepEqual(
+    get("hf:Qwen/Qwen3.8-27B"),
+    row("hf:Qwen/Qwen3.8-27B", "Qwen3.8 27B", ["text", "image"], true, 262_144, { input: 0.45, output: 2.2, cacheRead: 0.09, cacheWrite: 0 }),
+  );
+  // Not on the official model API (or a different id there), so not published as manual rows.
+  for (const id of [
+    "hf:deepseek-ai/DeepSeek-V4.1-FlashBeta",
+    "hf:moonshotai/Kimi-K3",
+    "hf:zai-org/GLM-5.3Beta",
+    "hf:MiniMaxAI/MiniMax-M2.5",
+    "hf:moonshotai/Kimi-K2.5",
+    "hf:zai-org/GLM-4.7",
+    "hf:nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-NVFP4",
+  ]) {
+    assert.equal(get(id), undefined, id);
+  }
+  // Venice and Chutes table-only ids are not on the official lists, Arcee Trinity is "Not Hosted".
+  for (const p of ["venice", "chutes", "arcee"]) assert.equal(supplement.providers[p], undefined, p);
+});
+
+test("Synthetic effort rules name the three reasoning rows only", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const rules = supplement.thinking.filter((r) => r.provider === "synthetic");
+  const firstWildcard = supplement.thinking.findIndex((r) => r.provider === "*");
+  assert.deepEqual(rules.map((r) => r.model).sort(), [...SYNTHETIC_REASONING_IDS].sort());
+  for (const r of rules) {
+    assert.ok(supplement.thinking.indexOf(r) < firstWildcard, `before * rules ${r.model}`);
+    assert.deepEqual([r.levels, r.default], [OPENCODE_KEPT.thinkingLevels, "low"]);
+    assert.match(r.note, /^Not the official ladder: /);
+    // Anthropic Messages route: the Agent does send thinking, so the note must not claim otherwise.
+    assert.doesNotMatch(r.note, /never send/);
+  }
 });
 
 test("committed overrides give the reviewed OpenAI rows their context budget", () => {
