@@ -146,6 +146,22 @@
         "node_modules/@earendil-works/pi-ai/dist/providers/data/opencode-go.json"
       ],
       "notes": "Reviewed 2026-11-21 (sources/REVIEW.md): 22 OpenCode Go rows copied as they are from the Agent's bundled Pi 1.5.2 data (approved exception to official values: name, reasoning, input, contextWindow, maxTokens and the four base prices are Pi's). Only ids listed by the Go model API (https://opencode.ai/inference/go/v1/models) are rows; Go bills per token at listed rates (https://opencode.ai/docs/go/), the 0 prices are free models. kimi-k3.1-pro maxTokens 131072 is Pi's (the model API lists 1048576), recorded in REVIEW. Not added: glm-5.2, mimo-v2.5, mimo-v2.5-pro (not in the model API). Effort: exact-id thinking rules keep the Agent's current behavior, not the official ladder; kimi-k3 takes the official max only."
+    },
+    "byteplus": {
+      "source": "Wondermove-Inc/clawpod-agent",
+      "revision": "c4842bf5ae8ef47091c98f41a39f86417a1658fc",
+      "files": [
+        "extensions/byteplus/models.ts"
+      ],
+      "notes": "Reviewed 2026-11-21 (sources/REVIEW.md): 3 BytePlus ModelArk rows (seed-2-0-pro-260328, seed-2-0-lite-260428, seed-2-0-mini-260428) keep the Agent plugin table's name, reasoning, input, contextWindow and maxTokens (exception to official values, recorded in REVIEW). Only ids on the official model list (https://docs.byteplus.com/en/docs/ModelArk/1330310) are rows; maxTokens 4096 is the official default output (official maximum 128K). Prices are the official USD Standard [0,128K] tier (https://docs.byteplus.com/en/docs/ModelArk/1099320; the (128,256] tier is in REVIEW), not the Agent table's placeholder; cacheWrite is 0 because ModelArk bills cache storage per million tokens per hour, not as a token write. Not added: seed-1-8-251228, kimi-k2-5-260127 (deactivated 2026-11-11, https://docs.byteplus.com/en/docs/ModelArk/model-deprecation-notice). Effort: exact-id thinking rules keep the Agent's current behavior, not the official ladder."
+    },
+    "volcengine": {
+      "source": "Wondermove-Inc/clawpod-agent",
+      "revision": "c4842bf5ae8ef47091c98f41a39f86417a1658fc",
+      "files": [
+        "extensions/volcengine/models.ts"
+      ],
+      "notes": "Reviewed 2026-11-21 (sources/REVIEW.md): 3 Volcano Engine Ark rows (deepseek-v4-1-flash-260910, doubao-seed-2-1-lite-260915, doubao-seed-2-1-pro-260915) keep the Agent plugin table's name, reasoning, input, contextWindow and maxTokens; the limits match the official model list (https://www.volcengine.com/docs/82379/1330310). No price: Ark publishes CNY only (https://www.volcengine.com/docs/82379/1544106), so the rows carry a knownGaps cost entry instead of the Agent table's 0. Not added: doubao-seed-1-8-251228, doubao-seed-code-preview-251028 (EOS 2026-09-21, https://www.volcengine.com/docs/82379/model-deprecation-notice). Effort: exact-id thinking rules keep the Agent's current behavior, not the official ladder."
     }
   },
   "providers": {
@@ -7077,6 +7093,100 @@
           }
         }
       ]
+    },
+    "byteplus": {
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "seed-2-0-pro-260328",
+          "name": "Seed 2.0 Pro",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 256000,
+          "maxTokens": 4096,
+          "cost": {
+            "input": 0.5,
+            "output": 3,
+            "cacheRead": 0.1,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "seed-2-0-lite-260428",
+          "name": "Seed 2.0 Lite",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 256000,
+          "maxTokens": 4096,
+          "cost": {
+            "input": 0.25,
+            "output": 2,
+            "cacheRead": 0.05,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "seed-2-0-mini-260428",
+          "name": "Seed 2.0 Mini",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 256000,
+          "maxTokens": 4096,
+          "cost": {
+            "input": 0.1,
+            "output": 0.4,
+            "cacheRead": 0.02,
+            "cacheWrite": 0
+          }
+        }
+      ]
+    },
+    "volcengine": {
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "deepseek-v4-1-flash-260910",
+          "name": "DeepSeek V4.1 Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1024000,
+          "maxTokens": 384000
+        },
+        {
+          "id": "doubao-seed-2-1-lite-260915",
+          "name": "Doubao Seed 2.1 Lite",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1024000,
+          "maxTokens": 256000
+        },
+        {
+          "id": "doubao-seed-2-1-pro-260915",
+          "name": "Doubao Seed 2.1 Pro (September)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1024000,
+          "maxTokens": 256000
+        }
+      ]
     }
   },
   "corrections": [
@@ -9173,6 +9283,96 @@
       "default": "low",
       "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
       "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+    },
+    {
+      "provider": "byteplus",
+      "model": "seed-2-0-pro-260328",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "adaptive"
+      ],
+      "default": "low",
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
+      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this agent-table row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged; turns on this route never send reasoning_effort (proxy-like endpoint). Breaks MAINTAINING ch.5 on purpose: lists off/minimal/adaptive without official evidence. Official reasoning control: sources/REVIEW.md 2026-11-21."
+    },
+    {
+      "provider": "byteplus",
+      "model": "seed-2-0-lite-260428",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "adaptive"
+      ],
+      "default": "low",
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
+      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this agent-table row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged; turns on this route never send reasoning_effort (proxy-like endpoint). Breaks MAINTAINING ch.5 on purpose: lists off/minimal/adaptive without official evidence. Official reasoning control: sources/REVIEW.md 2026-11-21."
+    },
+    {
+      "provider": "byteplus",
+      "model": "seed-2-0-mini-260428",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "adaptive"
+      ],
+      "default": "low",
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
+      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this agent-table row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged; turns on this route never send reasoning_effort (proxy-like endpoint). Breaks MAINTAINING ch.5 on purpose: lists off/minimal/adaptive without official evidence. Official reasoning control: sources/REVIEW.md 2026-11-21."
+    },
+    {
+      "provider": "volcengine",
+      "model": "deepseek-v4-1-flash-260910",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "adaptive"
+      ],
+      "default": "low",
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
+      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this agent-table row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged; turns on this route never send reasoning_effort (proxy-like endpoint). Breaks MAINTAINING ch.5 on purpose: lists off/minimal/adaptive without official evidence. Official reasoning control: sources/REVIEW.md 2026-11-21."
+    },
+    {
+      "provider": "volcengine",
+      "model": "doubao-seed-2-1-lite-260915",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "adaptive"
+      ],
+      "default": "low",
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
+      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this agent-table row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged; turns on this route never send reasoning_effort (proxy-like endpoint). Breaks MAINTAINING ch.5 on purpose: lists off/minimal/adaptive without official evidence. Official reasoning control: sources/REVIEW.md 2026-11-21."
+    },
+    {
+      "provider": "volcengine",
+      "model": "doubao-seed-2-1-pro-260915",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "adaptive"
+      ],
+      "default": "low",
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
+      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this agent-table row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged; turns on this route never send reasoning_effort (proxy-like endpoint). Breaks MAINTAINING ch.5 on purpose: lists off/minimal/adaptive without official evidence. Official reasoning control: sources/REVIEW.md 2026-11-21."
     },
     {
       "provider": "*",
@@ -14497,6 +14697,24 @@
       "model": "google/lyria-3-pro-preview",
       "check": "zero-price",
       "reason": "OpenRouter publishes 0 per token with no other charge for this preview model."
+    },
+    {
+      "provider": "volcengine",
+      "model": "deepseek-v4-1-flash-260910",
+      "check": "cost",
+      "reason": "Reviewed 2026-11-21: Volcano Engine Ark publishes this model's price in CNY only (https://www.volcengine.com/docs/82379/1544106); no USD price."
+    },
+    {
+      "provider": "volcengine",
+      "model": "doubao-seed-2-1-lite-260915",
+      "check": "cost",
+      "reason": "Reviewed 2026-11-21: Volcano Engine Ark publishes this model's price in CNY only (https://www.volcengine.com/docs/82379/1544106); no USD price."
+    },
+    {
+      "provider": "volcengine",
+      "model": "doubao-seed-2-1-pro-260915",
+      "check": "cost",
+      "reason": "Reviewed 2026-11-21: Volcano Engine Ark publishes this model's price in CNY only (https://www.volcengine.com/docs/82379/1544106); no USD price."
     }
   ],
   "nonChatModels": [

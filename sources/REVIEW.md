@@ -653,3 +653,63 @@ Pi의 비채팅 `classifier` 행 2개(`jev-1.13`, `jev-1.13-free`)는 후보가 
 - 재생성 원본은 publish run 44879978665의 artifact다(main `bc51cfb`과 같은 `sourceGeneratedAt` 1795245934394). `models=2149->2240 (+91)`. `git diff models/v1/catalog.json`에서 추가 91행, `opencode-go/kimi-k3`의 `thinkingLevels`(low·high·max → max), 최상위 `generatedAt`·`supplementDigest` 말고는 바뀐 것이 없다.
 - `npm run audit` open은 작업 전후 모두 0이다. cost 125, reasoning 2, thinking 66, zero price 15(모두 known) 숫자도 같다. 91행 모두 Effort를 갖고, 가격 0 행은 모두 ID에 `free`가 있다.
 - 6장 "matches nothing" 검사: 새 규칙 92개는 모두 정확히 한 행에 걸린다(91행은 자기 규칙이 첫 규칙, `kimi-k3` 규칙은 `opencode-go/kimi-k3` 하나). 아무 행에도 안 걸리는 기존 규칙 3개(`*` `dots-3-note-preview*`, `kilocode` `cohere/north-mini-code:free`, `kilocode` `dots-studio/dots-3-note-preview:free`)는 작업 전 main에서도 같다.
+
+# 2026-11-21 BytePlus·Volcano Engine Agent 플러그인 표 행(`byteplus` 3, `volcengine` 3)
+
+ClawPoD Agent는 `byteplus`·`byteplus-plan`·`volcengine`·`volcengine-plan` 모델 값을 플러그인 정적 표에서도 받아 왔다(Agent 3차 묶음 G1에서 표를 런타임에서 뗀다). 표에만 있던 18개 ID 가운데 공식 모델 목록에 현역으로 있는 6개만 수동 행으로 넣었다. 기존 행 변화는 없다.
+
+| provider / ID | 이름 | 입력 | reasoning | 창 / 최대 출력 | 가격(USD/1M) | 근거 |
+| --- | --- | --- | --- | --- | --- | --- |
+| `byteplus/seed-2-0-pro-260328` | Seed 2.0 Pro | text·image | true | 256,000 / 4,096 | 0.50 / 3.00, cacheRead 0.10, cacheWrite 0 | 모델 목록 https://docs.byteplus.com/en/docs/ModelArk/1330310 (256K / 최대 입력 224K / 최대 출력 128K, Deep reasoning Yes, Visual understanding Yes), 가격 https://docs.byteplus.com/en/docs/ModelArk/1099320 Standard "[0, 128]" 행("Token prices are **USD per million tokens**") |
+| `byteplus/seed-2-0-lite-260428` | Seed 2.0 Lite | text·image | true | 256,000 / 4,096 | 0.25 / 2.00, cacheRead 0.05, cacheWrite 0 | 같음(LTS) |
+| `byteplus/seed-2-0-mini-260428` | Seed 2.0 Mini | text·image | true | 256,000 / 4,096 | 0.10 / 0.40, cacheRead 0.02, cacheWrite 0 | 같음(LTS) |
+| `volcengine/deepseek-v4-1-flash-260910` | DeepSeek V4.1 Flash | text·image | true | 1,024,000 / 384,000 | 없음(`knownGaps` cost) | 모델 목록 https://www.volcengine.com/docs/82379/1330310 (上下文窗口 1024K, 最大回答 384K, 深度思考·多模态理解). 가격 https://www.volcengine.com/docs/82379/1544106 는 元/M token 뿐(`deepseek-v4-1-flash` 空闲 1.00 / 缓存命中 0.02 / 输出 4.00, 高峰 시간대 별도) |
+| `volcengine/doubao-seed-2-1-lite-260915` | Doubao Seed 2.1 Lite | text·image | true | 1,024,000 / 256,000 | 없음 | 같은 목록(1024K, 最大回答 256K). 가격 `doubao-seed-2.1-lite` 0.80 / 缓存命中 0.16 / 输出 2.70 元 |
+| `volcengine/doubao-seed-2-1-pro-260915` | Doubao Seed 2.1 Pro (September) | text·image | true | 1,024,000 / 256,000 | 없음 | 같은 목록(1024K, 最大回答 256K). 가격 `doubao-seed-2.1-pro` 6.00 / 1.20 / 30.00 元 |
+
+- 이름·reasoning·입력·창·최대 출력은 **Agent 플러그인 표 값 그대로**다(Agent `c4842bf5ae8ef47091c98f41a39f86417a1658fc` `extensions/byteplus/models.ts`, `extensions/volcengine/models.ts`). 값을 바꾸면 Agent의 컴팩션 요약 요청(`max_tokens`)이 바뀌므로, 표가 런타임에서 빠져도 요청이 같도록 표 값을 옮겼다. provider `api`는 상류와 같은 `openai-completions`다.
+- **가격만 표 값이 아니다.** 표의 가격은 0 또는 자리 채움 `0.0001/0.0002`라 옮기지 않았다(0장 "모르면 비웁니다"). BytePlus는 공식 USD, Volcano Engine은 CNY만 있어 비우고 `knownGaps`(`check: "cost"`) 3개를 적었다.
+- `cacheWrite: 0`: BytePlus는 캐시를 토큰 쓰기가 아니라 저장 시간으로 받는다. 가격표 "Cache-storage prices are **USD per million tokens per hour**", Seed 2.0 세 행 Cache storage `$0.0083`. 토큰 쓰기 요금이 없으므로 5장대로 0이다.
+- 원문은 2026-11-21 받았다. 설계 때 받은 사본과 본문(페이지에 든 마크다운)이 같다.
+
+## 공식과 다른 칸(기록만)
+
+| 칸 | 행 | catalog(Agent 표) / 공식 |
+| --- | --- | --- |
+| `maxTokens` | `byteplus` 3행 | 4,096 / 최대 출력 128K. 목록 문서 "The default output is 4K for all models unless otherwise specified. Max output includes CoT." — 4,096은 공식 기본 출력과 같다 |
+| 가격 구간 | `byteplus` 3행 | [0,128K] 구간만 넣었다. (128,256] 구간은 Pro 1.00 / 0.20 / 6.00, Lite 0.50 / 0.10 / 4.00, Mini 0.20 / 0.04 / 0.80. Flex·배치 등 다른 요금은 넣지 않는다(5장) |
+| `input` | `byteplus` Lite·Mini, `volcengine` Lite | 수동 행은 text·image만 받는다(5장). 공식은 오디오 이해도 지원 |
+| 가격 | `volcengine` 3행 | 없음 / CNY만. 날짜 붙은 ID가 아니라 모델 계열 이름 단위로 적혀 있다 |
+
+## Effort: Agent 현재 동작 보존 규칙 6
+
+| 규칙 | 값 | 근거 |
+| --- | --- | --- |
+| 6행 각각에 provider·정확한 ID 규칙 1개 | `off, minimal, low, medium, high, adaptive`, 기본 `low`. `source` = 이 파일, note는 "Not the official ladder: …" | **공식 단계가 아니다.** catalog에 Effort가 없는 지금, Agent는 reasoning 모델에 이 목록과 기본 `low`를 쓴다. 이 주소는 Agent에서 프록시형이라 대화 턴에 `reasoning_effort`를 보내지 않는다. 규칙이 없으면 이미 있는 `*` 규칙이 걸려 목록·기본이 바뀐다: `seed-2-0*`(off·low·medium·high, 기본 medium), `deepseek-v4-1-flash*`(off·low·high·max, 기본 high), `doubao-seed-2-1*`(off·low·medium·high, 기본 high). 그래서 5장 원칙을 일부러 어긴다(공식 근거 없이 off·minimal·adaptive를 적음) |
+
+- 공식 thinking 제어: Volcano Engine 모델 목록 "其中带"深度思考"能力标签的模型，默认调用即启用深度思考；如需仅执行文本生成任务，可通过调用参数关闭深度思考（Chat API 传入 `thinking.type=disabled`，Responses API 传入 `reasoning.effort=minimal`）". 공식 목록은 위 세 `*` 규칙이 이미 적고 있다(근거 https://docs.byteplus.com/en/docs/ModelArk/deep-thinking , https://www.volcengine.com/docs/82379/1449737 , https://api-docs.deepseek.com/api/create-chat-completion).
+- 규칙은 첫 `*` 규칙 앞(인덱스 106~111)에 있다. 접두 `*`를 쓰지 않았다(상류의 같은 계열 새 ID에 번지지 않게). 6규칙은 각각 자기 행 하나에만 걸린다.
+- 공식 목록으로 바꾸려면 Agent가 이 주소로 실제 요청을 보내 확인할 수단이 필요하다(`MAINTAINING.md` 9장).
+
+## 넣지 않은 ID (12)
+
+| provider | ID | 이유 |
+| --- | --- | --- |
+| `byteplus` | `seed-1-8-251228`, `kimi-k2-5-260127` | "Fourth batch of model deprecations (November 11, 2026)", Deactivation Date November 11, 2026(https://docs.byteplus.com/en/docs/ModelArk/model-deprecation-notice) |
+| `byteplus-plan` | `doubao-seed-code` | BytePlus 문서에 이 문자열이 없다. 대응 모델 "ByteDance-Seed-Code"는 Coding Plan Deprecated models 표 09.23(https://docs.byteplus.com/en/docs/ModelArk/coding-plan-personal-model-deprecation) |
+| `byteplus-plan` | `glm-4.7` | Coding Plan 지원 모델 목록(https://docs.byteplus.com/en/docs/ModelArk/coding-plan-personal-get-started)에 없다 |
+| `volcengine` | `doubao-seed-1-8-251228`, `doubao-seed-code-preview-251028` | 第九批 EOS 2026-09-21 14:00(UTC+8)(https://www.volcengine.com/docs/82379/model-deprecation-notice) |
+| `volcengine-plan` | `doubao-seed-code`(08.05), `glm-4.7`(06.08), `kimi-k2.5`(06.08), `kimi-k2.7-code`(10.28), `minimax-m3`(11.02) | Coding Plan "已下线模型" 표(https://www.volcengine.com/docs/82379/coding-plan-personal-model-deprecation) |
+| `volcengine-plan` | `doubao-seed-code-preview-251028` | Coding Plan 문서에 없고, 종량 API에서 第九批 EOS 2026-09-21 |
+
+퇴역 공지 표의 "Automated Replacement"(자동 교체) 열은 모델 ID를 직접 부르는 호출의 자동 전환을 뜻하지 않는다. 그런 호출(preset 엔드포인트)은 자동 전환 없이 끝난다(Volcano Engine은 자동 전환을 사용자가 만든 "自定义推理接入点"에만 적는다): BytePlus "Allowed throughput rate (TPM/RPM/IPM) of all the preset inference endpoints will be set to **0** on the **Deactivation Date**.", Volcano Engine "对于预置推理接入点 到期将直接关停，不自动切换，也不支持在控制台手动切换。"(두 퇴역 공지).
+
+`byteplus-plan`·`volcengine-plan`은 구독형이라(5장) 수동 행을 두지 않았다. 상류 행(`ark-code-latest` 등)은 그대로다.
+
+## 판단과 한계
+
+- 6행의 값은 공식 값이 아니라 Agent 표 값이다(공식과 다른 칸은 위 표). 행의 존재와 가격은 공식 문서로 정했다.
+- Effort 6규칙은 공식 단계가 아니다.
+- 재생성 원본은 publish run 44892006922의 artifact다(main `7e7218f`과 같은 `sourceGeneratedAt` 1795255206096). `models=2240->2246 (+6)`. `git diff models/v1/catalog.json`에서 추가 6행과 최상위 `generatedAt`·`supplementDigest` 말고는 바뀐 것이 없다.
+- `npm run audit` open은 작업 전후 모두 0이다. cost known 125 → 128(`volcengine` 3행, `knownGaps`), reasoning 2, thinking 66, zero price 15는 그대로다.
+- 6장 "matches nothing" 검사: 새 규칙 6개는 모두 정확히 한 행에 걸린다. 아무 행에도 안 걸리는 기존 규칙 3개는 작업 전 main에서도 같다.

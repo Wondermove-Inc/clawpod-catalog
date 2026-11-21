@@ -36,6 +36,8 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 | `zai`                       |            6 | 에이전트 내장 JSON의 기준 목록; upstream에는 이미 더 많은 모델이 있음 |
 | `opencode`                  |           69 | 상류 `opencode`에 없는 Pi 1.5.2 행 중 Zen 모델 API에 있는 것(값은 Pi 판·파일 해시 예외, Effort는 Agent 현재 동작 보존 규칙, 2026-11-21) |
 | `opencode-go`               |           22 | 상류 `opencode-go`에 없는 Pi 1.5.2 행 중 Go 모델 API에 있는 것(같은 방식, 2026-11-21) |
+| `byteplus`                  |            3 | 상류 `byteplus`에 없는 Agent 플러그인 표 행 중 공식 모델 목록에 있는 Seed 2.0 Pro/Lite/Mini(값은 Agent 표, 가격은 공식 USD, Effort는 Agent 현재 동작 보존 규칙, 2026-11-21) |
+| `volcengine`                |            3 | 상류 `volcengine`에 없는 Agent 플러그인 표 행 중 공식 모델 목록에 있는 것(같은 방식, 가격은 CNY뿐이라 비움·`knownGaps`, 2026-11-21) |
 
 숫자는 **현재 보완 입력**의 규모입니다. 최종 artifact의 목록·개수는 upstream과
 병합되므로 다릅니다. Google과 zAI는 upstream에도 있으며, 일반 병합에서는 기존 행이 우선합니다.

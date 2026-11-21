@@ -503,6 +503,8 @@ test("committed supplemental data covers the requested providers and preserves p
       "zai",
       "opencode",
       "opencode-go",
+      "byteplus",
+      "volcengine",
     ].sort(),
   );
   const codex = s.providers["openai-codex"].models.find((m) => m.id === "gpt-6-astra");
@@ -1079,6 +1081,115 @@ test("OpenCode effort rules name one row each and leave the upstream OpenCode ro
         assert.deepEqual(now, m, `${p}/${m.id}`);
       }
     }
+  }
+});
+
+const VOLC_IDS = {
+  byteplus: ["seed-2-0-pro-260328", "seed-2-0-lite-260428", "seed-2-0-mini-260428"],
+  volcengine: ["deepseek-v4-1-flash-260910", "doubao-seed-2-1-lite-260915", "doubao-seed-2-1-pro-260915"],
+};
+
+test("reviewed BytePlus and Volcano Engine rows publish the Agent table values and the Agent's current effort", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const next = buildCatalog({ ...fixture(), supplement });
+  const get = (p, id) => next.providers[p].models.find((m) => m.id === id);
+  for (const [p, ids] of Object.entries(VOLC_IDS)) {
+    assert.equal(supplement.providers[p]?.api, "openai-completions", p);
+    assert.deepEqual(supplement.providers[p].models.map((m) => m.id).sort(), [...ids].sort(), p);
+  }
+  const row = (id, name, contextWindow, maxTokens, cost) => ({
+    id,
+    name,
+    input: ["text", "image"],
+    reasoning: true,
+    contextWindow,
+    maxTokens,
+    ...(cost ? { cost } : {}),
+    compat: OPENCODE_KEPT,
+  });
+  // BytePlus USD [0,128K] tier; cache storage is billed per hour, not as a token write.
+  assert.deepEqual(
+    get("byteplus", "seed-2-0-pro-260328"),
+    row("seed-2-0-pro-260328", "Seed 2.0 Pro", 256_000, 4_096, { input: 0.5, output: 3, cacheRead: 0.1, cacheWrite: 0 }),
+  );
+  assert.deepEqual(
+    get("byteplus", "seed-2-0-lite-260428"),
+    row("seed-2-0-lite-260428", "Seed 2.0 Lite", 256_000, 4_096, { input: 0.25, output: 2, cacheRead: 0.05, cacheWrite: 0 }),
+  );
+  assert.deepEqual(
+    get("byteplus", "seed-2-0-mini-260428"),
+    row("seed-2-0-mini-260428", "Seed 2.0 Mini", 256_000, 4_096, { input: 0.1, output: 0.4, cacheRead: 0.02, cacheWrite: 0 }),
+  );
+  // Volcano Engine prices are CNY only: no price, a reviewed cost gap instead.
+  assert.deepEqual(
+    get("volcengine", "deepseek-v4-1-flash-260910"),
+    row("deepseek-v4-1-flash-260910", "DeepSeek V4.1 Flash", 1_024_000, 384_000),
+  );
+  assert.deepEqual(
+    get("volcengine", "doubao-seed-2-1-lite-260915"),
+    row("doubao-seed-2-1-lite-260915", "Doubao Seed 2.1 Lite", 1_024_000, 256_000),
+  );
+  assert.deepEqual(
+    get("volcengine", "doubao-seed-2-1-pro-260915"),
+    row("doubao-seed-2-1-pro-260915", "Doubao Seed 2.1 Pro (September)", 1_024_000, 256_000),
+  );
+  assert.deepEqual(
+    supplement.knownGaps
+      .filter((g) => g.provider === "volcengine" && g.check === "cost")
+      .map((g) => [g.model, g.check])
+      .sort(),
+    VOLC_IDS.volcengine.map((id) => [id, "cost"]).sort(),
+  );
+  // Retired or not listed officially, so not published as manual rows.
+  for (const id of ["seed-1-8-251228", "kimi-k2-5-260127"]) assert.equal(get("byteplus", id), undefined, id);
+  for (const id of ["doubao-seed-1-8-251228", "doubao-seed-code-preview-251028"]) {
+    assert.equal(get("volcengine", id), undefined, id);
+  }
+  for (const p of ["byteplus-plan", "volcengine-plan"]) assert.equal(supplement.providers[p], undefined, p);
+});
+
+test("BytePlus and Volcano Engine effort rules name one row each and leave the upstream rows alone", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const isVolc = (r) => r.provider === "byteplus" || r.provider === "volcengine";
+  const rules = supplement.thinking.filter(isVolc);
+  const firstWildcard = supplement.thinking.findIndex((r) => r.provider === "*");
+  assert.deepEqual(
+    rules.map((r) => `${r.provider}/${r.model}`).sort(),
+    Object.entries(VOLC_IDS).flatMap(([p, ids]) => ids.map((id) => `${p}/${id}`)).sort(),
+  );
+  for (const r of rules) {
+    assert.ok(supplement.thinking.indexOf(r) < firstWildcard, `before * rules ${r.provider}/${r.model}`);
+    assert.deepEqual([r.levels, r.default], [OPENCODE_KEPT.thinkingLevels, "low"]);
+    assert.match(r.note, /^Not the official ladder: /);
+  }
+  // Upstream rows from the committed artifact, rebuilt with and without this review.
+  const artifact = read(path.join(root, "models/v1/catalog.json"));
+  const manual = new Set(Object.entries(VOLC_IDS).flatMap(([p, ids]) => ids.map((id) => `${p}/${id}`)));
+  const upstream = fixture().upstream;
+  for (const p of Object.keys(VOLC_IDS)) {
+    upstream.providers[p] = {
+      api: "openai-completions",
+      models: (artifact.providers[p]?.models ?? []).filter((m) => !manual.has(`${p}/${m.id}`)),
+    };
+  }
+  const { byteplus: _a, volcengine: _b, ...otherProviders } = supplement.providers;
+  const { byteplus: _c, volcengine: _d, ...otherProvenance } = supplement.provenance;
+  const without = {
+    ...supplement,
+    providers: otherProviders,
+    provenance: otherProvenance,
+    thinking: supplement.thinking.filter((r) => !isVolc(r)),
+    knownGaps: supplement.knownGaps.filter((g) => !manual.has(`${g.provider}/${g.model}`)),
+  };
+  const f = { ...fixture(), upstream };
+  const after = buildCatalog({ ...f, supplement });
+  const before = buildCatalog({ ...f, supplement: without });
+  for (const p of Object.keys(VOLC_IDS)) {
+    assert.deepEqual(
+      after.providers[p].models.filter((m) => !manual.has(`${p}/${m.id}`)),
+      before.providers[p].models,
+      p,
+    );
   }
 });
 
