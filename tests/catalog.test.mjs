@@ -505,6 +505,7 @@ test("committed supplemental data covers the requested providers and preserves p
       "opencode-go",
       "byteplus",
       "volcengine",
+      "together",
     ].sort(),
   );
   const codex = s.providers["openai-codex"].models.find((m) => m.id === "gpt-6-astra");
@@ -1191,6 +1192,70 @@ test("BytePlus and Volcano Engine effort rules name one row each and leave the u
       p,
     );
   }
+});
+
+const TOGETHER_ID = "Qwen/Qwen3.8-Flash";
+
+test("reviewed Together row publishes the Agent table values and the Agent's current effort", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  assert.equal(supplement.providers.together?.api, "openai-completions");
+  assert.deepEqual(supplement.providers.together.models.map((m) => m.id), [TOGETHER_ID]);
+  const next = buildCatalog({ ...fixture(), supplement });
+  assert.deepEqual(next.providers.together.models.find((m) => m.id === TOGETHER_ID), {
+    id: TOGETHER_ID,
+    name: "Qwen3.8 Flash",
+    input: ["text", "image"],
+    reasoning: true,
+    contextWindow: 1_000_000,
+    maxTokens: 8_192,
+    cost: { input: 0.15, output: 0.47, cacheRead: 0, cacheWrite: 0 },
+    compat: OPENCODE_KEPT,
+  });
+  // Retired or no longer offered officially, so not published as manual rows.
+  const manual = new Set(supplement.providers.together.models.map((m) => m.id));
+  for (const id of [
+    "zai-org/GLM-4.7",
+    "moonshotai/Kimi-K2.5",
+    "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+    "meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8",
+    "deepseek-ai/DeepSeek-V3.1",
+    "deepseek-ai/DeepSeek-R1",
+    "moonshotai/Kimi-K2-Instruct-0905",
+  ]) {
+    assert.equal(manual.has(id), false, id);
+  }
+  for (const p of ["qianfan", "moonshot"]) assert.equal(supplement.providers[p], undefined, p);
+});
+
+test("Together effort rule names one row and leaves the upstream Together rows alone", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const isTogether = (r) => r.provider === "together";
+  const rules = supplement.thinking.filter(isTogether);
+  assert.deepEqual(rules.map((r) => r.model), [TOGETHER_ID]);
+  const [rule] = rules;
+  assert.ok(
+    supplement.thinking.indexOf(rule) < supplement.thinking.findIndex((r) => r.provider === "*"),
+    "before * rules",
+  );
+  assert.deepEqual([rule.levels, rule.default], [OPENCODE_KEPT.thinkingLevels, "low"]);
+  assert.match(rule.note, /^Not the official ladder: /);
+  // Upstream Together rows from the committed artifact, rebuilt with and without this review.
+  const artifact = read(path.join(root, "models/v1/catalog.json"));
+  const upstream = fixture().upstream;
+  upstream.providers.together = {
+    api: "openai-completions",
+    models: artifact.providers.together.models.filter((m) => m.id !== TOGETHER_ID),
+  };
+  const { together: _a, ...providers } = supplement.providers;
+  const { together: _b, ...provenance } = supplement.provenance;
+  const without = { ...supplement, providers, provenance, thinking: supplement.thinking.filter((r) => !isTogether(r)) };
+  const f = { ...fixture(), upstream };
+  const after = buildCatalog({ ...f, supplement });
+  const before = buildCatalog({ ...f, supplement: without });
+  assert.deepEqual(
+    after.providers.together.models.filter((m) => m.id !== TOGETHER_ID),
+    before.providers.together.models,
+  );
 });
 
 test("committed overrides give the reviewed OpenAI rows their context budget", () => {

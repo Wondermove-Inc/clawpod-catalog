@@ -713,3 +713,52 @@ ClawPoD Agent는 `byteplus`·`byteplus-plan`·`volcengine`·`volcengine-plan` �
 - 재생성 원본은 publish run 44892006922의 artifact다(main `7e7218f`과 같은 `sourceGeneratedAt` 1795255206096). `models=2240->2246 (+6)`. `git diff models/v1/catalog.json`에서 추가 6행과 최상위 `generatedAt`·`supplementDigest` 말고는 바뀐 것이 없다.
 - `npm run audit` open은 작업 전후 모두 0이다. cost known 125 → 128(`volcengine` 3행, `knownGaps`), reasoning 2, thinking 66, zero price 15는 그대로다.
 - 6장 "matches nothing" 검사: 새 규칙 6개는 모두 정확히 한 행에 걸린다. 아무 행에도 안 걸리는 기존 규칙 3개는 작업 전 main에서도 같다.
+
+# 2026-11-21 Together Agent 플러그인 표 행(`together` 1)
+
+ClawPoD Agent는 `together` 모델 값을 플러그인 정적 표에서도 받아 왔다(Agent 3차 묶음 G2에서 표를 런타임에서 뗀다). 표의 16개 ID 가운데 8개는 상류 `together` 행이 이미 있고, 공식 서버리스 목록에 현역으로 있는데 catalog에 없는 1개만 수동 행으로 넣었다. 기존 행 변화는 없다.
+
+| provider / ID | 이름 | 입력 | reasoning | 창 / 최대 출력 | 가격(USD/1M) | 근거 |
+| --- | --- | --- | --- | --- | --- | --- |
+| `together/Qwen/Qwen3.8-Flash` | Qwen3.8 Flash | text·image | true | 1,000,000 / 8,192 | 0.15 / 0.47, cacheRead 0, cacheWrite 0 | 서버리스 모델 목록 https://docs.together.ai/docs/serverless-models.md "Chat models" 표: `Qwen/Qwen3.8-Flash`, Context length 1000000, Input $0.15, Cached input "-", Output $0.47, Function calling Yes, Structured outputs Yes |
+
+- 이름·reasoning·입력·창·최대 출력은 **Agent 플러그인 표 값 그대로**다(Agent `c4842bf5ae8ef47091c98f41a39f86417a1658fc` `extensions/together/models.ts`). 값을 바꾸면 Agent의 컴팩션 요약 요청(`max_tokens`)이 바뀌므로, 표가 런타임에서 빠져도 요청이 같도록 표 값을 옮겼다. provider `api`는 상류와 같은 `openai-completions`다.
+- 가격은 공식 값이고 표 값과 같다. Together 변경 기록(https://docs.together.ai/llms-full.txt)상 2026-10-06부터 다시 $0.15/$0.47이다.
+- `cacheRead: 0`, `cacheWrite: 0`: 목록의 Cached input 칸이 "-"(캐시 단가 없음)다. 같은 목록에서 "-"인 상류 `together` 행(`Qwen/Qwen3.6-Plus`, `Qwen/Qwen3.5-9B`, `openai/gpt-oss-120b`)도 두 칸이 0이다(5장 "캐시 기능이 없는 모델은 cacheRead 0 또는 생략").
+- 원문은 2026-11-21 받았다. 설계 때 받은 사본과 바이트가 같다(서버리스 목록·퇴역 페이지 sha256 `9007f548…`·`c8c4a23f…`).
+
+## 공식과 다른 칸(기록만)
+
+| 칸 | catalog(Agent 표) / 공식 |
+| --- | --- |
+| `input` | text·image / 근거 없음. 이 모델은 목록의 "Vision models" 표에 없다 |
+| `reasoning` | true / 목록에 추론 여부 칸이 없다 |
+| `maxTokens` | 8,192 / 목록에 최대 출력 칸이 없다(Agent 표 주석: 공식 출력 한도를 모르는 행은 요청 대체값 8K) |
+
+## Effort: Agent 현재 동작 보존 규칙 1
+
+| 규칙 | 값 | 근거 |
+| --- | --- | --- |
+| `together` / `Qwen/Qwen3.8-Flash` 정확한 ID 규칙 1개 | `off, minimal, low, medium, high, adaptive`, 기본 `low`. `source` = 이 파일, note는 "Not the official ladder: …" | **공식 단계가 아니다.** catalog에 Effort가 없는 지금, Agent는 reasoning 모델에 이 목록과 기본 `low`를 쓴다. 이 주소는 Agent에서 프록시형이라 대화 턴에 `reasoning_effort`를 보내지 않는다. 규칙이 없으면 이미 있는 `*` 규칙 `qwen3-8-flash*`(off·low·medium·xhigh, 기본 xhigh)가 걸려 목록·기본이 바뀐다. 그래서 5장 원칙을 일부러 어긴다(공식 근거 없이 off·minimal·adaptive를 적음) |
+
+- 공식 thinking 제어: 제조사 Qwen API의 목록은 위 `*` 규칙이 이미 적고 있다(근거 https://docs.qwencloud.com/api-reference/chat/openai-chat). Together 목록은 이 모델의 추론 제어를 적지 않는다.
+- 규칙은 첫 `*` 규칙 앞(인덱스 112)에 있다. 접두 `*`를 쓰지 않았다(같은 계열 새 ID에 번지지 않게). 규칙은 자기 행 하나에만 걸린다.
+- 공식 목록으로 바꾸려면 Agent가 이 주소로 실제 요청을 보내 확인할 수단이 필요하다(`MAINTAINING.md` 9장).
+
+## 넣지 않은 ID (9)
+
+| provider | ID | 이유 |
+| --- | --- | --- |
+| `together` | `deepseek-ai/DeepSeek-R1`(2026-05-14), `deepseek-ai/DeepSeek-V3.1`(2026-05-14), `meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8`(2026-03-31), `meta-llama/Llama-4-Scout-17B-16E-Instruct`(2026-02-06), `moonshotai/Kimi-K2.5`(2026-05-21), `moonshotai/Kimi-K2-Instruct-0905`(2026-03-06), `zai-org/GLM-4.7`(2026-04-02) | 퇴역 페이지 https://docs.together.ai/docs/deprecations.md "Deprecation history › Inference" 표(괄호는 Removal date). 서버리스 목록에도 없다 |
+| `qianfan` | `deepseek-v4-flash` | 퇴역 기록 https://cloud.baidu.com/doc/qianfan/s/zmh4stou3 표(登记日期 / 退役模型版本 / 模型退役日期 / 推荐替换模型) "2026-09-01 / DeepSeek-V4-Flash / 2026-09-29 / DeepSeek-V4-Flash-0731". 국제 영문 목록(https://intl.cloud.baidu.com/en/doc/qianfan/s/7m95lyy43-intl-en)에는 아직 `deepseek-v4-flash`가 있지만, Agent `qianfan` 주소가 중국 도메인 `https://qianfan.baidubce.com/v2`라 중국 퇴역 기록을 따른다 |
+| `moonshot` | `kimi-k2.5` | 모델 목록 https://platform.kimi.ai/docs/models.md "Deprecated Models" 표 "`kimi-k2.5` \| Deprecated" |
+
+- Together 퇴역 페이지의 "Active model redirects" 표에 `DeepSeek-R1` → `DeepSeek-R1-0528`이 있다. 대상 `deepseek-ai/DeepSeek-R1-0528`은 서버리스 목록에 없어 넘겨 줄 곳이 없다. 그래서 `deepseek-ai/DeepSeek-R1`도 행을 두지 않는다. Fine-tuning 표의 `moonshotai/Kimi-K2.5` → `moonshotai/Kimi-K2.6`(2026-07-29)은 추론이 아니라 파인튜닝 퇴역이다.
+
+## 판단과 한계
+
+- 이 행의 값은 공식 값이 아니라 Agent 표 값이다(공식에 없는 칸은 위 표). 행의 존재와 가격은 공식 문서로 정했다.
+- Effort 규칙은 공식 단계가 아니다.
+- 재생성 원본은 publish run 44898298257의 artifact다(main `9413adc`과 같은 `sourceGeneratedAt` 1795259924895). `models=2246->2247 (+1)`. `git diff models/v1/catalog.json`에서 추가 1행과 최상위 `generatedAt`·`supplementDigest` 말고는 바뀐 것이 없다.
+- `npm run audit` open은 작업 전후 모두 0이다. cost known 128, reasoning 2, thinking 66, zero price 15는 그대로다.
+- 6장 "matches nothing" 검사: 새 규칙은 정확히 한 행에 걸린다. 아무 행에도 안 걸리는 기존 규칙 3개는 작업 전 main에서도 같다.
