@@ -475,3 +475,32 @@ ClawPoD Agent가 `openai`·`openai-codex`·`codex` 플러그인이 코드로 지
 - `codex` 행의 Effort는 `openai-codex`와 같다. 규칙이 `provider: "*"`이고 정규화 ID로 비교하기 때문이며, 테스트로 고정했다. Codex 하네스는 `max`를 app-server의 `high`로 보낸다(Agent 쪽 사항, catalog는 공식 단계를 그대로 둔다).
 - 재생성 원본은 publish run 44792525826의 artifact다. main `4078af0`과 같은 `sourceGeneratedAt` 1795199248061이다. `git diff models/v1/catalog.json`에서 추가 32행과 최상위 `generatedAt`·`supplementDigest` 말고는 바뀐 것이 없다.
 - `npm run audit` open은 작업 전후 모두 0이다. thinking 누락은 65에서 66이 됐다(`openai/chat-latest`, 라우터 별칭이라 known). 구독형 cost 누락은 111에서 118이 됐다(`codex` 현역 7행, known).
+
+# 2026-11-21 `anthropic` Sonnet 4.5 Pi 전용 행
+
+ClawPoD Agent가 `anthropic`·`anthropic-vertex`·`amazon-bedrock-mantle` 플러그인이 코드로 지어 넣던 모델 값을 지우기 전에(Agent 3차 묶음 C), Agent가 Pi에서만 받던 Sonnet 4.5 두 ID의 값이 catalog에 있게 했다. 추가 2행, 기존 행 변화 0.
+
+| 행 | 값 | 근거 |
+| --- | --- | --- |
+| `anthropic/claude-sonnet-4-5` (이름 `Claude Sonnet 4.5 (latest)`), `anthropic/claude-sonnet-4-5-20250929` (이름 `Claude Sonnet 4.5`) | 창 200,000·출력 64,000, text·image, reasoning true, $3/$15/cacheRead $0.3/cacheWrite $3.75 | **Pi 판과 파일 해시(승인된 예외):** `@earendil-works/pi-ai@1.5.2` `dist/providers/data/anthropic.json`(sha256 `ebd207ed51603e2060b870bef72c86e9de02d3a14f78bd9813f2de0db27dbdef`)의 `chat:claude-sonnet-4-5`·`chat:claude-sonnet-4-5-20250929`. 공식 값과 같다: https://platform.claude.com/docs/en/about-claude/models/overview.md "Claude Sonnet 4.5 · 200K tokens · 64K tokens · $3 / MTok · $15 / MTok", https://platform.claude.com/docs/en/about-claude/pricing.md "Claude Sonnet 4.5 · $3 / MTok · $3.75 / MTok · $6 / MTok · $0.30 / MTok · $15 / MTok"(5분 캐시 쓰기 $3.75) |
+| 위 2행의 상태 | `deprecated`, 대체 `claude-sonnet-5-5`. `corrections` 2줄로 2026-11-30(`effectiveAt` 1795996800000 = `Date.UTC(2026,10,30)`)에 `disabled` | https://platform.claude.com/docs/en/about-claude/model-deprecations.md : "claude-sonnet-4-5-20250929 · Deprecated · September 30, 2026 · November 30, 2026", 대체 `claude-sonnet-5-5`, "This retirement includes `claude-sonnet-4-5`, the same model's ID without a date". `claude-sonnet-5-5`는 상류 `anthropic`의 활성 행이다 |
+
+- Effort는 기존 `thinking` 규칙 `claude-sonnet-4-5*`(off~high, 기본 off)에서 나온다. 새 규칙은 없다. 공식 thinking 문서의 Sonnet 4.5 "No `thinking` field → Thinking off"와 맞는다(https://platform.claude.com/docs/en/build-with-claude/thinking.md).
+- 상류에 같은 ID가 생기면 상류 행이 이긴다(1장). 그때 이 2행은 지워도 된다.
+- 테스트: 보완 provider 목록에 `anthropic`을 넣었다. 게시 catalog에서 두 행이 2026-11-30 직전까지 `deprecated`(대체 `claude-sonnet-5-5`), 그 시각부터 `disabled`인지 확인한다.
+
+## 넣지 않은 ID
+
+| ID | 이유 |
+| --- | --- |
+| `anthropic/claude-opus-4.6`, `-4.7`, `-4.8`, `anthropic/claude-sonnet-4.6`, `anthropic/claude-fable-5.1`, `anthropic/claude-mythos-5.1` (점 철자) | 공식 ID가 아니다. 모델 표와 폐기 표의 ID는 모두 하이픈이다(https://platform.claude.com/docs/en/about-claude/models/overview.md, https://platform.claude.com/docs/en/about-claude/model-deprecations.md, 2026-11-21 받은 원문에서 점 철자 0건). "Starting with the Claude 4.6 generation, model IDs use a dateless format: `claude-{name}-{major}[-{minor}]`"(https://platform.claude.com/docs/en/about-claude/models/model-ids-and-versions). Agent 플러그인이 이름으로 지어 세우던 값이다 |
+| `anthropic/claude-mythos-5-1` | **승인제**(3장). "limited availability", "Available only to organizations verified through Anthropic's verification programs"(https://platform.claude.com/docs/en/about-claude/pricing.md, models/overview.md). 일반 공개되면 추가한다(`MAINTAINING.md` 9장 보류 행). 이미 있는 `anthropic/claude-mythos-5`(자동)와 `anthropic-vertex/claude-mythos-5`·`-5-1`(수동)은 "이미 들어 있는 승인제 행은 유지" 대로 둔다 |
+| `amazon-bedrock-mantle/anthropic.claude-haiku-5-5` | AWS 모델 카드의 "Availability using the bedrock-mantle endpoint"가 `us-gov-west-1 (GovCloud West)` 하나다(https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-haiku-5-5.html, 2026-11-21). `provenance.amazon-bedrock-mantle.notes`의 기존 판단과 같다 |
+
+## 판단과 한계
+
+- 두 행의 값은 이 저장소의 "모든 수동 값은 공식 근거" 원칙에서 Pi 판·파일 해시를 근거로 쓰는 승인된 예외다(2026-11-21 `openai` 행과 같은 방식). 다만 이 2행은 이름을 뺀 값 전부가 공식 문서와도 같다.
+- 2026-11-30 이후에는 Anthropic API가 두 ID를 거절한다. 이 PR이 그 뒤에 머지됐다면 `corrections` 대신 행에 바로 `disabled`를 적어야 한다(이번에는 11-21 머지라 `corrections`).
+- 기록만 하고 고치지 않은 것: 상류 자동 행 `anthropic/claude-opus-4-8`이 `deprecated`(대체 `claude-opus-5`)로 게시되지만 공식 상태는 "claude-opus-4-8 · Active · N/A · Not sooner than May 28, 2027"이다(https://platform.claude.com/docs/en/about-claude/model-deprecations.md). 자동 행의 상태를 현역으로 되돌리는 칸이 없다(`overrides`의 `status`는 `deprecated`·`disabled`만). 상류가 고치면 해소된다.
+- 재생성 원본은 publish run 44845405061의 artifact다(main `e2ba344`과 같은 `sourceGeneratedAt` 1795221799148). `git diff models/v1/catalog.json`에서 추가 2행과 최상위 `generatedAt`·`supplementDigest` 말고는 바뀐 것이 없다.
+- `npm run audit` open은 작업 전후 모두 0이다. 두 행은 퇴역 상태라 Effort·가격 검사 대상이 아니다.

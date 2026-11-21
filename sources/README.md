@@ -21,6 +21,7 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 | --------------------------- | -----------: | --------------------------------------------------------------------- |
 | `openai-codex`              |           22 | SDK 9개 + 플러그인 augmentation + 공식 문서 추가분(2026-11-18 GPT-6.2) + Agent 별칭 `gpt-5.6`(2026-11-21) |
 | `codex`                     |           21 | `openai-codex` 21행과 같은 값·상태(같은 ChatGPT Codex 백엔드, 2026-11-21). `openai-codex`를 고치면 같이 고친다 |
+| `anthropic`                 |            2 | 상류 `anthropic`에 없는 Pi 1.5.2 행 Sonnet 4.5 둘(값은 Pi 판·파일 해시 예외, 상태는 Anthropic 폐기 문서, 2026-11-21) |
 | `openai`                    |           10 | 상류 `openai`에 없는 Pi 1.5.2 행(값은 Pi 판·파일 해시 예외, 상태는 OpenAI 폐기 문서, 2026-11-21) |
 | `google`                    |           12 | 플러그인 정적 Gemini 목록; preview 포함                               |
 | `google-vertex`             |           15 | Google 모델 목록 + 2026-11-18 Gemini 4 Argon/Carbon/Hydrogen              |

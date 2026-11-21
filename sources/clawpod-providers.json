@@ -114,6 +114,14 @@
         "node_modules/@earendil-works/pi-ai/dist/providers/data/openai.json"
       ],
       "notes": "Reviewed 2026-11-21: added the 10 Pi openai-responses rows the upstream openai block lacks (values as in Pi 1.5.2, approved exception: Pi version and file hash). Status/replacement from https://developers.openai.com/api/docs/deprecations (notice 2026-04-22): gpt-4, gpt-4-turbo, gpt-4.1-nano, gpt-4o-2024-05-13, o1, o1-pro, o3-mini, o4-mini shut down 2026-10-23; gpt-5-chat-latest shut down 2026-07-23. chat-latest is not on the deprecations or models pages. gpt-5.6-cyber not added: Daybreak Red approval required. sources/REVIEW.md."
+    },
+    "anthropic": {
+      "source": "Wondermove-Inc/clawpod-agent",
+      "revision": "0d85b56681; @earendil-works/pi-ai@1.5.2; sha256:ebd207ed51603e2060b870bef72c86e9de02d3a14f78bd9813f2de0db27dbdef",
+      "files": [
+        "node_modules/@earendil-works/pi-ai/dist/providers/data/anthropic.json"
+      ],
+      "notes": "Reviewed 2026-11-21: added claude-sonnet-4-5 and claude-sonnet-4-5-20250929, the Pi 1.5.2 anthropic-messages rows the upstream anthropic block lacks (name, limits, input, reasoning, price as in Pi; approved exception: Pi version and file hash). Limits and price match https://platform.claude.com/docs/en/about-claude/models/overview.md and https://platform.claude.com/docs/en/about-claude/pricing.md. Status: deprecated 2026-09-30, retires 2026-11-30, replacement claude-sonnet-5-5; the retirement includes the dateless claude-sonnet-4-5 (https://platform.claude.com/docs/en/about-claude/model-deprecations.md); disabled by a dated correction. claude-mythos-5-1 not added (limited availability, verified organizations only). sources/REVIEW.md."
     }
   },
   "providers": {
@@ -5231,6 +5239,49 @@
           "replacedBy": "gpt-5.6-terra"
         }
       ]
+    },
+    "anthropic": {
+      "api": "anthropic-messages",
+      "models": [
+        {
+          "id": "claude-sonnet-4-5",
+          "name": "Claude Sonnet 4.5 (latest)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 200000,
+          "maxTokens": 64000,
+          "cost": {
+            "input": 3,
+            "output": 15,
+            "cacheRead": 0.3,
+            "cacheWrite": 3.75
+          },
+          "status": "deprecated",
+          "replacedBy": "claude-sonnet-5-5"
+        },
+        {
+          "id": "claude-sonnet-4-5-20250929",
+          "name": "Claude Sonnet 4.5",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 200000,
+          "maxTokens": 64000,
+          "cost": {
+            "input": 3,
+            "output": 15,
+            "cacheRead": 0.3,
+            "cacheWrite": 3.75
+          },
+          "status": "deprecated",
+          "replacedBy": "claude-sonnet-5-5"
+        }
+      ]
     }
   },
   "corrections": [
@@ -5738,6 +5789,24 @@
       "to": "disabled",
       "source": "https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html",
       "effectiveAt": 1807142400000
+    },
+    {
+      "kind": "status",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-5",
+      "from": "deprecated",
+      "to": "disabled",
+      "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations.md",
+      "effectiveAt": 1795996800000
+    },
+    {
+      "kind": "status",
+      "provider": "anthropic",
+      "model": "claude-sonnet-4-5-20250929",
+      "from": "deprecated",
+      "to": "disabled",
+      "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations.md",
+      "effectiveAt": 1795996800000
     }
   ],
   "thinking": [
