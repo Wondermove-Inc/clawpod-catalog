@@ -806,6 +806,43 @@ test("reviewed data publishes corrected prices, subscription unknowns, and retir
   }
 });
 
+test("reviewed xai aliases publish their official target's values and always-on effort", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const next = buildCatalog({ ...fixture(), supplement });
+  const get = (id) => next.providers.xai.models.find((m) => m.id === id);
+  const shared = {
+    input: ["text", "image"],
+    reasoning: true,
+    contextWindow: 1_000_000,
+    cost: { input: 1.25, output: 2.5, cacheRead: 0.2, cacheWrite: 0 },
+  };
+  const alwaysOn = { thinkingLevels: ["low"], defaultThinkingLevel: "low", thinkingLevelLabels: { low: "on" } };
+  // grok-4.20 is an official alias of grok-4.20-0309-reasoning (REVIEW 2026-11-21).
+  const alias = get("grok-4.20");
+  assert.ok(alias, "missing xai/grok-4.20");
+  assert.deepEqual(
+    { ...alias, compat: undefined },
+    { id: "grok-4.20", name: "Grok 4.20", ...shared, maxTokens: 30_000, compat: undefined },
+  );
+  assert.deepEqual(alias.compat, alwaysOn);
+  // grok-4-0709 retired 2026-05-15; xAI serves it as grok-4.3 with low reasoning effort.
+  const retired = get("grok-4-0709");
+  assert.ok(retired, "missing xai/grok-4-0709");
+  assert.deepEqual(
+    { ...retired, compat: undefined },
+    {
+      id: "grok-4-0709",
+      name: "Grok 4 0709",
+      ...shared,
+      maxTokens: 64_000,
+      status: "deprecated",
+      replacedBy: "grok-4.3",
+      compat: undefined,
+    },
+  );
+  assert.deepEqual(retired.compat, alwaysOn);
+});
+
 test("committed overrides give the reviewed OpenAI rows their context budget", () => {
   const { overrides } = read(path.join(root, "sources/clawpod-providers.json"));
   const row = (id, extra) => ({ id, contextWindow: 1050000, maxTokens: 128000, ...extra });

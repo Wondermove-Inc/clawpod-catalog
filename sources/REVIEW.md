@@ -504,3 +504,40 @@ ClawPoD Agent가 `anthropic`·`anthropic-vertex`·`amazon-bedrock-mantle` 플러
 - 기록만 하고 고치지 않은 것: 상류 자동 행 `anthropic/claude-opus-4-8`이 `deprecated`(대체 `claude-opus-5`)로 게시되지만 공식 상태는 "claude-opus-4-8 · Active · N/A · Not sooner than May 28, 2027"이다(https://platform.claude.com/docs/en/about-claude/model-deprecations.md). 자동 행의 상태를 현역으로 되돌리는 칸이 없다(`overrides`의 `status`는 `deprecated`·`disabled`만). 상류가 고치면 해소된다.
 - 재생성 원본은 publish run 44845405061의 artifact다(main `e2ba344`과 같은 `sourceGeneratedAt` 1795221799148). `git diff models/v1/catalog.json`에서 추가 2행과 최상위 `generatedAt`·`supplementDigest` 말고는 바뀐 것이 없다.
 - `npm run audit` open은 작업 전후 모두 0이다. 두 행은 퇴역 상태라 Effort·가격 검사 대상이 아니다.
+
+# 2026-11-21 `xai` 공식 별칭 `grok-4.20`, 은퇴 ID `grok-4-0709`
+
+ClawPoD Agent가 `xai` 플러그인의 값 표와 이름 추정을 지우기 전에(Agent 3차 묶음 D), 그 표가 세우던 ID 가운데 공식 근거가 있는 두 ID의 값이 catalog에 있게 했다. 추가 2행, 기존 행 변화 0.
+
+| 행 | 값 | 근거 |
+| --- | --- | --- |
+| `xai/grok-4.20` (이름 `Grok 4.20`, 현역) | 창 1,000,000·출력 30,000, text·image, reasoning true, $1.25/$2.5/cacheRead $0.2/cacheWrite 0 | https://docs.x.ai/developers/models/grok-4.20 : "Model name grok-4.20-0309-reasoning", "Aliases grok-4.20-reasoning-latest grok-4.20 …", "Modalities Text, Image → Text", "Context window 1,000,000", "Reasoning The model can think before responding", "Input Tokens $1.25 / 1M tokens · Cached tokens $0.20 / 1M tokens · Output Tokens $2.50 / 1M tokens". 같은 모델의 게시 행 `xai/grok-4.20-0309-reasoning`과 같은 값이다 |
+| `xai/grok-4-0709` (이름 `Grok 4 0709`) | 창 1,000,000·출력 64,000, text·image, reasoning true, $1.25/$2.5/cacheRead $0.2/cacheWrite 0. `deprecated`, 대체 `grok-4.3` | https://docs.x.ai/developers/migration/may-15-retirement : 표 "grok-4-0709 · grok-4.3 with low reasoning effort", "The slugs themselves continue to resolve", "you will be billed at grok-4.3 pricing of $1.25 per 1M input tokens and $2.50 per 1M output tokens". 창·입력·cacheRead: https://docs.x.ai/developers/models/grok-4.3 ("Context window 1,000,000", "Text, Image → Text", "Cached tokens $0.20"). 공식상 `grok-4.3`으로 돌므로 값은 게시 행 `xai/grok-4.3`과 같게 했다(2026-09-08 은퇴 별칭 3행과 같은 방식) |
+| `thinking` 규칙 `xai`/`grok-4-0709` | `["low"]`, 기본 `low`, `labels: {low: "on"}` | 같은 은퇴 안내: 이 ID의 요청은 `grok-4.3` + reasoning effort `low`로 처리된다. 은퇴 ID에서 effort를 바꿀 수 있다는 문서는 없다. provider 지정 규칙이라 첫 `*` 규칙 앞에 넣었다 |
+
+- `grok-4.20`의 Effort는 새 규칙 없이 기존 `*` 규칙 `grok-4-20`(항상 켬, `low` 하나)에서 나온다. 이 규칙은 원래 이 별칭을 위해 쓴 것이다(note "xAI alias grok-4.20 -> grok-4.20-0309-reasoning"). 추론 안내 https://docs.x.ai/developers/model-capabilities/text/reasoning : "`grok-4.7`, `grok-4.6`, and `grok-4.5` support the `reasoning_effort` parameter".
+- 상류에 같은 ID가 생기면 상류 행이 이긴다(1장).
+- 테스트: 게시 catalog에서 두 행의 값·상태·대체와 Effort(`low` 켬)를 확인한다.
+
+## 넣지 않은 ID
+
+| ID | 이유 |
+| --- | --- |
+| `xai/grok-3-fast`, `grok-3-mini`, `grok-3-mini-fast`, `grok-4-fast`, `grok-4`, `grok-4-1`, `grok-4-1-fast` | 공식 ID가 아니다. 모델 표(https://docs.x.ai/developers/models)에 없고, 은퇴 안내의 ID 목록에도 없다(은퇴 안내에는 `grok-4-fast-reasoning`·`-non-reasoning`, `grok-4-1-fast-reasoning`·`-non-reasoning`만 있다). Agent 플러그인이 이름으로 지어 세우던 값이다. 앞 넷은 2026-09-08에도 "미확인 구형 ID"로 뺐다 |
+| `grok-4.20-0309-reasoning`의 다른 공식 별칭 14개(`grok-4.20-reasoning-latest`, `grok-4.20-reasoning`, `grok-4.20-0309`, `grok-4.20-beta-0309-reasoning`, `grok-4.20-beta`, `grok-4.20-beta-0309`, `grok-4.20-beta-latest`, `grok-4.20-beta-latest-reasoning`, `grok-4.20-beta-reasoning`, `grok-4.20-experimental-beta-0304-reasoning`, `grok-4.20-experimental-beta-0304`, `grok-4.20-experimental-beta-reasoning-latest`, `grok-4.20-experimental-beta-latest`, `grok-4.20-reasoning-gv2`) | 공식 별칭이지만(위 모델 페이지 "Aliases") Agent·ClawPoD Cloud·RND 어디에서도 쓰지 않는다. 필요해지면 `grok-4.20`과 같은 값으로 넣는다 |
+
+## 기록만 하고 고치지 않은 것 (catalog와 공식 문서의 차이)
+
+| 행 | 게시 catalog | 공식 문서(2026-11-21) |
+| --- | --- | --- |
+| `xai/grok-build-0.1` | 창 256,000(상류 자동 행). Effort `["low"]`(켬), 기본 `low`: 이 저장소의 `*` 규칙 `grok-build*`, note "no reasoning efforts listed" | 모델 페이지 https://docs.x.ai/developers/models/grok-build-0.1 : "Context window 500,000", "Reasoning efforts Supported low, medium, high, xhigh · Default high". 모델 표 https://docs.x.ai/developers/models 의 `maxPromptLength`도 500000. 추론 안내의 `reasoning_effort` 지원 문장과 요약 표에는 이 모델이 없다 |
+| `xai/grok-4.5` | Effort `low, medium, high`, 기본 `high` | 모델 페이지 https://docs.x.ai/developers/models/grok-4.5 : "Reasoning efforts Supported low, medium, high, xhigh · Default high". 추론 안내 https://docs.x.ai/developers/model-capabilities/text/reasoning : "`xhigh` is available on grok-4.6 and later. On models that do not support it, such as `grok-4.5`, requests with `"xhigh"` are treated as `"high"`", 요약 표도 low/medium/high. 두 공식 문서가 서로 다르다 |
+
+## 판단과 한계
+
+- 최대 출력은 xAI 공식 값이 없다(모델 페이지와 모델 표에 최대 입력 `maxPromptLength`만 있다). 두 행 모두 **공식 값 아님**이다. `grok-4.20`의 30,000은 같은 모델의 게시 행 `xai/grok-4.20-0309-reasoning`(상류 자동 행, 30,000)을 따랐다. 같은 모델이 두 ID에서 다른 값을 보이지 않게 하기 위해서다. `grok-4-0709`의 64,000은 전환 대상의 게시 행 `xai/grok-4.3`(상류 자동 행, 64,000)을 따랐다.
+- `grok-4-0709`는 2026-09-08 은퇴 별칭 3행(`grok-3` 등, Agent 운영 값 출력 10,000)과 달리 64,000을 쓴다. 이 ID는 reasoning 모델로 돌고, Agent가 지금 이 ID 요청에 싣는 출력 상한도 64,000이라 10,000이면 상한이 줄어든다.
+- 상태는 `disabled`가 아니라 `deprecated`다. xAI가 은퇴를 공지했지만 "The slugs themselves continue to resolve"라 요청은 계속 처리된다. 2026-09-08 은퇴 별칭 3행과 같은 판단이다.
+- 장문(200K 초과) 요금은 넣지 않았다. 기존 `xai` 수동 행과 같이 기본 요금만 적는다(`sources/README.md` 비용 절).
+- 재생성 원본은 publish run 44855317119의 artifact다(main `8a1a258`과 같은 `sourceGeneratedAt` 1795227774303). 행 단위 비교에서 추가 2행과 최상위 `generatedAt`·`supplementDigest` 말고는 바뀐 것이 없다.
+- `npm run audit` open은 작업 전후 모두 0이다(cost 118, reasoning 2, thinking 66, zero price 15, 모두 known, 숫자 같음). `grok-4-0709`는 퇴역 행이라 `replacedBy` 검사만 받고, `grok-4.20`은 현역 필수 칸이 모두 있다.

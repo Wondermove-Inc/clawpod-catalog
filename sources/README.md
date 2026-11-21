@@ -25,7 +25,7 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 | `openai`                    |           10 | 상류 `openai`에 없는 Pi 1.5.2 행(값은 Pi 판·파일 해시 예외, 상태는 OpenAI 폐기 문서, 2026-11-21) |
 | `google`                    |           12 | 플러그인 정적 Gemini 목록; preview 포함                               |
 | `google-vertex`             |           15 | Google 모델 목록 + 2026-11-18 Gemini 4 Argon/Carbon/Hydrogen              |
-| `xai`                       |           10 | 현행 7개 + 공식 전환 안내가 있는 별칭 3개                             |
+| `xai`                       |           12 | 현행 7개 + 공식 별칭 1개(`grok-4.20`) + 공식 전환 안내가 있는 별칭 4개(2026-11-21 `grok-4-0709`) |
 | `minimax`                   |            4 | 플러그인의 text 모델 목록 + 2026-11-18 M3.1 Flash                              |
 | `minimax-portal`            |            5 | M Plan 모델. 2026-11-18 M3.1 Flash 추가, Preview·M2.7은 대체됨                |
 | `amazon-bedrock`            |          164 | SDK 87개 + AWS 문서 추가 77개(2026-10-02 57, 11-18 16, 11-19 GPT-6.2 4)     |

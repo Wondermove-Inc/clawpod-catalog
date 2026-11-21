@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795227793378,
+  "generatedAt": 1795240855363,
   "minVersion": "2026.4.11",
   "sourceCommit": "39c3099189516d374bc1a74cd625b9ceaa5494e3",
   "providers": {
@@ -37863,6 +37863,60 @@
             ],
             "defaultThinkingLevel": "medium"
           }
+        },
+        {
+          "id": "grok-4.20",
+          "name": "Grok 4.20",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 30000,
+          "cost": {
+            "input": 1.25,
+            "output": 2.5,
+            "cacheRead": 0.2,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "low"
+            ],
+            "defaultThinkingLevel": "low",
+            "thinkingLevelLabels": {
+              "low": "on"
+            }
+          }
+        },
+        {
+          "id": "grok-4-0709",
+          "name": "Grok 4 0709",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 64000,
+          "cost": {
+            "input": 1.25,
+            "output": 2.5,
+            "cacheRead": 0.2,
+            "cacheWrite": 0
+          },
+          "status": "deprecated",
+          "replacedBy": "grok-4.3",
+          "compat": {
+            "thinkingLevels": [
+              "low"
+            ],
+            "defaultThinkingLevel": "low",
+            "thinkingLevelLabels": {
+              "low": "on"
+            }
+          }
         }
       ]
     },
@@ -55955,5 +56009,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795227774303,
-  "supplementDigest": "35c803739ada17f54a4852294283ac5921edc3669a6e5f8d6629216b3ee53070"
+  "supplementDigest": "22da4fef0fedd743ec0d83118ccc7ed6bc22d256081c2e604150ddcc272df0d5"
 }
