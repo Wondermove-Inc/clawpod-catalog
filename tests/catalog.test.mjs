@@ -492,6 +492,7 @@ test("committed supplemental data covers the requested providers and preserves p
       "anthropic",
       "google",
       "google-vertex",
+      "google-gemini-cli",
       "xai",
       "minimax",
       "minimax-portal",
@@ -841,6 +842,87 @@ test("reviewed xai aliases publish their official target's values and always-on 
     },
   );
   assert.deepEqual(retired.compat, alwaysOn);
+});
+
+test("reviewed Google rows publish custom tools, Robotics ER 2 and the Gemini CLI rows", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const f = { ...fixture(), supplement };
+  const next = buildCatalog(f);
+  const get = (p, id, bundle = next) => bundle.providers[p].models.find((m) => m.id === id);
+  const pro = {
+    id: "gemini-3.1-pro-preview-customtools",
+    name: "Gemini 3.1 Pro Preview Custom Tools",
+    input: ["text", "image"],
+    reasoning: true,
+    contextWindow: 1_048_576,
+    maxTokens: 65_536,
+    cost: { input: 2, output: 12, cacheRead: 0.2 },
+    compat: { thinkingLevels: ["low", "medium", "high"], defaultThinkingLevel: "high" },
+  };
+  // Same model as gemini-3.1-pro-preview on both APIs (REVIEW 2026-11-21).
+  assert.deepEqual(get("google", pro.id), pro);
+  assert.deepEqual(get("google-vertex", pro.id), pro);
+  assert.deepEqual(get("google", "gemini-robotics-er-2-preview"), {
+    id: "gemini-robotics-er-2-preview",
+    name: "Gemini Robotics-ER 2 Preview",
+    input: ["text", "image"],
+    reasoning: true,
+    contextWindow: 131_072,
+    maxTokens: 65_536,
+    cost: { input: 1, output: 5, cacheRead: 0.1 },
+    compat: { thinkingLevels: ["minimal", "low", "medium", "high"], defaultThinkingLevel: "high" },
+  });
+  // Introductory Robotics ER 2 price ends 2026-12-31.
+  const later = buildCatalog({ ...f, now: Date.UTC(2027, 0, 1) });
+  assert.deepEqual(get("google", "gemini-robotics-er-2-preview", later).cost, {
+    input: 2,
+    output: 10,
+    cacheRead: 0.2,
+  });
+  const cli = next.providers["google-gemini-cli"];
+  assert.ok(cli, "missing provider google-gemini-cli");
+  assert.equal(cli.api, "google-generative-ai");
+  assert.deepEqual(
+    cli.models.map((m) => m.id).sort(),
+    [
+      "gemini-2.5-flash",
+      "gemini-2.5-flash-lite",
+      "gemini-2.5-pro",
+      "gemini-3-flash-preview",
+      "gemini-3.1-flash-lite",
+      "gemini-3.1-pro-preview",
+      "gemini-3.1-pro-preview-customtools",
+    ].sort(),
+  );
+  // Gemini CLI sign-in is a request quota, not a per-token price.
+  assert.ok(cli.models.every((m) => m.cost === undefined));
+  assert.ok(SUBSCRIPTION_PROVIDERS.has("google-gemini-cli"));
+  // The Agent's Pi Google adapter rejects xhigh (MAINTAINING.md 9).
+  const added = [
+    get("google", pro.id),
+    get("google-vertex", pro.id),
+    get("google", "gemini-robotics-er-2-preview"),
+    ...cli.models,
+  ];
+  for (const m of added) {
+    assert.ok(m.compat?.thinkingLevels?.length, `no effort ${m.id}`);
+    assert.ok(!m.compat.thinkingLevels.some((l) => l === "xhigh" || l === "max"), m.id);
+  }
+});
+
+test("Gemini CLI manual rows keep the google manual rows' values without a price", () => {
+  // Compared with the manual google rows, not the published ones: upstream google rows
+  // may change on a scheduled publish and must not block it (google is auto + manual).
+  const s = validateSupplement(read(path.join(root, "sources/clawpod-providers.json")));
+  const google = new Map(s.providers.google.models.map((m) => [m.id, m]));
+  const cli = s.providers["google-gemini-cli"];
+  assert.equal(cli.api, s.providers.google.api);
+  for (const m of cli.models) {
+    const twin = google.get(m.id);
+    assert.ok(twin, `no manual google row for ${m.id}`);
+    const { cost, ...values } = twin;
+    assert.deepEqual(m, values, m.id);
+  }
 });
 
 test("committed overrides give the reviewed OpenAI rows their context budget", () => {
