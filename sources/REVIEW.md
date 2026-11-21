@@ -762,3 +762,63 @@ ClawPoD Agent는 `together` 모델 값을 플러그인 정적 표에서도 받�
 - 재생성 원본은 publish run 44898298257의 artifact다(main `9413adc`과 같은 `sourceGeneratedAt` 1795259924895). `models=2246->2247 (+1)`. `git diff models/v1/catalog.json`에서 추가 1행과 최상위 `generatedAt`·`supplementDigest` 말고는 바뀐 것이 없다.
 - `npm run audit` open은 작업 전후 모두 0이다. cost known 128, reasoning 2, thinking 66, zero price 15는 그대로다.
 - 6장 "matches nothing" 검사: 새 규칙은 정확히 한 행에 걸린다. 아무 행에도 안 걸리는 기존 규칙 3개는 작업 전 main에서도 같다.
+
+# 2026-11-21 Synthetic Agent 플러그인 표 행(`synthetic` 4, 새 provider)
+
+ClawPoD Agent는 `synthetic`(synthetic.new, Anthropic Messages API) 모델 값을 플러그인 정적 표에서 받아 왔다(Agent 3차 묶음 G3에서 표를 런타임에서 뗀다). catalog에는 `synthetic` provider가 없었다. 표의 28개 ID 가운데 공식 모델 API에 현역으로 있는 4개만 새 provider `synthetic`(`api: "anthropic-messages"`)의 수동 행으로 넣었다. 기존 행 변화는 없다.
+
+| provider / ID | 이름 | 입력 | reasoning | 창 / 최대 출력 | 가격(USD/1M) | 공식 모델 API 값 |
+| --- | --- | --- | --- | --- | --- | --- |
+| `synthetic/hf:openai/gpt-oss-120b` | GPT OSS 120B | text | false | 128,000 / 8,192 | 0.10 / 0.10, cacheRead 0.02, cacheWrite 0 | ctx 131072, max out 65536, text, efforts none/low/medium/high, prompt $0.0000001, completion $0.0000001, cache reads $0.00000002, cache writes 0 |
+| `synthetic/hf:zai-org/GLM-4.7-Flash` | GLM 4.7 Flash | text | true | 196,608 / 8,192 | 0.10 / 0.50, cacheRead 0.02, cacheWrite 0 | ctx 196608, max out 65536, text, efforts none/low/medium/high, $0.0000001 / $0.0000005 / $0.00000002 / 0 |
+| `synthetic/hf:zai-org/GLM-5.3-Flash` | GLM 5.3 Flash | text·image | true | 524,288 / 8,192 | 0.15 / 0.50, cacheRead 0.04, cacheWrite 0 | ctx 524288, max out 65536, text·image, efforts low/high/max, $0.00000015 / $0.0000005 / $0.00000004 / 0 |
+| `synthetic/hf:Qwen/Qwen3.8-27B` | Qwen3.8 27B | text·image | true | 262,144 / 8,192 | 0.45 / 2.20, cacheRead 0.09, cacheWrite 0 | ctx 262144, max out 65536, text·image, efforts low/medium/xhigh, $0.00000045 / $0.0000022 / $0.00000009 / 0 |
+
+- 근거: 모델 API https://api.synthetic.new/openai/v1/models (인증 없이 200. `hf:` 모델은 위 4개와 `hf:zai-org/GLM-5.3`, `hf:deepseek-ai/DeepSeek-V4.1-Flash-1017`, `hf:moonshotai/Kimi-K3.1-Pro` 7개뿐), 가격표 https://synthetic.new/pricing/models "Usage-based price" 열(GPT-OSS $0.10 / cached $0.02 / $0.10, GLM-4.7-Flash $0.10 / $0.02 / $0.50, GLM-5.3-Flash $0.15 / $0.04 / $0.50, Qwen3.8-27B $0.45 / $0.09 / $2.20). 원문은 2026-11-21 받았고 모델 API는 설계 때 사본과 바이트가 같다(sha256 `3e0c30a4…a99e`).
+- 이름·reasoning·입력·창·최대 출력은 **Agent 플러그인 표 값 그대로**다(Agent `c4842bf5ae8ef47091c98f41a39f86417a1658fc` `extensions/synthetic/models.ts`). 이 주소는 Anthropic Messages라 Agent가 `max_tokens = min(maxTokens, 32000)`을 보내고, reasoning 행에는 고른 단계를 Anthropic `thinking`(켬: 단계별 토큰 예산, `off`: disabled)으로 보낸다. 최대 출력을 공식 65,536으로 바꾸면 `max_tokens`가 8,192 → 32,000으로, gpt-oss reasoning을 켜면 요청에 `thinking`이 생긴다. 표가 런타임에서 빠져도 요청이 같도록 표 값을 옮겼다.
+- 가격은 공식 종량가다. Agent 표의 0은 자리 채움(`SYNTHETIC_DEFAULT_COST`)이라 쓰지 않았다. `cacheWrite: 0`은 모델 API `pricing.input_cache_writes`가 "0"이기 때문이다.
+- 구독형으로 보지 않는다: 요금 페이지 https://synthetic.new/pricing 는 구독(Go·Standard·Big·Bigger)과 "extra usage at API pricing"을 함께 팔고, https://synthetic.new/pricing/models 는 "Models are charged per token. Usage-based requests pay the usage-based price; users on a subscription plan have their rate limit deducted at the subscription discounted rate."라고 적는다. 토큰당 종량가가 공개돼 있으므로 `SUBSCRIPTION_PROVIDERS`에 넣지 않고 가격을 채웠다(구독 할인 단가는 쓰지 않음).
+- 모델 문서 https://dev.synthetic.new/docs/api/models : "Pinning to specific model names risks 404 errors when we rotate older models out." 모델 API에서 ID가 빠지면 행을 지운다(`MAINTAINING.md` 9장).
+
+## 공식과 다른 칸(기록만)
+
+| ID | 칸 | catalog(Agent 표) / 공식 모델 API |
+| --- | --- | --- |
+| 4행 모두 | `maxTokens` | 8,192 / 65,536 |
+| `hf:openai/gpt-oss-120b` | `contextWindow` | 128,000 / 131,072 |
+| `hf:openai/gpt-oss-120b` | `reasoning` | false / `reasoning_parameters.efforts` none·low·medium·high, `supported_features`에 `reasoning` |
+
+## Effort: Agent 현재 동작 보존 규칙 3, gpt-oss reasoning 꺼짐 유지 규칙 1
+
+| 규칙 | 값 | 근거 |
+| --- | --- | --- |
+| `thinking`: `synthetic` / `hf:zai-org/GLM-4.7-Flash`, `hf:zai-org/GLM-5.3-Flash`, `hf:Qwen/Qwen3.8-27B` 정확한 ID 규칙 3개 | `off, minimal, low, medium, high, adaptive`, 기본 `low`. `source` = 이 파일, note는 "Not the official ladder: …" | **공식 단계가 아니다.** catalog에 Effort가 없는 지금, Agent는 reasoning 모델에 이 목록과 기본 `low`를 쓴다. 규칙이 없으면 이미 있는 `*` 규칙이 걸려 목록·기본이 바뀐다: `glm-4-7-flash*`(off·low, 기본 low), `glm-5-3*`(low·high·max, 기본 max), `qwen3-8-27b*`(off·low·medium·xhigh, 기본 xhigh). 그래서 5장 원칙을 일부러 어긴다(공식 근거 없이 off·minimal·adaptive를 적음) |
+| `overrides`: `synthetic` / `hf:openai/gpt-oss-120b` `set: {reasoning: false}` | 배열 끝(`*` 규칙 `gpt-oss-*` 뒤) | **공식 값이 아니다.** 이미 있는 `*` 규칙 `gpt-oss-*`(`set: {reasoning: true}`, "some hosts publish reasoning:false")가 모든 provider의 gpt-oss 행에 걸려, 이 규칙이 없으면 이 행이 reasoning true와 `*` `thinking` 규칙 `gpt-oss*`(low·medium·high, 기본 medium)로 게시된다(재생성 전 테스트에서 확인). 그러면 Agent의 Anthropic 요청에 `thinking`이 생긴다. Agent 표 값(false)을 지키려고 정확한 ID로 뒤에서 덮는다. 이 행에는 `thinking` 규칙이 없고 Effort도 붙지 않는다(생성기는 reasoning true 행에만 채운다) |
+
+- 공식 thinking 제어: 모델 API `reasoning_parameters.efforts`(위 표). Anthropic Messages 주소에서 이 effort 이름이 어떻게 받아들여지는지는 공식 문서에서 찾지 못했다.
+- 규칙 3개는 첫 `*` 규칙 앞(인덱스 113~115, Together 규칙 뒤)에 있다. 접두 `*`를 쓰지 않았다(같은 계열 새 ID에 번지지 않게). 각 규칙과 `overrides` 규칙은 자기 행 하나에만 걸린다.
+- 공식 목록·reasoning으로 바꾸려면 Agent가 이 주소로 실제 요청을 보내 확인할 수단이 필요하다(`MAINTAINING.md` 9장).
+
+## 넣지 않은 ID
+
+| provider | ID | 이유 |
+| --- | --- | --- |
+| `synthetic` 3 | `hf:zai-org/GLM-5.3Beta`, `hf:deepseek-ai/DeepSeek-V4.1-FlashBeta`, `hf:moonshotai/Kimi-K3` | 모델 API에 이 ID가 없다. 비슷한 이름의 다른 ID만 있다: `hf:zai-org/GLM-5.3`(문서 표의 "Beta"는 배지), `hf:deepseek-ai/DeepSeek-V4.1-Flash-1017`, `hf:moonshotai/Kimi-K3.1-Pro`. 같은 모델이라는 공식 근거가 없어 다른 ID로 옮기지 않았다 |
+| `synthetic` 21 | `hf:deepseek-ai/DeepSeek-R1-0528`, `hf:deepseek-ai/DeepSeek-V3-0324`, `hf:deepseek-ai/DeepSeek-V3.1`, `hf:deepseek-ai/DeepSeek-V3.1-Terminus`, `hf:deepseek-ai/DeepSeek-V3.2`, `hf:deepseek-ai/DeepSeek-V3`, `hf:meta-llama/Llama-3.3-70B-Instruct`, `hf:meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8`, `hf:MiniMaxAI/MiniMax-M2.5`(Agent 기본 모델), `hf:moonshotai/Kimi-K2.5`, `hf:moonshotai/Kimi-K2-Instruct-0905`, `hf:moonshotai/Kimi-K2-Thinking`, `hf:nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-NVFP4`, `hf:Qwen/Qwen3-235B-A22B-Instruct-2507`, `hf:Qwen/Qwen3-235B-A22B-Thinking-2507`, `hf:Qwen/Qwen3-Coder-480B-A35B-Instruct`, `hf:Qwen/Qwen3-VL-235B-A22B-Instruct`, `hf:zai-org/GLM-4.5`, `hf:zai-org/GLM-4.6`, `hf:zai-org/GLM-4.7`, `hf:zai-org/GLM-5` | 모델 API와 모델 문서 어디에도 없다. 퇴역 공지는 없고 목록에서 빠졌다(위 404 문구) |
+| `venice` 11 | `claude-sonnet-4-5`, `grok-41-fast`, `grok-code-fast-1`, `hermes-3-llama-3.1-405b`, `minimax-m21`, `mistral-31-24b`, `openai-gpt-52-codex`, `qwen3-4b`, `qwen3-coder-480b-a35b-instruct`, `venice-uncensored`, `zai-org-glm-4.7-flash` | 공식 목록에 0건: https://api.venice.ai/api/v1/models (148건), `?type=all`(432건). 2개는 퇴역 트래커 https://docs.venice.ai/overview/deprecations 에 있다(`claude-sonnet-4-5` Oct 30, 2026, `hermes-3-llama-3.1-405b` Nov 2, 2026 Deprecated). 상류 `venice` 자동 행은 손대지 않았다 |
+| `chutes` 45 | Agent `extensions/chutes/models.ts` 표 전용 45개 전부(Agent 기본 모델 `zai-org/GLM-4.7-TEE` 포함) | 공식 목록 https://llm.chutes.ai/v1/models (19건)에 0건(대소문자 무시). 상류 `chutes` 자동 행은 손대지 않았다 |
+| `arcee` 4 | `trinity-large-preview`, `trinity-large-thinking`, `trinity-mini`, `trinity-nano` | https://docs.arcee.ai/arcee-language-models/trinity-family.md 의 모델 표(Trinity-Nano·Trinity-Mini·Trinity-Large-Thinking) "API Model Name"이 모두 "Not Hosted"이고 Large-Preview는 그 표에 없다. 가격표 https://docs.arcee.ai/get-started/pricing.md 에 Trinity 0건. catalog `openrouter`에도 Trinity 행이 없다. 그래서 `arcee` provider를 만들지 않았다 |
+
+## 기록만: Ollama Cloud `:cloud` ID, Kilo `kilo/auto`(Agent 묶음 G4, 이 저장소 변경 없음)
+
+- Ollama Cloud 직접 API는 접미사 없는 이름을 쓴다(https://docs.ollama.com/cloud/models.md "Model names": "For direct requests to `ollama.com`, list models with `curl https://ollama.com/api/tags`… In the Ollama app, CLI, official libraries, or local API, use the `:cloud` name"). Agent 표의 `:cloud` ID 6개 가운데 접미사를 뗀 `glm-5.2`·`kimi-k3`·`minimax-m3`는 이미 상류 `ollama-cloud` 행이 있고, `glm-5.1`(2026-09-25)·`kimi-k2.5`(2026-07-31)·`minimax-m2.7`(2026-11-09)은 퇴역이다(https://docs.ollama.com/cloud/model-lifecycle.md 표, `POST https://ollama.com/api/show` 410 "… was retired on …"; `minimax-m2.7`은 lifecycle 표에 아직 없고 410 응답으로만 확인). 행을 넣지 않는다(수동 스키마의 `api`에 `ollama`가 없기도 하다).
+- 상류 자동 행 `ollama-cloud/minimax-m3`의 창 524,288과 `/api/show`의 `minimax-m3.context_length` 512,000이 다르다. 상류 자동 행이라 이번에 고치지 않았다(후속).
+- Kilo `kilo/auto`는 게이트웨이 목록 https://api.kilo.ai/api/gateway/models (470건)에 없다. auto 계열은 `kilo-auto/frontier`·`balanced`·`efficient`·`free`·`small`이다.
+
+## 판단과 한계
+
+- 4행의 값은 공식 값이 아니라 Agent 표 값이다(공식과 다른 칸은 위 표). 행의 존재와 가격은 공식 모델 API·가격표로 정했다.
+- Effort 규칙 3개와 gpt-oss `overrides` 규칙은 공식 값이 아니다.
+- 재생성 원본은 publish run 44903821026의 artifact다(main `38a7851`과 같은 `sourceGeneratedAt` 1795264063029). `providers=58 (+1/-0) models=2247->2251 (+4)`. `origin/main` 대비 행 단위 비교에서 새 provider `synthetic`(4행, provider 메타 `api`만)과 최상위 `generatedAt`·`supplementDigest` 말고는 바뀐 것이 없다.
+- `npm run audit` open은 작업 전후 모두 0이다. cost known 128, reasoning 2, thinking 66, zero price 15는 그대로다.
+- 6장 "matches nothing" 검사: 새 규칙 4개는 각각 정확히 한 행에 걸린다. 아무 행에도 안 걸리는 기존 규칙 3개는 작업 전 main에서도 같다.
