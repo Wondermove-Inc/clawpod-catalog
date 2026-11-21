@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795221816727,
+  "generatedAt": 1795227494582,
   "minVersion": "2026.4.11",
   "sourceCommit": "d21c96b1ce5bc6c417388f89785122e85443d6ac",
   "providers": {
@@ -869,6 +869,64 @@
             "max": "max",
             "minimal": "low",
             "xhigh": "xhigh"
+          }
+        },
+        {
+          "id": "claude-sonnet-4-5",
+          "name": "Claude Sonnet 4.5 (latest)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 200000,
+          "maxTokens": 64000,
+          "cost": {
+            "input": 3,
+            "output": 15,
+            "cacheRead": 0.3,
+            "cacheWrite": 3.75
+          },
+          "status": "deprecated",
+          "replacedBy": "claude-sonnet-5-5",
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "minimal",
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "off"
+          }
+        },
+        {
+          "id": "claude-sonnet-4-5-20250929",
+          "name": "Claude Sonnet 4.5",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 200000,
+          "maxTokens": 64000,
+          "cost": {
+            "input": 3,
+            "output": 15,
+            "cacheRead": 0.3,
+            "cacheWrite": 3.75
+          },
+          "status": "deprecated",
+          "replacedBy": "claude-sonnet-5-5",
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "minimal",
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "off"
           }
         }
       ],
@@ -55907,5 +55965,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795221799148,
-  "supplementDigest": "a597557d5e3886cb0523315901594162eb06ffd7284b6211d59fa9513e9b994b"
+  "supplementDigest": "35c803739ada17f54a4852294283ac5921edc3669a6e5f8d6629216b3ee53070"
 }

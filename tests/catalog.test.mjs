@@ -489,6 +489,7 @@ test("committed supplemental data covers the requested providers and preserves p
       "openai-codex",
       "codex",
       "openai",
+      "anthropic",
       "google",
       "google-vertex",
       "xai",
@@ -792,6 +793,17 @@ test("reviewed data publishes corrected prices, subscription unknowns, and retir
     get("amazon-bedrock", "anthropic.claude-3-haiku-20240307-v1:0", later).status,
     "disabled",
   );
+  // Anthropic retires both Sonnet 4.5 IDs on 2026-11-30 (REVIEW 2026-11-21).
+  const sonnet45Retirement = Date.UTC(2026, 10, 30);
+  for (const id of ["claude-sonnet-4-5", "claude-sonnet-4-5-20250929"]) {
+    const before = get("anthropic", id, buildCatalog({ ...f, now: sonnet45Retirement - 1 }));
+    assert.equal(before.status, "deprecated");
+    assert.equal(before.replacedBy, "claude-sonnet-5-5");
+    assert.equal(
+      get("anthropic", id, buildCatalog({ ...f, now: sonnet45Retirement })).status,
+      "disabled",
+    );
+  }
 });
 
 test("committed overrides give the reviewed OpenAI rows their context budget", () => {
