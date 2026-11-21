@@ -541,3 +541,50 @@ ClawPoD Agent가 `xai` 플러그인의 값 표와 이름 추정을 지우기 전
 - 장문(200K 초과) 요금은 넣지 않았다. 기존 `xai` 수동 행과 같이 기본 요금만 적는다(`sources/README.md` 비용 절).
 - 재생성 원본은 publish run 44855317119의 artifact다(main `8a1a258`과 같은 `sourceGeneratedAt` 1795227774303). 행 단위 비교에서 추가 2행과 최상위 `generatedAt`·`supplementDigest` 말고는 바뀐 것이 없다.
 - `npm run audit` open은 작업 전후 모두 0이다(cost 118, reasoning 2, thinking 66, zero price 15, 모두 known, 숫자 같음). `grok-4-0709`는 퇴역 행이라 `replacedBy` 검사만 받고, `grok-4.20`은 현역 필수 칸이 모두 있다.
+
+# 2026-11-21 Google custom tools·Robotics ER 2 행, `google-gemini-cli` 신설
+
+ClawPoD Agent가 `google` 플러그인의 값 표·이름 추정·정적 목록을 지우기 전에(Agent 3차 묶음 E), 그 코드와 Pi가 세우던 ID 가운데 공식 근거가 있는 ID의 값이 catalog에 있게 했다. 추가 10행(`google` 2, `google-vertex` 1, `google-gemini-cli` 7), 기존 행 변화 0.
+
+| 행 | 값 | 근거 |
+| --- | --- | --- |
+| `google/gemini-3.1-pro-preview-customtools` (이름 `Gemini 3.1 Pro Preview Custom Tools`) | 창 1,048,576·출력 65,536, text·image, reasoning true, $2/$12/cacheRead $0.2 | https://ai.google.dev/gemini-api/docs/models/gemini-3.1-pro-preview : Versions "Preview: `gemini-3.1-pro-preview-customtools`", "For those building with a mix of bash and custom tools, Gemini 3.1 Pro Preview comes with a separate endpoint available via the API called `gemini-3.1-pro-preview-customtools`", "Input token limit 1,048,576", "Output token limit 65,536". https://ai.google.dev/gemini-api/docs/pricing : Gemini 3.1 Pro 절 머리에 두 ID, "$2.00, prompts <= 200k tokens", "$12.00", 캐시 "$0.20". 값은 같은 provider의 수동 행 `gemini-3.1-pro-preview`와 같다 |
+| `google/gemini-robotics-er-2-preview` (이름 `Gemini Robotics-ER 2 Preview`) | 창 131,072·출력 65,536, text·image, reasoning true, $1/$5/cacheRead $0.1 | https://ai.google.dev/gemini-api/docs/models/gemini-robotics-er-2-preview : "Model code `gemini-robotics-er-2-preview`", "Inputs Text, images, video, audio · Output Text", "Input token limit 131,072", "Output token limit 65,536", "Thinking Supported". 가격 페이지 Standard 탭: "$1.00 (text / image / video / audio) through December 31, 2026. $2.00 … starting January 1, 2027", 출력 "$5.00 through December 31, 2026. $10.00 starting January 1, 2027", 캐시 "$0.10 … $0.20 starting January 1, 2027" |
+| 위 행의 가격 날짜 보정 | `corrections` 1줄: 2027-01-01(`effectiveAt` 1798761600000 = `Date.UTC(2027,0,1)`)부터 $2/$10/cacheRead $0.2 | 같은 가격 페이지. 기존 Gemini 3.6·3.7·3.8 Flash 보정과 같은 날이다 |
+| `thinking` 규칙 `*`/`gemini-robotics-er-2-preview` | `minimal, low, medium, high`, 기본 `high` | https://ai.google.dev/gemini-api/docs/thinking 표: "gemini-robotics-er-2-preview \| On (high) \| minimal, low, medium, high". `xhigh`·`max` 없음. 배열 끝에 넣었고 게시 catalog에서 이 행 하나에만 걸린다 |
+| `google-vertex/gemini-3.1-pro-preview-customtools` | 창 1,048,576·출력 65,536, text·image, reasoning true, $2/$12/cacheRead $0.2 | https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/gemini/3-1-pro : "Gemini 3.1 Pro supports an additional endpoint: gemini-3.1-pro-preview-customtools", "Pricing for gemini-3.1-pro-preview-customtools is identical to Gemini 3.1 Pro", Versions "gemini-3.1-pro-preview-customtools* · Launch stage: Public preview". 이 페이지는 변형의 한도를 따로 적지 않는다. 같은 페이지 표의 Gemini 3.1 Pro 값(Context window 1,048,576, Maximum output tokens 65,536)을 따랐다. 값은 기존 수동 행 `google-vertex/gemini-3.1-pro-preview`(Global)와 같다 |
+| `google-gemini-cli` 신설 (7): `gemini-2.5-flash`, `gemini-2.5-flash-lite`, `gemini-2.5-pro`, `gemini-3-flash-preview`, `gemini-3.1-flash-lite`, `gemini-3.1-pro-preview`, `gemini-3.1-pro-preview-customtools` | 같은 ID의 `google` 수동 행과 이름·입력·reasoning·창·출력이 같다. 가격은 비움(구독형). `api: "google-generative-ai"` | 모두 Gemini API 공식 ID(https://ai.google.dev/gemini-api/docs/models , 폐기 표 https://ai.google.dev/gemini-api/docs/deprecations). Agent의 Gemini CLI provider(`extensions/google/gemini-cli-provider.ts`)는 Google OAuth 로그인만 쓴다. 그 사용은 하루 요청 수 한도이고 토큰 단가가 없다: https://developers.google.com/gemini-code-assist/resources/quotas "These daily request limits are aggregated across all interactions with any model version or family (for example, Pro, Flash) used with the Gemini CLI or agent mode", Gemini CLI 문서 https://geminicli.com/docs/resources/quota-and-pricing/ "Google account … Maximum requests per user per day". 모델 선택 문서 https://geminicli.com/docs/cli/model/ : "Auto (Gemini 3) … gemini-3-pro-preview, gemini-3-flash-preview", "Auto (Gemini 2.5) … gemini-2.5-pro, gemini-2.5-flash", "Manual · Any available model". `gemini-3-flash-preview`는 Agent CLI 백엔드의 `flash` 별칭이 가리키는 ID다 |
+
+스크립트·테스트:
+- `scripts/audit-catalog.mjs`: 구독형 목록에 `google-gemini-cli`를 넣었다(가격 빈칸은 known).
+- `tests/catalog.test.mjs`: 보완 provider 목록에 `google-gemini-cli`를 넣었다. 게시 catalog에서 새 10행의 값·Effort, Robotics 가격의 2027-01-01 전환, `google-gemini-cli`의 ID 목록과 가격 없음, 새 행에 `xhigh`·`max`가 없는지 확인한다. **수동 파일**에서 `google-gemini-cli` 행마다 같은 ID의 `google` 수동 행과 가격 말고 같은지 확인한다. 게시본으로 비교하지 않는 이유: `google`은 자동+수동 provider라 상류 자동 행이 같은 ID 값을 바꾸면 6시간 게시의 `npm test`가 막힌다.
+
+## 넣지 않은 ID
+
+| ID | 이유 |
+| --- | --- |
+| `google/deep-research-preview-04-2026`, `google/deep-research-max-preview-04-2026` | https://ai.google.dev/gemini-api/docs/deep-research : "The Deep Research agent is exclusively available using the Interactions API. You cannot access it through `generate_content`." 채팅 API 모델이 아니다(3장) |
+| `google/gemini-2.5-computer-use-preview-10-2025` | 폐기 표: 2025-10-07 출시, **2026-07-28 종료**, 권장 대체 `gemini-3.8-flash`(자동 전환 문구 없음) |
+| `google/gemini-3.1-flash-image-preview`, `google-gemini-cli/gemini-3.1-flash-image-preview` | 폐기 표: 2026-06-25 종료. 이미지 생성 모델(3장 범위 밖) |
+| `google/gemini-3.7-flash-001`, `google-gemini-cli/gemini-3.1-flash`, `google-gemini-cli/gemini-3.1-flash-preview`, `google-gemini-cli/gemini-3.1-pro` | 공식 ID가 아니다(모델 목록·폐기 표에 없음). `gemini-3.1-flash-preview`는 이미 `knownGaps`에 "no official documentation"으로 있는 ID다 |
+| `google-gemini-cli/gemma-4-26b-a4b-it`, `google-gemini-cli/gemma-4-31b-it` | Gemini API에는 있지만 Gemini CLI(Code Assist)가 Gemma를 준다는 공식 근거가 없다(할당량 문서는 "Pro, Flash", CLI 모델 문서는 Gemini 3·2.5만) |
+| `google/gemini-robotics-er-2-streaming-preview` | 이번 후보 밖. Robotics ER 2 모델 페이지의 두 번째 탭에 있다(같은 한도, 별도 가격 절). Agent에서 쓰는 곳이 없어 넣지 않았다. 필요해지면 같은 방식으로 넣는다 |
+
+## 기록만 하고 고치지 않은 것 (catalog와 공식 문서의 차이)
+
+| 행 | 게시 catalog | 공식 문서(2026-11-21) |
+| --- | --- | --- |
+| `google/gemini-3.1-flash-preview`, `google-vertex/gemini-3.1-flash-preview` | 현역 행(가격 있음, Effort `knownGaps`) | 공식 ID가 아니다. Agent는 이 ID를 `gemini-3-flash-preview`로 바꿔 찾으므로 목록에만 나오고 해석에는 쓰이지 않는다 |
+| `google/gemini-2.5-pro`, `google/gemini-2.5-flash` | 현역 | 폐기 표: AI Studio에서 빠졌고 2026-12-01부터 요청이 각각 `gemini-3.8-flash`·`gemini-3.5-flash-lite`로 자동 전환된다. `MAINTAINING.md` 9장에 이미 재확인 행이 있다. `google-gemini-cli`의 같은 두 행도 그때 함께 본다 |
+| `google/gemini-3.5-flash`, `google/gemini-3.7-flash` | 현역 | 폐기 표: AI Studio에서 빠졌고 요청은 `gemini-3.6-flash`·`gemini-3.8-flash`로 자동 전환, "the endpoint is not shutting down" |
+
+## 판단과 한계
+
+- 수동 행은 입력에 `text`·`image`만 쓸 수 있어 Robotics ER 2의 video·audio 입력은 넣지 못했다(5장).
+- 장문(200K 초과) 요금은 넣지 않았다. 기존 `google` 수동 행과 같이 기본 요금만 적는다.
+- customtools 세 행의 Effort는 새 규칙 없이 기존 `*` 규칙 `gemini-3-1-pro-preview*`(low~high, 기본 high, note "Covers -customtools variant")에서 나온다. `google-gemini-cli`의 나머지 6행도 `google` 행과 같은 `*` 규칙이 걸려 같은 단계·기본을 받는다.
+- `google-gemini-cli`의 가격을 비운 것은 Agent가 이 provider를 Google OAuth 로그인으로만 쓰기 때문이다. Gemini CLI를 Gemini API 키로 쓰면 토큰 단가가 생기지만(Gemini CLI 할당량 문서 "when using an API key, you pay per token/call") 그 경우는 Agent의 `google` provider다.
+- Gemini CLI가 각 ID를 실제로 받는지 ID별 공식 목록은 없다(모델 문서는 Auto 묶음과 "Any available model"). Gemini CLI 모델 문서의 Auto (Gemini 3) 묶음에는 Gemini API에서 2026-03-09 종료된 `gemini-3-pro-preview`가 아직 적혀 있다.
+- 상류에 같은 ID가 생기면 상류 행이 이긴다(1장). `google-gemini-cli` 행은 `google` 수동 행을 고칠 때 같이 고친다(4장).
+- 재생성 원본은 publish run 44875777834의 artifact다(main `d9a5f04`와 같은 `sourceGeneratedAt` 1795242717351). 상류 `google`(20행)에 새 ID는 없다. 행 단위 비교에서 추가 10행, 새 provider `google-gemini-cli`(`api: google-generative-ai`), 최상위 `generatedAt`·`supplementDigest` 말고는 바뀐 것이 없다.
+- `npm run audit` open은 작업 전후 모두 0이다. 구독형 cost 누락은 118에서 125가 됐다(`google-gemini-cli` 7행, known). reasoning 2, thinking 66, zero price 15는 같다.

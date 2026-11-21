@@ -23,8 +23,9 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 | `codex`                     |           21 | `openai-codex` 21행과 같은 값·상태(같은 ChatGPT Codex 백엔드, 2026-11-21). `openai-codex`를 고치면 같이 고친다 |
 | `anthropic`                 |            2 | 상류 `anthropic`에 없는 Pi 1.5.2 행 Sonnet 4.5 둘(값은 Pi 판·파일 해시 예외, 상태는 Anthropic 폐기 문서, 2026-11-21) |
 | `openai`                    |           10 | 상류 `openai`에 없는 Pi 1.5.2 행(값은 Pi 판·파일 해시 예외, 상태는 OpenAI 폐기 문서, 2026-11-21) |
-| `google`                    |           12 | 플러그인 정적 Gemini 목록; preview 포함                               |
-| `google-vertex`             |           15 | Google 모델 목록 + 2026-11-18 Gemini 4 Argon/Carbon/Hydrogen              |
+| `google`                    |           14 | 플러그인 정적 Gemini 목록; preview 포함. 2026-11-21 3.1 Pro custom tools·Robotics ER 2 |
+| `google-vertex`             |           16 | Google 모델 목록 + 2026-11-18 Gemini 4 Argon/Carbon/Hydrogen + 2026-11-21 3.1 Pro custom tools |
+| `google-gemini-cli`         |            7 | `google` 수동 행과 같은 값, 가격 없음(Gemini CLI 로그인 요청 한도, 2026-11-21). `google` 수동 행을 고치면 같이 고친다 |
 | `xai`                       |           12 | 현행 7개 + 공식 별칭 1개(`grok-4.20`) + 공식 전환 안내가 있는 별칭 4개(2026-11-21 `grok-4-0709`) |
 | `minimax`                   |            4 | 플러그인의 text 모델 목록 + 2026-11-18 M3.1 Flash                              |
 | `minimax-portal`            |            5 | M Plan 모델. 2026-11-18 M3.1 Flash 추가, Preview·M2.7은 대체됨                |

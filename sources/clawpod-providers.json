@@ -7,7 +7,7 @@
       "files": [
         "extensions/google/provider-catalog.ts"
       ],
-      "notes": "Reviewed 2026-09-08 against official pricing (sources/REVIEW.md). Standard text/image short-context rates; Vertex global region. Storage/cache-write price omitted. Gemini 3.6/3.7/3.8 introductory prices have dated correction rules. gemini-3.1-flash-preview is an Agent alias for gemini-3-flash-preview."
+      "notes": "Reviewed 2026-09-08 against official pricing (sources/REVIEW.md). Standard text/image short-context rates; Vertex global region. Storage/cache-write price omitted. Gemini 3.6/3.7/3.8 introductory prices have dated correction rules. gemini-3.1-flash-preview is an Agent alias for gemini-3-flash-preview. Reviewed 2026-11-21: added gemini-3.1-pro-preview-customtools (custom tools variant of gemini-3.1-pro-preview, same limits and price, https://ai.google.dev/gemini-api/docs/models/gemini-3.1-pro-preview) and gemini-robotics-er-2-preview (131072/65536, https://ai.google.dev/gemini-api/docs/models/gemini-robotics-er-2-preview; introductory $1/$5/$0.10 through 2026-12-31 with a dated correction to $2/$10/$0.20 from 2027-01-01, https://ai.google.dev/gemini-api/docs/pricing; video and audio input are not representable in manual rows)."
     },
     "google-vertex": {
       "source": "Wondermove-Inc/clawpod-agent",
@@ -16,7 +16,15 @@
         "extensions/google/provider-catalog.ts",
         "extensions/google/vertex-provider.ts"
       ],
-      "notes": "Reviewed 2026-09-08 against official pricing (sources/REVIEW.md). Standard text/image short-context rates; Vertex global region. Storage/cache-write price omitted. Gemini 3.6/3.7/3.8 introductory prices have dated correction rules. gemini-3.1-flash-preview is an Agent alias for gemini-3-flash-preview. Reviewed 2026-11-18: added gemini-4-argon/carbon/hydrogen (maxTokens 65536 per-response streaming limit); Argon/Carbon promo $2/$10 through 2026-11-30, dated correction to $4/$20 from 2026-12-01."
+      "notes": "Reviewed 2026-09-08 against official pricing (sources/REVIEW.md). Standard text/image short-context rates; Vertex global region. Storage/cache-write price omitted. Gemini 3.6/3.7/3.8 introductory prices have dated correction rules. gemini-3.1-flash-preview is an Agent alias for gemini-3-flash-preview. Reviewed 2026-11-18: added gemini-4-argon/carbon/hydrogen (maxTokens 65536 per-response streaming limit); Argon/Carbon promo $2/$10 through 2026-11-30, dated correction to $4/$20 from 2026-12-01. Reviewed 2026-11-21: added gemini-3.1-pro-preview-customtools (https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/gemini/3-1-pro: pricing identical to Gemini 3.1 Pro; the page gives no separate limits for the variant, so the Gemini 3.1 Pro table values 1048576/65536 apply)."
+    },
+    "google-gemini-cli": {
+      "source": "Wondermove-Inc/clawpod-agent",
+      "revision": "ef31f5e19bede930efd2907ece8eab39dc1c24d7",
+      "files": [
+        "extensions/google/gemini-cli-provider.ts"
+      ],
+      "notes": "Reviewed 2026-11-21 (sources/REVIEW.md). Same models as google for the ids the Agent Gemini CLI provider resolved, plus gemini-3-flash-preview (the Agent CLI backend flash alias); values of the manual google rows, keep them in sync. No per-token price: Gemini CLI Google sign-in is a daily request quota (https://developers.google.com/gemini-code-assist/resources/quotas)."
     },
     "xai": {
       "source": "Wondermove-Inc/clawpod-agent",
@@ -319,6 +327,38 @@
             "output": 3.75,
             "cacheRead": 0.075
           }
+        },
+        {
+          "id": "gemini-3.1-pro-preview-customtools",
+          "name": "Gemini 3.1 Pro Preview Custom Tools",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 2,
+            "output": 12,
+            "cacheRead": 0.2
+          }
+        },
+        {
+          "id": "gemini-robotics-er-2-preview",
+          "name": "Gemini Robotics-ER 2 Preview",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 131072,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 1,
+            "output": 5,
+            "cacheRead": 0.1
+          }
         }
       ]
     },
@@ -564,6 +604,104 @@
             "output": 7.5,
             "cacheRead": 0.075
           }
+        },
+        {
+          "id": "gemini-3.1-pro-preview-customtools",
+          "name": "Gemini 3.1 Pro Preview Custom Tools",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 2,
+            "output": 12,
+            "cacheRead": 0.2
+          }
+        }
+      ]
+    },
+    "google-gemini-cli": {
+      "api": "google-generative-ai",
+      "models": [
+        {
+          "id": "gemini-2.5-flash",
+          "name": "Gemini 2.5 Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 65536
+        },
+        {
+          "id": "gemini-2.5-flash-lite",
+          "name": "Gemini 2.5 Flash-Lite",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 65536
+        },
+        {
+          "id": "gemini-2.5-pro",
+          "name": "Gemini 2.5 Pro",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 65536
+        },
+        {
+          "id": "gemini-3-flash-preview",
+          "name": "Gemini 3 Flash Preview",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 65536
+        },
+        {
+          "id": "gemini-3.1-flash-lite",
+          "name": "Gemini 3.1 Flash Lite",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 65536
+        },
+        {
+          "id": "gemini-3.1-pro-preview",
+          "name": "Gemini 3.1 Pro Preview",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 65536
+        },
+        {
+          "id": "gemini-3.1-pro-preview-customtools",
+          "name": "Gemini 3.1 Pro Preview Custom Tools",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 65536
         }
       ]
     },
@@ -5843,6 +5981,23 @@
       "to": "disabled",
       "source": "https://platform.claude.com/docs/en/about-claude/model-deprecations.md",
       "effectiveAt": 1795996800000
+    },
+    {
+      "kind": "cost",
+      "provider": "google",
+      "model": "gemini-robotics-er-2-preview",
+      "expected": {
+        "input": 1,
+        "output": 5,
+        "cacheRead": 0.1
+      },
+      "set": {
+        "input": 2,
+        "output": 10,
+        "cacheRead": 0.2
+      },
+      "source": "https://ai.google.dev/gemini-api/docs/pricing",
+      "effectiveAt": 1798761600000
     }
   ],
   "thinking": [
@@ -9542,6 +9697,19 @@
       },
       "source": "https://huggingface.co/google/gemma-4-31B-it",
       "note": "Gemma 4 thinking is on/off only (<|think|> token / enable_thinking), template default false. Venice ids google-gemma-4-26b-a4b-it and -31b-it."
+    },
+    {
+      "provider": "*",
+      "model": "gemini-robotics-er-2-preview",
+      "levels": [
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "high",
+      "source": "https://ai.google.dev/gemini-api/docs/thinking",
+      "note": "thinking_level minimal..high, default high (table 'On (high)')."
     }
   ],
   "overrides": [

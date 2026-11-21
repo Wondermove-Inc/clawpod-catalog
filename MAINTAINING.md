@@ -42,7 +42,7 @@
 | 구분 | provider | 새 모델 |
 | --- | --- | --- |
 | 자동 | OpenClaw가 만드는 provider 전부(`anthropic`, `openai`, `google`, `xai`, `zai`, `ollama-cloud`, 중계 provider 등), `openrouter` | 6시간마다 자동 추가 |
-| 수동 | `openai-codex`, `codex`, `amazon-bedrock`, `amazon-bedrock-mantle`, `anthropic-vertex`, `google-vertex`, `minimax-portal` (그 밖에 수동 파일 `providers`에 있는 행) | 사람이 공식 문서를 보고 추가 |
+| 수동 | `openai-codex`, `codex`, `amazon-bedrock`, `amazon-bedrock-mantle`, `anthropic-vertex`, `google-vertex`, `google-gemini-cli`, `minimax-portal` (그 밖에 수동 파일 `providers`에 있는 행) | 사람이 공식 문서를 보고 추가 |
 
 `anthropic`, `openai`, `google`, `xai`, `zai`, `minimax`는 자동 행과 수동 행이 섞여 있습니다. 수동 파일 `providers`에 있는 ID가 해당 provider의 수동 행입니다.
 
@@ -90,6 +90,7 @@ npm run audit                                          # 전수 검사: open 항
 | 대상 | 공식 출처 |
 | --- | --- |
 | Codex(`openai-codex`, `codex`) 모델·종료 | https://learn.chatgpt.com/docs/models (페이지 원문을 직접 받아 확인. 요약 도구는 모델명을 섞어서 답한 적이 있음). `codex`(Codex 하네스)는 같은 백엔드라 `openai-codex`와 같은 행을 둡니다. `openai-codex`를 고치면 `codex`도 같이 고칩니다(`openai-codex`의 Agent 별칭 `gpt-5.6`만 예외, 테스트가 확인) |
+| Gemini CLI(`google-gemini-cli`) | `google` 수동 행과 같은 값이고 가격만 비웁니다(Google 로그인은 하루 요청 수 한도, https://developers.google.com/gemini-code-assist/resources/quotas). `google` 수동 행을 고치면 같이 고칩니다(테스트가 수동 파일끼리 비교). 상류 `google` 자동 행이 같은 ID의 값을 바꿨으면 그 값이 공식인지 보고 두 수동 행을 같이 고칩니다 |
 | Bedrock 모델 ID·지역 profile | AWS 모델 카드 `https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-<vendor>-<model>.html` |
 | Bedrock 가격 | AWS Price List feed `https://pricing.us-east-1.amazonaws.com/offers/v1.0/aws/AmazonBedrock/current/us-east-1/index.json`, 그리고 `AmazonBedrockFoundationModels` offer(Claude Global 가격은 여기에 있음). 가격 페이지는 JS로 로딩되므로 feed를 받아서 확인 |
 | Bedrock 수명주기 | https://docs.aws.amazon.com/bedrock/latest/userguide/model-lifecycle.html |
@@ -106,7 +107,7 @@ npm run audit                                          # 전수 검사: open 항
 
 ### 가격 (`cost`, USD / 백만 토큰)
 - `input`, `output`, `cacheRead`, `cacheWrite`를 씁니다. 컨텍스트 길이별 요금이 있으면 `tieredPricing: [{input, output, cacheRead?, cacheWrite?, range: [시작, 끝] | [시작]}]`도 씁니다.
-- **모르면 비웁니다**(`overrides`에서 `"cost": null`). **구독형**(Codex, `*-plan`, `*-token-plan`, MiniMax Portal, Kimi Code, GitHub Copilot, Ollama Cloud)은 토큰 단가가 없으므로 비웁니다.
+- **모르면 비웁니다**(`overrides`에서 `"cost": null`). **구독형**(Codex, `*-plan`, `*-token-plan`, MiniMax Portal, Kimi Code, GitHub Copilot, Ollama Cloud, Gemini CLI)은 토큰 단가가 없으므로 비웁니다.
 - **공식 무료**만 0입니다(근거 URL 필수). provider 자신의 모델 API가 가격 0을 주거나 무료로 표시하면(예: Kilo `isFree: true`) 공식 무료로 봅니다. 프로모션 무료는 9장 표에 재확인 행을 추가합니다.
 - `cacheWrite`는 Anthropic 기준 **5분** 캐시 쓰기 가격입니다. 1시간 가격은 넣지 않습니다.
 - 캐시 쓰기 요금이 따로 없는 제조사(OpenAI, DeepSeek, xAI, Gemini 기본 캐시)는 0이 정상입니다. 캐시 기능이 없는 모델은 `cacheRead` 0 또는 생략이 정상입니다.
@@ -255,7 +256,7 @@ npm run audit
 | --- | --- |
 | 마지막 정기 점검 | **2026-11-19** (다음 점검 때 `npm run candidates -- --since 2026-11-19`). 이 날 `npm run audit` open 0, 후보는 아래 보류 1건뿐 |
 | 보류 (승인제) | `anthropic/claude-mythos-5-1`(11/21, Anthropic 검증 프로그램 통과 조직 전용). 일반 공개되면 공식 값(창 1M·출력 128K, $10/$50/cacheRead $0.25/cacheWrite $12.5)으로 추가(`claude-mythos-5*` `thinking` 규칙 이미 있음). `openai/gpt-5.6-cyber`(11/21, Daybreak Red 승인 고객 전용). 일반 공개되면 Pi 1.5.2 값(창 400,000·`contextTokens` 272,000·출력 128,000, text·image)과 공식 가격으로 추가. Vertex Gemini 4 Neon(11/18, verified enterprise customers 전용). 일반 공개되면 추가: Global $3/$15/cacheRead $0.15, 한 번 응답 65,536, 단계 low~xhigh 기본 high(`thinking` 규칙 이미 있음). 단, 아래 "Agent Pi 갱신 시" 행이 남아 있으면 `google-vertex`/`gemini-4-neon` 규칙(low~high)도 함께 넣습니다 |
-| 2026-12-01 이후 | Gemini 2.5 Pro/Flash가 새 모델로 라우팅됨. `google` provider의 Gemini 2.5 Effort 규칙을 재검토. 자동 provider `google`의 Gemini 4 Argon/Carbon 가격 인상이 반영됐는지 확인(`google-vertex`는 날짜 규칙으로 자동) |
+| 2026-12-01 이후 | Gemini 2.5 Pro/Flash가 새 모델로 라우팅됨. `google` provider의 Gemini 2.5 Effort 규칙을 재검토(`google-gemini-cli`의 같은 행도 같은 `*` 규칙을 받음). 자동 provider `google`의 Gemini 4 Argon/Carbon 가격 인상이 반영됐는지 확인(`google-vertex`는 날짜 규칙으로 자동) |
 | 2027-01-12 이후 | Gemini 4 Hydrogen(그리고 Neon)의 캐시 쓰기 요금(입력의 1.25배)이 생김. `google-vertex` 행에 `cacheWrite` 추가 |
 | 수시 | 무료·프로모션 0원 모델의 유료 전환: Glyph Cluster, Flint(Kilo·Vercel)와 무료 변형 14개(kilocode `:free`, vercel `-free`). 가격 0은 `overrides`에 있으니, 출처 API에서 가격이 생기면 해당 규칙을 지우거나 고칩니다 |
 | 수시 | `github-copilot` 퇴역 5행(`gpt-5.4`, `gpt-5.4-mini`, `gpt-5.5`, `gemini-2.5-pro`, `gemini-3.5-flash`)의 `contextTokens` 128000·`maxTokens` 8192는 공식 값이 아니라 Agent 값입니다(승인된 예외, REVIEW 2026-11-20). Copilot 공식 모델별 한도가 공개되면 해당 `overrides` 규칙을 지우거나 고칩니다 |

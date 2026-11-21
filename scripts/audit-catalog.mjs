@@ -24,6 +24,7 @@ export const SUBSCRIPTION_PROVIDERS = new Set([
   "tencent-tokenplan",
   "stepfun-plan",
   "xiaomi-token-plan",
+  "google-gemini-cli",
 ]);
 const FORBIDDEN_KEYS = new Set(["baseUrl", "headers", "apiKey", "auth", "authHeader"]);
 const INPUTS = new Set(["text", "image", "video", "document"]);
