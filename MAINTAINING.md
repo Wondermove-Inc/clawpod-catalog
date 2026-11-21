@@ -44,7 +44,7 @@
 | 자동 | OpenClaw가 만드는 provider 전부(`anthropic`, `openai`, `google`, `xai`, `zai`, `ollama-cloud`, 중계 provider 등), `openrouter` | 6시간마다 자동 추가 |
 | 수동 | `openai-codex`, `codex`, `amazon-bedrock`, `amazon-bedrock-mantle`, `anthropic-vertex`, `google-vertex`, `google-gemini-cli`, `minimax-portal` (그 밖에 수동 파일 `providers`에 있는 행) | 사람이 공식 문서를 보고 추가 |
 
-`anthropic`, `openai`, `google`, `xai`, `zai`, `minimax`는 자동 행과 수동 행이 섞여 있습니다. 수동 파일 `providers`에 있는 ID가 해당 provider의 수동 행입니다.
+`anthropic`, `openai`, `google`, `xai`, `zai`, `minimax`, `opencode`, `opencode-go`는 자동 행과 수동 행이 섞여 있습니다. 수동 파일 `providers`에 있는 ID가 해당 provider의 수동 행입니다.
 
 ## 2. 파일 지도
 
@@ -100,6 +100,7 @@ npm run audit                                          # 전수 검사: open 항
 | Kilo(`kilocode`) 가격·무료 여부 | Kilo 모델 API `https://api.kilo.ai/api/openrouter/models`(가격과 `isFree`)를 공식으로 봄. `https://kilo.ai/landing/free-models`는 보조 자료. 둘이 다르면 API를 따르고 REVIEW에 적음 |
 | Vercel(`vercel-ai-gateway`) 가격 | `https://ai-gateway.vercel.sh/v1/models`, 모델 페이지 `https://vercel.com/ai-gateway/models/<vendor>/<model>`, Vercel changelog |
 | MiniMax(`minimax`, `minimax-portal`) | https://platform.minimax.io/docs (종량제 가격, M Plan 구독, 모델 FAQ의 종료 공지) |
+| OpenCode Zen·Go(`opencode`, `opencode-go`) | 모델 API https://opencode.ai/inference/v1/models · https://opencode.ai/inference/go/v1/models (문서가 "전체 목록"이라 부르는 곳: 한도·입력·reasoning effort·가격·엔드포인트), Zen 문서 https://opencode.ai/docs/zen/ (모델 표·가격표·Free models·Deprecated models 표), Go 문서 https://opencode.ai/docs/go/ . 수동 행 91개의 값은 Pi 1.5.2 판 그대로인 승인된 예외입니다(REVIEW 2026-11-21) |
 | Thinking Effort | 제조사 API 문서: Anthropic(platform.claude.com, extended thinking·effort), OpenAI(developers.openai.com reasoning), Google(ai.google.dev/gemini-api/docs/thinking), xAI(docs.x.ai reasoning), DeepSeek·Qwen(Alibaba Model Studio)·Z.ai·Moonshot·MiniMax 공식 문서, 오픈 모델은 Hugging Face 모델 카드·chat template |
 | OpenClaw 기준 프로필 | `gh api repos/openclaw/openclaw/contents/packages/llm-core/src/model-contracts/anthropic.ts --jq .content \| base64 -d` (단계 체계 확인·교차 검증용. 공식 문서와 다르면 공식 문서를 따름) |
 
@@ -258,9 +259,12 @@ npm run audit
 | 보류 (승인제) | `anthropic/claude-mythos-5-1`(11/21, Anthropic 검증 프로그램 통과 조직 전용). 일반 공개되면 공식 값(창 1M·출력 128K, $10/$50/cacheRead $0.25/cacheWrite $12.5)으로 추가(`claude-mythos-5*` `thinking` 규칙 이미 있음). `openai/gpt-5.6-cyber`(11/21, Daybreak Red 승인 고객 전용). 일반 공개되면 Pi 1.5.2 값(창 400,000·`contextTokens` 272,000·출력 128,000, text·image)과 공식 가격으로 추가. Vertex Gemini 4 Neon(11/18, verified enterprise customers 전용). 일반 공개되면 추가: Global $3/$15/cacheRead $0.15, 한 번 응답 65,536, 단계 low~xhigh 기본 high(`thinking` 규칙 이미 있음). 단, 아래 "Agent Pi 갱신 시" 행이 남아 있으면 `google-vertex`/`gemini-4-neon` 규칙(low~high)도 함께 넣습니다 |
 | 2026-12-01 이후 | Gemini 2.5 Pro/Flash가 새 모델로 라우팅됨. `google` provider의 Gemini 2.5 Effort 규칙을 재검토(`google-gemini-cli`의 같은 행도 같은 `*` 규칙을 받음). 자동 provider `google`의 Gemini 4 Argon/Carbon 가격 인상이 반영됐는지 확인(`google-vertex`는 날짜 규칙으로 자동) |
 | 2027-01-12 이후 | Gemini 4 Hydrogen(그리고 Neon)의 캐시 쓰기 요금(입력의 1.25배)이 생김. `google-vertex` 행에 `cacheWrite` 추가 |
-| 수시 | 무료·프로모션 0원 모델의 유료 전환: Glyph Cluster, Flint(Kilo·Vercel)와 무료 변형 14개(kilocode `:free`, vercel `-free`). 가격 0은 `overrides`에 있으니, 출처 API에서 가격이 생기면 해당 규칙을 지우거나 고칩니다 |
+| 수시 | 무료·프로모션 0원 모델의 유료 전환: Glyph Cluster, Flint(Kilo·Vercel)와 무료 변형 14개(kilocode `:free`, vercel `-free`). 가격 0은 `overrides`에 있으니, 출처 API에서 가격이 생기면 해당 규칙을 지우거나 고칩니다. OpenCode 무료 11행(`opencode` 8, `opencode-go` 3, ID에 `-free`)은 수동 행 값이 0이니, Zen·Go 모델 API에서 가격이 생기면 행 값을 고칩니다 |
 | 수시 | `github-copilot` 퇴역 5행(`gpt-5.4`, `gpt-5.4-mini`, `gpt-5.5`, `gemini-2.5-pro`, `gemini-3.5-flash`)의 `contextTokens` 128000·`maxTokens` 8192는 공식 값이 아니라 Agent 값입니다(승인된 예외, REVIEW 2026-11-20). Copilot 공식 모델별 한도가 공개되면 해당 `overrides` 규칙을 지우거나 고칩니다 |
 | Agent Pi 갱신 시 | `google`·`google-vertex`의 Gemini 4 Hydrogen·Neon 3행은 공식 단계에서 `xhigh`를 뺀 값입니다(Agent의 Pi 1.5.2 Google 어댑터가 `xhigh`에서 예외를 던짐, 승인된 예외, REVIEW 2026-11-20). Agent가 올린 Pi의 Google 어댑터가 `xhigh`를 받으면 `thinking`의 provider 지정 규칙 3개를 지웁니다. 그 전에는 Google API(`google-generative-ai`·`google-vertex`) 행에 새로 `xhigh`·`max`가 생기면 같은 방식으로 뺍니다 |
+| 수시 (OpenCode) | 2026-11-21 수동 행 91개(`opencode` 69, `opencode-go` 22)의 Pi 값 중 공식 모델 API와 다른 칸: `opencode/deepseek-v4.1-flash` 이름(API "DeepSeek V4.1 Flash 1017"), `opencode/claude-sonnet-4-5` 창 200,000(API 1,000,000), `opencode/gpt-5.4` 창 272,000(API 1,050,000), `opencode-go/kimi-k3.1-pro` 출력 131,072(API 1,048,576), 입력 예산(`limit.input`) 24행 미반영. 공식 값으로 바꾸기로 하면 이 칸을 고칩니다. 할인 종료: Gemini 4 Argon(두 provider) 2026-12-01부터, Gemini 3.7·3.8 Flash 2027-01-01부터 가격 2배(API `multipliers`), Mistral Large 4도 "50% off" 표시. Zen "Deprecated models" 표에 있지만 모델 API·모델 표에 남은 6행(`gpt-5-codex`, `gpt-5.1-codex`, `-max`, `-mini`, `gpt-5.2-codex`, `minimax-m2.5`)의 상태는 비워 두었습니다. API에서 빠지면 행·규칙을 지웁니다 |
+| 수시 (OpenCode 넣지 않은 ID) | 문서 표에는 있으나 모델 API에 없어 넣지 않은 `opencode/glm-5.1`, `glm-5.2`, `kimi-k2.6`, `inkling-2-small-free`, `opencode-go/glm-5.2`(그리고 Deprecated 표의 `gemini-3.1-pro`, `gemini-3-flash`, `glm-5.3-flash-free`, `minimax-m3.1-flash-free`, `glm-5`, `kimi-k2.5`, 공식 어디에도 없는 `opencode-go/mimo-v2.5`, `mimo-v2.5-pro`). 모델 API에 나타나면 공식 값으로 추가합니다 |
+| OpenCode 요청 확인 수단이 생기면 | `opencode`·`opencode-go` 수동 행 91개의 `thinking` 규칙(정확한 ID, "Not the official ladder")은 Agent의 현재 동작(목록 off~high+adaptive, 기본 low)을 보존한 값입니다. OpenCode로 실제 요청을 보내 확인할 수 있게 되면 공식 목록(모델 API `capabilities.reasoning`, 제조사 계약)으로 바꿉니다. 상류가 같은 ID를 내도 규칙은 그 행에 계속 걸리고, ID가 빠지면 6장 "matches nothing" 검사에 잡힙니다 |
 | Agent SOT 전환 시 | Sonnet 5.5의 `off`(`between_tools`로만 가능), Codex 모델 기본 Effort가 API 기본값과 같은지, Agent의 `max` 단계 지원 |
 
 `corrections`의 날짜 규칙(Sonnet 4.5 EOL 2027-04-08, Gemini 4 Vertex 가격 2026-12-01 등)은 자동으로 적용되므로 여기에 넣지 않습니다.
