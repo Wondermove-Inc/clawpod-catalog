@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795267045282,
+  "generatedAt": 1795267392453,
   "minVersion": "2026.4.11",
-  "sourceCommit": "6978b40e9d3812083064c97e24de00454d6bf868",
+  "sourceCommit": "eb7ca3d33375fafc67dae7de9a545dac53d156d7",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -15505,9 +15505,9 @@
           "contextWindow": 1048576,
           "maxTokens": 65536,
           "cost": {
-            "input": 0.1,
-            "output": 0.4,
-            "cacheRead": 0.02,
+            "input": 0.08,
+            "output": 0.35,
+            "cacheRead": 0.016,
             "cacheWrite": 0
           },
           "compat": {
@@ -16284,12 +16284,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 204800,
+          "contextWindow": 202752,
           "maxTokens": 131072,
           "cost": {
-            "input": 1.19,
-            "output": 3.74,
-            "cacheRead": 0.6,
+            "input": 1.4,
+            "output": 4.4,
+            "cacheRead": 0.26,
             "cacheWrite": 0
           },
           "compat": {
@@ -19350,7 +19350,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1000000,
-          "maxTokens": 131000,
+          "maxTokens": 262000,
           "cost": {
             "input": 1.413,
             "output": 4.24,
@@ -59085,6 +59085,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1795264063029,
+  "sourceGeneratedAt": 1795267374690,
   "supplementDigest": "9830fe685c7c2faa57bfdb0a1125f8b7722a219a2ff96163abc729db2edd1159"
 }
