@@ -162,6 +162,14 @@
         "extensions/volcengine/models.ts"
       ],
       "notes": "Reviewed 2026-11-21 (sources/REVIEW.md): 3 Volcano Engine Ark rows (deepseek-v4-1-flash-260910, doubao-seed-2-1-lite-260915, doubao-seed-2-1-pro-260915) keep the Agent plugin table's name, reasoning, input, contextWindow and maxTokens; the limits match the official model list (https://www.volcengine.com/docs/82379/1330310). No price: Ark publishes CNY only (https://www.volcengine.com/docs/82379/1544106), so the rows carry a knownGaps cost entry instead of the Agent table's 0. Not added: doubao-seed-1-8-251228, doubao-seed-code-preview-251028 (EOS 2026-09-21, https://www.volcengine.com/docs/82379/model-deprecation-notice). Effort: exact-id thinking rules keep the Agent's current behavior, not the official ladder."
+    },
+    "together": {
+      "source": "Wondermove-Inc/clawpod-agent",
+      "revision": "c4842bf5ae8ef47091c98f41a39f86417a1658fc",
+      "files": [
+        "extensions/together/models.ts"
+      ],
+      "notes": "Reviewed 2026-11-21 (sources/REVIEW.md): 1 Together serverless row (Qwen/Qwen3.8-Flash) keeps the Agent plugin table's name, reasoning, input, contextWindow and maxTokens (exception to official values, recorded in REVIEW). Only ids on the official serverless model list (https://docs.together.ai/docs/serverless-models.md) are rows; that list gives the context length and price but no image input (the model is not in its Vision table), no reasoning flag and no maximum output for this model. Price is the official 0.15 input / 0.47 output; the cached input price is '-', so cacheRead and cacheWrite are 0 like the upstream Together rows with '-'. Not added: zai-org/GLM-4.7, moonshotai/Kimi-K2.5, meta-llama/Llama-4-Scout-17B-16E-Instruct, meta-llama/Llama-4-Maverick-17B-128E-Instruct-FP8, deepseek-ai/DeepSeek-V3.1, deepseek-ai/DeepSeek-R1, moonshotai/Kimi-K2-Instruct-0905 (removed from serverless inference, https://docs.together.ai/docs/deprecations.md). Effort: an exact-id thinking rule keeps the Agent's current behavior, not the official ladder."
     }
   },
   "providers": {
@@ -7187,6 +7195,28 @@
           "maxTokens": 256000
         }
       ]
+    },
+    "together": {
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "Qwen/Qwen3.8-Flash",
+          "name": "Qwen3.8 Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 8192,
+          "cost": {
+            "input": 0.15,
+            "output": 0.47,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        }
+      ]
     }
   },
   "corrections": [
@@ -9362,6 +9392,21 @@
     {
       "provider": "volcengine",
       "model": "doubao-seed-2-1-pro-260915",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high",
+        "adaptive"
+      ],
+      "default": "low",
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
+      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this agent-table row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged; turns on this route never send reasoning_effort (proxy-like endpoint). Breaks MAINTAINING ch.5 on purpose: lists off/minimal/adaptive without official evidence. Official reasoning control: sources/REVIEW.md 2026-11-21."
+    },
+    {
+      "provider": "together",
+      "model": "Qwen/Qwen3.8-Flash",
       "levels": [
         "off",
         "minimal",

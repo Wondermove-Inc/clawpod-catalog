@@ -44,7 +44,7 @@
 | 자동 | OpenClaw가 만드는 provider 전부(`anthropic`, `openai`, `google`, `xai`, `zai`, `ollama-cloud`, 중계 provider 등), `openrouter` | 6시간마다 자동 추가 |
 | 수동 | `openai-codex`, `codex`, `amazon-bedrock`, `amazon-bedrock-mantle`, `anthropic-vertex`, `google-vertex`, `google-gemini-cli`, `minimax-portal` (그 밖에 수동 파일 `providers`에 있는 행) | 사람이 공식 문서를 보고 추가 |
 
-`anthropic`, `openai`, `google`, `xai`, `zai`, `minimax`, `opencode`, `opencode-go`, `byteplus`, `volcengine`는 자동 행과 수동 행이 섞여 있습니다. 수동 파일 `providers`에 있는 ID가 해당 provider의 수동 행입니다.
+`anthropic`, `openai`, `google`, `xai`, `zai`, `minimax`, `opencode`, `opencode-go`, `byteplus`, `volcengine`, `together`는 자동 행과 수동 행이 섞여 있습니다. 수동 파일 `providers`에 있는 ID가 해당 provider의 수동 행입니다.
 
 ## 2. 파일 지도
 
@@ -267,6 +267,7 @@ npm run audit
 | OpenCode 요청 확인 수단이 생기면 | `opencode`·`opencode-go` 수동 행 91개의 `thinking` 규칙(정확한 ID, "Not the official ladder")은 Agent의 현재 동작(목록 off~high+adaptive, 기본 low)을 보존한 값입니다. OpenCode로 실제 요청을 보내 확인할 수 있게 되면 공식 목록(모델 API `capabilities.reasoning`, 제조사 계약)으로 바꿉니다. 상류가 같은 ID를 내도 규칙은 그 행에 계속 걸리고, ID가 빠지면 6장 "matches nothing" 검사에 잡힙니다 |
 | 수시 (BytePlus·Volcano Engine) | 2026-11-21 수동 행 6개(`byteplus` 3, `volcengine` 3)의 이름·reasoning·입력·창·최대 출력은 Agent 플러그인 표 값입니다. 공식과 다른 칸: `byteplus` Seed 2.0 Pro/Lite/Mini `maxTokens` 4096(공식 기본 출력 4K, 최대 128K), 입력에 오디오 없음(Lite·Mini는 공식 오디오 이해 지원, 수동 행 스키마 제한). `byteplus` 가격은 Standard [0,128K] 구간이고 (128,256] 구간(두 배)은 넣지 않았습니다. `volcengine` 3행은 공식 가격이 CNY뿐이라 비우고 `knownGaps`에 적었습니다. Volcano Engine이 USD 가격을 공개하면 행에 넣고 `knownGaps` 3개를 지웁니다. 공식 퇴역 공지에 오르면 행을 지우거나 상태를 바꿉니다 |
 | Volc 계열 요청 확인 수단이 생기면 | `byteplus`·`volcengine` 수동 행 6개의 `thinking` 규칙(정확한 ID, "Not the official ladder")은 Agent의 현재 동작(목록 off~high+adaptive, 기본 low)을 보존한 값입니다. 공식 thinking 제어(ModelArk Chat API `thinking.type`, 이미 있는 `*` 규칙 `seed-2-0*`·`deepseek-v4-1-flash*`·`doubao-seed-2-1*`의 목록)로 바꾸려면 Agent가 그 주소로 실제 요청을 보내 확인할 수단이 필요합니다. 바꿀 때는 이 6규칙을 지웁니다 |
+| 수시 (Together) | 2026-11-21 수동 행 `together/Qwen/Qwen3.8-Flash`의 이름·reasoning·입력·창·최대 출력은 Agent 플러그인 표 값입니다. 공식 서버리스 목록에 근거가 없는 칸: 이미지 입력(Vision 표에 없음), reasoning, 최대 출력 8192. Together가 이 값을 공개하면 행을 고칩니다. `thinking` 규칙(정확한 ID, "Not the official ladder")은 Agent의 현재 동작(목록 off~high+adaptive, 기본 low)을 보존한 값이고, 지우면 `*` 규칙 `qwen3-8-flash*`(off·low·medium·xhigh, 기본 xhigh)가 걸립니다. Agent가 이 주소로 실제 요청을 보내 확인할 수단이 생기면 규칙을 지웁니다. 상류 `together`에 같은 ID가 생기면 상류 행이 이깁니다 |
 | Agent SOT 전환 시 | Sonnet 5.5의 `off`(`between_tools`로만 가능), Codex 모델 기본 Effort가 API 기본값과 같은지, Agent의 `max` 단계 지원 |
 
 `corrections`의 날짜 규칙(Sonnet 4.5 EOL 2027-04-08, Gemini 4 Vertex 가격 2026-12-01 등)은 자동으로 적용되므로 여기에 넣지 않습니다.
