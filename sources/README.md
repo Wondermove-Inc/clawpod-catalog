@@ -34,6 +34,8 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 | `anthropic-vertex`          |           15 | `global` 표준 가격 (2026-11-18 Haiku 5.5·Fable 5.2 추가)                    |
 | `openrouter`                |            1 | Agent `auto` 별칭만. 나머지는 게시 때 공개 API에서 자동 갱신          |
 | `zai`                       |            6 | 에이전트 내장 JSON의 기준 목록; upstream에는 이미 더 많은 모델이 있음 |
+| `opencode`                  |           69 | 상류 `opencode`에 없는 Pi 1.5.2 행 중 Zen 모델 API에 있는 것(값은 Pi 판·파일 해시 예외, Effort는 Agent 현재 동작 보존 규칙, 2026-11-21) |
+| `opencode-go`               |           22 | 상류 `opencode-go`에 없는 Pi 1.5.2 행 중 Go 모델 API에 있는 것(같은 방식, 2026-11-21) |
 
 숫자는 **현재 보완 입력**의 규모입니다. 최종 artifact의 목록·개수는 upstream과
 병합되므로 다릅니다. Google과 zAI는 upstream에도 있으며, 일반 병합에서는 기존 행이 우선합니다.

@@ -588,3 +588,68 @@ ClawPoD Agent가 `google` 플러그인의 값 표·이름 추정·정적 목록�
 - 상류에 같은 ID가 생기면 상류 행이 이긴다(1장). `google-gemini-cli` 행은 `google` 수동 행을 고칠 때 같이 고친다(4장).
 - 재생성 원본은 publish run 44875777834의 artifact다(main `d9a5f04`와 같은 `sourceGeneratedAt` 1795242717351). 상류 `google`(20행)에 새 ID는 없다. 행 단위 비교에서 추가 10행, 새 provider `google-gemini-cli`(`api: google-generative-ai`), 최상위 `generatedAt`·`supplementDigest` 말고는 바뀐 것이 없다.
 - `npm run audit` open은 작업 전후 모두 0이다. 구독형 cost 누락은 118에서 125가 됐다(`google-gemini-cli` 7행, known). reasoning 2, thinking 66, zero price 15는 같다.
+
+# 2026-11-21 OpenCode Zen·Go Pi 전용 행(`opencode` 69, `opencode-go` 22), `opencode-go/kimi-k3` Effort
+
+ClawPoD Agent는 `opencode`·`opencode-go` 모델 값을 Pi에서만 받는다(Agent 3차 묶음 F). 상류 `opencode`(6행)·`opencode-go`(9행)에 없는 Pi 행을 catalog에 넣었다. 추가 91행. 기존 행 변화는 `opencode-go/kimi-k3`의 Effort 하나다.
+
+| 묶음 | 행 | 값 | 근거 |
+| --- | --- | --- | --- |
+| `opencode` (69) | `openai-completions` 17: `beam-free`, `deepseek-v4.1-flash`, `deepseek-v4.1-flash-free`, `deepseek-v4-pro`, `flint-40b-free`, `glm-5.3`, `glm-5.3-flash`, `iceman-free`, `kimi-k2.7-code`, `longcat-2.5-free`, `mimo-v2.6-flash-free`, `minimax-m2.5`, `minimax-m2.7`, `mistral-large-4`, `nemotron-3.5-lightning-free`, `nemotron-3.5-super-vl-free`, `qwen3.8-max`. `anthropic-messages` 17: `claude-fable-5`, `-5-1`, `-5-2`, `claude-haiku-4-5`, `claude-haiku-5-5`, `claude-opus-4-5`, `-4-6`, `-4-7`, `-4-8`, `-5-5`, `claude-sonnet-4-5`, `-4-6`, `claude-sonnet-5`, `-5-5`, `qwen3.5-plus`, `qwen3.6-plus`, `qwen3.8-flash`. `google-generative-ai` 5: `gemini-3.5-flash`, `-3.5-flash-lite`, `-3.7-flash`, `-3.8-flash`, `gemini-4-argon`. `openai-responses` 30: `gpt-5`, `gpt-5-codex`, `gpt-5-nano`, `gpt-5.1`, `-5.1-codex`, `-5.1-codex-max`, `-5.1-codex-mini`, `gpt-5.2`, `-5.2-codex`, `gpt-5.3-codex`, `gpt-5.4`, `-5.4-mini`, `-5.4-nano`, `-5.4-pro`, `gpt-5.5`, `-5.5-pro`, `gpt-5.6-luna`, `-5.6-terra`, `gpt-6-astra`, `gpt-6-luna`, `gpt-6-sol`, `gpt-6.1-sol`, `grok-4.5`, `grok-4.6`, `grok-4.7`, `grok-build-0.1`, `muse-ember-1.0`, `muse-spark-1.2`, `muse-spark-1.3`, `muse-wonder-1.0` | 이름·`api`·입력·reasoning·창·출력·가격 네 칸이 Pi 1.5.2 그대로. 모두 reasoning true, 입력 text 또는 text·image | **Pi 판과 파일 해시(승인된 예외):** `@earendil-works/pi-ai@1.5.2` `dist/providers/data/opencode.json`(sha256 `b47c72fcf7f07c783051361f2835f2217f16cc342275acfc13cfa8d667426fbf`, Agent `c4842bf5ae`). 행을 넣을지는 Zen 모델 API https://opencode.ai/inference/v1/models 로 정했다(Zen 문서 https://opencode.ai/docs/zen/ : "Fetch the full list of available models and their metadata from the models endpoint") |
+| `opencode-go` (22) | `openai-completions` 13: `beam-free`, `glm-5.3`, `glm-5.3-flash`, `hy4`, `hy4-preview`, `iceman-contributor-free`, `kimi-k3.1-pro`, `longcat-2.0`, `longcat-2.5-free`, `mimo-v2.6-flash`, `mimo-v2.6-pro`, `minimax-m3.1-flash`, `step-5-preview`. `anthropic-messages` 4: `claude-haiku-5-5`, `minimax-m3`, `qwen3.7-plus`, `qwen3.8-flash`. `google-generative-ai` 1: `gemini-4-argon`. `openai-responses` 4: `gpt-6-luna`, `grok-4.7`, `muse-spark-1.2-contributor`, `muse-spark-1.3-contributor` | 같은 방식 | Pi `dist/providers/data/opencode-go.json`(sha256 `2e8f20182913cec36586a84ea6392f998e4f5897e1a824a36b3ea8a943d21639`). Go 모델 API https://opencode.ai/inference/go/v1/models . Go 문서 https://opencode.ai/docs/go/ : "Token prices are per 1M tokens and are the same for Go, Go Plus, and Go Teams." — 토큰 단가가 있어 구독형 목록에 넣지 않았다(상류 `opencode-go` 행도 단가를 가짐) |
+| 가격 0 (11) | `opencode`: `beam-free`, `deepseek-v4.1-flash-free`, `flint-40b-free`, `iceman-free`, `longcat-2.5-free`, `mimo-v2.6-flash-free`, `nemotron-3.5-lightning-free`, `nemotron-3.5-super-vl-free`. `opencode-go`: `beam-free`, `iceman-contributor-free`, `longcat-2.5-free` | 0/0/0/0 | **공식 무료.** Zen 가격표의 "Free", Go 모델 API 가격 0. Free models 절은 여러 무료 모델을 "for a limited time"이라 적는다(프로모션 무료, `MAINTAINING.md` 9장 수시 행). 모두 ID에 `free`가 있다 |
+
+provider 단위 `api`는 상류와 같은 `openai-completions`이고, 행의 `api`는 다를 때만 적었다. 상류 `opencode` 행은 `limit.input`을 `contextTokens`로 갖지만, 이 91행은 Pi 행에 없어 넣지 않았다. 장문 구간 가격(Pi `tiers`)은 수동 스키마가 받지 않는다.
+
+## 공식 모델 API와의 대조 (2026-11-21 받은 원문)
+
+이름·입력·reasoning·창·출력·가격 네 칸을 비교했다. 아래 칸 말고는 같다. **다른 칸도 Pi 값을 두었다**(Agent가 지금 쓰는 값을 그대로 옮기는 범위, 승인된 결정).
+
+| 칸 | 행 | Pi(catalog) / 공식 API |
+| --- | --- | --- |
+| 이름 | `opencode/deepseek-v4.1-flash` | "DeepSeek V4.1 Flash" / "DeepSeek V4.1 Flash 1017"(문서 모델 표는 "DeepSeek V4.1 Flash") |
+| `contextWindow` | `opencode/claude-sonnet-4-5` | 200,000 / 1,000,000 |
+| `contextWindow` | `opencode/gpt-5.4` | 272,000 / 1,050,000 |
+| `maxTokens` | `opencode-go/kimi-k3.1-pro` | 131,072 / 1,048,576(창과 같은 수. 상류 `kimi-k3` 행도 131,072) |
+| 입력 예산(`limit.input`) | 24행: GPT-5 계열 12행 272,000, GPT-5.4~6.1 계열 11행 922,000, `opencode-go/hy4` 983,010 | 넣지 않음 / 값 있음 |
+| `api` | Gemini 6행(`opencode` 5, `opencode-go` 1) | `google-generative-ai` / 권장 `interactions`. API의 `api` 목록에 `generate-content`도 같은 주소로 있어 Pi 경로는 공식 경로다 |
+| `cacheWrite` | GPT-5.6~6.1 계열 7행 | 공식은 `{"30m": x, "12h": 2x}`. Pi 값은 30분 값과 같다 |
+
+할인·가격 조건(값은 지금 공식 가격과 같다, 기록만): `opencode`·`opencode-go`의 `gemini-4-argon`은 API `multipliers` `date gte 2026-12-01` ×2, `opencode/gemini-3.7-flash`·`-3.8-flash`는 `2027-01-01` ×2(가격표 "50% off"). `opencode/mistral-large-4`도 가격표 "50% off"이고 종료일은 공식에 없다. Claude Fable 5.2·Opus 4.8·Opus 5.5와 GPT 계열 16행은 `service_tier`(fast·priority·flex 등) 배수가 있다. 기본 단가만 넣는다(5장).
+
+## Effort: Agent 현재 동작 보존 규칙 91 + `opencode-go/kimi-k3`
+
+| 규칙 | 값 | 근거 |
+| --- | --- | --- |
+| 91행 각각에 provider·정확한 ID 규칙 1개 | `off, minimal, low, medium, high, adaptive`, 기본 `low`. `source` = 이 파일, note는 "Not the official ladder: …" | **공식 단계가 아니다(승인된 예외).** catalog에 Effort가 없는 지금, Agent는 reasoning 모델에 이 목록과 기본 `low`를 쓴다. 행이 생기면 Agent는 Effort를 catalog에서만 읽으므로, 공식 목록을 넣으면 OpenCode로 나가는 요청이 바뀐다. OpenCode로 실제 요청을 보내 확인할 수단이 없어 지금 동작을 그대로 적었다. 이 때문에 5장 원칙 두 가지를 일부러 어긴다: 생각을 끌 수 없는 행에도 `off`가 있고, Claude effort 모델(4.6 이후)에도 `adaptive`가 있다 |
+| `opencode-go/kimi-k3`(상류 행) | `max` 하나, 기본 `max` | Go 모델 API의 `kimi-k3` `capabilities.reasoning`이 `{"supported":true,"effort":["max"]}`다. 행 안의 `supportedReasoningEfforts: ["max"]`와 `*` 규칙 `kimi-k3*`(low·high·max)가 어긋나던 것을 고쳤다. Agent의 Pi 경로는 어느 단계든 `max`로 보내므로 요청은 같다 |
+
+- 규칙은 모두 첫 `*` 규칙 앞(인덱스 14~105)에 있다. 접두 `*`를 쓰지 않았다. 접두 규칙은 상류가 나중에 내는 같은 계열 ID에 번지기 때문이다. 상류가 같은 ID를 내면 상류 행이 이기고, 규칙은 그 행에 계속 걸린다. ID가 빠지면 6장 "matches nothing" 검사가 잡는다.
+- 규칙 수를 줄일 수 없다. 규칙이 없으면 89행의 목록이 OpenRouter·models.dev·`*` 규칙 값으로 바뀐다. 남은 2행(`iceman-free`, `iceman-contributor-free`)은 다른 출처가 목록을 주지 않아 `knownGaps` 2개가 필요하고, 다음 게시 때 소리 없이 바뀔 수 있다.
+- 공식 목록으로 바꾸면 Agent 요청이 바뀐다(Agent 설계 기록): 89행 목록이 바뀌고, 새 세션 기본 요청이 69행에서 바뀐다(Claude 4.x 등 14행은 `off`). 저장 `xhigh`·`max` 80칸(46행)이 그대로 나가고, 켬/끔·항상 켬 13행은 `low`(켬)가 된다. `grok-build-0.1`은 `*` 규칙 `grok-build*`(`low` 켬)와 Pi 변환표가 겹쳐 모든 단계가 effort 없이 나간다. 공식 목록은 모델 API의 `capabilities.reasoning.effort`다(예: `opencode/claude-opus-4-7` low~max, `opencode/gpt-5.4` none~xhigh, `opencode/gpt-6-sol` none~max). 바꿀 때는 `MAINTAINING.md` 9장 "OpenCode 요청 확인 수단" 행을 따른다.
+
+## 넣지 않은 ID
+
+| ID | 이유 |
+| --- | --- |
+| `opencode/gemini-3.1-pro`, `gemini-3-flash`, `glm-5.3-flash-free`, `minimax-m3.1-flash-free` | Zen "Deprecated models" 표 2026-11-17·18. 모델 표·모델 API에 없다 |
+| `opencode/glm-5`, `kimi-k2.5` | "Deprecated models" 표 2026-05-14·08-05. 모델 API에 없다 |
+| `opencode/glm-5.1`, `glm-5.2`, `kimi-k2.6`, `inkling-2-small-free` | 문서 모델 표에는 있으나 문서가 전체 목록이라 부르는 모델 API에 없다 |
+| `opencode-go/glm-5.2` | Go 문서 모델 이름 목록에는 있으나 Go 모델 API에 없다 |
+| `opencode-go/mimo-v2.5`, `mimo-v2.5-pro` | 공식 문서·API 어디에도 없다 |
+| `zai/glm-5.2-highspeed`, `zai/glm-5.3-highspeed` | Z.AI 가격 페이지(https://docs.z.ai/guides/overview/pricing)와 문서 색인(https://docs.z.ai/llms.txt)에 "highspeed" 0건. Pi에만 있고 가격이 0이다. 이번 작업은 `zai`를 건드리지 않았다 |
+
+Pi의 비채팅 `classifier` 행 2개(`jev-1.13`, `jev-1.13-free`)는 후보가 아니다.
+
+## 기록만 한 것
+
+- Zen "Deprecated models" 표에 있지만 모델 표·가격표·모델 API에 모두 남아 있는 6행을 넣었다: `opencode/gpt-5-codex`, `gpt-5.1-codex`, `gpt-5.1-codex-max`, `gpt-5.1-codex-mini`, `gpt-5.2-codex`(표 2026-07-23), `minimax-m2.5`(2026-08-05). 공식 신호가 서로 다르고, 상태를 바꾸면 Agent가 새 설정에 노출하지 않게 되므로 이번에는 상태를 비웠다(`MAINTAINING.md` 9장 OpenCode 행).
+- 위 공식 대조의 다른 칸과 할인 종료일.
+
+## 판단과 한계
+
+- 91행의 값은 "모든 수동 값은 공식 근거" 원칙에서 Pi 판·파일 해시를 근거로 쓰는 승인된 예외다(2026-11-21 `openai`·`anthropic` Pi 전용 행과 같은 방식). 행의 존재는 공식 모델 API로 정했다.
+- Effort 91규칙은 공식 단계가 아니다. Agent가 OpenCode로 실제 요청을 확인할 수 있게 되면 공식 목록으로 바꾼다.
+- 재생성 원본은 publish run 44879978665의 artifact다(main `bc51cfb`과 같은 `sourceGeneratedAt` 1795245934394). `models=2149->2240 (+91)`. `git diff models/v1/catalog.json`에서 추가 91행, `opencode-go/kimi-k3`의 `thinkingLevels`(low·high·max → max), 최상위 `generatedAt`·`supplementDigest` 말고는 바뀐 것이 없다.
+- `npm run audit` open은 작업 전후 모두 0이다. cost 125, reasoning 2, thinking 66, zero price 15(모두 known) 숫자도 같다. 91행 모두 Effort를 갖고, 가격 0 행은 모두 ID에 `free`가 있다.
+- 6장 "matches nothing" 검사: 새 규칙 92개는 모두 정확히 한 행에 걸린다(91행은 자기 규칙이 첫 규칙, `kimi-k3` 규칙은 `opencode-go/kimi-k3` 하나). 아무 행에도 안 걸리는 기존 규칙 3개(`*` `dots-3-note-preview*`, `kilocode` `cohere/north-mini-code:free`, `kilocode` `dots-studio/dots-3-note-preview:free`)는 작업 전 main에서도 같다.

@@ -501,6 +501,8 @@ test("committed supplemental data covers the requested providers and preserves p
       "anthropic-vertex",
       "openrouter",
       "zai",
+      "opencode",
+      "opencode-go",
     ].sort(),
   );
   const codex = s.providers["openai-codex"].models.find((m) => m.id === "gpt-6-astra");
@@ -922,6 +924,161 @@ test("Gemini CLI manual rows keep the google manual rows' values without a price
     assert.ok(twin, `no manual google row for ${m.id}`);
     const { cost, ...values } = twin;
     assert.deepEqual(m, values, m.id);
+  }
+});
+
+// OpenCode Zen and Go rows from Pi 1.5.2, kept at the Agent's current effort (REVIEW 2026-11-21).
+const OPENCODE_IDS = {
+  opencode: [
+    ...["claude-fable-5", "claude-fable-5-1", "claude-fable-5-2", "claude-haiku-4-5", "claude-haiku-5-5"],
+    ...["claude-opus-4-5", "claude-opus-4-6", "claude-opus-4-7", "claude-opus-4-8", "claude-opus-5-5"],
+    ...["claude-sonnet-4-5", "claude-sonnet-4-6", "claude-sonnet-5", "claude-sonnet-5-5"],
+    ...["qwen3.5-plus", "qwen3.6-plus", "qwen3.8-flash"],
+    ...["gemini-3.5-flash", "gemini-3.5-flash-lite", "gemini-3.7-flash", "gemini-3.8-flash", "gemini-4-argon"],
+    ...["beam-free", "deepseek-v4-pro", "deepseek-v4.1-flash", "deepseek-v4.1-flash-free", "flint-40b-free"],
+    ...["glm-5.3", "glm-5.3-flash", "iceman-free", "kimi-k2.7-code", "longcat-2.5-free", "mimo-v2.6-flash-free"],
+    ...["minimax-m2.5", "minimax-m2.7", "mistral-large-4", "nemotron-3.5-lightning-free"],
+    ...["nemotron-3.5-super-vl-free", "qwen3.8-max"],
+    ...["gpt-5", "gpt-5-codex", "gpt-5-nano", "gpt-5.1", "gpt-5.1-codex", "gpt-5.1-codex-max"],
+    ...["gpt-5.1-codex-mini", "gpt-5.2", "gpt-5.2-codex", "gpt-5.3-codex", "gpt-5.4", "gpt-5.4-mini"],
+    ...["gpt-5.4-nano", "gpt-5.4-pro", "gpt-5.5", "gpt-5.5-pro", "gpt-5.6-luna", "gpt-5.6-terra"],
+    ...["gpt-6-astra", "gpt-6-luna", "gpt-6-sol", "gpt-6.1-sol", "grok-4.5", "grok-4.6", "grok-4.7"],
+    ...["grok-build-0.1", "muse-ember-1.0", "muse-spark-1.2", "muse-spark-1.3", "muse-wonder-1.0"],
+  ],
+  "opencode-go": [
+    ...["claude-haiku-5-5", "minimax-m3", "qwen3.7-plus", "qwen3.8-flash", "gemini-4-argon", "beam-free"],
+    ...["glm-5.3", "glm-5.3-flash", "hy4", "hy4-preview", "iceman-contributor-free", "kimi-k3.1-pro"],
+    ...["longcat-2.0", "longcat-2.5-free", "mimo-v2.6-flash", "mimo-v2.6-pro", "minimax-m3.1-flash"],
+    ...["step-5-preview", "gpt-6-luna", "grok-4.7", "muse-spark-1.2-contributor", "muse-spark-1.3-contributor"],
+  ],
+};
+const OPENCODE_KEPT = {
+  thinkingLevels: ["off", "minimal", "low", "medium", "high", "adaptive"],
+  defaultThinkingLevel: "low",
+};
+
+test("reviewed OpenCode Zen and Go rows publish the Pi 1.5.2 values and the Agent's current effort", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const next = buildCatalog({ ...fixture(), supplement });
+  const get = (p, id) => next.providers[p].models.find((m) => m.id === id);
+  assert.equal(OPENCODE_IDS.opencode.length, 69);
+  assert.equal(OPENCODE_IDS["opencode-go"].length, 22);
+  for (const [p, ids] of Object.entries(OPENCODE_IDS)) {
+    assert.equal(next.providers[p]?.api, "openai-completions", p);
+    assert.deepEqual(next.providers[p].models.map((m) => m.id).sort(), [...ids].sort(), p);
+    // Every row keeps the Agent's list and default for a reasoning model without catalog effort.
+    for (const m of next.providers[p].models) assert.deepEqual(m.compat, OPENCODE_KEPT, `${p}/${m.id}`);
+  }
+  const row = (id, name, api, input, contextWindow, maxTokens, cost) => ({
+    id,
+    name,
+    ...(api ? { api } : {}),
+    input,
+    reasoning: true,
+    contextWindow,
+    maxTokens,
+    cost,
+    compat: OPENCODE_KEPT,
+  });
+  const ti = ["text", "image"];
+  assert.deepEqual(
+    get("opencode", "claude-opus-4-6"),
+    row("claude-opus-4-6", "Claude Opus 4.6", "anthropic-messages", ti, 1_000_000, 128_000, {
+      input: 5, output: 25, cacheRead: 0.5, cacheWrite: 6.25,
+    }),
+  );
+  // Pi value kept where the OpenCode model API states a 1,050,000 window (REVIEW 2026-11-21).
+  assert.deepEqual(
+    get("opencode", "gpt-5.4"),
+    row("gpt-5.4", "GPT-5.4", "openai-responses", ti, 272_000, 128_000, {
+      input: 2.5, output: 15, cacheRead: 0.25, cacheWrite: 0,
+    }),
+  );
+  assert.deepEqual(
+    get("opencode", "gemini-4-argon"),
+    row("gemini-4-argon", "Gemini 4 Argon", "google-generative-ai", ti, 1_048_576, 65_536, {
+      input: 2, output: 10, cacheRead: 0.1, cacheWrite: 0,
+    }),
+  );
+  // Officially free (Zen pricing "Free").
+  assert.deepEqual(
+    get("opencode", "beam-free"),
+    row("beam-free", "Beam Free", undefined, ["text"], 1_048_576, 131_072, {
+      input: 0, output: 0, cacheRead: 0, cacheWrite: 0,
+    }),
+  );
+  assert.deepEqual(
+    get("opencode-go", "kimi-k3.1-pro"),
+    row("kimi-k3.1-pro", "Kimi K3.1 Pro", undefined, ti, 1_048_576, 131_072, {
+      input: 2, output: 10, cacheRead: 0.2, cacheWrite: 2,
+    }),
+  );
+  // Not in the OpenCode model APIs, so not published.
+  for (const id of [
+    ...["gemini-3.1-pro", "gemini-3-flash", "glm-5.3-flash-free", "minimax-m3.1-flash-free", "glm-5"],
+    ...["kimi-k2.5", "glm-5.1", "glm-5.2", "kimi-k2.6", "inkling-2-small-free"],
+  ]) {
+    assert.equal(get("opencode", id), undefined, id);
+  }
+  for (const id of ["glm-5.2", "mimo-v2.5", "mimo-v2.5-pro"]) assert.equal(get("opencode-go", id), undefined, id);
+});
+
+test("OpenCode effort rules name one row each and leave the upstream OpenCode rows alone but Go kimi-k3", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const isOpencode = (r) => r.provider === "opencode" || r.provider === "opencode-go";
+  const rules = supplement.thinking.filter(isOpencode);
+  const firstWildcard = supplement.thinking.findIndex((r) => r.provider === "*");
+  assert.equal(rules.length, 92);
+  for (const r of rules) {
+    assert.ok(!r.model.endsWith("*"), `exact id ${r.provider}/${r.model}`);
+    assert.ok(supplement.thinking.indexOf(r) < firstWildcard, `before * rules ${r.provider}/${r.model}`);
+  }
+  const keep = rules.filter((r) => !(r.provider === "opencode-go" && r.model === "kimi-k3"));
+  assert.deepEqual(
+    keep.map((r) => `${r.provider}/${r.model}`).sort(),
+    Object.entries(OPENCODE_IDS).flatMap(([p, ids]) => ids.map((id) => `${p}/${id}`)).sort(),
+  );
+  for (const r of keep) {
+    assert.deepEqual([r.levels, r.default], [OPENCODE_KEPT.thinkingLevels, "low"]);
+    assert.match(r.note, /^Not the official ladder: /);
+  }
+  // Upstream OpenCode rows from the committed artifact, rebuilt with and without this review.
+  const artifact = read(path.join(root, "models/v1/catalog.json"));
+  const manual = new Set(Object.entries(OPENCODE_IDS).flatMap(([p, ids]) => ids.map((id) => `${p}/${id}`)));
+  const upstream = fixture().upstream;
+  for (const p of ["opencode", "opencode-go"]) {
+    upstream.providers[p] = {
+      api: "openai-completions",
+      models: [
+        ...(artifact.providers[p]?.models ?? []).filter((m) => !manual.has(`${p}/${m.id}`)),
+        // Pinned so the check holds whatever the scheduled publish brings.
+        ...(p === "opencode-go" && !artifact.providers[p]?.models.some((m) => m.id === "kimi-k3")
+          ? [{ ...localModel("kimi-k3"), compat: { supportedReasoningEfforts: ["max"] } }]
+          : []),
+      ],
+    };
+  }
+  const { opencode: _a, "opencode-go": _b, ...otherProviders } = supplement.providers;
+  const { opencode: _c, "opencode-go": _d, ...otherProvenance } = supplement.provenance;
+  const without = {
+    ...supplement,
+    providers: otherProviders,
+    provenance: otherProvenance,
+    thinking: supplement.thinking.filter((r) => !isOpencode(r)),
+  };
+  const f = { ...fixture(), upstream };
+  const after = buildCatalog({ ...f, supplement });
+  const before = buildCatalog({ ...f, supplement: without });
+  for (const p of ["opencode", "opencode-go"]) {
+    for (const m of before.providers[p].models) {
+      const now = after.providers[p].models.find((x) => x.id === m.id);
+      if (p === "opencode-go" && m.id === "kimi-k3") {
+        // OpenCode Go lists reasoning effort max only for kimi-k3.
+        assert.deepEqual([now.compat.thinkingLevels, now.compat.defaultThinkingLevel], [["max"], "max"]);
+      } else {
+        assert.deepEqual(now, m, `${p}/${m.id}`);
+      }
+    }
   }
 });
 
