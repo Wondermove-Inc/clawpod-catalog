@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795245414322,
+  "generatedAt": 1795245954379,
   "minVersion": "2026.4.11",
-  "sourceCommit": "13cfd45b51d3eda11688a06790908904a029a13f",
+  "sourceCommit": "103f01254840920ed693f3b4ac2d7b49663eabd5",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -8772,9 +8772,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.0507,
-            "output": 0.2028,
-            "cacheRead": 0.001014,
+            "input": 0.0498,
+            "output": 0.1992,
+            "cacheRead": 0.000996,
             "cacheWrite": 0
           },
           "compat": {
@@ -8796,7 +8796,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 393216,
           "cost": {
             "input": 0.3,
             "output": 1.2,
@@ -8889,33 +8889,6 @@
               "max"
             ],
             "defaultThinkingLevel": "high"
-          }
-        },
-        {
-          "id": "dots-studio/dots-3-note-preview:free",
-          "name": "Dots Studio: Dots3-Note Preview (free)",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 512000,
-          "maxTokens": 460800,
-          "status": "deprecated",
-          "statusReason": "kilocode no longer lists this model in its public model inventory.",
-          "cost": {
-            "input": 0,
-            "output": 0
-          },
-          "compat": {
-            "thinkingLevels": [
-              "off",
-              "low"
-            ],
-            "defaultThinkingLevel": "low",
-            "thinkingLevelLabels": {
-              "low": "on"
-            }
           }
         },
         {
@@ -10003,36 +9976,8 @@
           }
         },
         {
-          "id": "meituan/longcat-2.0",
-          "name": "Meituan: LongCat 2.0",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 1048756,
-          "maxTokens": 262144,
-          "cost": {
-            "input": 0.75,
-            "output": 3,
-            "cacheRead": 0.015,
-            "cacheWrite": 0
-          },
-          "status": "deprecated",
-          "statusReason": "kilocode no longer lists this model in its public model inventory.",
-          "compat": {
-            "thinkingLevels": [
-              "off",
-              "low"
-            ],
-            "defaultThinkingLevel": "low",
-            "thinkingLevelLabels": {
-              "low": "on"
-            }
-          }
-        },
-        {
           "id": "meituan/longcat-2.5",
-          "name": "Meituan: LongCat 2.5",
+          "name": "LongCat 2.5",
           "input": [
             "text",
             "image"
@@ -15009,6 +14954,32 @@
           }
         },
         {
+          "id": "radixark/daisyrose-27b",
+          "name": "RadixArk: DaisyRose 27B",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 235929,
+          "cost": {
+            "input": 0.2,
+            "output": 2.5,
+            "cacheRead": 0.05,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low",
+              "medium",
+              "xhigh"
+            ],
+            "defaultThinkingLevel": "xhigh"
+          }
+        },
+        {
           "id": "recursive/flint-v1.0",
           "name": "Recursive: Flint",
           "input": [
@@ -15425,6 +15396,34 @@
             "input": 1,
             "output": 4.05,
             "cacheRead": 0.17,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "minimal",
+              "low",
+              "medium",
+              "high",
+              "max"
+            ],
+            "defaultThinkingLevel": "high"
+          }
+        },
+        {
+          "id": "thinkingmachines/inkling-2-mini",
+          "name": "Thinking Machines: Inkling 2 Mini",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 0.1,
+            "output": 0.4,
+            "cacheRead": 0.02,
             "cacheWrite": 0
           },
           "compat": {
@@ -32474,12 +32473,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 196608,
-          "maxTokens": 196608,
+          "contextWindow": 204800,
+          "maxTokens": 131072,
           "cost": {
-            "input": 0.21,
-            "output": 0.84,
-            "cacheRead": 0.042,
+            "input": 0.3,
+            "output": 1.2,
+            "cacheRead": 0.06,
             "cacheWrite": 0
           },
           "compat": {
@@ -56210,6 +56209,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1795242717351,
+  "sourceGeneratedAt": 1795245934394,
   "supplementDigest": "8e65ffd5391682c1bb9d60002c5805fec0b11aced1dce32a9a101486adb72f67"
 }
