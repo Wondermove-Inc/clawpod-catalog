@@ -44,7 +44,7 @@
 | 자동 | OpenClaw가 만드는 provider 전부(`anthropic`, `openai`, `google`, `xai`, `zai`, `ollama-cloud`, 중계 provider 등), `openrouter` | 6시간마다 자동 추가 |
 | 수동 | `openai-codex`, `codex`, `amazon-bedrock`, `amazon-bedrock-mantle`, `anthropic-vertex`, `google-vertex`, `google-gemini-cli`, `minimax-portal` (그 밖에 수동 파일 `providers`에 있는 행) | 사람이 공식 문서를 보고 추가 |
 
-`anthropic`, `openai`, `google`, `xai`, `zai`, `minimax`, `opencode`, `opencode-go`는 자동 행과 수동 행이 섞여 있습니다. 수동 파일 `providers`에 있는 ID가 해당 provider의 수동 행입니다.
+`anthropic`, `openai`, `google`, `xai`, `zai`, `minimax`, `opencode`, `opencode-go`, `byteplus`, `volcengine`는 자동 행과 수동 행이 섞여 있습니다. 수동 파일 `providers`에 있는 ID가 해당 provider의 수동 행입니다.
 
 ## 2. 파일 지도
 
@@ -265,6 +265,8 @@ npm run audit
 | 수시 (OpenCode) | 2026-11-21 수동 행 91개(`opencode` 69, `opencode-go` 22)의 Pi 값 중 공식 모델 API와 다른 칸: `opencode/deepseek-v4.1-flash` 이름(API "DeepSeek V4.1 Flash 1017"), `opencode/claude-sonnet-4-5` 창 200,000(API 1,000,000), `opencode/gpt-5.4` 창 272,000(API 1,050,000), `opencode-go/kimi-k3.1-pro` 출력 131,072(API 1,048,576), 입력 예산(`limit.input`) 24행 미반영. 공식 값으로 바꾸기로 하면 이 칸을 고칩니다. 할인 종료: Gemini 4 Argon(두 provider) 2026-12-01부터, Gemini 3.7·3.8 Flash 2027-01-01부터 가격 2배(API `multipliers`), Mistral Large 4도 "50% off" 표시. Zen "Deprecated models" 표에 있지만 모델 API·모델 표에 남은 6행(`gpt-5-codex`, `gpt-5.1-codex`, `-max`, `-mini`, `gpt-5.2-codex`, `minimax-m2.5`)의 상태는 비워 두었습니다. API에서 빠지면 행·규칙을 지웁니다 |
 | 수시 (OpenCode 넣지 않은 ID) | 문서 표에는 있으나 모델 API에 없어 넣지 않은 `opencode/glm-5.1`, `glm-5.2`, `kimi-k2.6`, `inkling-2-small-free`, `opencode-go/glm-5.2`(그리고 Deprecated 표의 `gemini-3.1-pro`, `gemini-3-flash`, `glm-5.3-flash-free`, `minimax-m3.1-flash-free`, `glm-5`, `kimi-k2.5`, 공식 어디에도 없는 `opencode-go/mimo-v2.5`, `mimo-v2.5-pro`). 모델 API에 나타나면 공식 값으로 추가합니다 |
 | OpenCode 요청 확인 수단이 생기면 | `opencode`·`opencode-go` 수동 행 91개의 `thinking` 규칙(정확한 ID, "Not the official ladder")은 Agent의 현재 동작(목록 off~high+adaptive, 기본 low)을 보존한 값입니다. OpenCode로 실제 요청을 보내 확인할 수 있게 되면 공식 목록(모델 API `capabilities.reasoning`, 제조사 계약)으로 바꿉니다. 상류가 같은 ID를 내도 규칙은 그 행에 계속 걸리고, ID가 빠지면 6장 "matches nothing" 검사에 잡힙니다 |
+| 수시 (BytePlus·Volcano Engine) | 2026-11-21 수동 행 6개(`byteplus` 3, `volcengine` 3)의 이름·reasoning·입력·창·최대 출력은 Agent 플러그인 표 값입니다. 공식과 다른 칸: `byteplus` Seed 2.0 Pro/Lite/Mini `maxTokens` 4096(공식 기본 출력 4K, 최대 128K), 입력에 오디오 없음(Lite·Mini는 공식 오디오 이해 지원, 수동 행 스키마 제한). `byteplus` 가격은 Standard [0,128K] 구간이고 (128,256] 구간(두 배)은 넣지 않았습니다. `volcengine` 3행은 공식 가격이 CNY뿐이라 비우고 `knownGaps`에 적었습니다. Volcano Engine이 USD 가격을 공개하면 행에 넣고 `knownGaps` 3개를 지웁니다. 공식 퇴역 공지에 오르면 행을 지우거나 상태를 바꿉니다 |
+| Volc 계열 요청 확인 수단이 생기면 | `byteplus`·`volcengine` 수동 행 6개의 `thinking` 규칙(정확한 ID, "Not the official ladder")은 Agent의 현재 동작(목록 off~high+adaptive, 기본 low)을 보존한 값입니다. 공식 thinking 제어(ModelArk Chat API `thinking.type`, 이미 있는 `*` 규칙 `seed-2-0*`·`deepseek-v4-1-flash*`·`doubao-seed-2-1*`의 목록)로 바꾸려면 Agent가 그 주소로 실제 요청을 보내 확인할 수단이 필요합니다. 바꿀 때는 이 6규칙을 지웁니다 |
 | Agent SOT 전환 시 | Sonnet 5.5의 `off`(`between_tools`로만 가능), Codex 모델 기본 Effort가 API 기본값과 같은지, Agent의 `max` 단계 지원 |
 
 `corrections`의 날짜 규칙(Sonnet 4.5 EOL 2027-04-08, Gemini 4 Vertex 가격 2026-12-01 등)은 자동으로 적용되므로 여기에 넣지 않습니다.

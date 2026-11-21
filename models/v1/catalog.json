@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795255224763,
+  "generatedAt": 1795259605482,
   "minVersion": "2026.4.11",
   "sourceCommit": "346078f73f1935f278eed581fc3d85fbbb1da633",
   "providers": {
@@ -1551,6 +1551,90 @@
               "high"
             ],
             "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "seed-2-0-pro-260328",
+          "name": "Seed 2.0 Pro",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 256000,
+          "maxTokens": 4096,
+          "cost": {
+            "input": 0.5,
+            "output": 3,
+            "cacheRead": 0.1,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "minimal",
+              "low",
+              "medium",
+              "high",
+              "adaptive"
+            ],
+            "defaultThinkingLevel": "low"
+          }
+        },
+        {
+          "id": "seed-2-0-lite-260428",
+          "name": "Seed 2.0 Lite",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 256000,
+          "maxTokens": 4096,
+          "cost": {
+            "input": 0.25,
+            "output": 2,
+            "cacheRead": 0.05,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "minimal",
+              "low",
+              "medium",
+              "high",
+              "adaptive"
+            ],
+            "defaultThinkingLevel": "low"
+          }
+        },
+        {
+          "id": "seed-2-0-mini-260428",
+          "name": "Seed 2.0 Mini",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 256000,
+          "maxTokens": 4096,
+          "cost": {
+            "input": 0.1,
+            "output": 0.4,
+            "cacheRead": 0.02,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "minimal",
+              "low",
+              "medium",
+              "high",
+              "adaptive"
+            ],
+            "defaultThinkingLevel": "low"
           }
         }
       ]
@@ -39816,6 +39900,72 @@
               "low": "on"
             }
           }
+        },
+        {
+          "id": "deepseek-v4-1-flash-260910",
+          "name": "DeepSeek V4.1 Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1024000,
+          "maxTokens": 384000,
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "minimal",
+              "low",
+              "medium",
+              "high",
+              "adaptive"
+            ],
+            "defaultThinkingLevel": "low"
+          }
+        },
+        {
+          "id": "doubao-seed-2-1-lite-260915",
+          "name": "Doubao Seed 2.1 Lite",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1024000,
+          "maxTokens": 256000,
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "minimal",
+              "low",
+              "medium",
+              "high",
+              "adaptive"
+            ],
+            "defaultThinkingLevel": "low"
+          }
+        },
+        {
+          "id": "doubao-seed-2-1-pro-260915",
+          "name": "Doubao Seed 2.1 Pro (September)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1024000,
+          "maxTokens": 256000,
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "minimal",
+              "low",
+              "medium",
+              "high",
+              "adaptive"
+            ],
+            "defaultThinkingLevel": "low"
+          }
         }
       ]
     },
@@ -58804,5 +58954,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795255206096,
-  "supplementDigest": "f148fc5c838c4dfeadf2625e8530cfda6dab10cbe78353287305378e5064821b"
+  "supplementDigest": "1baf57ef0f3903c0dac31aea5a31759205e50c92bf3d933d6672ec62f84bbaf3"
 }
