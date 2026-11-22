@@ -219,7 +219,7 @@
       "files": [
         "extensions/nvidia/provider-catalog.ts"
       ],
-      "notes": "Retired rows only, values from the Agent plugin table, no price. Reviewed 2026-11-22: added nvidia/nemotron-3-super-120b-a12b, minimaxai/minimax-m3, moonshotai/kimi-k2.5, minimaxai/minimax-m2.5, z-ai/glm5 (deprecated, no replacedBy): not on the public model list (https://integrate.api.nvidia.com/v1/models, 2026-11-22) and no official retirement notice found. moonshotai/kimi-k3 and z-ai/glm-5.2 get no row: the Agent resolves them as nested ids from the moonshot and zai catalog rows without the plugin table, and a row here would replace those values with the old table values. Reviewed 2026-11-22 (ClawPoD Agent I3h, supersedes the no-row sentence above): added moonshotai/kimi-k3 and z-ai/glm-5.2 (deprecated, no replacedBy; not on https://integrate.api.nvidia.com/v1/models, 2026-11-22, 33 ids) so the Agent still resolves them after its plugin table is gone. Fact fields only (name, input, reasoning, contextWindow, maxTokens, cost and the Effort list) copied from the inner catalog rows moonshot/kimi-k3 and zai/glm-5.2 the Agent borrows today; no request compat and no thinkingLevelMap, so the configured path sends the same request. The price is that inner row value, not an NVIDIA price."
+      "notes": "Retired rows only, values from the Agent plugin table, no price. Reviewed 2026-11-22: added nvidia/nemotron-3-super-120b-a12b, minimaxai/minimax-m3, moonshotai/kimi-k2.5, minimaxai/minimax-m2.5, z-ai/glm5 (deprecated, no replacedBy): not on the public model list (https://integrate.api.nvidia.com/v1/models, 2026-11-22) and no official retirement notice found. moonshotai/kimi-k3 and z-ai/glm-5.2 get no row: the Agent resolves them as nested ids from the moonshot and zai catalog rows without the plugin table, and a row here would replace those values with the old table values. Reviewed 2026-11-22 (ClawPoD Agent I3h, supersedes the no-row sentence above): added moonshotai/kimi-k3 and z-ai/glm-5.2 (deprecated, no replacedBy; not on https://integrate.api.nvidia.com/v1/models, 2026-11-22, 33 ids) so the Agent still resolves them after its plugin table is gone. Fact fields only (name, input, reasoning, contextWindow, maxTokens and the Effort list) copied from the inner catalog rows moonshot/kimi-k3 and zai/glm-5.2 the Agent borrows today; no request compat and no thinkingLevelMap, so the configured path sends the same request. No price: the Moonshot and Z.ai rates are not NVIDIA prices."
     }
   },
   "providers": {
@@ -7594,12 +7594,6 @@
           "reasoning": true,
           "contextWindow": 1048576,
           "maxTokens": 1048576,
-          "cost": {
-            "input": 3,
-            "output": 15,
-            "cacheRead": 0.3,
-            "cacheWrite": 3
-          },
           "status": "deprecated"
         },
         {
@@ -7611,12 +7605,6 @@
           "reasoning": true,
           "contextWindow": 1000000,
           "maxTokens": 131072,
-          "cost": {
-            "input": 1.4,
-            "output": 4.4,
-            "cacheRead": 0.26,
-            "cacheWrite": 0
-          },
           "status": "deprecated"
         }
       ]
@@ -8365,9 +8353,9 @@
         "xhigh",
         "max"
       ],
-      "default": "high",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default high: the vendor default of the * claude-fable-5* rule (https://platform.claude.com/docs/en/build-with-claude/effort). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8379,9 +8367,9 @@
         "xhigh",
         "max"
       ],
-      "default": "high",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default high: the vendor default of the * claude-fable-5* rule (https://platform.claude.com/docs/en/build-with-claude/effort). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8393,9 +8381,9 @@
         "xhigh",
         "max"
       ],
-      "default": "high",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default high: the vendor default of the * claude-fable-5* rule (https://platform.claude.com/docs/en/build-with-claude/effort). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8423,9 +8411,9 @@
         "xhigh",
         "max"
       ],
-      "default": "medium",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max], toggle -> off, low, medium, high, xhigh, max. Default medium: the vendor default of the * claude-haiku-5-5* rule (https://platform.claude.com/docs/en/build-with-claude/effort). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max], toggle -> off, low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8435,9 +8423,9 @@
         "medium",
         "high"
       ],
-      "default": "high",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default high: Anthropic effort default high, the default on every effort model but Opus 5.5 and Haiku 5.5 (https://platform.claude.com/docs/en/build-with-claude/effort); the model API lists no toggle, so the vendor default off is not offered. Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8448,9 +8436,9 @@
         "high",
         "max"
       ],
-      "default": "high",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, max] -> low, medium, high, max. Default high: Anthropic effort default high, the default on every effort model but Opus 5.5 and Haiku 5.5 (https://platform.claude.com/docs/en/build-with-claude/effort); the model API lists no toggle, so the vendor default off is not offered. Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, max] -> low, medium, high, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8462,9 +8450,9 @@
         "xhigh",
         "max"
       ],
-      "default": "high",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default high: Anthropic effort default high, the default on every effort model but Opus 5.5 and Haiku 5.5 (https://platform.claude.com/docs/en/build-with-claude/effort); the model API lists no toggle, so the vendor default off is not offered. Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8476,9 +8464,9 @@
         "xhigh",
         "max"
       ],
-      "default": "high",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default high: Anthropic effort default high, the default on every effort model but Opus 5.5 and Haiku 5.5 (https://platform.claude.com/docs/en/build-with-claude/effort); the model API lists no toggle, so the vendor default off is not offered. Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8490,9 +8478,9 @@
         "xhigh",
         "max"
       ],
-      "default": "medium",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default medium: the vendor default of the * claude-opus-5-5* rule (https://platform.claude.com/docs/en/build-with-claude/effort). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8518,9 +8506,9 @@
         "high",
         "max"
       ],
-      "default": "high",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, max] -> low, medium, high, max. Default high: Anthropic effort default high, the default on every effort model but Opus 5.5 and Haiku 5.5 (https://platform.claude.com/docs/en/build-with-claude/effort); the model API lists no toggle, so the vendor default off is not offered. Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, max] -> low, medium, high, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8532,9 +8520,9 @@
         "xhigh",
         "max"
       ],
-      "default": "high",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default high: the vendor default of the * claude-sonnet-5 rule (https://platform.claude.com/docs/en/build-with-claude/effort). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8546,9 +8534,9 @@
         "xhigh",
         "max"
       ],
-      "default": "high",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default high: the vendor default of the * claude-sonnet-5-5* rule (https://platform.claude.com/docs/en/build-with-claude/effort). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8581,9 +8569,9 @@
         "medium",
         "xhigh"
       ],
-      "default": "xhigh",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, xhigh], toggle -> off, low, medium, xhigh. Default xhigh: the vendor default of the * qwen3-8-flash* rule (https://docs.qwencloud.com/api-reference/chat/openai-chat). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, xhigh], toggle -> off, low, medium, xhigh. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8594,9 +8582,9 @@
         "medium",
         "high"
       ],
-      "default": "medium",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high] -> minimal, low, medium, high. Default medium: the vendor default of the * gemini-3-5-flash rule (https://cloud.google.com/vertex-ai/generative-ai/docs/thinking). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high] -> minimal, low, medium, high. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8607,9 +8595,9 @@
         "medium",
         "high"
       ],
-      "default": "minimal",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high] -> minimal, low, medium, high. Default minimal: the vendor default of the * gemini-3-5-flash-lite rule (https://ai.google.dev/gemini-api/docs/thinking). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high] -> minimal, low, medium, high. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8619,12 +8607,12 @@
         "medium",
         "high"
       ],
-      "default": "medium",
+      "default": "low",
       "map": {
         "minimal": "low"
       },
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default medium: the vendor default of the * gemini-3-7-flash rule (https://cloud.google.com/vertex-ai/generative-ai/docs/thinking). minimal maps to \"low\": Gemini thinking docs, minimal \"Not supported on Gemini 4 models or gemini-3.8-flash\", 3.7 Flash lists low/medium/high (https://aistudio.google.com/docs/thinking); a stored minimal runs as low instead of a rejected MINIMAL. Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default low: the current catalog default, kept. minimal maps to \"low\": Gemini thinking docs, minimal \"Not supported on Gemini 4 models or gemini-3.8-flash\", 3.7 Flash lists low/medium/high (https://aistudio.google.com/docs/thinking); a stored minimal runs as low instead of a rejected MINIMAL. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8634,12 +8622,12 @@
         "medium",
         "high"
       ],
-      "default": "medium",
+      "default": "low",
       "map": {
         "minimal": "low"
       },
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default medium: the vendor default of the * gemini-3-8-flash rule (https://ai.google.dev/gemini-api/docs/thinking). minimal maps to \"low\": Gemini thinking docs, minimal \"Not supported on Gemini 4 models or gemini-3.8-flash\", 3.7 Flash lists low/medium/high (https://aistudio.google.com/docs/thinking); a stored minimal runs as low instead of a rejected MINIMAL. Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default low: the current catalog default, kept. minimal maps to \"low\": Gemini thinking docs, minimal \"Not supported on Gemini 4 models or gemini-3.8-flash\", 3.7 Flash lists low/medium/high (https://aistudio.google.com/docs/thinking); a stored minimal runs as low instead of a rejected MINIMAL. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8649,12 +8637,12 @@
         "medium",
         "high"
       ],
-      "default": "medium",
+      "default": "low",
       "map": {
         "minimal": "low"
       },
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default medium: the vendor default of the * gemini-4-argon rule (https://ai.google.dev/gemini-api/docs/thinking). minimal maps to \"low\": Gemini thinking docs, minimal \"Not supported on Gemini 4 models or gemini-3.8-flash\", 3.7 Flash lists low/medium/high (https://aistudio.google.com/docs/thinking); a stored minimal runs as low instead of a rejected MINIMAL. Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default low: the current catalog default, kept. minimal maps to \"low\": Gemini thinking docs, minimal \"Not supported on Gemini 4 models or gemini-3.8-flash\", 3.7 Flash lists low/medium/high (https://aistudio.google.com/docs/thinking); a stored minimal runs as low instead of a rejected MINIMAL. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8666,9 +8654,9 @@
         "xhigh",
         "max"
       ],
-      "default": "max",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default max: the vendor default of the * beam-free rule (https://developers.reflection.ai/reasoning). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8680,7 +8668,7 @@
       ],
       "default": "high",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [high, max], toggle -> off, high, max. Default high: the vendor default of the * deepseek-v4-pro* rule (https://api-docs.deepseek.com/api/create-chat-completion). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [high, max], toggle -> off, high, max. Default high: vendor default from the * deepseek-v4-pro* rule (https://api-docs.deepseek.com/api/create-chat-completion); the current default is not listed. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8691,9 +8679,9 @@
         "high",
         "max"
       ],
-      "default": "high",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, high, max], toggle -> off, low, high, max. Default high: the vendor default of the * deepseek-v4-1-flash* rule (https://api-docs.deepseek.com/api/create-chat-completion). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, high, max], toggle -> off, low, high, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8704,9 +8692,9 @@
         "high",
         "max"
       ],
-      "default": "high",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, high, max], toggle -> off, low, high, max. Default high: the vendor default of the * deepseek-v4-1-flash* rule (https://api-docs.deepseek.com/api/create-chat-completion). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, high, max], toggle -> off, low, high, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8720,7 +8708,7 @@
       ],
       "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default low: no official default found; keeps the current default low. Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8730,9 +8718,9 @@
         "high",
         "max"
       ],
-      "default": "max",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, high, max] -> low, high, max. Default max: the vendor default of the * glm-5-3* rule (https://docs.z.ai/guides/llm/glm-5.3). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, high, max] -> low, high, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8742,9 +8730,9 @@
         "high",
         "max"
       ],
-      "default": "max",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, high, max] -> low, high, max. Default max: the vendor default of the * glm-5-3* rule (https://docs.z.ai/guides/llm/glm-5.3). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, high, max] -> low, high, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8785,7 +8773,7 @@
       ],
       "default": "off",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: toggle, no effort -> off, adaptive. Default off: the vendor default of the * longcat-2-5* rule (https://huggingface.co/meituan-longcat/LongCat-2.5). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: toggle, no effort -> off, adaptive. Default off: vendor default from the * longcat-2-5* rule (https://huggingface.co/meituan-longcat/LongCat-2.5); the current default is not listed. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8841,7 +8829,7 @@
       ],
       "default": "high",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, high] -> off, high. Default high: the vendor default of the * mistral-large-4* rule (https://docs.mistral.ai/inference/conversations/reasoning). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, high] -> off, high. Default high: vendor default from the * mistral-large-4* rule (https://docs.mistral.ai/inference/conversations/reasoning); the current default is not listed. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8869,9 +8857,9 @@
         "high",
         "xhigh"
       ],
-      "default": "high",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, minimal, low, medium, high, xhigh] -> off, minimal, low, medium, high, xhigh. Default high: the vendor default of the * nemotron-3-5-super-vl* rule (https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, minimal, low, medium, high, xhigh] -> off, minimal, low, medium, high, xhigh. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8882,9 +8870,9 @@
         "medium",
         "xhigh"
       ],
-      "default": "xhigh",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, xhigh], toggle -> off, low, medium, xhigh. Default xhigh: the vendor default of the * qwen3-8-max rule (https://docs.qwencloud.com/api-reference/chat/openai-chat). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, xhigh], toggle -> off, low, medium, xhigh. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8895,9 +8883,9 @@
         "medium",
         "high"
       ],
-      "default": "medium",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high] -> minimal, low, medium, high. Default medium: OpenAI reasoning guide: medium is the default configuration (https://developers.openai.com/api/docs/guides/reasoning), as the openai/gpt-5 row. Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high] -> minimal, low, medium, high. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8907,9 +8895,9 @@
         "medium",
         "high"
       ],
-      "default": "medium",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default medium: the vendor default of the * gpt-5-codex* rule (https://developers.openai.com/api/docs/models/gpt-5-codex). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8920,9 +8908,9 @@
         "medium",
         "high"
       ],
-      "default": "medium",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high] -> minimal, low, medium, high. Default medium: the vendor default of the * gpt-5-nano* rule (https://developers.openai.com/api/docs/models/gpt-5). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high] -> minimal, low, medium, high. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8933,9 +8921,9 @@
         "medium",
         "high"
       ],
-      "default": "off",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high] -> off, low, medium, high. Default off: the vendor default of the * gpt-5-1 rule (https://developers.openai.com/api/docs/models/gpt-5.1). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high] -> off, low, medium, high. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8945,9 +8933,9 @@
         "medium",
         "high"
       ],
-      "default": "medium",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default medium: the vendor default of the * gpt-5-1-codex* rule (https://developers.openai.com/api/docs/models/gpt-5.1-codex). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8958,9 +8946,9 @@
         "high",
         "xhigh"
       ],
-      "default": "medium",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh] -> low, medium, high, xhigh. Default medium: the vendor default of the * gpt-5-1-codex-max* rule (https://developers.openai.com/api/docs/models/gpt-5.1-codex-max). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh] -> low, medium, high, xhigh. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8970,9 +8958,9 @@
         "medium",
         "high"
       ],
-      "default": "medium",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default medium: the vendor default of the * gpt-5-1-codex* rule (https://developers.openai.com/api/docs/models/gpt-5.1-codex). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8984,9 +8972,9 @@
         "high",
         "xhigh"
       ],
-      "default": "off",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh] -> off, low, medium, high, xhigh. Default off: the vendor default of the * gpt-5-2 rule (https://developers.openai.com/api/docs/models/gpt-5.2). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh] -> off, low, medium, high, xhigh. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8997,9 +8985,9 @@
         "high",
         "xhigh"
       ],
-      "default": "medium",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh] -> low, medium, high, xhigh. Default medium: the vendor default of the * gpt-5-2-codex* rule (https://developers.openai.com/api/docs/models/gpt-5.2-codex). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh] -> low, medium, high, xhigh. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9011,9 +8999,9 @@
         "high",
         "xhigh"
       ],
-      "default": "medium",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh] -> off, low, medium, high, xhigh. Default medium: the vendor default of the * gpt-5-3-codex rule (https://developers.openai.com/api/docs/models/gpt-5.3-codex). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh] -> off, low, medium, high, xhigh. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9025,9 +9013,9 @@
         "high",
         "xhigh"
       ],
-      "default": "off",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh] -> off, low, medium, high, xhigh. Default off: the vendor default of the * gpt-5-4* rule (https://developers.openai.com/api/docs/models/gpt-5.4). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh] -> off, low, medium, high, xhigh. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9039,9 +9027,9 @@
         "high",
         "xhigh"
       ],
-      "default": "off",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh] -> off, low, medium, high, xhigh. Default off: the vendor default of the * gpt-5-4* rule (https://developers.openai.com/api/docs/models/gpt-5.4). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh] -> off, low, medium, high, xhigh. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9053,9 +9041,9 @@
         "high",
         "xhigh"
       ],
-      "default": "off",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh] -> off, low, medium, high, xhigh. Default off: the vendor default of the * gpt-5-4* rule (https://developers.openai.com/api/docs/models/gpt-5.4). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh] -> off, low, medium, high, xhigh. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9067,7 +9055,7 @@
       ],
       "default": "medium",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [medium, high, xhigh] -> medium, high, xhigh. Default medium: the vendor default of the * gpt-5-4-pro* rule (https://developers.openai.com/api/docs/models/gpt-5.4-pro). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [medium, high, xhigh] -> medium, high, xhigh. Default medium: vendor default from the * gpt-5-4-pro* rule (https://developers.openai.com/api/docs/models/gpt-5.4-pro); the current default is not listed. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9079,9 +9067,9 @@
         "high",
         "xhigh"
       ],
-      "default": "medium",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh] -> off, low, medium, high, xhigh. Default medium: the vendor default of the * gpt-5-5 rule (https://developers.openai.com/api/docs/models/gpt-5.5). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh] -> off, low, medium, high, xhigh. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9093,7 +9081,7 @@
       ],
       "default": "high",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [medium, high, xhigh] -> medium, high, xhigh. Default high: the vendor default of the * gpt-5-5-pro* rule (https://developers.openai.com/api/docs/models/gpt-5.5-pro). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [medium, high, xhigh] -> medium, high, xhigh. Default high: vendor default from the * gpt-5-5-pro* rule (https://developers.openai.com/api/docs/models/gpt-5.5-pro); the current default is not listed. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9106,9 +9094,9 @@
         "xhigh",
         "max"
       ],
-      "default": "medium",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh, max] -> off, low, medium, high, xhigh, max. Default medium: the vendor default of the * gpt-5-6* rule (https://developers.openai.com/api/docs/models/gpt-5.6-sol). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh, max] -> off, low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9121,9 +9109,9 @@
         "xhigh",
         "max"
       ],
-      "default": "medium",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh, max] -> off, low, medium, high, xhigh, max. Default medium: the vendor default of the * gpt-5-6* rule (https://developers.openai.com/api/docs/models/gpt-5.6-sol). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh, max] -> off, low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9135,9 +9123,9 @@
         "xhigh",
         "max"
       ],
-      "default": "medium",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default medium: the vendor default of the * gpt-6-astra* rule (https://developers.openai.com/api/docs/models/gpt-6-astra). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9150,9 +9138,9 @@
         "xhigh",
         "max"
       ],
-      "default": "medium",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh, max] -> off, low, medium, high, xhigh, max. Default medium: the vendor default of the * gpt-6-luna* rule (https://developers.openai.com/api/docs/models/gpt-6-luna). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh, max] -> off, low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9165,9 +9153,9 @@
         "xhigh",
         "max"
       ],
-      "default": "medium",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh, max] -> off, low, medium, high, xhigh, max. Default medium: the vendor default of the * gpt-6-sol* rule (https://developers.openai.com/api/docs/models/gpt-6-sol). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh, max] -> off, low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9179,9 +9167,9 @@
         "xhigh",
         "max"
       ],
-      "default": "medium",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default medium: the vendor default of the * gpt-6-1-sol* rule (https://developers.openai.com/api/docs/models/gpt-6.1-sol). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9191,9 +9179,9 @@
         "medium",
         "high"
       ],
-      "default": "high",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default high: xAI default high (https://docs.x.ai/docs/guides/reasoning). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9204,9 +9192,9 @@
         "high",
         "xhigh"
       ],
-      "default": "high",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh] -> low, medium, high, xhigh. Default high: xAI default high (https://docs.x.ai/docs/guides/reasoning). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh] -> low, medium, high, xhigh. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9217,9 +9205,9 @@
         "high",
         "xhigh"
       ],
-      "default": "high",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh] -> low, medium, high, xhigh. Default high: xAI default high (https://docs.x.ai/docs/guides/reasoning). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh] -> low, medium, high, xhigh. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9247,9 +9235,9 @@
         "xhigh",
         "max"
       ],
-      "default": "max",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high, xhigh, max] -> minimal, low, medium, high, xhigh, max. Default max: the vendor default of the * muse-ember* rule (https://dev.meta.ai/docs/reasoning). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high, xhigh, max] -> minimal, low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9261,9 +9249,9 @@
         "high",
         "xhigh"
       ],
-      "default": "high",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high, xhigh] -> minimal, low, medium, high, xhigh. Default high: the vendor default of the * muse-spark-1-* rule (https://dev.meta.ai/docs/reasoning). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high, xhigh] -> minimal, low, medium, high, xhigh. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9275,9 +9263,9 @@
         "high",
         "xhigh"
       ],
-      "default": "high",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high, xhigh] -> minimal, low, medium, high, xhigh. Default high: the vendor default of the * muse-spark-1-3* rule (https://dev.meta.ai/docs/reasoning). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high, xhigh] -> minimal, low, medium, high, xhigh. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9290,9 +9278,9 @@
         "xhigh",
         "max"
       ],
-      "default": "max",
+      "default": "low",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high, xhigh, max] -> minimal, low, medium, high, xhigh, max. Default max: the vendor default of the * muse-wonder* rule (https://dev.meta.ai/docs/reasoning). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high, xhigh, max] -> minimal, low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9305,9 +9293,9 @@
         "xhigh",
         "max"
       ],
-      "default": "medium",
+      "default": "low",
       "source": "https://opencode.ai/inference/go/v1/models",
-      "note": "OpenCode Go model API capabilities.reasoning: effort [low, medium, high, xhigh, max], toggle -> off, low, medium, high, xhigh, max. Default medium: the vendor default of the * claude-haiku-5-5* rule (https://platform.claude.com/docs/en/build-with-claude/effort). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Go model API capabilities.reasoning: effort [low, medium, high, xhigh, max], toggle -> off, low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9318,7 +9306,7 @@
       ],
       "default": "adaptive",
       "source": "https://opencode.ai/inference/go/v1/models",
-      "note": "OpenCode Go model API capabilities.reasoning: toggle, no effort -> off, adaptive. Default adaptive: as the * minimax-m3* rule (MiniMax OpenAI API: omitted = thinking on; Anthropic API: omitted = off, adaptive = on, https://platform.minimax.io/docs/api-reference/text-anthropic-api). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Go model API capabilities.reasoning: toggle, no effort -> off, adaptive. Default adaptive: vendor default from the * minimax-m3* rule (https://platform.minimax.io/docs/api-reference/text-openai-api); the current default is not listed. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9340,9 +9328,9 @@
         "medium",
         "xhigh"
       ],
-      "default": "xhigh",
+      "default": "low",
       "source": "https://opencode.ai/inference/go/v1/models",
-      "note": "OpenCode Go model API capabilities.reasoning: effort [low, medium, xhigh], toggle -> off, low, medium, xhigh. Default xhigh: the vendor default of the * qwen3-8-flash* rule (https://docs.qwencloud.com/api-reference/chat/openai-chat). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Go model API capabilities.reasoning: effort [low, medium, xhigh], toggle -> off, low, medium, xhigh. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9352,12 +9340,12 @@
         "medium",
         "high"
       ],
-      "default": "medium",
+      "default": "low",
       "map": {
         "minimal": "low"
       },
       "source": "https://opencode.ai/inference/go/v1/models",
-      "note": "OpenCode Go model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default medium: the vendor default of the * gemini-4-argon rule (https://ai.google.dev/gemini-api/docs/thinking). minimal maps to \"low\": Gemini thinking docs, minimal \"Not supported on Gemini 4 models or gemini-3.8-flash\", 3.7 Flash lists low/medium/high (https://aistudio.google.com/docs/thinking); a stored minimal runs as low instead of a rejected MINIMAL. Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Go model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default low: the current catalog default, kept. minimal maps to \"low\": Gemini thinking docs, minimal \"Not supported on Gemini 4 models or gemini-3.8-flash\", 3.7 Flash lists low/medium/high (https://aistudio.google.com/docs/thinking); a stored minimal runs as low instead of a rejected MINIMAL. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9369,9 +9357,9 @@
         "xhigh",
         "max"
       ],
-      "default": "max",
+      "default": "low",
       "source": "https://opencode.ai/inference/go/v1/models",
-      "note": "OpenCode Go model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default max: the vendor default of the * beam-free rule (https://developers.reflection.ai/reasoning). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Go model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9381,9 +9369,9 @@
         "high",
         "max"
       ],
-      "default": "max",
+      "default": "low",
       "source": "https://opencode.ai/inference/go/v1/models",
-      "note": "OpenCode Go model API capabilities.reasoning: effort [low, high, max] -> low, high, max. Default max: the vendor default of the * glm-5-3* rule (https://docs.z.ai/guides/llm/glm-5.3). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Go model API capabilities.reasoning: effort [low, high, max] -> low, high, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9393,9 +9381,9 @@
         "high",
         "max"
       ],
-      "default": "max",
+      "default": "low",
       "source": "https://opencode.ai/inference/go/v1/models",
-      "note": "OpenCode Go model API capabilities.reasoning: effort [low, high, max] -> low, high, max. Default max: the vendor default of the * glm-5-3* rule (https://docs.z.ai/guides/llm/glm-5.3). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Go model API capabilities.reasoning: effort [low, high, max] -> low, high, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9406,7 +9394,7 @@
       ],
       "default": "high",
       "source": "https://opencode.ai/inference/go/v1/models",
-      "note": "OpenCode Go model API capabilities.reasoning: effort [none, high] -> off, high. Default high: the vendor default of the * hy4* rule (https://www.tencentcloud.com/document/product/1300/80637). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Go model API capabilities.reasoning: effort [none, high] -> off, high. Default high: vendor default from the * hy4* rule (https://www.tencentcloud.com/document/product/1300/80637); the current default is not listed. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9417,7 +9405,7 @@
       ],
       "default": "high",
       "source": "https://opencode.ai/inference/go/v1/models",
-      "note": "OpenCode Go model API capabilities.reasoning: effort [none, high] -> off, high. Default high: the vendor default of the * hy4* rule (https://www.tencentcloud.com/document/product/1300/80637). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Go model API capabilities.reasoning: effort [none, high] -> off, high. Default high: vendor default from the * hy4* rule (https://www.tencentcloud.com/document/product/1300/80637); the current default is not listed. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9442,9 +9430,9 @@
         "high",
         "max"
       ],
-      "default": "max",
+      "default": "low",
       "source": "https://opencode.ai/inference/go/v1/models",
-      "note": "OpenCode Go model API capabilities.reasoning: effort [low, high, max] -> low, high, max. Default max: the model API's reasoning.default. Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Go model API capabilities.reasoning: effort [low, high, max] -> low, high, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9455,7 +9443,7 @@
       ],
       "default": "adaptive",
       "source": "https://opencode.ai/inference/go/v1/models",
-      "note": "OpenCode Go model API capabilities.reasoning: toggle, no effort -> off, adaptive. Default adaptive: LongCat-2.0 template enable_thinking defaults to true (https://huggingface.co/meituan-longcat/LongCat-2.0), the on default of the * longcat-2-0* rule. Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Go model API capabilities.reasoning: toggle, no effort -> off, adaptive. Default adaptive: LongCat-2.0 template enable_thinking defaults to true (https://huggingface.co/meituan-longcat/LongCat-2.0). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9466,7 +9454,7 @@
       ],
       "default": "off",
       "source": "https://opencode.ai/inference/go/v1/models",
-      "note": "OpenCode Go model API capabilities.reasoning: toggle, no effort -> off, adaptive. Default off: the vendor default of the * longcat-2-5* rule (https://huggingface.co/meituan-longcat/LongCat-2.5). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Go model API capabilities.reasoning: toggle, no effort -> off, adaptive. Default off: vendor default from the * longcat-2-5* rule (https://huggingface.co/meituan-longcat/LongCat-2.5); the current default is not listed. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9508,9 +9496,9 @@
         "xhigh",
         "max"
       ],
-      "default": "max",
+      "default": "low",
       "source": "https://opencode.ai/inference/go/v1/models",
-      "note": "OpenCode Go model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default max: the vendor default of the * minimax-m3-1-flash* rule (https://platform.minimax.io/docs/api-reference/text-anthropic-api). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Go model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9520,9 +9508,9 @@
         "medium",
         "high"
       ],
-      "default": "medium",
+      "default": "low",
       "source": "https://opencode.ai/inference/go/v1/models",
-      "note": "OpenCode Go model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default medium: the vendor default of the * step-5* rule (https://platform.stepfun.ai/docs/en/guides/models/step-5-preview). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Go model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9535,9 +9523,9 @@
         "xhigh",
         "max"
       ],
-      "default": "medium",
+      "default": "low",
       "source": "https://opencode.ai/inference/go/v1/models",
-      "note": "OpenCode Go model API capabilities.reasoning: effort [none, low, medium, high, xhigh, max] -> off, low, medium, high, xhigh, max. Default medium: the vendor default of the * gpt-6-luna* rule (https://developers.openai.com/api/docs/models/gpt-6-luna). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Go model API capabilities.reasoning: effort [none, low, medium, high, xhigh, max] -> off, low, medium, high, xhigh, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9548,9 +9536,9 @@
         "high",
         "xhigh"
       ],
-      "default": "high",
+      "default": "low",
       "source": "https://opencode.ai/inference/go/v1/models",
-      "note": "OpenCode Go model API capabilities.reasoning: effort [low, medium, high, xhigh] -> low, medium, high, xhigh. Default high: xAI default high (https://docs.x.ai/docs/guides/reasoning). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Go model API capabilities.reasoning: effort [low, medium, high, xhigh] -> low, medium, high, xhigh. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9562,9 +9550,9 @@
         "high",
         "xhigh"
       ],
-      "default": "high",
+      "default": "low",
       "source": "https://opencode.ai/inference/go/v1/models",
-      "note": "OpenCode Go model API capabilities.reasoning: effort [minimal, low, medium, high, xhigh] -> minimal, low, medium, high, xhigh. Default high: the vendor default of the * muse-spark-1-* rule (https://dev.meta.ai/docs/reasoning). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Go model API capabilities.reasoning: effort [minimal, low, medium, high, xhigh] -> minimal, low, medium, high, xhigh. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9576,9 +9564,9 @@
         "high",
         "xhigh"
       ],
-      "default": "high",
+      "default": "low",
       "source": "https://opencode.ai/inference/go/v1/models",
-      "note": "OpenCode Go model API capabilities.reasoning: effort [minimal, low, medium, high, xhigh] -> minimal, low, medium, high, xhigh. Default high: the vendor default of the * muse-spark-1-3-contributor* rule (https://dev.meta.ai/docs/reasoning). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Go model API capabilities.reasoning: effort [minimal, low, medium, high, xhigh] -> minimal, low, medium, high, xhigh. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "byteplus",
@@ -9776,7 +9764,7 @@
       ],
       "default": "high",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default high: the vendor default of the * claude-opus-5 rule (https://platform.claude.com/docs/en/build-with-claude/effort). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default high: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9789,7 +9777,7 @@
       ],
       "default": "max",
       "source": "https://opencode.ai/zen/v1/models",
-      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, high, max], toggle -> off, low, high, max. Default max: the vendor default of the * kimi-k3* rule (https://platform.kimi.ai/docs/guide/kimi-k3-quickstart). Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, high, max], toggle -> off, low, high, max. Default max: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "together",

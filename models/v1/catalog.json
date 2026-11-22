@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795346640507,
+  "generatedAt": 1795347025120,
   "minVersion": "2026.4.11",
   "sourceCommit": "44f7c5276ead33405848256eb7ef87ec015f9f20",
   "providers": {
@@ -20436,12 +20436,6 @@
           "reasoning": true,
           "contextWindow": 1048576,
           "maxTokens": 1048576,
-          "cost": {
-            "input": 3,
-            "output": 15,
-            "cacheRead": 0.3,
-            "cacheWrite": 3
-          },
           "status": "deprecated",
           "compat": {
             "thinkingLevels": [
@@ -20459,12 +20453,6 @@
           "reasoning": true,
           "contextWindow": 1000000,
           "maxTokens": 131072,
-          "cost": {
-            "input": 1.4,
-            "output": 4.4,
-            "cacheRead": 0.26,
-            "cacheWrite": 0
-          },
           "status": "deprecated",
           "compat": {
             "thinkingLevels": [
@@ -22987,7 +22975,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -23016,7 +23004,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -23045,7 +23033,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -23104,7 +23092,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -23130,7 +23118,7 @@
               "medium",
               "high"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -23158,7 +23146,7 @@
               "high",
               "max"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -23187,7 +23175,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -23216,7 +23204,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -23245,7 +23233,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -23302,7 +23290,7 @@
               "high",
               "max"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -23331,7 +23319,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -23360,7 +23348,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -23437,7 +23425,7 @@
               "medium",
               "xhigh"
             ],
-            "defaultThinkingLevel": "xhigh"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -23464,7 +23452,7 @@
               "medium",
               "high"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -23491,7 +23479,7 @@
               "medium",
               "high"
             ],
-            "defaultThinkingLevel": "minimal"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -23517,7 +23505,7 @@
               "medium",
               "high"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           },
           "thinkingLevelMap": {
             "minimal": "low"
@@ -23546,7 +23534,7 @@
               "medium",
               "high"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           },
           "thinkingLevelMap": {
             "minimal": "low"
@@ -23575,7 +23563,7 @@
               "medium",
               "high"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           },
           "thinkingLevelMap": {
             "minimal": "low"
@@ -23605,7 +23593,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "max"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -23655,7 +23643,7 @@
               "high",
               "max"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -23681,7 +23669,7 @@
               "high",
               "max"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -23731,7 +23719,7 @@
               "high",
               "max"
             ],
-            "defaultThinkingLevel": "max"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -23756,7 +23744,7 @@
               "high",
               "max"
             ],
-            "defaultThinkingLevel": "max"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -23999,7 +23987,7 @@
               "high",
               "xhigh"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24025,7 +24013,7 @@
               "medium",
               "xhigh"
             ],
-            "defaultThinkingLevel": "xhigh"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24052,7 +24040,7 @@
               "medium",
               "high"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24078,7 +24066,7 @@
               "medium",
               "high"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24105,7 +24093,7 @@
               "medium",
               "high"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24132,7 +24120,7 @@
               "medium",
               "high"
             ],
-            "defaultThinkingLevel": "off"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24158,7 +24146,7 @@
               "medium",
               "high"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24185,7 +24173,7 @@
               "high",
               "xhigh"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24211,7 +24199,7 @@
               "medium",
               "high"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24239,7 +24227,7 @@
               "high",
               "xhigh"
             ],
-            "defaultThinkingLevel": "off"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24266,7 +24254,7 @@
               "high",
               "xhigh"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24294,7 +24282,7 @@
               "high",
               "xhigh"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24322,7 +24310,7 @@
               "high",
               "xhigh"
             ],
-            "defaultThinkingLevel": "off"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24350,7 +24338,7 @@
               "high",
               "xhigh"
             ],
-            "defaultThinkingLevel": "off"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24378,7 +24366,7 @@
               "high",
               "xhigh"
             ],
-            "defaultThinkingLevel": "off"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24432,7 +24420,7 @@
               "high",
               "xhigh"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24487,7 +24475,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24516,7 +24504,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24544,7 +24532,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24573,7 +24561,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24602,7 +24590,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24630,7 +24618,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24656,7 +24644,7 @@
               "medium",
               "high"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24683,7 +24671,7 @@
               "high",
               "xhigh"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24710,7 +24698,7 @@
               "high",
               "xhigh"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24768,7 +24756,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "max"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24796,7 +24784,7 @@
               "high",
               "xhigh"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24824,7 +24812,7 @@
               "high",
               "xhigh"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -24853,7 +24841,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "max"
+            "defaultThinkingLevel": "low"
           }
         }
       ]
@@ -25188,7 +25176,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -25265,7 +25253,7 @@
               "medium",
               "xhigh"
             ],
-            "defaultThinkingLevel": "xhigh"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -25291,7 +25279,7 @@
               "medium",
               "high"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           },
           "thinkingLevelMap": {
             "minimal": "low"
@@ -25321,7 +25309,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "max"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -25345,7 +25333,7 @@
               "high",
               "max"
             ],
-            "defaultThinkingLevel": "max"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -25370,7 +25358,7 @@
               "high",
               "max"
             ],
-            "defaultThinkingLevel": "max"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -25470,7 +25458,7 @@
               "high",
               "max"
             ],
-            "defaultThinkingLevel": "max"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -25602,7 +25590,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "max"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -25627,7 +25615,7 @@
               "medium",
               "high"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -25656,7 +25644,7 @@
               "xhigh",
               "max"
             ],
-            "defaultThinkingLevel": "medium"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -25683,7 +25671,7 @@
               "high",
               "xhigh"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -25711,7 +25699,7 @@
               "high",
               "xhigh"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -25739,7 +25727,7 @@
               "high",
               "xhigh"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "low"
           }
         }
       ]
@@ -59486,5 +59474,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795335017306,
-  "supplementDigest": "df08d777ed22a97a40fc5e21958233f6e7829c70b8ef0c695ffb5d54b2d095e2"
+  "supplementDigest": "f0612edd1e3bc47d739ff4a07ef0ac7326897cf3509254e6d451f744f3ec37c9"
 }

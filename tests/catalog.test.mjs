@@ -994,16 +994,17 @@ test("reviewed OpenCode Zen and Go rows publish the Pi 1.5.2 values and the mode
       else assert.deepEqual(levels, { thinkingLevels: rule.levels, defaultThinkingLevel: rule.default }, `${p}/${m.id}`);
     }
   }
-  // Model API ladders, the Claude adaptive flag and tools.strict from the API.
+  // Model API ladders, the Claude adaptive flag and tools.strict from the API. Defaults stay where
+  // the new list still holds them; otherwise API default, vendor default, nearest level.
   const effort = (p, id) => {
     const { thinkingLevels, defaultThinkingLevel, ...rest } = get(p, id).compat;
     return [thinkingLevels, defaultThinkingLevel, rest, get(p, id).thinkingLevelMap];
   };
-  assert.deepEqual(effort("opencode", "claude-opus-4-6"), [["low", "medium", "high", "max"], "high", { forceAdaptiveThinking: true }, undefined]);
-  assert.deepEqual(effort("opencode", "gpt-5.4"), [["off", "low", "medium", "high", "xhigh"], "off", {}, undefined]);
-  assert.deepEqual(effort("opencode", "gemini-4-argon"), [["low", "medium", "high"], "medium", {}, { minimal: "low" }]);
-  assert.deepEqual(effort("opencode", "beam-free"), [["low", "medium", "high", "xhigh", "max"], "max", { supportsStrictMode: true }, undefined]);
-  assert.deepEqual(effort("opencode-go", "kimi-k3.1-pro"), [["low", "high", "max"], "max", { supportsStrictMode: true }, undefined]);
+  assert.deepEqual(effort("opencode", "claude-opus-4-6"), [["low", "medium", "high", "max"], "low", { forceAdaptiveThinking: true }, undefined]);
+  assert.deepEqual(effort("opencode", "gpt-5.4"), [["off", "low", "medium", "high", "xhigh"], "low", {}, undefined]);
+  assert.deepEqual(effort("opencode", "gemini-4-argon"), [["low", "medium", "high"], "low", {}, { minimal: "low" }]);
+  assert.deepEqual(effort("opencode", "beam-free"), [["low", "medium", "high", "xhigh", "max"], "low", { supportsStrictMode: true }, undefined]);
+  assert.deepEqual(effort("opencode-go", "kimi-k3.1-pro"), [["low", "high", "max"], "low", { supportsStrictMode: true }, undefined]);
   assert.deepEqual(effort("opencode-go", "minimax-m3"), [["off", "adaptive"], "adaptive", {}, undefined]);
   const strip = ({ compat: _c, thinkingLevelMap: _m, ...m }) => m;
   const row = (id, name, api, input, contextWindow, maxTokens, cost) => ({
@@ -1584,12 +1585,14 @@ test("NVIDIA kimi-k3 and glm-5.2 retired rows copy the inner rows' facts and no 
   const get = (p, id) => artifact.providers[p].models.find((m) => m.id === id);
   const facts = (m) => ({
     name: m.name, input: m.input, reasoning: m.reasoning, contextWindow: m.contextWindow, maxTokens: m.maxTokens,
-    cost: m.cost, thinkingLevels: m.compat?.thinkingLevels, defaultThinkingLevel: m.compat?.defaultThinkingLevel,
+    thinkingLevels: m.compat?.thinkingLevels, defaultThinkingLevel: m.compat?.defaultThinkingLevel,
   });
   for (const [id, [p, innerId]] of Object.entries(NVIDIA_INNER)) {
     const row = get("nvidia", id);
     assert.deepEqual(facts(row), facts(get(p, innerId)), id);
     assert.equal(row.status, "deprecated", id);
+    // The Moonshot and Z.ai rates are not NVIDIA prices.
+    assert.equal(row.cost, undefined, id);
     assert.equal(row.thinkingLevelMap, undefined, id);
     assert.deepEqual(Object.keys(row.compat).sort(), ["defaultThinkingLevel", "thinkingLevels"], id);
   }
@@ -1614,8 +1617,7 @@ test("retired Agent ids stay as retired rows with the Agent values and no price"
   for (const p of ["kimi", "kilocode", "nvidia"]) {
     for (const m of s.providers[p].models) {
       assert.equal(m.status, "deprecated", `${p}/${m.id}`);
-      // The two I3h rows copy the inner catalog row's facts, price included (the configured path's values).
-      if (!NVIDIA_INNER[m.id]) assert.equal(m.cost, undefined, `${p}/${m.id}`);
+      assert.equal(m.cost, undefined, `${p}/${m.id}`);
       // replacedBy only where the provider names the target, and it must be active.
       if (m.replacedBy) {
         const target = artifact.providers[p].models.find((x) => x.id === m.replacedBy);
