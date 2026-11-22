@@ -995,7 +995,7 @@ test("reviewed OpenCode Zen and Go rows publish the Pi 1.5.2 values and the mode
     }
   }
   // Model API ladders, the Claude adaptive flag and tools.strict from the API. Defaults stay where
-  // the new list still holds them; otherwise API default, vendor default, nearest level.
+  // API default first, then the current default if the new list holds it, vendor default, nearest level.
   const effort = (p, id) => {
     const { thinkingLevels, defaultThinkingLevel, ...rest } = get(p, id).compat;
     return [thinkingLevels, defaultThinkingLevel, rest, get(p, id).thinkingLevelMap];
@@ -1004,8 +1004,8 @@ test("reviewed OpenCode Zen and Go rows publish the Pi 1.5.2 values and the mode
   assert.deepEqual(effort("opencode", "gpt-5.4"), [["off", "low", "medium", "high", "xhigh"], "low", {}, undefined]);
   assert.deepEqual(effort("opencode", "gemini-4-argon"), [["low", "medium", "high"], "low", {}, { minimal: "low" }]);
   assert.deepEqual(effort("opencode", "beam-free"), [["low", "medium", "high", "xhigh", "max"], "low", { supportsStrictMode: true }, undefined]);
-  assert.deepEqual(effort("opencode-go", "kimi-k3.1-pro"), [["low", "high", "max"], "low", { supportsStrictMode: true }, undefined]);
-  assert.deepEqual(effort("opencode-go", "minimax-m3"), [["off", "adaptive"], "adaptive", {}, undefined]);
+  assert.deepEqual(effort("opencode-go", "kimi-k3.1-pro"), [["low", "high", "max"], "max", { supportsStrictMode: true }, undefined]);
+  assert.deepEqual(effort("opencode-go", "minimax-m3"), [["off", "adaptive"], "adaptive", { forceAdaptiveThinking: true }, undefined]);
   const strip = ({ compat: _c, thinkingLevelMap: _m, ...m }) => m;
   const row = (id, name, api, input, contextWindow, maxTokens, cost) => ({
     id,
@@ -1711,7 +1711,7 @@ test("I3h rules reach exactly their target rows", () => {
   assert.equal(families.length, 10);
   const minimax = ["minimax", "minimax-cn", "minimax-portal", "minimax-portal-cn"].flatMap((p) =>
     ["MiniMax-M3", "MiniMax-M3.1-Flash-Preview"].map((id) => `${p}/${id}`),
-  );
+  ).concat("opencode-go/minimax-m3");
   assert.deepEqual(
     refs((p, m) => m.compat?.forceAdaptiveThinking === true),
     [...refs((p, m) => families.some((o) => ruleMatches(o, p, m.id))), ...minimax].sort(),

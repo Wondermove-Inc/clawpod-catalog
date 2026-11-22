@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795347025120,
+  "generatedAt": 1795347789560,
   "minVersion": "2026.4.11",
   "sourceCommit": "44f7c5276ead33405848256eb7ef87ec015f9f20",
   "providers": {
@@ -25197,6 +25197,7 @@
             "cacheWrite": 0
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "adaptive"
@@ -25458,7 +25459,7 @@
               "high",
               "max"
             ],
-            "defaultThinkingLevel": "low"
+            "defaultThinkingLevel": "max"
           }
         },
         {
@@ -59474,5 +59475,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795335017306,
-  "supplementDigest": "f0612edd1e3bc47d739ff4a07ef0ac7326897cf3509254e6d451f744f3ec37c9"
+  "supplementDigest": "de40dba29514a9bd3a87e562e9da429ea4d69f1315b3fdba61c82f481b2642e7"
 }

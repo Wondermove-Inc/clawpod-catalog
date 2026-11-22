@@ -928,18 +928,19 @@ ClawPoD Agent가 플러그인·코어에서 모델 이름으로 정하던 thinki
 
 ## OpenCode Zen·Go Effort 공식 대조 (모델 API 2026-11-22 원문)
 
-규칙(오케스트레이터 R1++): `capabilities.reasoning.effort`가 있으면 그 단계(`none`→`off`), `toggle`이면 `off` 추가. `effort` 없이 `toggle`만 있으면 `off`·`adaptive`(budget만 함께 있는 qwen3.5/3.6/3.7-plus 포함). 기본 단계(오케스트레이터 결정, 근거 없는 기본값 변경 금지): (a) 지금 catalog 기본값이 새 목록 안이면 그대로 → (b) API `reasoning.default` → (c) 제조사 공식 기본(`*` 규칙·제조사 문서, URL) → (d) 목록 안에서 지금 기본값과 가장 가까운 단계(기록). 출처: https://opencode.ai/zen/v1/models (= `/inference/v1/models`, 같은 바이트), https://opencode.ai/inference/go/v1/models .
+규칙(오케스트레이터 R1++): `capabilities.reasoning.effort`가 있으면 그 단계(`none`→`off`), `toggle`이면 `off` 추가. `effort` 없이 `toggle`만 있으면 `off`·`adaptive`(budget만 함께 있는 qwen3.5/3.6/3.7-plus 포함). 기본 단계(오케스트레이터 결정, 근거 없는 기본값 변경 금지, 리뷰 L2로 순서 정정): (b) API `reasoning.default`가 있으면 그 값 → (a) 지금 catalog 기본값이 새 목록 안이면 그대로 → (c) 제조사 공식 기본(`*` 규칙·제조사 문서, URL) → (d) 목록 안에서 지금 기본값과 가장 가까운 단계(기록). 출처: https://opencode.ai/zen/v1/models (= `/inference/v1/models`, 같은 바이트), https://opencode.ai/inference/go/v1/models .
 
 - 바꾼 규칙 81: 보존 규칙 79를 공식 단계로 고치고, 상류 행 2(`opencode/claude-opus-5` off 뺌, `opencode/kimi-k3` off 더함)에 새 규칙. 행별 전후는 각 규칙 `note`와 아래 요약.
   - 단계: Claude는 effort 목록 그대로(`toggle`이 있는 `claude-haiku-5-5`만 `off`), GPT·Grok·Gemini·DeepSeek·GLM·Qwen·Muse·Hy4·LongCat·Kimi K3.1 Pro·Step·Beam·Nemotron·Flint도 API effort/toggle 그대로.
-  - 기본: 68행은 (a)로 지금 기본값을 지킨다(대부분 보존 프로필의 `low`, 상류 `claude-opus-5` high·`kimi-k3` max). 바뀌는 것은 지금 기본값이 새 목록에 없는 **13행**뿐이고, 모두 (c)다. (b)·(d)에 걸린 행은 없다.
+  - 기본: 67행은 (a)로 지금 기본값을 지킨다(대부분 보존 프로필의 `low`, 상류 `claude-opus-5` high·`kimi-k3` max). 바뀌는 것은 **14행**: (b) 1행(`opencode-go/kimi-k3.1-pro`, API `default` max), (c) 12행, 오케스트레이터 결정 1행(`opencode-go/minimax-m3`). (d)에 걸린 행은 없다.
 
 | 행 | 기본 전 → 후 | 근거(c: 제조사 공식 기본) |
 | --- | --- | --- |
 | `opencode/qwen3.5-plus`, `opencode/qwen3.6-plus`, `opencode-go/qwen3.7-plus` | low → adaptive | 목록 off/adaptive. Qwen `enable_thinking` 기본 true (https://docs.qwencloud.com/developer-guides/text-generation/thinking) |
 | `opencode-go/longcat-2.0` | low → adaptive | 목록 off/adaptive. 템플릿 `enable_thinking` 기본 true (https://huggingface.co/meituan-longcat/LongCat-2.0) |
 | `opencode/longcat-2.5-free`, `opencode-go/longcat-2.5-free` | low → off | 목록 off/adaptive. `*` `longcat-2-5*` 규칙: 템플릿 `enable_thinking` 기본 false (https://huggingface.co/meituan-longcat/LongCat-2.5) |
-| `opencode-go/minimax-m3` | low → adaptive | 목록 off/adaptive. `*` `minimax-m3*` 규칙(OpenAI 경로 생략 = 켜짐, https://platform.minimax.io/docs/api-reference/text-openai-api). Anthropic 경로는 생략 시 꺼짐이라 적는다 — 기존 `*` 규칙과 같은 판단, R1++ 지시와 같음 |
+| `opencode-go/kimi-k3.1-pro` | low → max | (b) Go 모델 API `reasoning.default` `{"type":"effort","value":"max"}` (https://opencode.ai/inference/go/v1/models) |
+| `opencode-go/minimax-m3` | low → adaptive | **공식 기본값 아님.** 이 행은 Anthropic Messages로 돌고, 그 경로에서 MiniMax-M3는 생략 시 thinking off다(https://platform.minimax.io/docs/api-reference/text-anthropic-api). 오늘의 thinking-on 동작을 유지하려고 오케스트레이터가 adaptive로 결정. 같은 이유로 `overrides`에 `forceAdaptiveThinking: true`(M3 `thinking.type`은 `disabled`/`adaptive`만 받음, 없으면 켰을 때 예산형으로 나갈 수 있음, K3 MiniMax 규칙과 같은 근거) |
 | `opencode/deepseek-v4-pro` | low → high | 목록 off/high/max. `*` `deepseek-v4-pro*` 규칙 (https://api-docs.deepseek.com/api/create-chat-completion) |
 | `opencode/mistral-large-4` | low → high | 목록 off/high. `*` `mistral-large-4*` 규칙 (https://docs.mistral.ai/inference/conversations/reasoning) |
 | `opencode/gpt-5.4-pro` | low → medium | 목록 medium/high/xhigh. `*` `gpt-5-4-pro*` 규칙 (https://developers.openai.com/api/docs/models/gpt-5.4-pro) |
@@ -962,7 +963,8 @@ ClawPoD Agent가 플러그인·코어에서 모델 이름으로 정하던 thinki
 
 ## 판단과 한계
 
-- 공식 값이 아닌 것: Mistral `maxTokens` 6(오늘 값), OpenCode 68행의 기본 단계(지금 값 유지, 대부분 보존 프로필의 low), NVIDIA `kimi-k3` 단계(안쪽 행 사본), OpenCode 보존 규칙 12.
-- 재생성 원본: publish run 45001361401 artifact(main `53832bd`와 같은 `sourceGeneratedAt` 1795335017306). `providers=60 (+0/-0) models=2271->2273 (+2)`. main 대비 추가 2, 빠짐 0, 바뀜 281행(위 규칙의 칸뿐: `forceAdaptiveThinking` 189, OpenCode 단계 81(그중 기본값 변경 13), `thinkingLevelMap` 11, `supportsReasoningEffort` 10, `supportsStrictMode` 8, `maxTokens` 6. 한 행이 여러 칸).
+- 후속: `mistral/mistral-large-4-0-8`·`mistral-large-latest`도 effort 단계(low/medium/high)가 있지만 `supportsReasoningEffort` 표시가 없다(K5는 Agent 플러그인이 다루던 6 ID만). Mistral reasoning 문서로 두 ID가 `reasoning_effort`를 받는지 확인한 뒤 같은 `overrides`로 넣는다.
+- 공식 값이 아닌 것: Mistral `maxTokens` 6(오늘 값), `opencode-go/minimax-m3` 기본 adaptive, OpenCode 67행의 기본 단계(지금 값 유지, 대부분 보존 프로필의 low), NVIDIA `kimi-k3` 단계(안쪽 행 사본), OpenCode 보존 규칙 12.
+- 재생성 원본: publish run 45001361401 artifact(main `53832bd`와 같은 `sourceGeneratedAt` 1795335017306). `providers=60 (+0/-0) models=2271->2273 (+2)`. main 대비 추가 2, 빠짐 0, 바뀜 281행(위 규칙의 칸뿐: `forceAdaptiveThinking` 190, OpenCode 단계 81(그중 기본값 변경 14), `opencode-go/minimax-m3` `forceAdaptiveThinking`, `thinkingLevelMap` 11, `supportsReasoningEffort` 10, `supportsStrictMode` 8, `maxTokens` 6. 한 행이 여러 칸).
 - `npm run audit` open 0 → 0. "matches nothing" 3개는 main과 같은 기존 규칙.
 - 요청 확인: 이 저장소는 요청을 보내지 않는다. Agent 쪽 요청 변화 실측은 설계 R2.2 하네스(OpenCode 대조분은 그 측정 밖 — Agent H0 때 같은 하네스로 잰다).

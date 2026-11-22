@@ -9306,7 +9306,7 @@
       ],
       "default": "adaptive",
       "source": "https://opencode.ai/inference/go/v1/models",
-      "note": "OpenCode Go model API capabilities.reasoning: toggle, no effort -> off, adaptive. Default adaptive: vendor default from the * minimax-m3* rule (https://platform.minimax.io/docs/api-reference/text-openai-api); the current default is not listed. Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Go model API capabilities.reasoning: toggle, no effort -> off, adaptive. Default adaptive: not an official default: on this Anthropic Messages route MiniMax-M3 thinking is off when omitted (https://platform.minimax.io/docs/api-reference/text-anthropic-api), kept on adaptive by an orchestrator decision to keep today's thinking-on behavior. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9430,9 +9430,9 @@
         "high",
         "max"
       ],
-      "default": "low",
+      "default": "max",
       "source": "https://opencode.ai/inference/go/v1/models",
-      "note": "OpenCode Go model API capabilities.reasoning: effort [low, high, max] -> low, high, max. Default low: the current catalog default, kept. Reviewed 2026-11-22 (I3h)."
+      "note": "OpenCode Go model API capabilities.reasoning: effort [low, high, max] -> low, high, max. Default max: the model API's reasoning.default. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -15734,6 +15734,17 @@
       },
       "source": "https://opencode.ai/inference/go/v1/models",
       "note": "Model API api.chat-completions.capabilities.tools.strict: true. Reviewed 2026-11-22 (I3h)."
+    },
+    {
+      "provider": "opencode-go",
+      "model": "minimax-m3",
+      "set": {
+        "compat": {
+          "forceAdaptiveThinking": true
+        }
+      },
+      "source": "https://platform.minimax.io/docs/api-reference/text-anthropic-api",
+      "note": "This row runs on Anthropic Messages (Go model API recommended_api messages). MiniMax Anthropic API: thinking.type takes disabled or adaptive only for MiniMax-M3 (\"Thinking is off by default for MiniMax-M3 and can be enabled with adaptive\"); without the flag an on level could go out as budget thinking. Same source as the MiniMax K3 rules. Reviewed 2026-11-22 (I3h)."
     }
   ],
   "knownGaps": [
