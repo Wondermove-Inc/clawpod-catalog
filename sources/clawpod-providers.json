@@ -9876,7 +9876,7 @@
       ],
       "default": "high",
       "source": "https://docs.together.ai/docs/inference/chat/reasoning.md",
-      "note": "Together: \"DeepSeek V4 Pro 0813 accepts only \\\"high\\\" and \\\"max\\\" for reasoning_effort. Other values are mapped automatically: \\\"low\\\" and \\\"medium\\\" map to \\\"high\\\". \\\"high\\\" and \\\"xhigh\\\" map to \\\"max\\\".\" The page contradicts itself on high, so high may run at max. Hybrid model, on by default, turned off with reasoning.enabled=false. Default effort not stated; high as DeepSeek's own default."
+      "note": "Together: \"DeepSeek V4 Pro 0813 accepts only \"high\" and \"max\" for reasoning_effort. Other values are mapped automatically: \"low\" and \"medium\" map to \"high\". \"high\" and \"xhigh\" map to \"max\".\" The page contradicts itself on high, so high may run at max. Hybrid model, on by default, turned off with reasoning.enabled=false. Default effort not stated; high as DeepSeek's own default."
     },
     {
       "provider": "*",

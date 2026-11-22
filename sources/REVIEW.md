@@ -886,8 +886,8 @@ Agent 는 Effort 를 그 모델의 catalog 행 하나에서 읽는다(자기 행
 
 | ID | 오늘(행 없음) | 게시본(자기 행) | 단계를 준 규칙과 근거 |
 | --- | --- | --- | --- |
-| `minimax/MiniMax-M3.1-Flash-Preview` | catalog 행 없음, Agent 기본 `low` | `low, medium, high, xhigh, max` / 기본 `max`(`minimax-portal` 의 같은 행이 오늘 쓰는 값과 같음, 받는 값이라 400 위험 없음). Agent 훅이 이 id 에 적응형 thinking 을 강제하므로 기본 턴 effort 가 low → max(비용·지연 증가) | `*` `minimax-m3-1-flash*`: https://platform.minimax.io/docs/api-reference/text-anthropic-api (`output_config.effort` low~max, 기본 max, 끌 수 없음). Preview 는 M Plan 에서 M3.1 Flash 가 서빙 (https://platform.minimax.io/docs/faq/models.md) |
-| `minimax-cn`·`minimax-portal-cn` 의 Preview | 같음 | 같음 | 같음(설계가 받아들인 `-cn` 변화) |
+| `minimax/MiniMax-M3.1-Flash-Preview` | catalog 행 없음, Agent 기본 `low` | `low, medium, high, xhigh, max` / 기본 `max`(`minimax-portal` 의 같은 행이 오늘 쓰는 값과 같음, 받는 값이라 400 위험 없음). `max` 단계: 오늘 `xhigh` 가 나가던 것이 `max` 로 나간다(목록에 `max` 가 생김). Agent 훅이 이 id 에 적응형 thinking 을 강제하므로 기본 턴 effort 가 low → max(비용·지연 증가) | `*` `minimax-m3-1-flash*`: https://platform.minimax.io/docs/api-reference/text-anthropic-api (`output_config.effort` low~max, 기본 max, 끌 수 없음). Preview 는 M Plan 에서 M3.1 Flash 가 서빙 (https://platform.minimax.io/docs/faq/models.md) |
+| `minimax-cn`·`minimax-portal-cn` 의 Preview | 같음 | 같음. `max` 단계도 같이: 오늘 `xhigh` 가 나가던 것이 `max` 로 나간다 | 같음(설계가 받아들인 `-cn` 변화) |
 | `nvidia` 5(`nemotron-3-super-120b-a12b`, `minimaxai/minimax-m3`, `moonshotai/kimi-k2.5`, `minimaxai/minimax-m2.5`, `z-ai/glm5`) | 플러그인 표 행(reasoning false) | 같은 값의 퇴역 행, Effort 없음(off 만). 실측 변화 0(설계 I3g R4) | 규칙 없음, 공식 근거 없음. `reasoning: false` 는 Agent 플러그인 표 값(clawpod-agent `5ae2c04979` `extensions/nvidia/provider-catalog.ts`). 생성기는 `reasoning: true` 행에만 단계를 채운다 |
 | `nvidia/moonshotai/kimi-k3`, `nvidia/z-ai/glm-5.2` | 중첩 id 로 안쪽 catalog 행을 빌림 | 같음(행을 넣지 않음) | 위 I3g 표 |
 
