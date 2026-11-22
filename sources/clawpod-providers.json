@@ -9899,7 +9899,7 @@
       ],
       "default": "high",
       "source": "https://docs.together.ai/docs/inference/chat/reasoning.md",
-      "note": "Together: 'DeepSeek V4 Pro 0813 accepts only \"high\" and \"max\" for reasoning_effort'; hybrid model, on by default, turned off with reasoning.enabled=false. Default effort not stated; high as DeepSeek's own default."
+      "note": "Together: \"DeepSeek V4 Pro 0813 accepts only \\\"high\\\" and \\\"max\\\" for reasoning_effort. Other values are mapped automatically: \\\"low\\\" and \\\"medium\\\" map to \\\"high\\\". \\\"high\\\" and \\\"xhigh\\\" map to \\\"max\\\".\" The page contradicts itself on high, so high may run at max. Hybrid model, on by default, turned off with reasoning.enabled=false. Default effort not stated; high as DeepSeek's own default."
     },
     {
       "provider": "*",
@@ -15281,7 +15281,7 @@
         "maxTokens": 65536
       },
       "source": "https://platform.stepfun.com/docs/zh/api-reference/chat/chat-completion-create",
-      "note": "StepFun API (zh) Step Plan channel table: max_tokens '上限为 64K'. Whether the same table's 'only step-router-v1' applies to every Step Plan model is left to a later plan-row review."
+      "note": "Interpretation, not a stated step-3.7-flash value: the StepFun API (zh) table \"Step Plan 通道：Step Router V1 字段差异\" lists max_tokens \"上限为 64K\" for step-router-v1, which the Step Plan channel routes to step-5-preview and step-3.7-flash; 64K is read as 65536 (the Agent plugin value). The same table says model accepts only step-router-v1; whether that applies to every Step Plan model is left to a later plan-row review."
     }
   ],
   "knownGaps": [
