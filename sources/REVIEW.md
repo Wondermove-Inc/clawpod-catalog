@@ -873,11 +873,12 @@ ClawPoD Agent가 catalog compat을 요청 모양의 층(설정 > 내장 catalog 
 | `minimax`/`MiniMax-M3.1-Flash-Preview` | 퇴역 행(`minimax-portal`과 같은 값) | "Existing model names will continue to work" (https://platform.minimax.io/docs/faq/models.md) |
 | `kimi`/`kimi-code`(Kimi Code), `k2p5`(Kimi Code (legacy model id)) | `deprecated`, `replacedBy: kimi-for-coding`, 262144 / 32768, text·image, reasoning | Kimi Code 목록에 없음, "A mistyped model ID falls back to K2.8 Preview without thinking" (K2.8 Preview = `kimi-for-coding`) |
 | `kilocode`/`kilo/auto` | `deprecated`, `replacedBy` 없음, 1000000 / 128000 | Kilo 목록에 없음(https://api.kilo.ai/api/gateway/models), 거부 근거도 없음 → 남김 |
-| `nvidia` 7: `moonshotai/kimi-k3`, `nvidia/nemotron-3-super-120b-a12b`, `minimaxai/minimax-m3`, `z-ai/glm-5.2`, `moonshotai/kimi-k2.5`, `minimaxai/minimax-m2.5`, `z-ai/glm5` | `deprecated`, `replacedBy` 없음, 값은 Agent 표 | 공개 목록 https://integrate.api.nvidia.com/v1/models (2026-11-22, 33 ID)에 없음, 공식 퇴역 공지 없음 → 남김 |
+| `nvidia` 5: `nvidia/nemotron-3-super-120b-a12b`, `minimaxai/minimax-m3`, `moonshotai/kimi-k2.5`, `minimaxai/minimax-m2.5`, `z-ai/glm5` | `deprecated`, `replacedBy` 없음, 값은 Agent 표 | 공개 목록 https://integrate.api.nvidia.com/v1/models (2026-11-22, 33 ID)에 없음, 공식 퇴역 공지 없음 → 남김 |
+| `nvidia` 행 없음: `moonshotai/kimi-k3`, `z-ai/glm-5.2` | 퇴역 행을 넣지 않음 | 오늘 플러그인 표 없이 중첩 id 로 안쪽 provider(`moonshot`·`zai`)의 catalog 행을 빌려 해석된다. 퇴역 행 규칙(설계 I3g R3)은 "설정 행 없이 플러그인 표로만 해석되는 id" 에만 적용한다. 행을 넣으면 값이 옛 표 값으로 바뀐다(kimi-k3 창 1,048,576 → 131,072, glm-5.2 출력 131,072 → 8,192, glm-5.2 기본 단계 max → off; 실측 설계 I3g R4) |
 | `stepfun-plan`/`step-3.7-flash` `maxTokens` 262144 → 65536 | `overrides` | **해석값이다.** StepFun 문서(zh)의 표 "Step Plan 通道：Step Router V1 字段差异"는 `step-router-v1` 모델의 제약이고(`max_tokens` "上限为 64K", `model` "仅接受 step-router-v1"), plan 채널 router 가 `step-5-preview`·`step-3.7-flash` 로 보낸다는 간접 근거뿐이다. 64K 를 65536 으로 읽었다(Agent 플러그인 값과 같음) (https://platform.stepfun.com/docs/zh/api-reference/chat/chat-completion-create) |
 
 - 퇴역 행 값은 Agent 표 그대로다(clawpod-agent `5ae2c04979` `extensions/{minimax,kimi-coding,kilocode,nvidia}`). 가격은 비웠다.
-- Effort: 새 규칙 없음. `-cn` 행과 Preview·`nvidia/moonshotai/kimi-k3`는 기존 `*` 규칙(`minimax-m3-1-flash*`, `minimax-m3*`, `minimax-m2*`, `kimi-k3*`)이 global 같은 모델과 같은 값을 준다(테스트가 `-cn` 대 global 비교). `kimi-code`·`k2p5`·`kilo/auto`는 출처가 없어 Effort 없음.
+- Effort: 새 규칙 없음. `-cn` 행과 Preview는 기존 `*` 규칙(`minimax-m3-1-flash*`, `minimax-m3*`, `minimax-m2*`)이 global 같은 모델과 같은 값을 준다(테스트가 `-cn` 대 global 비교). `kimi-code`·`k2p5`·`kilo/auto`는 출처가 없어 Effort 없음.
 
 ## 퇴역 행이 바꾸는 Effort (받아들임, 2026-11-22 리뷰 F1)
 
@@ -885,16 +886,16 @@ Agent 는 Effort 를 그 모델의 catalog 행 하나에서 읽는다(자기 행
 
 | ID | 오늘(행 없음) | 게시본(자기 행) | 단계를 준 규칙과 근거 |
 | --- | --- | --- | --- |
-| `minimax/MiniMax-M3.1-Flash-Preview` | catalog 행 없음, Agent 기본 `low` | `low, medium, high, xhigh, max` / 기본 `max`. Agent 훅이 이 id 에 적응형 thinking 을 강제하므로 기본 턴 effort 가 low → max(비용·지연 증가) | `*` `minimax-m3-1-flash*`: https://platform.minimax.io/docs/api-reference/text-anthropic-api (`output_config.effort` low~max, 기본 max, 끌 수 없음). Preview 는 M Plan 에서 M3.1 Flash 가 서빙 (https://platform.minimax.io/docs/faq/models.md) |
+| `minimax/MiniMax-M3.1-Flash-Preview` | catalog 행 없음, Agent 기본 `low` | `low, medium, high, xhigh, max` / 기본 `max`(`minimax-portal` 의 같은 행이 오늘 쓰는 값과 같음, 받는 값이라 400 위험 없음). Agent 훅이 이 id 에 적응형 thinking 을 강제하므로 기본 턴 effort 가 low → max(비용·지연 증가) | `*` `minimax-m3-1-flash*`: https://platform.minimax.io/docs/api-reference/text-anthropic-api (`output_config.effort` low~max, 기본 max, 끌 수 없음). Preview 는 M Plan 에서 M3.1 Flash 가 서빙 (https://platform.minimax.io/docs/faq/models.md) |
 | `minimax-cn`·`minimax-portal-cn` 의 Preview | 같음 | 같음 | 같음(설계가 받아들인 `-cn` 변화) |
-| `nvidia/moonshotai/kimi-k3` | 중첩 id 로 `moonshot/kimi-k3` 의 `["max"]` | `low, high, max` / 기본 `max`(같음). 사용자가 고른 low·high 가 이제 실제로 나간다 | `*` `kimi-k3*`: Moonshot https://platform.kimi.ai/docs/guide/use-reasoning-effort.md (`reasoning_effort` low/high/max, 기본 max). **NVIDIA 자체 근거는 없다**: NVIDIA 공개 목록에 이 ID 가 없고 NVIDIA 문서에 단계가 없다. 같은 모델의 제조사 계약을 `*` 규칙이 준 것이다 |
-| `nvidia` 나머지 6(`nemotron-3-super-120b-a12b`, `minimaxai/minimax-m3`, `z-ai/glm-5.2`, `moonshotai/kimi-k2.5`, `minimaxai/minimax-m2.5`, `z-ai/glm5`) | 중첩 id 면 안쪽 provider 행의 목록을 빌림(예: `z-ai/glm-5.2` 는 `zai/glm-5.2` 목록) | Effort 없음. 행이 `reasoning: false` 라 Agent 는 off 만 둔다 | **규칙 없음, 공식 근거 없음.** 단계는 생성기가 `reasoning: true` 행에만 채우고, `reasoning: false` 는 Agent 플러그인 표 값(clawpod-agent `5ae2c04979` `extensions/nvidia/provider-catalog.ts`)이다. 요청이 바뀌는지(표시만인지)는 확인하지 않았다 |
+| `nvidia` 5(`nemotron-3-super-120b-a12b`, `minimaxai/minimax-m3`, `moonshotai/kimi-k2.5`, `minimaxai/minimax-m2.5`, `z-ai/glm5`) | 플러그인 표 행(reasoning false) | 같은 값의 퇴역 행, Effort 없음(off 만). 실측 변화 0(설계 I3g R4) | 규칙 없음, 공식 근거 없음. `reasoning: false` 는 Agent 플러그인 표 값(clawpod-agent `5ae2c04979` `extensions/nvidia/provider-catalog.ts`). 생성기는 `reasoning: true` 행에만 단계를 채운다 |
+| `nvidia/moonshotai/kimi-k3`, `nvidia/z-ai/glm-5.2` | 중첩 id 로 안쪽 catalog 행을 빌림 | 같음(행을 넣지 않음) | 위 I3g 표 |
 
 ## 판단과 한계
 
 - 근거 없음 → 키 삭제는 "공식 값"이 아니라 "Agent 기본값으로 돌림"이다. 근거가 생기면 같은 `overrides`로 넣는다.
 - 설계와 다르게 한 것: Baseten Nemotron 3 Ultra 기본 off(문서), `opencode-go/deepseek-v4.1-flash` strict false 유지(목록에 있음), `mistral`은 ID 셋 대신 `mistral/*`(그 키가 있는 행은 셋뿐이라 결과 같음).
-- 재생성 원본은 publish run 44993939201의 artifact(main `526db9d`와 같은 `sourceGeneratedAt` 1795329111410). `providers=58->60 models=2252->2273 (+21)`. main 대비: 추가 21행, 빠짐 0, 바뀜 85행(위 규칙의 칸뿐).
+- 재생성 원본은 publish run 44993939201의 artifact(main `526db9d`와 같은 `sourceGeneratedAt` 1795329111410). `providers=58->60 models=2252->2271 (+19)`. main 대비: 추가 19행, 빠짐 0, 바뀜 85행(위 규칙의 칸뿐).
 - `npm run audit` open 0 → 0. cost known 128 → 132(`minimax-cn` knownGaps 2, `minimax-portal-cn` 구독 2).
 - "matches nothing": 새 규칙 33개 모두 행에 걸림. 아무 행에도 안 걸리는 기존 규칙 3개는 main과 같다.
 - 생성기·audit 스크립트를 바꿨다. 브랜치 dry-run 결과는 PR에 적는다.

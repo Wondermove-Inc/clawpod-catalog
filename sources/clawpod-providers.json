@@ -219,7 +219,7 @@
       "files": [
         "extensions/nvidia/provider-catalog.ts"
       ],
-      "notes": "Retired rows only, values from the Agent plugin table, no price. Reviewed 2026-11-22: added moonshotai/kimi-k3, nvidia/nemotron-3-super-120b-a12b, minimaxai/minimax-m3, z-ai/glm-5.2, moonshotai/kimi-k2.5, minimaxai/minimax-m2.5, z-ai/glm5 (deprecated, no replacedBy): not on the public model list (https://integrate.api.nvidia.com/v1/models, 2026-11-22) and no official retirement notice found."
+      "notes": "Retired rows only, values from the Agent plugin table, no price. Reviewed 2026-11-22: added nvidia/nemotron-3-super-120b-a12b, minimaxai/minimax-m3, moonshotai/kimi-k2.5, minimaxai/minimax-m2.5, z-ai/glm5 (deprecated, no replacedBy): not on the public model list (https://integrate.api.nvidia.com/v1/models, 2026-11-22) and no official retirement notice found. moonshotai/kimi-k3 and z-ai/glm-5.2 get no row: the Agent resolves them as nested ids from the moonshot and zai catalog rows without the plugin table, and a row here would replace those values with the old table values."
     }
   },
   "providers": {
@@ -7530,18 +7530,6 @@
       "api": "openai-completions",
       "models": [
         {
-          "id": "moonshotai/kimi-k3",
-          "name": "Kimi K3",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 131072,
-          "status": "deprecated"
-        },
-        {
           "id": "nvidia/nemotron-3-super-120b-a12b",
           "name": "NVIDIA Nemotron 3 Super 120B",
           "input": [
@@ -7555,17 +7543,6 @@
         {
           "id": "minimaxai/minimax-m3",
           "name": "MiniMax M3",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 1048576,
-          "maxTokens": 8192,
-          "status": "deprecated"
-        },
-        {
-          "id": "z-ai/glm-5.2",
-          "name": "GLM-5.2",
           "input": [
             "text"
           ],

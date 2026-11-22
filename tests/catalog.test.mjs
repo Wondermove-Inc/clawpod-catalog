@@ -1546,10 +1546,8 @@ test("retired Agent ids stay as retired rows with the Agent values and no price"
   assert.deepEqual(ids("kimi"), ["kimi-code", "k2p5"]);
   assert.deepEqual(ids("kilocode"), ["kilo/auto"]);
   assert.deepEqual(ids("nvidia"), [
-    "moonshotai/kimi-k3",
     "nvidia/nemotron-3-super-120b-a12b",
     "minimaxai/minimax-m3",
-    "z-ai/glm-5.2",
     "moonshotai/kimi-k2.5",
     "minimaxai/minimax-m2.5",
     "z-ai/glm5",

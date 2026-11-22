@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795333741734,
+  "generatedAt": 1795334415038,
   "minVersion": "2026.4.11",
   "sourceCommit": "3a4f6b75a01d5b3294040d3bf1b0b6afdd0c3817",
   "providers": {
@@ -20321,26 +20321,6 @@
           }
         },
         {
-          "id": "moonshotai/kimi-k3",
-          "name": "Kimi K3",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 131072,
-          "status": "deprecated",
-          "compat": {
-            "thinkingLevels": [
-              "low",
-              "high",
-              "max"
-            ],
-            "defaultThinkingLevel": "max"
-          }
-        },
-        {
           "id": "nvidia/nemotron-3-super-120b-a12b",
           "name": "NVIDIA Nemotron 3 Super 120B",
           "input": [
@@ -20354,17 +20334,6 @@
         {
           "id": "minimaxai/minimax-m3",
           "name": "MiniMax M3",
-          "input": [
-            "text"
-          ],
-          "reasoning": false,
-          "contextWindow": 1048576,
-          "maxTokens": 8192,
-          "status": "deprecated"
-        },
-        {
-          "id": "z-ai/glm-5.2",
-          "name": "GLM-5.2",
           "input": [
             "text"
           ],
@@ -59376,5 +59345,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795329111410,
-  "supplementDigest": "562a9ce193a7a90171d5f380335a8f81b58f541affbfcf407e20c130481f0cd2"
+  "supplementDigest": "3bd1ba85c795a05da08a2049ff7a6599124bd54bf153b22ea227a36182b175e2"
 }

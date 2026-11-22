@@ -32,7 +32,7 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 | `minimax-portal-cn`         |            5 | `minimax-portal` 행의 중국 엔드포인트 사본(구독, 2026-11-22) |
 | `kimi`                      |            2 | Agent가 아직 해석하는 퇴역 ID `kimi-code`·`k2p5`(2026-11-22) |
 | `kilocode`                  |            1 | Agent 옛 기본 ID `kilo/auto` 퇴역 행(2026-11-22) |
-| `nvidia`                    |            7 | 공개 목록에 없는 Agent 표 ID 퇴역 행(2026-11-22) |
+| `nvidia`                    |            5 | 공개 목록에 없고 플러그인 표로만 해석되던 Agent 표 ID 퇴역 행(2026-11-22) |
 | `minimax-portal`            |            5 | M Plan 모델. 2026-11-18 M3.1 Flash 추가, Preview·M2.7은 대체됨                |
 | `amazon-bedrock`            |          164 | SDK 87개 + AWS 문서 추가 77개(2026-10-02 57, 11-18 16, 11-19 GPT-6.2 4)     |
 | `amazon-bedrock-mantle`     |           18 | Claude 10개 + Mantle 전용 8개 (2026-11-19 GPT-6.2 Astra/Sol)              |
