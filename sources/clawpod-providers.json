@@ -9904,6 +9904,95 @@
       "note": "Not the official ladder: copies the published moonshot/kimi-k3 row (levels max, default max), the row the Agent borrows for this nested id today, so the configured path's request stays the same. Retired row (I3h). Without this rule the * kimi-k3* rule would list low/high/max."
     },
     {
+      "provider": "moonshot",
+      "model": "kimi-k3*",
+      "levels": [
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "max",
+      "map": {
+        "low": "low",
+        "high": "high"
+      },
+      "source": "https://platform.kimi.ai/docs/api/models-overview",
+      "note": "Moonshot K3 column (kimi-k3, kimi-k3.1-pro, -highspeed): reasoning_effort low/high/max, default max; thinking not supported, always reasons. The map lifts the upstream null on low/high (G1). Reviewed 2026-11-23 (I5)."
+    },
+    {
+      "provider": "qwen-token-plan",
+      "model": "glm-5",
+      "levels": [
+        "off",
+        "high"
+      ],
+      "default": "high",
+      "labels": {
+        "high": "on"
+      },
+      "source": "https://www.alibabacloud.com/help/en/model-studio/glm",
+      "note": "Model Studio: thinking on by default, enable_thinking false turns it off; reasoning_effort high is accepted (max is not). The route sends on as high (the Pi row does not take low), so the on/off switch lists high instead of the usual off/low. Reviewed 2026-11-23 (I5)."
+    },
+    {
+      "provider": "qwen-token-plan",
+      "model": "glm-5.1",
+      "levels": [
+        "off",
+        "high"
+      ],
+      "default": "high",
+      "labels": {
+        "high": "on"
+      },
+      "source": "https://www.alibabacloud.com/help/en/model-studio/glm",
+      "note": "Model Studio: thinking on by default, enable_thinking false turns it off; reasoning_effort high is accepted (max is not). The route sends on as high (the Pi row does not take low), so the on/off switch lists high instead of the usual off/low. Reviewed 2026-11-23 (I5)."
+    },
+    {
+      "provider": "openai",
+      "model": "gpt-daybreak-blue-latest",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "low",
+      "map": {
+        "off": "none"
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-sol",
+      "note": "Not the official default: alias of gpt-5.6-sol (none..max, default medium; https://developers.openai.com/api/docs/models/gpt-daybreak-blue-latest). Default low is the runtime default today (the alias had none), kept so requests stay the same. Retired alias. Reviewed 2026-11-23 (I5)."
+    },
+    {
+      "provider": "baseten",
+      "model": "moonshotai/Kimi-K3",
+      "levels": [
+        "off",
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://docs.baseten.co/inference/model-apis/reasoning",
+      "note": "Baseten reasoning table: none, low, high, max (default); none turns reasoning off. Reviewed 2026-11-23 (I5)."
+    },
+    {
+      "provider": "baseten",
+      "model": "openai/gpt-oss-120b",
+      "levels": [
+        "off",
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://docs.baseten.co/inference/model-apis/reasoning",
+      "note": "Baseten accepts none and minimal (none can still reason). xhigh/max are not listed: gpt-oss reasons at low/medium/high (OpenAI model page), and today those stored values run as high. Reviewed 2026-11-23 (I5)."
+    },
+    {
       "provider": "*",
       "model": "claude-opus-5-5*",
       "levels": [
@@ -15745,6 +15834,28 @@
       },
       "source": "https://platform.minimax.io/docs/api-reference/text-anthropic-api",
       "note": "This row runs on Anthropic Messages (Go model API recommended_api messages). MiniMax Anthropic API: thinking.type takes disabled or adaptive only for MiniMax-M3 (\"Thinking is off by default for MiniMax-M3 and can be enabled with adaptive\"); without the flag an on level could go out as budget thinking. Same source as the MiniMax K3 rules. Reviewed 2026-11-22 (I3h)."
+    },
+    {
+      "provider": "moonshot",
+      "model": "kimi-k3*",
+      "set": {
+        "compat": {
+          "supportedReasoningEfforts": null
+        }
+      },
+      "source": "https://platform.kimi.ai/docs/api/models-overview",
+      "note": "Upstream list said max only; the official list is low/high/max. No runtime reads it and set.compat cannot hold an array, so the stale key is removed. Reviewed 2026-11-23 (I5)."
+    },
+    {
+      "provider": "openai",
+      "model": "gpt-daybreak-blue-latest",
+      "set": {
+        "compat": {
+          "supportedReasoningEfforts": null
+        }
+      },
+      "source": "https://developers.openai.com/api/docs/models/gpt-5.6-sol",
+      "note": "Upstream list had no none, but the alias snapshot gpt-5.6-sol takes none..max. No runtime reads it and set.compat cannot hold an array, so the stale key is removed. Reviewed 2026-11-23 (I5)."
     }
   ],
   "knownGaps": [
