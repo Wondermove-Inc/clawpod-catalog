@@ -176,7 +176,7 @@ Publisher ingress schema와 consumer acceptance schema는 동일하지 않습니
 
 - `none`은 `off`로 읽습니다. 끌 수 없는 모델(OpenRouter `mandatory`)에는 `off`가 없습니다. OpenRouter가 기본 꺼짐(`default_enabled: false`)이라고 하면 기본 단계는 `off`입니다.
 - 단계 선택 없이 켜고 끄기만 되는 모델은 OpenClaw 관례대로 `["off","low"]`와 `thinkingLevelLabels: {"low":"on"}`으로 씁니다.
-- upstream `thinkingLevelMap`이 `null`로 막은 단계는 빼고, 기본 단계가 지원 단계에 없으면 기본 단계를 비웁니다(출처 충돌).
+- upstream `thinkingLevelMap`이 `null`로 막은 단계는 빼고, 기본 단계가 지원 단계에 없으면 기본 단계를 비웁니다(출처 충돌). 단, 수동 규칙 `map`이 그 단계에 보낼 문자열을 적었으면 그 경로가 그 단계를 받는다는 뜻이라 빼지 않습니다.
 - 채우지 못한 모델은 비워 둡니다. 남은 빈칸은 대부분 라우터 별칭과 공식 문서가 없는 모델입니다. 게시 로그에 `thinking profiles: 채운 수/전체` 줄이 남습니다. 빈칸이 있어도 게시는 막지 않습니다.
 
 ### 1-3. 빈칸 보고 (이슈 Catalog gaps)

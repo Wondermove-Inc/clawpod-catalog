@@ -129,6 +129,8 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 - `map`(선택)은 그 단계를 요청에 **무엇으로 보내는지**입니다. 행의 `thinkingLevelMap`에 키 단위로 덮어씁니다. 키는 Agent 런타임(Pi)의
   `thinkingLevelMap` 키 `off`, `minimal`, `low`, `medium`, `high`, `xhigh`, `max`만 됩니다(`adaptive`·`ultra` 없음). 값은 보낼 문자열이거나 `null`입니다.
   `levels`를 상류 `thinkingLevelMap`의 `null`로 거른 **뒤에** 쓰므로, 규칙이 `null`로 둔 단계도 목록에 남습니다.
+  규칙 `map`의 문자열 값은 그 단계의 상류 `null`을 풀고 목록에 남깁니다(그 경로가 그 단계를 받는다는 뜻). 규칙 `null`과 `map`에 없는 단계는 지금처럼 상류 `null`로 걸러집니다.
+  예: Moonshot `kimi-k3*` 규칙의 `map: {"low": "low", "high": "high"}`는 상류 행 지도가 `null`로 둔 `low`·`high`를 공식 목록(low/high/max)대로 되살립니다.
   예: `{"provider": "anthropic", "model": "claude-sonnet-5-5*", "levels": [...], "default": "high", "map": {"off": null}, "source": "https://..."}`는 화면에 `off`를 남기고 요청에는 thinking 칸을 싣지 않습니다.
 - `null`은 Pi에서 "그 단계를 고르지 않음"입니다. Pi `clampThinkingLevel`이 다른 단계로 옮깁니다. 아무것도 보내지 않으려면 그 행에 옮겨 갈 단계가 남지 않아야 합니다
   (예: xAI 항상 켜짐 행은 목록이 `low` 하나라 Agent가 나머지 단계를 `null`로 채우고, `low`도 `null`이라 effort가 실리지 않습니다).
