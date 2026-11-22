@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795308372299,
+  "generatedAt": 1795329130064,
   "minVersion": "2026.4.11",
-  "sourceCommit": "bb44e168d3461a83b02e42b1cd2949d403136bf0",
+  "sourceCommit": "3a4f6b75a01d5b3294040d3bf1b0b6afdd0c3817",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -3716,6 +3716,30 @@
           }
         },
         {
+          "id": "tencent/Hy4",
+          "name": "Hy4",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 0.834,
+            "output": 2.501,
+            "cacheRead": 0.04199999814,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "high"
+            ],
+            "defaultThinkingLevel": "high"
+          }
+        },
+        {
           "id": "tencent/Hy4-preview",
           "name": "Hy4 preview",
           "input": [
@@ -3730,6 +3754,8 @@
             "cacheRead": 0.04199999814,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "deepinfra no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "off",
@@ -14433,7 +14459,7 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 65536,
+          "maxTokens": 81920,
           "cost": {
             "input": 0.195,
             "output": 1.56,
@@ -15379,7 +15405,7 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 128000,
+          "maxTokens": 235929,
           "cost": {
             "input": 0.132,
             "output": 0.528,
@@ -16284,12 +16310,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 202752,
+          "contextWindow": 204800,
           "maxTokens": 131072,
           "cost": {
-            "input": 1.4,
-            "output": 4.4,
-            "cacheRead": 0.26,
+            "input": 1.19,
+            "output": 3.74,
+            "cacheRead": 0.6,
             "cacheWrite": 0
           },
           "compat": {
@@ -45666,9 +45692,9 @@
           "contextWindow": 1048576,
           "maxTokens": 524288,
           "cost": {
-            "input": 0.075,
-            "output": 0.3,
-            "cacheRead": 0.0075
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.015
           },
           "compat": {
             "thinkingLevels": [
@@ -49355,7 +49381,7 @@
           "cost": {
             "input": 0.07,
             "output": 0.5,
-            "cacheRead": 0.006
+            "cacheRead": 0.03
           },
           "compat": {
             "thinkingLevels": [
@@ -50347,11 +50373,11 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 235929,
+          "maxTokens": 131072,
           "cost": {
-            "input": 0.06,
-            "output": 1.96,
-            "cacheRead": 0.059
+            "input": 0.035,
+            "output": 1.5,
+            "cacheRead": 0.0175
           },
           "compat": {
             "thinkingLevels": [
@@ -59087,6 +59113,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1795308352066,
+  "sourceGeneratedAt": 1795329111410,
   "supplementDigest": "9830fe685c7c2faa57bfdb0a1125f8b7722a219a2ff96163abc729db2edd1159"
 }
