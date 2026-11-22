@@ -1589,7 +1589,11 @@ test("NVIDIA kimi-k3 and glm-5.2 retired rows copy the inner rows' facts and no 
   });
   for (const [id, [p, innerId]] of Object.entries(NVIDIA_INNER)) {
     const row = get("nvidia", id);
-    assert.deepEqual(facts(row), facts(get(p, innerId)), id);
+    const inner = facts(get(p, innerId));
+    // I5 gave moonshot/kimi-k3 the official low/high/max; the retired NVIDIA row keeps the max-only
+    // copy its own rule froze (changing it changes that path's request, follow-up F3).
+    if (id === "moonshotai/kimi-k3") Object.assign(inner, { thinkingLevels: ["max"], defaultThinkingLevel: "max" });
+    assert.deepEqual(facts(row), inner, id);
     assert.equal(row.status, "deprecated", id);
     // The Moonshot and Z.ai rates are not NVIDIA prices.
     assert.equal(row.cost, undefined, id);
@@ -1722,6 +1726,10 @@ test("I3h rules reach exactly their target rows", () => {
     "amazon-bedrock-mantle/anthropic.claude-sonnet-5-5",
     "anthropic-vertex/claude-sonnet-5-5",
     "anthropic/claude-sonnet-5-5",
+    "moonshot/kimi-k3",
+    "moonshot/kimi-k3.1-pro",
+    "moonshot/kimi-k3.1-pro-highspeed",
+    "openai/gpt-daybreak-blue-latest",
     "opencode-go/gemini-4-argon",
     "opencode/gemini-3.7-flash",
     "opencode/gemini-3.8-flash",
@@ -1747,4 +1755,40 @@ test("I3h rules reach exactly their target rows", () => {
   ]);
   for (const [, m] of rows.filter(([p]) => p === "mistral")) assert.ok(m.maxTokens < m.contextWindow, m.id);
   assert.equal(get("mistral", "mistral-medium-latest").maxTokens, 16384);
+});
+
+test("I5 rules give the reviewed rows their official levels and keep today's requests", () => {
+  const s = read(path.join(root, "sources/clawpod-providers.json"));
+  const artifact = read(path.join(root, "models/v1/catalog.json"));
+  const get = (p, id) => artifact.providers[p].models.find((m) => m.id === id);
+  const profile = (p, id) => {
+    const m = get(p, id);
+    return [m.compat.thinkingLevels, m.compat.defaultThinkingLevel, m.compat.thinkingLevelLabels];
+  };
+  // Provider rules sit before the first * rule, so each one is its row's first match.
+  const firstStar = s.thinking.findIndex((r) => r.provider === "*");
+  for (const [p, id] of [
+    ["moonshot", "kimi-k3"], ["qwen-token-plan", "glm-5"], ["qwen-token-plan", "glm-5.1"],
+    ["openai", "gpt-daybreak-blue-latest"], ["baseten", "moonshotai/Kimi-K3"], ["baseten", "openai/gpt-oss-120b"],
+  ]) {
+    const first = s.thinking.findIndex((r) => ruleMatches(r, p, id));
+    assert.ok(first >= 0 && first < firstStar, `${p}/${id}`);
+  }
+  for (const id of ["kimi-k3", "kimi-k3.1-pro", "kimi-k3.1-pro-highspeed"]) {
+    assert.deepEqual(profile("moonshot", id), [["low", "high", "max"], "max", undefined], id);
+    assert.deepEqual(get("moonshot", id).thinkingLevelMap, {
+      off: null, minimal: null, low: "low", medium: null, high: "high", xhigh: null, max: "max",
+    }, id);
+    assert.equal(get("moonshot", id).compat.supportedReasoningEfforts, undefined, id);
+    assert.equal(get("moonshot", id).compat.thinkingRequired, true, id);
+  }
+  // The on/off switch is high here (the route does not take low), labeled on, never the old low label.
+  for (const id of ["glm-5", "glm-5.1"]) {
+    assert.deepEqual(profile("qwen-token-plan", id), [["off", "high"], "high", { high: "on" }], id);
+  }
+  assert.deepEqual(profile("openai", "gpt-daybreak-blue-latest"), [["off", "low", "medium", "high", "xhigh", "max"], "low", undefined]);
+  assert.equal(get("openai", "gpt-daybreak-blue-latest").thinkingLevelMap.off, "none");
+  assert.equal(get("openai", "gpt-daybreak-blue-latest").compat.supportedReasoningEfforts, undefined);
+  assert.deepEqual(profile("baseten", "moonshotai/Kimi-K3"), [["off", "low", "high", "max"], "max", undefined]);
+  assert.deepEqual(profile("baseten", "openai/gpt-oss-120b"), [["off", "minimal", "low", "medium", "high"], "medium", undefined]);
 });

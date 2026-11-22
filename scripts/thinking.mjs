@@ -137,9 +137,12 @@ export function applyThinking(providers, { rules = [], openRouter = [], modelsDe
       ].filter(Boolean);
       const picked = candidates.find((c) => c.levels?.length);
       let levels = picked?.levels;
-      // The upstream map marks levels the route cannot take with null.
+      // The upstream map marks levels the route cannot take with null; a rule's own request
+      // value for a level (a string in `map`) states that the route takes it.
       if (levels && model.thinkingLevelMap && typeof model.thinkingLevelMap === "object") {
-        levels = levels.filter((level) => model.thinkingLevelMap[level] !== null);
+        levels = levels.filter(
+          (level) => typeof rule?.map?.[level] === "string" || model.thinkingLevelMap[level] !== null,
+        );
       }
       if (!levels?.length) continue;
       const withDefault = candidates.find((c) => c.default && levels.includes(c.default));

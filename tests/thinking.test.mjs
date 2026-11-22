@@ -195,6 +195,27 @@ test("a rule map is written to the row map key by key after the level filter", (
   assert.deepEqual(providers.acme.models[0].thinkingLevelMap, { xhigh: "xhigh", minimal: "low" }, "input is not mutated");
 });
 
+test("a rule map string lifts the upstream null on that level; a rule null or no rule map does not", () => {
+  const rules = [
+    {
+      provider: "acme",
+      model: "k3",
+      levels: ["off", "minimal", "low", "high", "max"],
+      default: "max",
+      map: { low: "low", high: "high", off: null },
+      source: "https://example.com/doc",
+    },
+  ];
+  const upstream = { minimal: null, low: null, high: null, max: "max" };
+  const providers = { acme: { models: [row("k3", { thinkingLevelMap: upstream })] } };
+  const out = applyThinking(providers, { rules });
+  // low/high: a rule string lifts the upstream null. off: the rule's own null stays listed.
+  // minimal: only the upstream null speaks, so it is still filtered.
+  assert.deepEqual(profile(out, "acme", "k3").levels, ["off", "low", "high", "max"]);
+  assert.equal(profile(out, "acme", "k3").default, "max");
+  assert.deepEqual(out.acme.models[0].thinkingLevelMap, { minimal: null, low: "low", high: "high", max: "max", off: null });
+});
+
 test("malformed upstream thinking fields are ignored instead of failing the build", () => {
   const openRouter = [
     { id: "acme/m", reasoning: { mandatory: true, supported_efforts: ["low", "high"], default_effort: "high" } },

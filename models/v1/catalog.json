@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795371964141,
+  "generatedAt": 1795387772348,
   "minVersion": "2026.4.11",
   "sourceCommit": "5b684035a11ecb3d65c26a483d83ab8b494e61be",
   "providers": {
@@ -1146,6 +1146,7 @@
           },
           "compat": {
             "thinkingLevels": [
+              "off",
               "low",
               "high",
               "max"
@@ -1233,6 +1234,8 @@
             ],
             "supportsReasoningEffort": true,
             "thinkingLevels": [
+              "off",
+              "minimal",
               "low",
               "medium",
               "high"
@@ -17868,18 +17871,17 @@
             "codeMode": "preferred",
             "defaultThinkingLevel": "max",
             "requiresReasoningContentOnAssistantMessages": true,
-            "supportedReasoningEfforts": [
-              "max"
-            ],
             "supportsReasoningEffort": true,
             "thinkingRequired": true,
             "thinkingLevels": [
+              "low",
+              "high",
               "max"
             ]
           },
           "thinkingLevelMap": {
-            "high": null,
-            "low": null,
+            "high": "high",
+            "low": "low",
             "max": "max",
             "medium": null,
             "minimal": null,
@@ -17906,18 +17908,17 @@
           "compat": {
             "defaultThinkingLevel": "max",
             "requiresReasoningContentOnAssistantMessages": true,
-            "supportedReasoningEfforts": [
-              "max"
-            ],
             "supportsReasoningEffort": true,
             "thinkingRequired": true,
             "thinkingLevels": [
+              "low",
+              "high",
               "max"
             ]
           },
           "thinkingLevelMap": {
-            "high": null,
-            "low": null,
+            "high": "high",
+            "low": "low",
             "max": "max",
             "medium": null,
             "minimal": null,
@@ -17944,18 +17945,17 @@
           "compat": {
             "defaultThinkingLevel": "max",
             "requiresReasoningContentOnAssistantMessages": true,
-            "supportedReasoningEfforts": [
-              "max"
-            ],
             "supportsReasoningEffort": true,
             "thinkingRequired": true,
             "thinkingLevels": [
+              "low",
+              "high",
               "max"
             ]
           },
           "thinkingLevelMap": {
-            "high": null,
-            "low": null,
+            "high": "high",
+            "low": "low",
             "max": "max",
             "medium": null,
             "minimal": null,
@@ -22435,28 +22435,23 @@
             ]
           },
           "compat": {
-            "supportedReasoningEfforts": [
+            "supportsReasoningEffort": true,
+            "supportsTemperature": false,
+            "thinkingLevels": [
+              "off",
               "low",
               "medium",
               "high",
               "xhigh",
               "max"
             ],
-            "supportsReasoningEffort": true,
-            "supportsTemperature": false,
-            "thinkingLevels": [
-              "low",
-              "medium",
-              "high",
-              "xhigh",
-              "max"
-            ]
+            "defaultThinkingLevel": "low"
           },
           "status": "deprecated",
           "thinkingLevelMap": {
             "max": "max",
             "minimal": "low",
-            "off": null,
+            "off": "none",
             "xhigh": "xhigh"
           }
         },
@@ -26509,11 +26504,11 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "low"
+              "high"
             ],
-            "defaultThinkingLevel": "low",
+            "defaultThinkingLevel": "high",
             "thinkingLevelLabels": {
-              "low": "on"
+              "high": "on"
             }
           }
         },
@@ -26529,11 +26524,11 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "low"
+              "high"
             ],
-            "defaultThinkingLevel": "low",
+            "defaultThinkingLevel": "high",
             "thinkingLevelLabels": {
-              "low": "on"
+              "high": "on"
             }
           }
         },
@@ -59519,5 +59514,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795371934415,
-  "supplementDigest": "de40dba29514a9bd3a87e562e9da429ea4d69f1315b3fdba61c82f481b2642e7"
+  "supplementDigest": "48fcc91d65ccf93af0c907f15255373d37b2d05b8c4d1039a5d4abb7599feb70"
 }
