@@ -42,9 +42,9 @@
 | 구분 | provider | 새 모델 |
 | --- | --- | --- |
 | 자동 | OpenClaw가 만드는 provider 전부(`anthropic`, `openai`, `google`, `xai`, `zai`, `ollama-cloud`, 중계 provider 등), `openrouter` | 6시간마다 자동 추가 |
-| 수동 | `openai-codex`, `codex`, `amazon-bedrock`, `amazon-bedrock-mantle`, `anthropic-vertex`, `google-vertex`, `google-gemini-cli`, `minimax-portal`, `synthetic` (그 밖에 수동 파일 `providers`에 있는 행) | 사람이 공식 문서를 보고 추가 |
+| 수동 | `openai-codex`, `codex`, `amazon-bedrock`, `amazon-bedrock-mantle`, `anthropic-vertex`, `google-vertex`, `google-gemini-cli`, `minimax-portal`, `minimax-cn`, `minimax-portal-cn`, `synthetic` (그 밖에 수동 파일 `providers`에 있는 행) | 사람이 공식 문서를 보고 추가 |
 
-`anthropic`, `openai`, `google`, `xai`, `zai`, `minimax`, `opencode`, `opencode-go`, `byteplus`, `volcengine`, `together`는 자동 행과 수동 행이 섞여 있습니다. 수동 파일 `providers`에 있는 ID가 해당 provider의 수동 행입니다.
+`anthropic`, `openai`, `google`, `xai`, `zai`, `minimax`, `opencode`, `opencode-go`, `byteplus`, `volcengine`, `together`, `kimi`, `kilocode`, `nvidia`는 자동 행과 수동 행이 섞여 있습니다. 수동 파일 `providers`에 있는 ID가 해당 provider의 수동 행입니다.
 
 ## 2. 파일 지도
 
@@ -99,7 +99,7 @@ npm run audit                                          # 전수 검사: open 항
 | Vertex Gemini(`google-vertex`) | 모델 페이지 `https://docs.cloud.google.com/gemini-enterprise-agent-platform/models/gemini/<버전-이름>`(예: `.../gemini/4-neon`; `gemini-` 접두사를 붙이면 404). 가격은 위 가격 페이지의 **Standard 탭, Global 행**. 가격 페이지 URL이 `cloud.google.com/model-garden/pricing`로 리다이렉트될 수 있음 |
 | Kilo(`kilocode`) 가격·무료 여부 | Kilo 모델 API `https://api.kilo.ai/api/openrouter/models`(가격과 `isFree`)를 공식으로 봄. `https://kilo.ai/landing/free-models`는 보조 자료. 둘이 다르면 API를 따르고 REVIEW에 적음 |
 | Vercel(`vercel-ai-gateway`) 가격 | `https://ai-gateway.vercel.sh/v1/models`, 모델 페이지 `https://vercel.com/ai-gateway/models/<vendor>/<model>`, Vercel changelog |
-| MiniMax(`minimax`, `minimax-portal`) | https://platform.minimax.io/docs (종량제 가격, M Plan 구독, 모델 FAQ의 종료 공지) |
+| MiniMax(`minimax`, `minimax-portal`, 중국 `minimax-cn`, `minimax-portal-cn`) | https://platform.minimax.io/docs (종량제 가격, M Plan 구독, 모델 FAQ의 종료 공지), 중국 https://platform.minimax.cn/docs/faq/models.md (가격은 CNY뿐이라 `-cn`은 가격을 비움). `minimax`/`minimax-portal` 수동 행을 고치면 `minimax-cn`/`minimax-portal-cn`의 같은 행도 같이 고칩니다(같은 모델의 중국 엔드포인트 사본, 테스트가 비교) |
 | OpenCode Zen·Go(`opencode`, `opencode-go`) | 모델 API https://opencode.ai/inference/v1/models · https://opencode.ai/inference/go/v1/models (문서가 "전체 목록"이라 부르는 곳: 한도·입력·reasoning effort·가격·엔드포인트), Zen 문서 https://opencode.ai/docs/zen/ (모델 표·가격표·Free models·Deprecated models 표), Go 문서 https://opencode.ai/docs/go/ . 수동 행 91개의 값은 Pi 1.5.2 판 그대로인 승인된 예외입니다(REVIEW 2026-11-21) |
 | Synthetic(`synthetic`) | 모델 API https://api.synthetic.new/openai/v1/models (인증 없이 받음: 한도·입력·reasoning effort·토큰당 가격, `pricing.input_cache_writes`), 가격표 https://synthetic.new/pricing/models ("Usage-based price" 열. 구독 할인 단가는 쓰지 않음). 수동 행 4개의 이름·reasoning·입력·창·최대 출력은 Agent 플러그인 표 값인 승인된 예외입니다(REVIEW 2026-11-21) |
 | Thinking Effort | 제조사 API 문서: Anthropic(platform.claude.com, extended thinking·effort), OpenAI(developers.openai.com reasoning), Google(ai.google.dev/gemini-api/docs/thinking), xAI(docs.x.ai reasoning), DeepSeek·Qwen(Alibaba Model Studio)·Z.ai·Moonshot·MiniMax 공식 문서, 오픈 모델은 Hugging Face 모델 카드·chat template |
@@ -169,6 +169,7 @@ npm run audit                                          # 전수 검사: open 항
 | Effort가 비었거나 틀림 | `thinking` |
 | 수동 행의 가격·상태 조건부 보정, 날짜 전환 | `corrections` |
 | 자동 행의 상태(사용 비권장·종료) | `overrides`의 `status` |
+| 자동 행의 런타임 compat 키(요청 모양: `supportsStrictMode`, `maxTokensField`, `promptCacheKeyMode`, `cachesInstructions` 등)가 틀리거나 공식 근거가 없음 | `overrides`의 `set.compat`. 키 단위로 적용하고 `null`은 그 키만 지웁니다(나머지 compat 키는 남음). 근거가 없으면 지웁니다(Agent가 기본 요청 모양으로 돎). Effort 키(`thinkingLevels`·`defaultThinkingLevel`·`thinkingLevelLabels`)는 `thinking` 칸으로 씁니다 |
 | 채팅 API로 쓸 수 없는 자동 행(실시간 음성 전용 등) | `nonChatModels` (provider와 원래 ID 정확히, `reason`·`source` 필수). 행이 catalog에서 빠집니다 |
 | 공식 값이 없어서 비워 둘 수밖에 없는 빈칸 | `knownGaps` (`check`: `thinking` / `cost` / `zero-price` / `model-data`, `reason` 필수) |
 
@@ -270,6 +271,8 @@ npm run audit
 | Volc 계열 요청 확인 수단이 생기면 | `byteplus`·`volcengine` 수동 행 6개의 `thinking` 규칙(정확한 ID, "Not the official ladder")은 Agent의 현재 동작(목록 off~high+adaptive, 기본 low)을 보존한 값입니다. 공식 thinking 제어(ModelArk Chat API `thinking.type`, 이미 있는 `*` 규칙 `seed-2-0*`·`deepseek-v4-1-flash*`·`doubao-seed-2-1*`의 목록)로 바꾸려면 Agent가 그 주소로 실제 요청을 보내 확인할 수단이 필요합니다. 바꿀 때는 이 6규칙을 지웁니다 |
 | 수시 (Together) | 2026-11-21 수동 행 `together/Qwen/Qwen3.8-Flash`의 이름·reasoning·입력·창·최대 출력은 Agent 플러그인 표 값입니다. 공식 서버리스 목록에 근거가 없는 칸: 이미지 입력(Vision 표에 없음), reasoning, 최대 출력 8192. Together가 이 값을 공개하면 행을 고칩니다. `thinking` 규칙(정확한 ID, "Not the official ladder")은 Agent의 현재 동작(목록 off~high+adaptive, 기본 low)을 보존한 값이고, 지우면 `*` 규칙 `qwen3-8-flash*`(off·low·medium·xhigh, 기본 xhigh)가 걸립니다. Agent가 이 주소로 실제 요청을 보내 확인할 수단이 생기면 규칙을 지웁니다. 상류 `together`에 같은 ID가 생기면 상류 행이 이깁니다 |
 | 수시 (Synthetic) | 2026-11-21 신설 provider `synthetic`(수동 행만, Anthropic Messages)의 4행 이름·reasoning·입력·창·최대 출력은 Agent 플러그인 표 값입니다. 공식 모델 API와 다른 칸: 네 행 모두 `maxTokens` 8192(API 65,536), `hf:openai/gpt-oss-120b` 창 128,000(API 131,072)·reasoning false(API effort none/low/medium/high). gpt-oss는 `overrides`의 정확한 ID 규칙(`reasoning: false`)이 `*` 규칙 `gpt-oss-*`(`reasoning: true`)보다 뒤에 있어야 꺼진 채로 남습니다. reasoning 행 3개의 `thinking` 규칙(정확한 ID, "Not the official ladder")은 Agent의 현재 동작(목록 off~high+adaptive, 기본 low)을 보존한 값이고, 지우면 `*` 규칙 `glm-4-7-flash*`·`glm-5-3*`·`qwen3-8-27b*`가 걸립니다. Agent가 이 주소로 실제 요청을 보내 확인할 수단이 생기면 규칙 3개와 gpt-oss `overrides` 규칙을 지우고 공식 값(API `reasoning_parameters.efforts`, 최대 출력)으로 바꿉니다. 모델 API에서 ID가 빠지면 행·규칙을 지웁니다(API 문서: 오래된 모델은 순환되며 404). 상류 OpenClaw에 `synthetic`이 생기면 같은 ID는 상류 행이 이깁니다 |
+| OpenAI 새 GPT 계열 발표 시 | https://developers.openai.com/api/docs/guides/prompt-caching 의 top-level `instructions` 문장("Models starting with GPT-6.2 … append these instructions after input")이 새 계열에도 걸리는지 확인하고, 걸리면 `overrides`에 `cachesInstructions: false` 계열 규칙(`provider: "*"`, 예: `gpt-6-2*`·`openai-gpt-62*`)을 한 줄씩 더합니다. 끝 `*`는 "6.2 이상"을 뜻하지 않습니다 |
+| 수시 (퇴역 Agent ID, 2026-11-22) | `kimi/kimi-code`·`k2p5`, `kilocode/kilo/auto`, `nvidia` 5행, `minimax`·`minimax-cn`·`minimax-portal-cn`의 `MiniMax-M3.1-Flash-Preview`는 Agent가 아직 해석하는 ID를 퇴역 행(값은 Agent 표)으로 남긴 것입니다. 프로바이더가 그 이름을 거부한다는 공식 근거(퇴역 공지 등)가 생기면 행을 지웁니다. `stepfun-plan` 행 목록 재검토: Step Plan 표의 "仅接受 `step-router-v1`"이 plan 채널 전체에 걸리는지 |
 | Agent SOT 전환 시 | Sonnet 5.5의 `off`(`between_tools`로만 가능), Codex 모델 기본 Effort가 API 기본값과 같은지, Agent의 `max` 단계 지원 |
 
 `corrections`의 날짜 규칙(Sonnet 4.5 EOL 2027-04-08, Gemini 4 Vertex 가격 2026-12-01 등)은 자동으로 적용되므로 여기에 넣지 않습니다.

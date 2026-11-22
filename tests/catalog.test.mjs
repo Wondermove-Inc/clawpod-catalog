@@ -17,6 +17,7 @@ import { MIN_MODELS_DEV_PROVIDERS } from "../scripts/models-dev.mjs";
 import { MIN_OPENROUTER_MODELS } from "../scripts/openrouter.mjs";
 import { publishCatalog } from "../scripts/publish-catalog.mjs";
 import { SUBSCRIPTION_PROVIDERS } from "../scripts/audit-catalog.mjs";
+import { ruleMatches } from "../scripts/thinking.mjs";
 
 const NOW = Date.UTC(2026, 8, 8);
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
@@ -507,6 +508,11 @@ test("committed supplemental data covers the requested providers and preserves p
       "volcengine",
       "together",
       "synthetic",
+      "minimax-cn",
+      "minimax-portal-cn",
+      "kimi",
+      "kilocode",
+      "nvidia",
     ].sort(),
   );
   const codex = s.providers["openai-codex"].models.find((m) => m.id === "gpt-6-astra");
@@ -1032,12 +1038,18 @@ test("OpenCode effort rules name one row each and leave the upstream OpenCode ro
   const isOpencode = (r) => r.provider === "opencode" || r.provider === "opencode-go";
   const rules = supplement.thinking.filter(isOpencode);
   const firstWildcard = supplement.thinking.findIndex((r) => r.provider === "*");
-  assert.equal(rules.length, 92);
+  assert.equal(rules.length, 94);
   for (const r of rules) {
     assert.ok(!r.model.endsWith("*"), `exact id ${r.provider}/${r.model}`);
     assert.ok(supplement.thinking.indexOf(r) < firstWildcard, `before * rules ${r.provider}/${r.model}`);
   }
-  const keep = rules.filter((r) => !(r.provider === "opencode-go" && r.model === "kimi-k3"));
+  // Official Go model API ladders for upstream rows (REVIEW 2026-11-21 kimi-k3, 2026-11-22 DeepSeek).
+  const OFFICIAL_GO = {
+    "kimi-k3": [["max"], "max"],
+    "deepseek-v4-pro": [["high", "max"], "high"],
+    "deepseek-v4.1-flash": [["low", "high", "max"], "high"],
+  };
+  const keep = rules.filter((r) => !(r.provider === "opencode-go" && OFFICIAL_GO[r.model]));
   assert.deepEqual(
     keep.map((r) => `${r.provider}/${r.model}`).sort(),
     Object.entries(OPENCODE_IDS).flatMap(([p, ids]) => ids.map((id) => `${p}/${id}`)).sort(),
@@ -1076,9 +1088,9 @@ test("OpenCode effort rules name one row each and leave the upstream OpenCode ro
   for (const p of ["opencode", "opencode-go"]) {
     for (const m of before.providers[p].models) {
       const now = after.providers[p].models.find((x) => x.id === m.id);
-      if (p === "opencode-go" && m.id === "kimi-k3") {
-        // OpenCode Go lists reasoning effort max only for kimi-k3.
-        assert.deepEqual([now.compat.thinkingLevels, now.compat.defaultThinkingLevel], [["max"], "max"]);
+      if (p === "opencode-go" && OFFICIAL_GO[m.id]) {
+        // The Go model API lists these efforts (kimi-k3 max only; DeepSeek without a toggle).
+        assert.deepEqual([now.compat.thinkingLevels, now.compat.defaultThinkingLevel], OFFICIAL_GO[m.id]);
       } else {
         assert.deepEqual(now, m, `${p}/${m.id}`);
       }
@@ -1232,12 +1244,17 @@ test("Together effort rule names one row and leaves the upstream Together rows a
   const supplement = read(path.join(root, "sources/clawpod-providers.json"));
   const isTogether = (r) => r.provider === "together";
   const rules = supplement.thinking.filter(isTogether);
-  assert.deepEqual(rules.map((r) => r.model), [TOGETHER_ID]);
-  const [rule] = rules;
-  assert.ok(
-    supplement.thinking.indexOf(rule) < supplement.thinking.findIndex((r) => r.provider === "*"),
-    "before * rules",
-  );
+  const DEEPSEEK_PRO = "deepseek-ai/DeepSeek-V4-Pro-0813";
+  assert.deepEqual(rules.map((r) => r.model), [TOGETHER_ID, DEEPSEEK_PRO]);
+  const [rule, official] = rules;
+  for (const r of rules) {
+    assert.ok(
+      supplement.thinking.indexOf(r) < supplement.thinking.findIndex((x) => x.provider === "*"),
+      `before * rules ${r.model}`,
+    );
+  }
+  // Together: DeepSeek V4 Pro 0813 accepts only high and max, toggled by reasoning.enabled.
+  assert.deepEqual([official.levels, official.default], [["off", "high", "max"], "high"]);
   assert.deepEqual([rule.levels, rule.default], [OPENCODE_KEPT.thinkingLevels, "low"]);
   assert.match(rule.note, /^Not the official ladder: /);
   // Upstream Together rows from the committed artifact, rebuilt with and without this review.
@@ -1253,10 +1270,11 @@ test("Together effort rule names one row and leaves the upstream Together rows a
   const f = { ...fixture(), upstream };
   const after = buildCatalog({ ...f, supplement });
   const before = buildCatalog({ ...f, supplement: without });
-  assert.deepEqual(
-    after.providers.together.models.filter((m) => m.id !== TOGETHER_ID),
-    before.providers.together.models,
-  );
+  for (const m of before.providers.together.models) {
+    const now = after.providers.together.models.find((x) => x.id === m.id);
+    if (m.id === DEEPSEEK_PRO) assert.deepEqual(now.compat.thinkingLevels, ["off", "high", "max"]);
+    else assert.deepEqual(now, m, m.id);
+  }
 });
 
 const SYNTHETIC_REASONING_IDS = ["hf:zai-org/GLM-4.7-Flash", "hf:zai-org/GLM-5.3-Flash", "hf:Qwen/Qwen3.8-27B"];
@@ -1357,6 +1375,199 @@ test("committed overrides give the reviewed OpenAI rows their context budget", (
   // Retired Copilot rows keep the Agent's current budget (approved exception, REVIEW 2026-11-20).
   assert.equal(get("github-copilot", "gpt-5.4").contextTokens, 128000);
   assert.equal(get("github-copilot", "gpt-5.4").maxTokens, 8192);
+});
+
+test("compat overrides set or delete one key at a time and keep the rest of compat", () => {
+  const src = "https://example.com/compat";
+  const providers = {
+    gw: {
+      models: [
+        { id: "a", compat: { keep: true, drop: "x", flip: false, thinkingLevels: ["low"] } },
+        { id: "b", compat: { drop: true } },
+        { id: "c", maxTokens: 9 },
+      ],
+    },
+  };
+  const out = applyOverrides(providers, [
+    { provider: "gw", model: "*", set: { compat: { drop: null } }, source: src },
+    { provider: "gw", model: "a", set: { compat: { flip: true, mode: "enabled" }, maxTokens: 5 }, source: src },
+    // Later rules win key by key, including a delete of a key an earlier rule set.
+    { provider: "gw", model: "a", set: { compat: { mode: null } }, source: src },
+    { provider: "gw", model: "c", set: { compat: { absent: null } }, source: src },
+  ]);
+  const get = (id) => out.gw.models.find((m) => m.id === id);
+  assert.deepEqual(get("a"), { id: "a", maxTokens: 5, compat: { keep: true, flip: true, thinkingLevels: ["low"] } });
+  // A compat left empty is removed, and deleting a missing key creates nothing.
+  assert.deepEqual(get("b"), { id: "b" });
+  assert.deepEqual(get("c"), { id: "c", maxTokens: 9 });
+  assert.deepEqual(providers.gw.models[0].compat.drop, "x", "input is not mutated");
+
+  // Through the whole build: upstream compat stays and Effort is added on top.
+  const f = fixture();
+  f.upstream.providers.openai.models[0].compat = { codeMode: "capable", supportsTemperature: false };
+  f.supplement.overrides = [{ provider: "*", model: "gpt", set: { compat: { cachesInstructions: false } }, source: src }];
+  f.supplement.thinking = [{ provider: "*", model: "gpt", levels: ["low", "high"], default: "high", source: src }];
+  assert.deepEqual(buildCatalog(f).providers.openai.models[0].compat, {
+    codeMode: "capable",
+    supportsTemperature: false,
+    cachesInstructions: false,
+    thinkingLevels: ["low", "high"],
+    defaultThinkingLevel: "high",
+  });
+});
+
+for (const [label, compat] of [
+  ["an empty compat patch", {}],
+  ["a key that is not a plain name", { "bad-key": true }],
+  ["an object value", { reasoningEffortMap: { off: "none" } }],
+  ["an empty string value", { promptCacheKeyMode: "" }],
+]) {
+  test(`compat overrides reject ${label}`, () => {
+    const f = fixture();
+    f.supplement.overrides = [{ provider: "openai", model: "gpt", set: { compat }, source: "https://example.com/x" }];
+    assert.throws(() => buildCatalog(f));
+  });
+}
+
+test("committed compat rules patch the reviewed request keys and leave the other keys", () => {
+  const { overrides } = read(path.join(root, "sources/clawpod-providers.json"));
+  const row = (id, compat) => ({ id, compat: { thinkingLevels: ["low"], ...compat } });
+  const out = applyOverrides(
+    {
+      kimi: { models: [row("k3", { adaptiveThinking: true, codeMode: "preferred" }), row("kimi-for-coding")] },
+      mistral: { models: [row("mistral-small-2603", { adaptiveThinking: true })] },
+      abliteration: { models: [row("abliterated-model", { supportsPromptCacheKey: true, maxTokensField: "max_tokens" })] },
+      opencode: {
+        models: [
+          row("kimi-k3", { supportsStrictMode: false, maxTokensField: "max_tokens", supportsUsageInStreaming: true }),
+          row("big-pickle", { supportsStrictMode: false, supportsDeveloperRole: false }),
+          row("claude-opus-5", { supportsReasoningEffort: true, codeMode: "capable" }),
+        ],
+      },
+      "opencode-go": {
+        models: [
+          row("kimi-k2.6", { supportsStrictMode: false }),
+          row("deepseek-v4.1-flash", { supportsStrictMode: false, supportsReasoningEffort: true }),
+        ],
+      },
+      nvidia: { models: [row("nvidia/nemotron-3.5-super-vl-120b-a12b", { requiresStringContent: true })] },
+      "stepfun-plan": { models: [{ id: "step-3.7-flash", maxTokens: 262144, compat: { maxTokensField: "max_tokens", supportsStore: false } }] },
+      baseten: { models: [{ id: "deepseek-ai/DeepSeek-V4-Flash-0731", maxTokens: 384000 }] },
+    },
+    overrides,
+  );
+  const compat = (p, id) => out[p].models.find((m) => m.id === id).compat;
+  assert.deepEqual(compat("kimi", "k3"), { thinkingLevels: ["low"], codeMode: "preferred" });
+  assert.deepEqual(compat("kimi", "kimi-for-coding"), { thinkingLevels: ["low"] });
+  assert.deepEqual(compat("mistral", "mistral-small-2603"), { thinkingLevels: ["low"] });
+  assert.deepEqual(compat("abliteration", "abliterated-model"), {
+    thinkingLevels: ["low"],
+    maxTokensField: "max_tokens",
+    promptCacheKeyMode: "enabled",
+  });
+  // OpenCode: tools.strict from the model API; not stated keeps today's false.
+  assert.deepEqual(compat("opencode", "kimi-k3"), { thinkingLevels: ["low"], supportsStrictMode: true });
+  assert.deepEqual(compat("opencode", "big-pickle"), { thinkingLevels: ["low"], supportsStrictMode: false });
+  assert.deepEqual(compat("opencode", "claude-opus-5"), { thinkingLevels: ["low"], codeMode: "capable" });
+  assert.deepEqual(compat("opencode-go", "kimi-k2.6"), { thinkingLevels: ["low"] });
+  assert.deepEqual(compat("opencode-go", "deepseek-v4.1-flash"), {
+    thinkingLevels: ["low"],
+    supportsStrictMode: false,
+    supportsReasoningEffort: true,
+  });
+  assert.deepEqual(compat("nvidia", "nvidia/nemotron-3.5-super-vl-120b-a12b"), { thinkingLevels: ["low"] });
+  assert.deepEqual(out["stepfun-plan"].models[0], { id: "step-3.7-flash", maxTokens: 65536, compat: { maxTokensField: "max_tokens" } });
+  assert.equal(out.baseten.models[0].maxTokens, 262144);
+});
+
+test("the GPT-6.2 family rules mark every GPT-6.2 row and no other GPT", () => {
+  const { overrides } = read(path.join(root, "sources/clawpod-providers.json"));
+  const family = overrides.filter((o) => o.set.compat && "cachesInstructions" in o.set.compat);
+  assert.deepEqual(
+    family.map((o) => [o.provider, o.model, o.set]),
+    [
+      ["*", "gpt-6-2*", { compat: { cachesInstructions: false } }],
+      ["*", "openai-gpt-62*", { compat: { cachesInstructions: false } }],
+    ],
+  );
+  const hit = (p, id) => family.some((o) => ruleMatches(o, p, id));
+  for (const [p, id] of [
+    ["openai", "gpt-6.2-sol"],
+    ["openai-codex", "gpt-6.2-astra"],
+    ["openrouter", "openai/gpt-6.2-astra-pro:batch"],
+    ["amazon-bedrock", "global.openai.gpt-6.2-sol"],
+    ["amazon-bedrock-mantle", "openai.gpt-6.2-astra"],
+    ["venice", "openai-gpt-62-sol-pro"],
+  ]) {
+    assert.ok(hit(p, id), `${p}/${id}`);
+  }
+  for (const [p, id] of [
+    ["openai", "gpt-6-astra"],
+    ["openai", "gpt-6.1-sol"],
+    ["openai", "gpt-5.6-sol"],
+    ["venice", "openai-gpt-6-astra"],
+  ]) {
+    assert.ok(!hit(p, id), `${p}/${id}`);
+  }
+  const artifact = read(path.join(root, "models/v1/catalog.json"));
+  const marked = Object.entries(artifact.providers).flatMap(([p, v]) =>
+    v.models.filter((m) => hit(p, m.id)).map((m) => [`${p}/${m.id}`, m.compat?.cachesInstructions]),
+  );
+  assert.ok(marked.length >= 36, `${marked.length} rows`);
+  for (const [ref, value] of marked) assert.equal(value, false, ref);
+});
+
+test("China MiniMax keys copy the global MiniMax rows without a price", () => {
+  const s = read(path.join(root, "sources/clawpod-providers.json"));
+  const noCost = ({ cost: _cost, ...m }) => m;
+  const preview = s.providers["minimax-portal"].models.find((m) => m.id === "MiniMax-M3.1-Flash-Preview");
+  // The global pay-as-you-go key keeps resolving the Preview id as a retired row.
+  assert.deepEqual(s.providers.minimax.models.at(-1), preview);
+  assert.deepEqual(s.providers["minimax-cn"], {
+    api: s.providers.minimax.api,
+    models: s.providers.minimax.models.map(noCost),
+  });
+  assert.deepEqual(s.providers["minimax-portal-cn"], s.providers["minimax-portal"]);
+  const artifact = read(path.join(root, "models/v1/catalog.json"));
+  for (const [cn, global] of [["minimax-cn", "minimax"], ["minimax-portal-cn", "minimax-portal"]]) {
+    assert.deepEqual(
+      artifact.providers[cn].models,
+      artifact.providers[global].models.map(noCost),
+      `${cn} publishes the ${global} rows and Effort`,
+    );
+  }
+  assert.ok(SUBSCRIPTION_PROVIDERS.has("minimax-portal-cn"));
+});
+
+test("retired Agent ids stay as retired rows with the Agent values and no price", () => {
+  const s = read(path.join(root, "sources/clawpod-providers.json"));
+  const artifact = read(path.join(root, "models/v1/catalog.json"));
+  const ids = (p) => s.providers[p].models.map((m) => m.id);
+  assert.deepEqual(ids("kimi"), ["kimi-code", "k2p5"]);
+  assert.deepEqual(ids("kilocode"), ["kilo/auto"]);
+  assert.deepEqual(ids("nvidia"), [
+    "nvidia/nemotron-3-super-120b-a12b",
+    "minimaxai/minimax-m3",
+    "moonshotai/kimi-k2.5",
+    "minimaxai/minimax-m2.5",
+    "z-ai/glm5",
+  ]);
+  assert.equal(s.providers.kimi.models[1].name, "Kimi Code (legacy model id)");
+  for (const p of ["kimi", "kilocode", "nvidia"]) {
+    for (const m of s.providers[p].models) {
+      assert.equal(m.status, "deprecated", `${p}/${m.id}`);
+      assert.equal(m.cost, undefined, `${p}/${m.id}`);
+      // replacedBy only where the provider names the target, and it must be active.
+      if (m.replacedBy) {
+        const target = artifact.providers[p].models.find((x) => x.id === m.replacedBy);
+        assert.ok(target && !target.status, `${p}/${m.replacedBy}`);
+      }
+    }
+  }
+  assert.deepEqual(
+    s.providers.kimi.models.map((m) => m.replacedBy),
+    ["kimi-for-coding", "kimi-for-coding"],
+  );
 });
 
 test("rows the supplement lists as non-chat are dropped by exact provider and id", () => {

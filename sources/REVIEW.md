@@ -822,3 +822,80 @@ ClawPoD Agent는 `synthetic`(synthetic.new, Anthropic Messages API) 모델 값�
 - 재생성 원본은 publish run 44903821026의 artifact다(main `38a7851`과 같은 `sourceGeneratedAt` 1795264063029). `providers=58 (+1/-0) models=2247->2251 (+4)`. `origin/main` 대비 행 단위 비교에서 새 provider `synthetic`(4행, provider 메타 `api`만)과 최상위 `generatedAt`·`supplementDigest` 말고는 바뀐 것이 없다.
 - `npm run audit` open은 작업 전후 모두 0이다. cost known 128, reasoning 2, thinking 66, zero price 15는 그대로다.
 - 6장 "matches nothing" 검사: 새 규칙 4개는 각각 정확히 한 행에 걸린다. 아무 행에도 안 걸리는 기존 규칙 3개는 작업 전 main에서도 같다.
+
+# 2026-11-22 compat 요청 키 판정, GPT-6.2 계열, MiniMax 중국 키와 퇴역 Agent ID (ClawPoD Agent 3차 I3e·I3f·I3g)
+
+ClawPoD Agent가 catalog compat을 요청 모양의 층(설정 > 내장 catalog > Pi 내장)으로 쓰게 되므로, 요청에 닿는 compat 키를 공식 근거로 판정했다. 근거가 있으면 그 값, 없으면 그 키를 지운다(Agent가 오늘 기본값으로 돈다). 생성기에 `overrides.set.compat`(키 단위 패치, `null`은 그 키만 지움)을 더했다. 설계: clawpod-agent 보고서 `S3I3E/F/G-DESIGN.md`.
+
+## 생성기
+
+- `scripts/catalog.mjs`: `overrides.set.compat` = `z.record(/^[A-Za-z]+$/, boolean | 문자열 | null)`, 빈 패치 거부. `applyOverrides`는 compat만 키 단위로 합치고 빈 compat은 지운다. 다른 칸은 그대로 통째 교체.
+- `scripts/audit-catalog.mjs`: `SUBSCRIPTION_PROVIDERS`에 `minimax-portal-cn`(구독, `minimax-portal`과 같음).
+
+## I3e: compat 요청 키
+
+| 규칙 | 바뀌는 행 | 근거 |
+| --- | --- | --- |
+| `kimi`/`k3*`, `mistral`/`*`: `adaptiveThinking` 지움 | kimi 4, mistral 3 | 런타임 키가 아니다(`forceAdaptiveThinking`). Kimi Code 문서(https://www.kimi.com/code/docs/en/kimi-code/models.html)는 Anthropic 경로 thinking 칸을 적지 않고, Mistral(https://docs.mistral.ai/inference/conversations/reasoning)은 `reasoning_effort`뿐. 이름을 바꾸지 않고 지운다 |
+| `abliteration`/`*`: `supportsPromptCacheKey` 지움, `promptCacheKeyMode: "enabled"` | 4 | "Cache routing hint (`prompt_cache_key`) Supported" (https://docs.abliteration.ai/compatibility-matrix.md) |
+| `particle`/`particle-ai/particle-1` 9키, `featherless`/`Qwen/Qwen3-32B` 7키, `longcat`/`LongCat-2.0` 8키 지움 | 1·1·1 | 공식 문서 없음(Featherless 문서 읽기 실패, LongCat 문서는 2.5만). Effort는 남김 |
+| `tencent-tokenhub`·`tencent-tokenplan`/`*`: `supportsReasoningEffort`·`supportsUsageInStreaming` 지움 | 5·4 | 공식 문서 확인 못함 |
+| `github-copilot`/`gemini-*`: `maxTokensField`·`supportsDeveloperRole`·`supportsStore`·`supportsUsageInStreaming` 지움 | 4 | Copilot 공개 API 문서 없음 |
+| `opencode`·`opencode-go`/`*`: `maxTokensField`·`supportsDeveloperRole`·`supportsUsageInStreaming` 지움 | 상류 행 | 문서·모델 API에 없는 칸 (https://opencode.ai/docs/zen/) |
+| `supportsStrictMode: true`: `opencode/kimi-k3`, `opencode-go/kimi-k3`, `opencode-go/kimi-k2.7-code` | 3 | 모델 API `api.chat-completions.capabilities.tools.strict: true` (https://opencode.ai/zen/v1/models , https://opencode.ai/inference/go/v1/models , 2026-11-22) |
+| `supportsStrictMode` 지움: `opencode-go/kimi-k2.6`, `deepseek-v4-flash` | 2 | Go 모델 API에 ID 없음 |
+| `supportsStrictMode: false` 유지: `opencode/big-pickle`·`minimax-m3`, `opencode-go/deepseek-v4-pro`·`hy3`·**`deepseek-v4.1-flash`** | 0 | 모델 API가 `tools.strict`를 적지 않음(명시 없음 → 오늘 동작 유지). 설계는 `deepseek-v4.1-flash`를 "목록에 없음"으로 지웠으나 2026-11-22 Go 목록에 있고 strict만 없어 같은 갈래로 뒀다 |
+| `supportsReasoningEffort` 지움: `opencode/claude-opus-5`·`gemini-3.6-flash`·`gpt-5.6-sol`, `opencode-go/gpt-5.6-luna`·`deepseek-v4-flash` | 5 | 모델 API가 chat-completions가 아닌 messages/generate-content/responses로만 서빙(또는 목록에 없음) |
+| `stepfun`·`stepfun-plan`/`step-3.7-flash`: `supportsDeveloperRole`·`supportsStore`·`supportsStrictMode`·`supportsUsageInStreaming` 지움 | 2 | 공식 API 문서(https://platform.stepfun.ai/docs/en/api-reference/chat/chat-completion-create.md)는 `max_tokens`·`reasoning_effort`만 (둘은 남김) |
+| `nvidia`/`*`: `requiresStringContent` 지움 | 4 | 근거 없음. 배열 content를 펴면 VL 행 이미지가 빠진다 |
+| `baseten`/`deepseek-ai/DeepSeek-V4-Flash-0731` `maxTokens` 384000 → 262144 | 1 | Chat Completions 스키마 `max_tokens` `maximum: 262144` (https://docs.baseten.co/reference/inference-api/chat-completions.md) |
+| `requesty`/`claude-sonnet-5-5`: `supportsReasoningEffort` 지움 | 1 | Requesty는 Anthropic에 effort를 thinking 예산으로 바꿈(https://docs.requesty.ai/features/reasoning.md), Sonnet 5.5는 예산형 400(https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting) |
+
+`thinking` 규칙(정확한 ID, 첫 `*` 규칙 앞):
+
+| provider / ID | 단계 / 기본 | 근거 |
+| --- | --- | --- |
+| `baseten`/`nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B` | off, high / **off** | Baseten 추론 문서 "Off by default", 값 "`none`, `high`" (https://docs.baseten.co/inference/model-apis/reasoning.md). 설계는 기본 high였으나 문서가 기본 꺼짐이라 off로 뒀다 |
+| `opencode-go`/`deepseek-v4-pro` | high, max / high | Go 모델 API effort [high, max], toggle 없음 |
+| `opencode-go`/`deepseek-v4.1-flash` | low, high, max / high | Go 모델 API effort [low, high, max], toggle 없음 |
+| `together`/`deepseek-ai/DeepSeek-V4-Pro-0813` | off, high, max / high | "accepts only "high" and "max" for `reasoning_effort`. Other values are mapped automatically: "low" and "medium" map to "high". "high" and "xhigh" map to "max"." 켬/끔은 `reasoning.enabled` (https://docs.together.ai/docs/inference/chat/reasoning.md). 문서가 `high` 에서 스스로 어긋나므로 `high` 가 `max` 로 돌 수 있다(받는 값만 보내므로 400 위험은 없음) |
+
+## I3f: GPT-6.2 계열 `cachesInstructions: false`
+
+`overrides` 끝에 `provider: "*"` 규칙 둘(`gpt-6-2*`, Venice 점 없는 ID `openai-gpt-62*`). OpenAI 문서: "Models starting with GPT-6.2, including Astra and Sol, append these instructions after input, beyond eligible cache breakpoints." (https://developers.openai.com/api/docs/guides/prompt-caching). 걸리는 행 36(openai 2는 상류 값이 이미 false, 나머지 34가 바뀜: openai-codex·codex 각 2, openrouter 8, kilocode 6, vercel 4, amazon-bedrock 4, venice 4, novita 2, mantle 2). `gpt-6-astra`·`gpt-6.1-*`·`gpt-5.6-*`에는 걸리지 않는다. 키 단위 패치라 상류 compat(`codeMode` 등)과 Effort가 남는다.
+
+## I3g: MiniMax 중국 키, 퇴역 Agent ID, Step Plan 출력 상한
+
+| 대상 | 내용 | 근거 |
+| --- | --- | --- |
+| 새 수동 provider `minimax-cn` | `minimax` 수동 5행 그대로(M2.7·M2.7-highspeed `disabled`, M3, M3.1-Flash, M3.1-Flash-Preview `deprecated`→M3.1-Flash), 가격 없음 + `knownGaps` cost 2 | 중국 FAQ https://platform.minimax.cn/docs/faq/models.md (M3.1-Flash·M3 현역, M2.5·M2.7 2026-11-18 下线), 가격 CNY뿐 https://platform.minimaxi.com/docs/pricing/overview.md |
+| 새 수동 provider `minimax-portal-cn` | `minimax-portal` 5행 그대로(M2.7 둘·Flash-Preview `deprecated`→M3.1-Flash) | 같은 FAQ: M Plan·Token Plan의 M2.5/M2.7 요청은 2026-10-19부터 M3.1 Flash로, "原模型名称保留作为兼容入口" |
+| `minimax`/`MiniMax-M3.1-Flash-Preview` | 퇴역 행(`minimax-portal`과 같은 값) | "Existing model names will continue to work" (https://platform.minimax.io/docs/faq/models.md) |
+| `kimi`/`kimi-code`(Kimi Code), `k2p5`(Kimi Code (legacy model id)) | `deprecated`, `replacedBy: kimi-for-coding`, 262144 / 32768, text·image, reasoning | Kimi Code 목록에 없음, "A mistyped model ID falls back to K2.8 Preview without thinking" (K2.8 Preview = `kimi-for-coding`) |
+| `kilocode`/`kilo/auto` | `deprecated`, `replacedBy` 없음, 1000000 / 128000 | Kilo 목록에 없음(https://api.kilo.ai/api/gateway/models), 거부 근거도 없음 → 남김 |
+| `nvidia` 5: `nvidia/nemotron-3-super-120b-a12b`, `minimaxai/minimax-m3`, `moonshotai/kimi-k2.5`, `minimaxai/minimax-m2.5`, `z-ai/glm5` | `deprecated`, `replacedBy` 없음, 값은 Agent 표 | 공개 목록 https://integrate.api.nvidia.com/v1/models (2026-11-22, 33 ID)에 없음, 공식 퇴역 공지 없음 → 남김 |
+| `nvidia` 행 없음: `moonshotai/kimi-k3`, `z-ai/glm-5.2` | 퇴역 행을 넣지 않음 | 오늘 플러그인 표 없이 중첩 id 로 안쪽 provider(`moonshot`·`zai`)의 catalog 행을 빌려 해석된다. 퇴역 행 규칙(설계 I3g R3)은 "설정 행 없이 플러그인 표로만 해석되는 id" 에만 적용한다. 행을 넣으면 값이 옛 표 값으로 바뀐다(kimi-k3 창 1,048,576 → 131,072, glm-5.2 출력 131,072 → 8,192, glm-5.2 기본 단계 max → off; 실측 설계 I3g R4) |
+| `stepfun-plan`/`step-3.7-flash` `maxTokens` 262144 → 65536 | `overrides` | **해석값이다.** StepFun 문서(zh)의 표 "Step Plan 通道：Step Router V1 字段差异"는 `step-router-v1` 모델의 제약이고(`max_tokens` "上限为 64K", `model` "仅接受 step-router-v1"), plan 채널 router 가 `step-5-preview`·`step-3.7-flash` 로 보낸다는 간접 근거뿐이다. 64K 를 65536 으로 읽었다(Agent 플러그인 값과 같음) (https://platform.stepfun.com/docs/zh/api-reference/chat/chat-completion-create) |
+
+- 퇴역 행 값은 Agent 표 그대로다(clawpod-agent `5ae2c04979` `extensions/{minimax,kimi-coding,kilocode,nvidia}`). 가격은 비웠다.
+- Effort: 새 규칙 없음. `-cn` 행과 Preview는 기존 `*` 규칙(`minimax-m3-1-flash*`, `minimax-m3*`, `minimax-m2*`)이 global 같은 모델과 같은 값을 준다(테스트가 `-cn` 대 global 비교). `kimi-code`·`k2p5`·`kilo/auto`는 출처가 없어 Effort 없음.
+
+## 퇴역 행이 바꾸는 Effort (받아들임, 2026-11-22 리뷰 F1)
+
+Agent 는 Effort 를 그 모델의 catalog 행 하나에서 읽는다(자기 행 → pointer → 중첩 id 의 안쪽 행 순서, 먼저 있는 행이 정함). 그래서 퇴역 행을 새로 넣으면 값 칸은 Agent 표와 같아도 Effort 출처가 바뀐다. catalog 가 SOT 이고 새 값이 공식 출처에 더 맞아 받아들인다.
+
+| ID | 오늘(행 없음) | 게시본(자기 행) | 단계를 준 규칙과 근거 |
+| --- | --- | --- | --- |
+| `minimax/MiniMax-M3.1-Flash-Preview` | catalog 행 없음, Agent 기본 `low` | `low, medium, high, xhigh, max` / 기본 `max`(`minimax-portal` 의 같은 행이 오늘 쓰는 값과 같음, 받는 값이라 400 위험 없음). `max` 단계: 오늘 `xhigh` 가 나가던 것이 `max` 로 나간다(목록에 `max` 가 생김). Agent 훅이 이 id 에 적응형 thinking 을 강제하므로 기본 턴 effort 가 low → max(비용·지연 증가) | `*` `minimax-m3-1-flash*`: https://platform.minimax.io/docs/api-reference/text-anthropic-api (`output_config.effort` low~max, 기본 max, 끌 수 없음). Preview 는 M Plan 에서 M3.1 Flash 가 서빙 (https://platform.minimax.io/docs/faq/models.md) |
+| `minimax-cn`·`minimax-portal-cn` 의 Preview | 같음 | 같음. `max` 단계도 같이: 오늘 `xhigh` 가 나가던 것이 `max` 로 나간다 | 같음(설계가 받아들인 `-cn` 변화) |
+| `nvidia` 5(`nemotron-3-super-120b-a12b`, `minimaxai/minimax-m3`, `moonshotai/kimi-k2.5`, `minimaxai/minimax-m2.5`, `z-ai/glm5`) | 플러그인 표 행(reasoning false) | 같은 값의 퇴역 행, Effort 없음(off 만). 실측 변화 0(설계 I3g R4) | 규칙 없음, 공식 근거 없음. `reasoning: false` 는 Agent 플러그인 표 값(clawpod-agent `5ae2c04979` `extensions/nvidia/provider-catalog.ts`). 생성기는 `reasoning: true` 행에만 단계를 채운다 |
+| `nvidia/moonshotai/kimi-k3`, `nvidia/z-ai/glm-5.2` | 중첩 id 로 안쪽 catalog 행을 빌림 | 같음(행을 넣지 않음) | 위 I3g 표 |
+
+## 판단과 한계
+
+- 근거 없음 → 키 삭제는 "공식 값"이 아니라 "Agent 기본값으로 돌림"이다. 근거가 생기면 같은 `overrides`로 넣는다.
+- 설계와 다르게 한 것: Baseten Nemotron 3 Ultra 기본 off(문서), `opencode-go/deepseek-v4.1-flash` strict false 유지(목록에 있음), `mistral`은 ID 셋 대신 `mistral/*`(그 키가 있는 행은 셋뿐이라 결과 같음).
+- 재생성 원본은 publish run 44993939201의 artifact(main `526db9d`와 같은 `sourceGeneratedAt` 1795329111410). `providers=58->60 models=2252->2271 (+19)`. main 대비: 추가 19행, 빠짐 0, 바뀜 85행(위 규칙의 칸뿐).
+- `npm run audit` open 0 → 0. cost known 128 → 132(`minimax-cn` knownGaps 2, `minimax-portal-cn` 구독 2).
+- "matches nothing": 새 규칙 33개 모두 행에 걸림. 아무 행에도 안 걸리는 기존 규칙 3개는 main과 같다.
+- 생성기·audit 스크립트를 바꿨다. 브랜치 dry-run 결과는 PR에 적는다.

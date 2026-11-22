@@ -15,6 +15,7 @@ export const SUBSCRIPTION_PROVIDERS = new Set([
   "openai-codex",
   "codex",
   "minimax-portal",
+  "minimax-portal-cn",
   "github-copilot",
   "ollama-cloud",
   "kimi",

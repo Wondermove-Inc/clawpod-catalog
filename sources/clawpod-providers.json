@@ -43,7 +43,7 @@
         "extensions/minimax/provider-models.ts",
         "extensions/minimax/model-definitions.ts"
       ],
-      "notes": "Reviewed 2026-09-08: official global standard API prices, M3 up to 512K input (above 512K costs double; Priority 1.5x). Unknown M3 cache-write price omitted. maxTokens=131072 remains Agent operating default, not verified official maximum. sources/REVIEW.md. Reviewed 2026-11-18: added MiniMax-M3.1-Flash (paygo $0.15/$0.60, cacheRead $0.015); MiniMax-M2.7 and -highspeed retired on pay-as-you-go 2026-11-18 (disabled)."
+      "notes": "Reviewed 2026-09-08: official global standard API prices, M3 up to 512K input (above 512K costs double; Priority 1.5x). Unknown M3 cache-write price omitted. maxTokens=131072 remains Agent operating default, not verified official maximum. sources/REVIEW.md. Reviewed 2026-11-18: added MiniMax-M3.1-Flash (paygo $0.15/$0.60, cacheRead $0.015); MiniMax-M2.7 and -highspeed retired on pay-as-you-go 2026-11-18 (disabled). Reviewed 2026-11-22: added MiniMax-M3.1-Flash-Preview (deprecated, replacedBy MiniMax-M3.1-Flash): the Agent still resolves this id for minimax; plan users' existing model names keep working (https://platform.minimax.io/docs/faq/models.md). Same values as the minimax-portal row, no price."
     },
     "minimax-portal": {
       "source": "Wondermove-Inc/clawpod-agent",
@@ -178,6 +178,48 @@
         "extensions/synthetic/models.ts"
       ],
       "notes": "Reviewed 2026-11-21 (sources/REVIEW.md): new provider key for the Agent's synthetic.new plugin (Anthropic Messages API). 4 rows (hf:openai/gpt-oss-120b, hf:zai-org/GLM-4.7-Flash, hf:zai-org/GLM-5.3-Flash, hf:Qwen/Qwen3.8-27B) keep the Agent plugin table's name, reasoning, input, contextWindow and maxTokens (exception to official values, recorded in REVIEW): the official model API gives maximum output 65,536 for all four, context 131,072 and reasoning efforts none/low/medium/high for gpt-oss-120b. Only ids on the official model API (https://api.synthetic.new/openai/v1/models) are rows. Prices are the official usage-based prices (API pricing and https://synthetic.new/pricing/models), not the Agent table's 0; cacheWrite is 0 because the API gives input_cache_writes 0. synthetic.new also sells subscriptions, but usage-based token prices are public, so it is not a subscription-only provider. Not added: the other 24 table ids are not on the official model API (3 of them are similar names for different ids: hf:zai-org/GLM-5.3Beta, hf:deepseek-ai/DeepSeek-V4.1-FlashBeta, hf:moonshotai/Kimi-K3; list in REVIEW). Effort: exact-id thinking rules for the 3 reasoning rows keep the Agent's current behavior, not the official ladder; gpt-oss-120b keeps reasoning off and gets no rule."
+    },
+    "minimax-cn": {
+      "source": "Wondermove-Inc/clawpod-agent",
+      "revision": "5ae2c0497974aa0be73fbff1ab6fdb8f7ba7b7ef",
+      "files": [
+        "extensions/minimax/provider-catalog.ts",
+        "extensions/minimax/model-definitions.ts"
+      ],
+      "notes": "China endpoint copy of the minimax manual rows (same models; the Agent's minimax-cn block). Values equal the minimax rows; prices are omitted because MiniMax China prices in CNY only. M2.7/M2.7-highspeed disabled: retired 2026-11-18 (https://platform.minimax.cn/docs/faq/models.md). Reviewed 2026-11-22: added MiniMax-M3, MiniMax-M3.1-Flash, MiniMax-M2.7, MiniMax-M2.7-highspeed, MiniMax-M3.1-Flash-Preview (deprecated, replacedBy MiniMax-M3.1-Flash). When the minimax rows change, change these too."
+    },
+    "minimax-portal-cn": {
+      "source": "Wondermove-Inc/clawpod-agent",
+      "revision": "5ae2c0497974aa0be73fbff1ab6fdb8f7ba7b7ef",
+      "files": [
+        "extensions/minimax/provider-catalog.ts",
+        "extensions/minimax/model-definitions.ts"
+      ],
+      "notes": "China endpoint copy of the minimax-portal rows (M Plan/Token Plan, the Agent's minimax-portal-cn block); subscription, no per-token price. China FAQ: M Plan and Token Plan requests to M2.5/M2.7 route to M3.1 Flash from 2026-10-19 and the original names stay as compatibility entry points (https://platform.minimax.cn/docs/faq/models.md). Reviewed 2026-11-22: added MiniMax-M2.7, MiniMax-M2.7-highspeed (deprecated, replacedBy MiniMax-M3.1-Flash), MiniMax-M3, MiniMax-M3.1-Flash-Preview (deprecated, replacedBy MiniMax-M3.1-Flash; the Agent resolves it today), MiniMax-M3.1-Flash. When the minimax-portal rows change, change these too."
+    },
+    "kimi": {
+      "source": "Wondermove-Inc/clawpod-agent",
+      "revision": "5ae2c0497974aa0be73fbff1ab6fdb8f7ba7b7ef",
+      "files": [
+        "extensions/kimi-coding/provider-catalog.ts"
+      ],
+      "notes": "Retired rows only, values from the Agent plugin table (name, input, reasoning, 262144 window, 32768 max output), no price (subscription). Reviewed 2026-11-22: added kimi-code and k2p5 (deprecated, replacedBy kimi-for-coding): not on the Kimi Code model list, and 'A mistyped model ID falls back to K2.8 Preview without thinking' (https://www.kimi.com/code/docs/en/kimi-code/models.html); K2.8 Preview is kimi-for-coding."
+    },
+    "kilocode": {
+      "source": "Wondermove-Inc/clawpod-agent",
+      "revision": "5ae2c0497974aa0be73fbff1ab6fdb8f7ba7b7ef",
+      "files": [
+        "extensions/kilocode/provider-models.ts"
+      ],
+      "notes": "Retired row only, values from the Agent plugin table (Kilo Auto, 1000000 window, 128000 max output), no price. Reviewed 2026-11-22: added kilo/auto (deprecated, no replacedBy): the Agent's former default id; not on the Kilo gateway model list (https://api.kilo.ai/api/gateway/models), which lists kilo-auto/* instead, and no retirement notice found, so it is kept as retired."
+    },
+    "nvidia": {
+      "source": "Wondermove-Inc/clawpod-agent",
+      "revision": "5ae2c0497974aa0be73fbff1ab6fdb8f7ba7b7ef",
+      "files": [
+        "extensions/nvidia/provider-catalog.ts"
+      ],
+      "notes": "Retired rows only, values from the Agent plugin table, no price. Reviewed 2026-11-22: added nvidia/nemotron-3-super-120b-a12b, minimaxai/minimax-m3, moonshotai/kimi-k2.5, minimaxai/minimax-m2.5, z-ai/glm5 (deprecated, no replacedBy): not on the public model list (https://integrate.api.nvidia.com/v1/models, 2026-11-22) and no official retirement notice found. moonshotai/kimi-k3 and z-ai/glm-5.2 get no row: the Agent resolves them as nested ids from the moonshot and zai catalog rows without the plugin table, and a row here would replace those values with the old table values."
     }
   },
   "providers": {
@@ -1035,6 +1077,19 @@
             "output": 0.6,
             "cacheRead": 0.015
           }
+        },
+        {
+          "id": "MiniMax-M3.1-Flash-Preview",
+          "name": "MiniMax M3.1 Flash Preview",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "status": "deprecated",
+          "replacedBy": "MiniMax-M3.1-Flash"
         }
       ]
     },
@@ -7296,6 +7351,240 @@
           }
         }
       ]
+    },
+    "minimax-cn": {
+      "api": "anthropic-messages",
+      "models": [
+        {
+          "id": "MiniMax-M2.7",
+          "name": "MiniMax M2.7",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 204800,
+          "maxTokens": 131072,
+          "status": "disabled"
+        },
+        {
+          "id": "MiniMax-M2.7-highspeed",
+          "name": "MiniMax M2.7 Highspeed",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 204800,
+          "maxTokens": 131072,
+          "status": "disabled"
+        },
+        {
+          "id": "MiniMax-M3",
+          "name": "MiniMax M3",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072
+        },
+        {
+          "id": "MiniMax-M3.1-Flash",
+          "name": "MiniMax M3.1 Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072
+        },
+        {
+          "id": "MiniMax-M3.1-Flash-Preview",
+          "name": "MiniMax M3.1 Flash Preview",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "status": "deprecated",
+          "replacedBy": "MiniMax-M3.1-Flash"
+        }
+      ]
+    },
+    "minimax-portal-cn": {
+      "api": "anthropic-messages",
+      "models": [
+        {
+          "id": "MiniMax-M2.7",
+          "name": "MiniMax M2.7",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 204800,
+          "maxTokens": 131072,
+          "status": "deprecated",
+          "replacedBy": "MiniMax-M3.1-Flash"
+        },
+        {
+          "id": "MiniMax-M2.7-highspeed",
+          "name": "MiniMax M2.7 Highspeed",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 204800,
+          "maxTokens": 131072,
+          "status": "deprecated",
+          "replacedBy": "MiniMax-M3.1-Flash"
+        },
+        {
+          "id": "MiniMax-M3",
+          "name": "MiniMax M3",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072
+        },
+        {
+          "id": "MiniMax-M3.1-Flash-Preview",
+          "name": "MiniMax M3.1 Flash Preview",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "status": "deprecated",
+          "replacedBy": "MiniMax-M3.1-Flash"
+        },
+        {
+          "id": "MiniMax-M3.1-Flash",
+          "name": "MiniMax M3.1 Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072
+        }
+      ]
+    },
+    "kimi": {
+      "api": "anthropic-messages",
+      "models": [
+        {
+          "id": "kimi-code",
+          "name": "Kimi Code",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 32768,
+          "status": "deprecated",
+          "replacedBy": "kimi-for-coding"
+        },
+        {
+          "id": "k2p5",
+          "name": "Kimi Code (legacy model id)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 32768,
+          "status": "deprecated",
+          "replacedBy": "kimi-for-coding"
+        }
+      ]
+    },
+    "kilocode": {
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "kilo/auto",
+          "name": "Kilo Auto",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "status": "deprecated"
+        }
+      ]
+    },
+    "nvidia": {
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "nvidia/nemotron-3-super-120b-a12b",
+          "name": "NVIDIA Nemotron 3 Super 120B",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 262144,
+          "maxTokens": 8192,
+          "status": "deprecated"
+        },
+        {
+          "id": "minimaxai/minimax-m3",
+          "name": "MiniMax M3",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 1048576,
+          "maxTokens": 8192,
+          "status": "deprecated"
+        },
+        {
+          "id": "moonshotai/kimi-k2.5",
+          "name": "Kimi K2.5",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 262144,
+          "maxTokens": 8192,
+          "status": "deprecated"
+        },
+        {
+          "id": "minimaxai/minimax-m2.5",
+          "name": "MiniMax M2.5",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 204800,
+          "maxTokens": 8192,
+          "status": "deprecated"
+        },
+        {
+          "id": "z-ai/glm5",
+          "name": "GLM-5",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 202752,
+          "maxTokens": 8192,
+          "status": "deprecated"
+        }
+      ]
     }
   },
   "corrections": [
@@ -9542,6 +9831,52 @@
       "default": "low",
       "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
       "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this agent-table row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged. Breaks MAINTAINING ch.5 on purpose: lists off/minimal/adaptive without official evidence. Official reasoning control: sources/REVIEW.md 2026-11-21."
+    },
+    {
+      "provider": "baseten",
+      "model": "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B",
+      "levels": [
+        "off",
+        "high"
+      ],
+      "default": "off",
+      "source": "https://docs.baseten.co/inference/model-apis/reasoning.md",
+      "note": "Baseten reasoning table: Nemotron 3 Ultra reasoning 'Off by default', reasoning_effort values 'none, high' ('none turns reasoning off; high turns it on'). medium is not on Baseten's list (the * nemotron-3-ultra rule has it)."
+    },
+    {
+      "provider": "opencode-go",
+      "model": "deepseek-v4-pro",
+      "levels": [
+        "high",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "OpenCode Go model API: capabilities.reasoning effort [high, max], no toggle. Default high as DeepSeek's own default (https://api-docs.deepseek.com/guides/thinking_mode)."
+    },
+    {
+      "provider": "opencode-go",
+      "model": "deepseek-v4.1-flash",
+      "levels": [
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "OpenCode Go model API: capabilities.reasoning effort [low, high, max], no toggle. Default high as DeepSeek's own default."
+    },
+    {
+      "provider": "together",
+      "model": "deepseek-ai/DeepSeek-V4-Pro-0813",
+      "levels": [
+        "off",
+        "high",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://docs.together.ai/docs/inference/chat/reasoning.md",
+      "note": "Together: \"DeepSeek V4 Pro 0813 accepts only \"high\" and \"max\" for reasoning_effort. Other values are mapped automatically: \"low\" and \"medium\" map to \"high\". \"high\" and \"xhigh\" map to \"max\".\" The page contradicts itself on high, so high may run at max. Hybrid model, on by default, turned off with reasoning.enabled=false. Default effort not stated; high as DeepSeek's own default."
     },
     {
       "provider": "*",
@@ -14582,6 +14917,348 @@
       },
       "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
       "note": "Not the official value: keeps the ClawPoD Agent table's reasoning:false for this row so requests stay unchanged (reasoning on would add Anthropic thinking to this route's requests); the official model API lists reasoning efforts none/low/medium/high. Must stay after the * gpt-oss-* rule, which sets reasoning:true. Reviewed 2026-11-21, sources/REVIEW.md."
+    },
+    {
+      "provider": "kimi",
+      "model": "k3*",
+      "set": {
+        "compat": {
+          "adaptiveThinking": null
+        }
+      },
+      "source": "https://www.kimi.com/code/docs/en/kimi-code/models.html",
+      "note": "adaptiveThinking is not a runtime compat key (the runtime name is forceAdaptiveThinking). Kimi Code documents no Anthropic-route thinking field, so it is dropped instead of renamed."
+    },
+    {
+      "provider": "mistral",
+      "model": "*",
+      "set": {
+        "compat": {
+          "adaptiveThinking": null
+        }
+      },
+      "source": "https://docs.mistral.ai/inference/conversations/reasoning",
+      "note": "adaptiveThinking is not a runtime compat key; Mistral reasoning is reasoning_effort only and has no adaptive mode, so it is dropped instead of renamed."
+    },
+    {
+      "provider": "abliteration",
+      "model": "*",
+      "set": {
+        "compat": {
+          "supportsPromptCacheKey": null,
+          "promptCacheKeyMode": "enabled"
+        }
+      },
+      "source": "https://docs.abliteration.ai/compatibility-matrix.md",
+      "note": "Compatibility matrix: 'Cache routing hint (prompt_cache_key) Supported'. supportsPromptCacheKey is not a runtime key; the runtime name is promptCacheKeyMode."
+    },
+    {
+      "provider": "particle",
+      "model": "particle-ai/particle-1",
+      "set": {
+        "compat": {
+          "maxTokensField": null,
+          "reasoningEffortMap": null,
+          "supportsDeveloperRole": null,
+          "supportsLongCacheRetention": null,
+          "supportsPromptCacheKey": null,
+          "supportsReasoningEffort": null,
+          "supportsStrictMode": null,
+          "supportsUsageInStreaming": null,
+          "thinkingFormat": null
+        }
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
+      "note": "No official API document found for these request fields; dropped so the Agent keeps its default request shape. Effort levels stay."
+    },
+    {
+      "provider": "featherless",
+      "model": "Qwen/Qwen3-32B",
+      "set": {
+        "compat": {
+          "maxTokensField": null,
+          "supportsDeveloperRole": null,
+          "supportsReasoningEffort": null,
+          "supportsStore": null,
+          "supportsStrictMode": null,
+          "supportsUsageInStreaming": null,
+          "thinkingFormat": null
+        }
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
+      "note": "Featherless API documentation could not be read; no official source for these request fields, so they are dropped. Effort levels stay."
+    },
+    {
+      "provider": "longcat",
+      "model": "LongCat-2.0",
+      "set": {
+        "compat": {
+          "maxTokensField": null,
+          "requiresReasoningContentOnAssistantMessages": null,
+          "supportsDeveloperRole": null,
+          "supportsReasoningEffort": null,
+          "supportsStore": null,
+          "supportsStrictMode": null,
+          "supportsUsageInStreaming": null,
+          "thinkingFormat": null
+        }
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
+      "note": "The LongCat API documentation covers LongCat-2.5 only; no official source for these request fields on LongCat-2.0, so they are dropped. Effort levels stay."
+    },
+    {
+      "provider": "tencent-tokenhub",
+      "model": "*",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": null,
+          "supportsUsageInStreaming": null
+        }
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
+      "note": "No official Tencent TokenHub/Token Plan API document found for reasoning_effort or stream_options; dropped. Effort levels stay."
+    },
+    {
+      "provider": "tencent-tokenplan",
+      "model": "*",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": null,
+          "supportsUsageInStreaming": null
+        }
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
+      "note": "No official Tencent TokenHub/Token Plan API document found for reasoning_effort or stream_options; dropped. Effort levels stay."
+    },
+    {
+      "provider": "github-copilot",
+      "model": "gemini-*",
+      "set": {
+        "compat": {
+          "maxTokensField": null,
+          "supportsDeveloperRole": null,
+          "supportsStore": null,
+          "supportsUsageInStreaming": null
+        }
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
+      "note": "GitHub Copilot publishes no API reference for these request fields; dropped."
+    },
+    {
+      "provider": "opencode",
+      "model": "*",
+      "set": {
+        "compat": {
+          "maxTokensField": null,
+          "supportsDeveloperRole": null,
+          "supportsUsageInStreaming": null
+        }
+      },
+      "source": "https://opencode.ai/docs/zen/",
+      "note": "OpenCode Zen/Go docs and model APIs document no token-limit field, developer role or stream_options; dropped."
+    },
+    {
+      "provider": "opencode-go",
+      "model": "*",
+      "set": {
+        "compat": {
+          "maxTokensField": null,
+          "supportsDeveloperRole": null,
+          "supportsUsageInStreaming": null
+        }
+      },
+      "source": "https://opencode.ai/docs/zen/",
+      "note": "OpenCode Zen/Go docs and model APIs document no token-limit field, developer role or stream_options; dropped."
+    },
+    {
+      "provider": "opencode",
+      "model": "kimi-k3",
+      "set": {
+        "compat": {
+          "supportsStrictMode": true
+        }
+      },
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "Model API api.chat-completions.capabilities.tools.strict: true."
+    },
+    {
+      "provider": "opencode-go",
+      "model": "kimi-k3",
+      "set": {
+        "compat": {
+          "supportsStrictMode": true
+        }
+      },
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "Model API api.chat-completions.capabilities.tools.strict: true."
+    },
+    {
+      "provider": "opencode-go",
+      "model": "kimi-k2.7-code",
+      "set": {
+        "compat": {
+          "supportsStrictMode": true
+        }
+      },
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "Model API api.chat-completions.capabilities.tools.strict: true."
+    },
+    {
+      "provider": "opencode-go",
+      "model": "kimi-k2.6",
+      "set": {
+        "compat": {
+          "supportsStrictMode": null
+        }
+      },
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "Not in the OpenCode Go model API, so no tools.strict value; dropped."
+    },
+    {
+      "provider": "opencode-go",
+      "model": "deepseek-v4-flash",
+      "set": {
+        "compat": {
+          "supportsStrictMode": null,
+          "supportsReasoningEffort": null
+        }
+      },
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "Not in the OpenCode Go model API, so no tools.strict or reasoning value; dropped. Effort levels stay."
+    },
+    {
+      "provider": "opencode",
+      "model": "claude-opus-5",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": null
+        }
+      },
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "Model API serves this model on the messages API only, not chat-completions, so the chat-completions reasoning_effort key does not apply. Effort levels stay."
+    },
+    {
+      "provider": "opencode",
+      "model": "gemini-3.6-flash",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": null
+        }
+      },
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "Model API serves this model on the generate-content/interactions API only, not chat-completions, so the chat-completions reasoning_effort key does not apply. Effort levels stay."
+    },
+    {
+      "provider": "opencode",
+      "model": "gpt-5.6-sol",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": null
+        }
+      },
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "Model API serves this model on the responses API only, not chat-completions, so the chat-completions reasoning_effort key does not apply. Effort levels stay."
+    },
+    {
+      "provider": "opencode-go",
+      "model": "gpt-5.6-luna",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": null
+        }
+      },
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "Model API serves this model on the responses API only, not chat-completions, so the chat-completions reasoning_effort key does not apply. Effort levels stay."
+    },
+    {
+      "provider": "stepfun",
+      "model": "step-3.7-flash",
+      "set": {
+        "compat": {
+          "supportsDeveloperRole": null,
+          "supportsStore": null,
+          "supportsStrictMode": null,
+          "supportsUsageInStreaming": null
+        }
+      },
+      "source": "https://platform.stepfun.ai/docs/en/api-reference/chat/chat-completion-create.md",
+      "note": "StepFun Chat Completions documents max_tokens and reasoning_effort (kept) but no developer role, store, strict or stream_options; dropped."
+    },
+    {
+      "provider": "stepfun-plan",
+      "model": "step-3.7-flash",
+      "set": {
+        "compat": {
+          "supportsDeveloperRole": null,
+          "supportsStore": null,
+          "supportsStrictMode": null,
+          "supportsUsageInStreaming": null
+        }
+      },
+      "source": "https://platform.stepfun.ai/docs/en/api-reference/chat/chat-completion-create.md",
+      "note": "StepFun Chat Completions documents max_tokens and reasoning_effort (kept) but no developer role, store, strict or stream_options; dropped."
+    },
+    {
+      "provider": "nvidia",
+      "model": "*",
+      "set": {
+        "compat": {
+          "requiresStringContent": null
+        }
+      },
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
+      "note": "No official NVIDIA source that content must be a string; flattening array content would drop images on the VL row. Dropped."
+    },
+    {
+      "provider": "baseten",
+      "model": "deepseek-ai/DeepSeek-V4-Flash-0731",
+      "set": {
+        "maxTokens": 262144
+      },
+      "source": "https://docs.baseten.co/reference/inference-api/chat-completions.md",
+      "note": "Baseten Chat Completions schema: max_tokens maximum 262144 (upstream 384000 exceeds it)."
+    },
+    {
+      "provider": "requesty",
+      "model": "claude-sonnet-5-5",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": null
+        }
+      },
+      "source": "https://docs.requesty.ai/features/reasoning.md",
+      "note": "Requesty converts a reasoning effort into an Anthropic thinking budget; Claude Sonnet 5.5 rejects budget thinking with 400 (https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting). Dropped so effort is not sent."
+    },
+    {
+      "provider": "*",
+      "model": "gpt-6-2*",
+      "set": {
+        "compat": {
+          "cachesInstructions": false
+        }
+      },
+      "source": "https://developers.openai.com/api/docs/guides/prompt-caching",
+      "note": "'Models starting with GPT-6.2, including Astra and Sol, append these instructions after input, beyond eligible cache breakpoints.' Consumers: Agent Responses serializers that send instructions (openai-codex-responses, OpenAI WebSocket); other APIs carry no instructions and are unchanged."
+    },
+    {
+      "provider": "*",
+      "model": "openai-gpt-62*",
+      "set": {
+        "compat": {
+          "cachesInstructions": false
+        }
+      },
+      "source": "https://developers.openai.com/api/docs/guides/prompt-caching",
+      "note": "Same GPT-6.2 family under Venice ids without the dot (openai-gpt-62-*)."
+    },
+    {
+      "provider": "stepfun-plan",
+      "model": "step-3.7-flash",
+      "set": {
+        "maxTokens": 65536
+      },
+      "source": "https://platform.stepfun.com/docs/zh/api-reference/chat/chat-completion-create",
+      "note": "Interpretation, not a stated step-3.7-flash value: the StepFun API (zh) table \"Step Plan 通道：Step Router V1 字段差异\" lists max_tokens \"上限为 64K\" for step-router-v1, which the Step Plan channel routes to step-5-preview and step-3.7-flash; 64K is read as 65536 (the Agent plugin value). The same table says model accepts only step-router-v1; whether that applies to every Step Plan model is left to a later plan-row review."
     }
   ],
   "knownGaps": [
@@ -14893,6 +15570,18 @@
       "model": "doubao-seed-2-1-pro-260915",
       "check": "cost",
       "reason": "Reviewed 2026-11-21: Volcano Engine Ark publishes this model's price in CNY only (https://www.volcengine.com/docs/82379/1544106); no USD price."
+    },
+    {
+      "provider": "minimax-cn",
+      "model": "MiniMax-M3",
+      "check": "cost",
+      "reason": "Reviewed 2026-11-22: MiniMax China publishes prices in CNY only (https://platform.minimaxi.com/docs/pricing/overview.md); no USD price."
+    },
+    {
+      "provider": "minimax-cn",
+      "model": "MiniMax-M3.1-Flash",
+      "check": "cost",
+      "reason": "Reviewed 2026-11-22: MiniMax China publishes prices in CNY only (https://platform.minimaxi.com/docs/pricing/overview.md); no USD price."
     }
   ],
   "nonChatModels": [
