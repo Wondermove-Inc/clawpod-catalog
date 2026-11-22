@@ -100,6 +100,8 @@ const correctionSchema = z.discriminatedUnion("kind", [
     .strict(),
 ]);
 const thinkingLevel = z.enum(THINKING_LEVELS);
+// Keys of the Agent runtime's (Pi) thinkingLevelMap; it has no adaptive or ultra key.
+const mapLevel = z.enum(["off", "minimal", "low", "medium", "high", "xhigh", "max"]);
 // Reviewed thinking profile for one model, or a family when `model` ends in `*`.
 const thinkingRuleSchema = z
   .object({
@@ -108,6 +110,12 @@ const thinkingRuleSchema = z
     levels: z.array(thinkingLevel).min(1),
     default: thinkingLevel,
     labels: z.partialRecord(thinkingLevel, nonempty).optional(),
+    // Request value per level, merged into the row's thinkingLevelMap: a string is sent
+    // instead of the level name, null means the runtime does not pick that level.
+    map: z
+      .partialRecord(mapLevel, nonempty.nullable())
+      .refine((value) => Object.keys(value).length > 0, "empty map")
+      .optional(),
     source: z.url(),
     // How the vendor's native control maps onto the levels; kept for later reviews.
     note: nonempty.optional(),

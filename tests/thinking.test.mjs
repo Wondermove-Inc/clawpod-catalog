@@ -154,6 +154,47 @@ test("upstream null map entries and conflicting defaults are dropped", () => {
   assert.equal(profile(out, "acme", "n").default, undefined);
 });
 
+test("a rule map is written to the row map key by key after the level filter", () => {
+  const rule = (model, extra) => ({
+    provider: "acme",
+    model,
+    levels: ["off", "low", "high"],
+    default: "high",
+    source: "https://example.com/doc",
+    ...extra,
+  });
+  const rules = [
+    rule("keeps-off*", { map: { off: null } }),
+    rule("upstream-off", {}),
+    rule("malformed", { map: { low: null } }),
+    rule("plain", {}),
+  ];
+  const providers = {
+    acme: {
+      models: [
+        row("keeps-off", { thinkingLevelMap: { xhigh: "xhigh", minimal: "low" } }),
+        row("upstream-off", { thinkingLevelMap: { off: null } }),
+        row("malformed", { thinkingLevelMap: "x" }),
+        row("plain"),
+        { id: "keeps-off-no-reasoning", reasoning: false },
+      ],
+    },
+  };
+  const out = applyThinking(providers, { rules });
+  const get = (id) => out.acme.models.find((m) => m.id === id);
+  // The rule's own null stays listed (written after the filter); upstream keys stay.
+  assert.deepEqual(profile(out, "acme", "keeps-off").levels, ["off", "low", "high"]);
+  assert.deepEqual(get("keeps-off").thinkingLevelMap, { xhigh: "xhigh", minimal: "low", off: null });
+  // An upstream null still filters its level.
+  assert.deepEqual(profile(out, "acme", "upstream-off").levels, ["low", "high"]);
+  assert.deepEqual(get("upstream-off").thinkingLevelMap, { off: null });
+  // A malformed upstream map is replaced, not spread.
+  assert.deepEqual(get("malformed").thinkingLevelMap, { low: null });
+  assert.equal(get("plain").thinkingLevelMap, undefined);
+  assert.equal(get("keeps-off-no-reasoning").thinkingLevelMap, undefined);
+  assert.deepEqual(providers.acme.models[0].thinkingLevelMap, { xhigh: "xhigh", minimal: "low" }, "input is not mutated");
+});
+
 test("malformed upstream thinking fields are ignored instead of failing the build", () => {
   const openRouter = [
     { id: "acme/m", reasoning: { mandatory: true, supported_efforts: ["low", "high"], default_effort: "high" } },
@@ -249,6 +290,7 @@ test("supplement thinking rules are validated", () => {
     ...base,
     thinking: [{ ...rule, levels: ["off", "low"], default: "low", labels: { low: "on" }, note: "switch" }],
   });
+  validateSupplement({ ...base, thinking: [{ ...rule, map: { off: null, minimal: "low" } }] });
   for (const bad of [
     { ...rule, default: "max" },
     { ...rule, levels: ["high", "low"] },
@@ -257,6 +299,11 @@ test("supplement thinking rules are validated", () => {
     { ...rule, source: "not a url" },
     { ...rule, extra: true },
     { ...rule, labels: { turbo: "on" } },
+    // Pi's thinkingLevelMap has no adaptive or ultra key.
+    { ...rule, map: { adaptive: null } },
+    { ...rule, map: { ultra: "max" } },
+    { ...rule, map: { low: "" } },
+    { ...rule, map: {} },
   ]) {
     assert.throws(() => validateSupplement({ ...base, thinking: [bad] }), JSON.stringify(bad));
   }
