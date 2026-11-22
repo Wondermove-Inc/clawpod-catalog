@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795350485214,
+  "generatedAt": 1795371964141,
   "minVersion": "2026.4.11",
-  "sourceCommit": "450441b904031b886c5fff3238f25b424907dcfe",
+  "sourceCommit": "5b684035a11ecb3d65c26a483d83ab8b494e61be",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -2111,6 +2111,32 @@
               "xhigh"
             ],
             "defaultThinkingLevel": "xhigh"
+          }
+        },
+        {
+          "id": "Qwen/Qwen4-Max",
+          "name": "Qwen4 Max",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 1.5,
+            "output": 4.5,
+            "cacheRead": 0.075,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low",
+              "high",
+              "xhigh"
+            ],
+            "defaultThinkingLevel": "high"
           }
         },
         {
@@ -13648,7 +13674,7 @@
           ],
           "reasoning": true,
           "contextWindow": 131072,
-          "maxTokens": 117964,
+          "maxTokens": 65536,
           "cost": {
             "input": 0.017,
             "output": 0.085,
@@ -16204,12 +16230,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 202752,
+          "contextWindow": 204800,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.4,
-            "output": 1.75,
-            "cacheRead": 0.08,
+            "input": 0.6,
+            "output": 2.2,
+            "cacheRead": 0.11,
             "cacheWrite": 0
           },
           "compat": {
@@ -16334,12 +16360,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 204800,
+          "contextWindow": 202752,
           "maxTokens": 131072,
           "cost": {
-            "input": 1.19,
-            "output": 3.74,
-            "cacheRead": 0.6,
+            "input": 1.4,
+            "output": 4.4,
+            "cacheRead": 0.26,
             "cacheWrite": 0
           },
           "compat": {
@@ -16457,8 +16483,8 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "contextWindow": 1048575,
+          "maxTokens": 943717,
           "cost": {
             "input": 0.15,
             "output": 0.5,
@@ -20713,6 +20739,24 @@
               "high"
             ],
             "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "hy4",
+          "name": "hy4",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 65536,
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "high"
+            ],
+            "defaultThinkingLevel": "high"
           }
         },
         {
@@ -41613,9 +41657,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.0999,
+            "input": 0.1188,
             "output": 8,
-            "cacheRead": 0.0999
+            "cacheRead": 0.12
           },
           "compat": {
             "thinkingLevels": [
@@ -41916,8 +41960,8 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.0466,
-            "output": 0.0729,
+            "input": 0.0399,
+            "output": 0.0784,
             "cacheRead": 0.03
           },
           "compat": {
@@ -45703,9 +45747,9 @@
           "contextWindow": 1048576,
           "maxTokens": 524288,
           "cost": {
-            "input": 0.15,
-            "output": 0.6,
-            "cacheRead": 0.015
+            "input": 0.075,
+            "output": 0.3,
+            "cacheRead": 0.0075
           },
           "compat": {
             "thinkingLevels": [
@@ -49131,11 +49175,11 @@
           ],
           "reasoning": true,
           "contextWindow": 131072,
-          "maxTokens": 65536,
+          "maxTokens": 117964,
           "cost": {
-            "input": 0.075,
-            "output": 0.3,
-            "cacheRead": 0.0375
+            "input": 0.03,
+            "output": 0.13,
+            "cacheRead": 0.03
           },
           "compat": {
             "thinkingLevels": [
@@ -51070,9 +51114,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378
           },
           "compat": {
             "thinkingLevels": [
@@ -52083,11 +52127,11 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048575,
-          "maxTokens": 943717,
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
           "cost": {
-            "input": 0.15,
-            "output": 0.5,
+            "input": 0.0399,
+            "output": 0.0784,
             "cacheRead": 0.03
           },
           "compat": {
@@ -59474,6 +59518,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1795350466957,
+  "sourceGeneratedAt": 1795371934415,
   "supplementDigest": "de40dba29514a9bd3a87e562e9da429ea4d69f1315b3fdba61c82f481b2642e7"
 }
