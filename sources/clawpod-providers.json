@@ -9901,7 +9901,7 @@
       ],
       "default": "max",
       "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: copies the published moonshot/kimi-k3 row (levels max, default max), the row the Agent borrows for this nested id today, so the configured path's request stays the same. Retired row (I3h). Without this rule the * kimi-k3* rule would list low/high/max."
+      "note": "Not the official ladder: keeps the max-only profile this retired id ran before 2026-11-23 (I3h copy of the then moonshot/kimi-k3 row; that row is low/high/max since I5), so the configured path's request stays the same. Retired row (I3h). Without this rule the * kimi-k3* rule would list low/high/max."
     },
     {
       "provider": "moonshot",
@@ -9931,7 +9931,7 @@
         "high": "on"
       },
       "source": "https://www.alibabacloud.com/help/en/model-studio/glm",
-      "note": "Model Studio: thinking on by default, enable_thinking false turns it off; reasoning_effort high is accepted (max is not). The route sends on as high (the Pi row does not take low), so the on/off switch lists high instead of the usual off/low. Reviewed 2026-11-23 (I5)."
+      "note": "Model Studio: thinking on by default (enable_thinking true), enable_thinking false turns it off. The reasoning_effort table lists glm-5.1 and newer, not glm-5. On is sent as high, today's request (the Agent's Pi row does not take low), so the on/off switch lists high instead of the usual off/low. Reviewed 2026-11-23 (I5)."
     },
     {
       "provider": "qwen-token-plan",
@@ -9945,7 +9945,7 @@
         "high": "on"
       },
       "source": "https://www.alibabacloud.com/help/en/model-studio/glm",
-      "note": "Model Studio: thinking on by default, enable_thinking false turns it off; reasoning_effort high is accepted (max is not). The route sends on as high (the Pi row does not take low), so the on/off switch lists high instead of the usual off/low. Reviewed 2026-11-23 (I5)."
+      "note": "Model Studio: thinking on by default, enable_thinking false turns it off; reasoning_effort for glm-5.1 takes none, minimal, low, medium, high, xhigh (max is not supported). On is sent as high, today's request (the Agent's Pi row does not take low), so the on/off switch lists high instead of the usual off/low. Reviewed 2026-11-23 (I5)."
     },
     {
       "provider": "openai",
@@ -9990,7 +9990,7 @@
       ],
       "default": "medium",
       "source": "https://docs.baseten.co/inference/model-apis/reasoning",
-      "note": "Baseten accepts none and minimal (none can still reason). xhigh/max are not listed: gpt-oss reasons at low/medium/high (OpenAI model page), and today those stored values run as high. Reviewed 2026-11-23 (I5)."
+      "note": "Baseten accepts none and minimal. Exception: Baseten says none can still reason on this model (it is not a full off); off is kept so today's none request stays the same. xhigh/max are not listed: gpt-oss reasons at low/medium/high (OpenAI model page), and today those stored values run as high. Reviewed 2026-11-23 (I5)."
     },
     {
       "provider": "*",

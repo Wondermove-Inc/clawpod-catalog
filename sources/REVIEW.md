@@ -989,7 +989,7 @@ Agent가 카탈로그 목록에 없는 단계를 실행 지도에서 `null`로 �
 | --- | --- | --- | --- | --- |
 | C1 | `moonshot/kimi-k3`, `kimi-k3.1-pro`, `kimi-k3.1-pro-highspeed` | `thinking` `moonshot` `kimi-k3*`: low/high/max, 기본 max, `map {low:"low", high:"high"}` | 목록 `["max"]` → `["low","high","max"]`, 지도 `low`·`high`가 `null`에서 제 값으로 | K3 열 "applies to `kimi-k3`, `kimi-k3.1-pro`, and `kimi-k3.1-pro-highspeed`", "supports `\"low\"`, `\"high\"`, and `\"max\"` (default `\"max\"`)", `thinking` "Not supported", "K3 always reasons" (https://platform.kimi.ai/docs/api/models-overview) |
 | O1 | 같은 3행 | `overrides` `set.compat.supportedReasoningEfforts: null` | `["max"]` 지움. `thinkingRequired: true`는 공식("always reasons")과 맞아 둠 | 같음. 런타임 사용처 0, `set.compat`은 배열을 받지 않아 지운다 |
-| C2 | `qwen-token-plan/glm-5`, `glm-5.1` | `thinking` 정확한 ID 2개: off/high, 기본 high, `labels {high:"on"}` | `["off","low"]`·기본 low·`{low:"on"}` → `["off","high"]`·기본 high·`{high:"on"}` | glm-5.1 `reasoning_effort` none~xhigh "(highest, max is not supported)", `enable_thinking` 기본 true (https://www.alibabacloud.com/help/en/model-studio/glm), "thinking mode enabled by default: … glm-5.1, glm-5" (https://www.alibabacloud.com/help/en/model-studio/deep-thinking), Token Plan 모델 목록 (https://www.alibabacloud.com/help/en/model-studio/token-plan-team-overview) |
+| C2 | `qwen-token-plan/glm-5`, `glm-5.1` | `thinking` 정확한 ID 2개: off/high, 기본 high, `labels {high:"on"}` | `["off","low"]`·기본 low·`{low:"on"}` → `["off","high"]`·기본 high·`{high:"on"}` | 두 모델: `enable_thinking` 기본 true, `false`로 끔. glm-5.1만: `reasoning_effort` none~xhigh "(highest, max is not supported)"(effort 표에 glm-5는 없음) (https://www.alibabacloud.com/help/en/model-studio/glm), "thinking mode enabled by default: … glm-5.1, glm-5" (https://www.alibabacloud.com/help/en/model-studio/deep-thinking), Token Plan 모델 목록 (https://www.alibabacloud.com/help/en/model-studio/token-plan-team-overview) |
 | C3 | `openai/gpt-daybreak-blue-latest` | `thinking` 정확한 ID: off/low/medium/high/xhigh/max, 기본 low, `map {off:"none"}` | `off` 추가, 지도 `off: null` → `"none"`, 기본 없음 → `low` | "Default snapshot: `gpt-5.6-sol`", Deprecated (https://developers.openai.com/api/docs/models/gpt-daybreak-blue-latest), "Reasoning.effort supports: none, low, medium (default), high, xhigh, and max" (https://developers.openai.com/api/docs/models/gpt-5.6-sol). 같은 모양의 `gpt-daybreak-red-latest` 행과 맞음 |
 | O2 | 같은 행 | `overrides` `set.compat.supportedReasoningEfforts: null` | `none` 없는 낡은 목록 지움 | O1과 같은 이유 |
 | C4 | `baseten/moonshotai/Kimi-K3` | `thinking` 정확한 ID: off/low/high/max, 기본 max | `off` 추가 | Kimi K3 "`none`, `low`, `high`, `max` (default)", "`none` turns reasoning off on every model whose row lists it" (https://docs.baseten.co/inference/model-apis/reasoning) |
@@ -997,7 +997,7 @@ Agent가 카탈로그 목록에 없는 단계를 실행 지도에서 `null`로 �
 | — | `openai/gpt-5.3-codex` | 바꾸지 않음 | `["low","medium","high","xhigh"]` 그대로 | "supports `low`, `medium`, `high`, and `xhigh`" (https://developers.openai.com/api/docs/models/gpt-5.3-codex), `none` 없음 |
 
 - 새 provider 규칙 6개는 첫 `*` 규칙(`claude-opus-5-5*`) 앞에 넣었다. 각 행의 첫 일치 규칙이다(테스트가 확인).
-- 손대지 않은 것: `nvidia/moonshotai/kimi-k3` 규칙(퇴역 행, `max` 하나). note의 "copies the published moonshot/kimi-k3 row"는 C1 뒤 낡았지만, 바꾸면 그 경로의 요청이 바뀐다(MAINTAINING 9장 F3). `opencode-go/kimi-k3` `["max"]`는 그 호스트의 공식 목록이라 그대로.
+- 손대지 않은 것: `nvidia/moonshotai/kimi-k3` 규칙의 단계(퇴역 행, `max` 하나). 바꾸면 그 경로의 요청이 바뀐다(MAINTAINING 9장 F3). C1 뒤 거짓이 된 note("copies the published moonshot/kimi-k3 row")만 "I3h 때 안쪽 행 사본인 `max` 하나를 지킨다"로 고쳤다(데이터 변화 0). `opencode-go/kimi-k3` `["max"]`는 그 호스트의 공식 목록이라 그대로.
 - 테스트 "NVIDIA kimi-k3 and glm-5.2 retired rows copy the inner rows' facts"는 kimi-k3의 단계 칸만 안쪽 행 대신 그 규칙이 고정한 `max`/`max`와 비교하도록 고쳤다(나머지 사실 칸 비교는 그대로).
 
 ## 생성 결과 (main `b188305` 게시본 대비)
@@ -1015,7 +1015,8 @@ Agent가 카탈로그 목록에 없는 단계를 실행 지도에서 `null`로 �
 ## 판단과 한계
 
 - 공식 값이 아닌 것: daybreak-blue 기본 `low`(스냅샷 공식 기본은 `medium`). 행에 기본이 없어 Agent가 일반 대체값 `low`로 돌던 퇴역 별칭이라 오늘 값을 지켰다(MAINTAINING 9장 "Not the official default").
-- 관례와 다른 것: glm-5·5.1 켜짐 단계가 `low`가 아니라 `high`다. 공식은 `low`도 받지만 Pi 행이 `low:null`이라 목록의 `low`가 그 경로에서 돌지 못한다. `high`는 오늘 보내는 값이다(MAINTAINING 5장). glm-5는 공식 effort 목록이 없다(glm-5.1 문서뿐). 공식이 glm-5 effort를 다르게 적으면 그 규칙만 고친다.
+- 관례와 다른 것: glm-5·5.1 켜짐 단계가 `low`가 아니라 `high`다. Agent Pi 행이 `low:null`이라 목록의 `low`가 그 경로에서 돌지 못하고, `high`는 오늘 보내는 값이다(MAINTAINING 5장). 공식 근거는 모델마다 다르다: glm-5.1은 effort 표가 `low`·`high`를 받고 `max`를 받지 않는다. glm-5는 effort 표에 없어 공식 effort 목록이 없다(thinking 기본 켜짐만 확인). 공식이 glm-5 effort를 적으면 그 규칙만 고친다.
+- 관례와 다른 것: `baseten/openai/gpt-oss-120b`의 `off`는 완전한 끄기가 아니다. Baseten은 "`none` can still reason", "OpenAI GPT 120B can return `reasoning_content` with `none`"이라고 적는다. MAINTAINING 5장 "`off`는 실제로 끌 수 있을 때만"의 예외로, 오늘 요청 `none`을 지키려고 남겼다(MAINTAINING 9장).
 - 캐시(Agent 쪽): glm-5·5.1 기본값 변경으로 저장 단계 없는 세션의 Runtime 줄 `thinking=`이 한 번 바뀐다. 직접 Moonshot K3에 `max` 밖 단계를 저장한 세션은 요청 단계가 공식대로 바뀌어 Moonshot 접두 캐시를 한 번 놓친다("Switching levels invalidates prefix-cache hits"). 턴마다 바뀌는 값은 없다.
 - `qwen-token-plan` GLM의 `off`는 Agent 전송이 `enable_thinking: false`를 보내지 않아 실제로 끄지 못한다(Agent 후속 F2, 이 저장소 범위 밖).
 - 검증: `npm test` 통과, `npm run audit` open 1 → 1(main에도 있는 `openrouter/~deepseek/deepseek-pro-latest` cacheRead > input), "matches nothing" 3개는 main과 같음, thinking profiles 1721/1787(main과 같음), Pi 스키마(`ProviderCompatSchema`·`ThinkingLevelMapSchema`) 2275행 실패 0.
