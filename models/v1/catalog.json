@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795334801563,
+  "generatedAt": 1795335042773,
   "minVersion": "2026.4.11",
-  "sourceCommit": "3a4f6b75a01d5b3294040d3bf1b0b6afdd0c3817",
+  "sourceCommit": "44f7c5276ead33405848256eb7ef87ec015f9f20",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -13881,7 +13881,7 @@
           "cost": {
             "input": 0.035,
             "output": 0.25,
-            "cacheRead": 0.003,
+            "cacheRead": 0.015,
             "cacheWrite": 0
           },
           "compat": {
@@ -14871,7 +14871,7 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 235929,
+          "maxTokens": 131072,
           "cost": {
             "input": 0.5,
             "output": 3,
@@ -41903,8 +41903,8 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.0399,
-            "output": 0.0784,
+            "input": 0.0475,
+            "output": 0.0729,
             "cacheRead": 0.03
           },
           "compat": {
@@ -49094,11 +49094,11 @@
           ],
           "reasoning": true,
           "contextWindow": 131072,
-          "maxTokens": 117964,
+          "maxTokens": 65536,
           "cost": {
-            "input": 0.017,
-            "output": 0.085,
-            "cacheRead": 0.0085
+            "input": 0.075,
+            "output": 0.3,
+            "cacheRead": 0.0375
           },
           "compat": {
             "thinkingLevels": [
@@ -51951,12 +51951,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 204800,
+          "contextWindow": 202752,
           "maxTokens": 131072,
           "cost": {
-            "input": 1.19,
-            "output": 3.74,
-            "cacheRead": 0.6
+            "input": 1.4,
+            "output": 4.4,
+            "cacheRead": 0.26
           },
           "compat": {
             "thinkingLevels": [
@@ -52046,11 +52046,11 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "contextWindow": 1048575,
+          "maxTokens": 943717,
           "cost": {
-            "input": 0.0399,
-            "output": 0.0784,
+            "input": 0.15,
+            "output": 0.5,
             "cacheRead": 0.03
           },
           "compat": {
@@ -59344,6 +59344,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1795329111410,
+  "sourceGeneratedAt": 1795335017306,
   "supplementDigest": "06ce29ecd7410355b2dc2ef5fbbb35f9c1ac5b0ebdaa04d5a9ece244f77abdd3"
 }
