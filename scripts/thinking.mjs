@@ -153,6 +153,14 @@ export function applyThinking(providers, { rules = [], openRouter = [], modelsDe
       };
       // A stated default outside the chosen ladder is a source conflict, not a value.
       if (!withDefault) delete model.compat.defaultThinkingLevel;
+      // Written after the filter above, so a level the rule maps to null stays listed.
+      if (rule?.map) {
+        const upstream = model.thinkingLevelMap;
+        model.thinkingLevelMap = {
+          ...(upstream && typeof upstream === "object" && !Array.isArray(upstream) ? upstream : {}),
+          ...rule.map,
+        };
+      }
     }
   }
   return result;

@@ -32,15 +32,15 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 | `minimax-portal-cn`         |            5 | `minimax-portal` 행의 중국 엔드포인트 사본(구독, 2026-11-22) |
 | `kimi`                      |            2 | Agent가 아직 해석하는 퇴역 ID `kimi-code`·`k2p5`(2026-11-22) |
 | `kilocode`                  |            1 | Agent 옛 기본 ID `kilo/auto` 퇴역 행(2026-11-22) |
-| `nvidia`                    |            5 | 공개 목록에 없고 플러그인 표로만 해석되던 Agent 표 ID 퇴역 행(2026-11-22) |
+| `nvidia`                    |            7 | 공개 목록에 없고 플러그인 표로만 해석되던 Agent 표 ID 퇴역 행 5(2026-11-22) + 안쪽 catalog 행 사실 칸을 복사한 `moonshotai/kimi-k3`·`z-ai/glm-5.2` 퇴역 행(2026-11-22 I3h) |
 | `minimax-portal`            |            5 | M Plan 모델. 2026-11-18 M3.1 Flash 추가, Preview·M2.7은 대체됨                |
 | `amazon-bedrock`            |          164 | SDK 87개 + AWS 문서 추가 77개(2026-10-02 57, 11-18 16, 11-19 GPT-6.2 4)     |
 | `amazon-bedrock-mantle`     |           18 | Claude 10개 + Mantle 전용 8개 (2026-11-19 GPT-6.2 Astra/Sol)              |
 | `anthropic-vertex`          |           15 | `global` 표준 가격 (2026-11-18 Haiku 5.5·Fable 5.2 추가)                    |
 | `openrouter`                |            1 | Agent `auto` 별칭만. 나머지는 게시 때 공개 API에서 자동 갱신          |
 | `zai`                       |            6 | 에이전트 내장 JSON의 기준 목록; upstream에는 이미 더 많은 모델이 있음 |
-| `opencode`                  |           69 | 상류 `opencode`에 없는 Pi 1.5.2 행 중 Zen 모델 API에 있는 것(값은 Pi 판·파일 해시 예외, Effort는 Agent 현재 동작 보존 규칙, 2026-11-21) |
-| `opencode-go`               |           22 | 상류 `opencode-go`에 없는 Pi 1.5.2 행 중 Go 모델 API에 있는 것(같은 방식, 2026-11-21) |
+| `opencode`                  |           69 | 상류 `opencode`에 없는 Pi 1.5.2 행 중 Zen 모델 API에 있는 것(값은 Pi 판·파일 해시 예외, 2026-11-21). Effort는 모델 API `capabilities.reasoning`(2026-11-22 I3h), 단계가 안 나오는 9행만 Agent 현재 동작 보존 규칙 |
+| `opencode-go`               |           22 | 상류 `opencode-go`에 없는 Pi 1.5.2 행 중 Go 모델 API에 있는 것(같은 방식, 2026-11-21). Effort도 같은 방식(보존 규칙 3행) |
 | `byteplus`                  |            3 | 상류 `byteplus`에 없는 Agent 플러그인 표 행 중 공식 모델 목록에 있는 Seed 2.0 Pro/Lite/Mini(값은 Agent 표, 가격은 공식 USD, Effort는 Agent 현재 동작 보존 규칙, 2026-11-21) |
 | `volcengine`                |            3 | 상류 `volcengine`에 없는 Agent 플러그인 표 행 중 공식 모델 목록에 있는 것(같은 방식, 가격은 CNY뿐이라 비움·`knownGaps`, 2026-11-21) |
 | `together`                  |            1 | 상류 `together`에 없는 Agent 플러그인 표 행 중 공식 서버리스 목록에 있는 Qwen3.8 Flash(값은 Agent 표, 가격은 공식 USD, Effort는 Agent 현재 동작 보존 규칙, 2026-11-21) |
@@ -126,6 +126,12 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
   끌 수 있는 모델만 `off`를 넣습니다. `default`는 `levels` 중 하나여야 합니다.
 - 켜고 끄기만 되는 모델은 `["off", "low"]`와 `"labels": {"low": "on"}`으로 적습니다.
 - `reasoning: true`인 행에만 적용합니다. 근거와 판단은 REVIEW.md에 기록합니다.
+- `map`(선택)은 그 단계를 요청에 **무엇으로 보내는지**입니다. 행의 `thinkingLevelMap`에 키 단위로 덮어씁니다. 키는 Agent 런타임(Pi)의
+  `thinkingLevelMap` 키 `off`, `minimal`, `low`, `medium`, `high`, `xhigh`, `max`만 됩니다(`adaptive`·`ultra` 없음). 값은 보낼 문자열이거나 `null`입니다.
+  `levels`를 상류 `thinkingLevelMap`의 `null`로 거른 **뒤에** 쓰므로, 규칙이 `null`로 둔 단계도 목록에 남습니다.
+  예: `{"provider": "anthropic", "model": "claude-sonnet-5-5*", "levels": [...], "default": "high", "map": {"off": null}, "source": "https://..."}`는 화면에 `off`를 남기고 요청에는 thinking 칸을 싣지 않습니다.
+- `null`은 Pi에서 "그 단계를 고르지 않음"입니다. Pi `clampThinkingLevel`이 다른 단계로 옮깁니다. 아무것도 보내지 않으려면 그 행에 옮겨 갈 단계가 남지 않아야 합니다
+  (예: xAI 항상 켜짐 행은 목록이 `low` 하나라 Agent가 나머지 단계를 `null`로 채우고, `low`도 `null`이라 effort가 실리지 않습니다).
 
 ## 자동 값 덮어쓰기 (`overrides`)
 

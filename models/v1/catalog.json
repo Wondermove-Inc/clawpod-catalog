@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795335042773,
+  "generatedAt": 1795347789560,
   "minVersion": "2026.4.11",
   "sourceCommit": "44f7c5276ead33405848256eb7ef87ec015f9f20",
   "providers": {
@@ -185,6 +185,7 @@
           },
           "compat": {
             "codeMode": "preferred",
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -238,6 +239,7 @@
           },
           "compat": {
             "codeMode": "preferred",
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -291,6 +293,7 @@
             "cacheWrite": 10
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -403,6 +406,7 @@
           },
           "compat": {
             "codeMode": "capable",
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -457,6 +461,7 @@
           },
           "compat": {
             "codeMode": "preferred",
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -553,6 +558,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -581,6 +587,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -610,6 +617,7 @@
           },
           "compat": {
             "codeMode": "preferred",
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -648,6 +656,7 @@
           },
           "compat": {
             "codeMode": "preferred",
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -701,6 +710,7 @@
           },
           "compat": {
             "codeMode": "preferred",
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -754,6 +764,7 @@
             "cacheWrite": 3.75
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -782,6 +793,7 @@
           },
           "compat": {
             "codeMode": "preferred",
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -835,6 +847,7 @@
           },
           "compat": {
             "codeMode": "preferred",
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -868,7 +881,8 @@
           "thinkingLevelMap": {
             "max": "max",
             "minimal": "low",
-            "xhigh": "xhigh"
+            "xhigh": "xhigh",
+            "off": null
           }
         },
         {
@@ -2556,6 +2570,7 @@
             "cacheWrite": 0
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -4840,6 +4855,7 @@
           },
           "compat": {
             "codeMode": "capable",
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -4898,6 +4914,7 @@
           "replacedBy": "claude-opus-5",
           "status": "deprecated",
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -4936,6 +4953,7 @@
               "max"
             ],
             "supportsReasoningEffort": true,
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -4974,6 +4992,7 @@
               "max"
             ],
             "supportsReasoningEffort": true,
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -5004,6 +5023,7 @@
           "replacedBy": "claude-sonnet-5",
           "status": "deprecated",
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -5033,6 +5053,7 @@
           },
           "compat": {
             "codeMode": "capable",
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -5063,6 +5084,7 @@
           },
           "compat": {
             "codeMode": "capable",
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -5612,6 +5634,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -5639,6 +5662,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -5668,6 +5692,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -5698,6 +5723,7 @@
           "replacedBy": "anthropic/claude-sonnet-5",
           "status": "deprecated",
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -5726,6 +5752,7 @@
           },
           "compat": {
             "codeMode": "capable",
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -7845,6 +7872,7 @@
             "cacheWrite": 12.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -7873,6 +7901,7 @@
             "cacheWrite": 12.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -7901,6 +7930,7 @@
             "cacheWrite": 10
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -7957,6 +7987,7 @@
             "cacheWrite": 0.125
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -8042,6 +8073,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -8070,6 +8102,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -8099,6 +8132,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -8128,6 +8162,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -8157,6 +8192,7 @@
             "cacheWrite": 5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -8213,6 +8249,7 @@
             "cacheWrite": 3.75
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -8241,6 +8278,7 @@
             "cacheWrite": 2.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -8270,6 +8308,7 @@
             "cacheWrite": 2.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -15708,6 +15747,7 @@
             "cacheWrite": 0
           },
           "compat": {
+            "supportsReasoningEffort": false,
             "thinkingLevels": [
               "low"
             ],
@@ -15798,6 +15838,7 @@
             "cacheWrite": 0
           },
           "compat": {
+            "supportsReasoningEffort": false,
             "thinkingLevels": [
               "low"
             ],
@@ -15825,6 +15866,7 @@
             "cacheWrite": 0
           },
           "compat": {
+            "supportsReasoningEffort": false,
             "thinkingLevels": [
               "low"
             ],
@@ -16543,7 +16585,10 @@
           "reasoning": true,
           "contextWindow": 1000000,
           "maxTokens": 128000,
-          "status": "deprecated"
+          "status": "deprecated",
+          "compat": {
+            "supportsReasoningEffort": false
+          }
         }
       ]
     },
@@ -17243,7 +17288,7 @@
           ],
           "reasoning": false,
           "contextWindow": 262144,
-          "maxTokens": 262144,
+          "maxTokens": 8192,
           "cost": {
             "input": 0.2,
             "output": 0.2,
@@ -17261,7 +17306,7 @@
           ],
           "reasoning": false,
           "contextWindow": 131072,
-          "maxTokens": 131072,
+          "maxTokens": 8192,
           "cost": {
             "input": 0.1,
             "output": 0.1,
@@ -17297,7 +17342,7 @@
           ],
           "reasoning": false,
           "contextWindow": 262144,
-          "maxTokens": 262144,
+          "maxTokens": 8192,
           "cost": {
             "input": 0.15,
             "output": 0.15,
@@ -17333,7 +17378,7 @@
           ],
           "reasoning": false,
           "contextWindow": 262144,
-          "maxTokens": 262144,
+          "maxTokens": 8192,
           "cost": {
             "input": 0.5,
             "output": 1.5,
@@ -17359,6 +17404,7 @@
             "cacheWrite": 0
           },
           "compat": {
+            "supportsReasoningEffort": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -17447,7 +17493,7 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 262144,
+          "maxTokens": 8192,
           "cost": {
             "input": 1.5,
             "output": 7.5,
@@ -17480,6 +17526,7 @@
           },
           "compat": {
             "defaultThinkingLevel": "off",
+            "supportsReasoningEffort": true,
             "thinkingLevels": [
               "off",
               "high"
@@ -17505,7 +17552,7 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 262144,
+          "maxTokens": 16384,
           "cost": {
             "input": 1.5,
             "output": 7.5,
@@ -17538,6 +17585,7 @@
           },
           "compat": {
             "defaultThinkingLevel": "off",
+            "supportsReasoningEffort": true,
             "thinkingLevels": [
               "off",
               "high"
@@ -17571,6 +17619,7 @@
           },
           "compat": {
             "defaultThinkingLevel": "off",
+            "supportsReasoningEffort": true,
             "thinkingLevels": [
               "off",
               "high"
@@ -17636,6 +17685,7 @@
             "cacheWrite": 0
           },
           "compat": {
+            "supportsReasoningEffort": true,
             "thinkingLevels": [
               "low",
               "high",
@@ -17662,6 +17712,7 @@
             "cacheWrite": 0
           },
           "compat": {
+            "supportsReasoningEffort": true,
             "thinkingLevels": [
               "low",
               "high",
@@ -20374,6 +20425,43 @@
           "contextWindow": 202752,
           "maxTokens": 8192,
           "status": "deprecated"
+        },
+        {
+          "id": "moonshotai/kimi-k3",
+          "name": "Kimi K3",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 1048576,
+          "status": "deprecated",
+          "compat": {
+            "thinkingLevels": [
+              "max"
+            ],
+            "defaultThinkingLevel": "max"
+          }
+        },
+        {
+          "id": "z-ai/glm-5.2",
+          "name": "GLM-5.2",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "status": "deprecated",
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "high",
+              "max"
+            ],
+            "defaultThinkingLevel": "max"
+          }
         }
       ]
     },
@@ -22694,8 +22782,8 @@
               "xhigh",
               "max"
             ],
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
-              "off",
               "low",
               "medium",
               "high",
@@ -22827,6 +22915,7 @@
             "supportsReasoningEffort": true,
             "supportsStrictMode": true,
             "thinkingLevels": [
+              "off",
               "low",
               "high",
               "max"
@@ -22878,13 +22967,13 @@
             "cacheWrite": 12.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -22907,13 +22996,13 @@
             "cacheWrite": 12.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -22936,13 +23025,13 @@
             "cacheWrite": 10
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -22994,13 +23083,14 @@
             "cacheWrite": 0.125
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -23024,12 +23114,9 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
-              "high",
-              "adaptive"
+              "high"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -23052,13 +23139,12 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -23081,13 +23167,13 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -23110,13 +23196,13 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -23139,13 +23225,13 @@
             "cacheWrite": 5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -23197,13 +23283,12 @@
             "cacheWrite": 3.75
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -23226,13 +23311,13 @@
             "cacheWrite": 2.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -23255,13 +23340,13 @@
             "cacheWrite": 2.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -23286,13 +23371,9 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
-              "low",
-              "medium",
-              "high",
               "adaptive"
             ],
-            "defaultThinkingLevel": "low"
+            "defaultThinkingLevel": "adaptive"
           }
         },
         {
@@ -23315,13 +23396,9 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
-              "low",
-              "medium",
-              "high",
               "adaptive"
             ],
-            "defaultThinkingLevel": "low"
+            "defaultThinkingLevel": "adaptive"
           }
         },
         {
@@ -23344,11 +23421,9 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
               "low",
               "medium",
-              "high",
-              "adaptive"
+              "xhigh"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -23372,12 +23447,10 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
               "minimal",
               "low",
               "medium",
-              "high",
-              "adaptive"
+              "high"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -23401,12 +23474,10 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
               "minimal",
               "low",
               "medium",
-              "high",
-              "adaptive"
+              "high"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -23430,14 +23501,14 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
-              "high",
-              "adaptive"
+              "high"
             ],
             "defaultThinkingLevel": "low"
+          },
+          "thinkingLevelMap": {
+            "minimal": "low"
           }
         },
         {
@@ -23459,14 +23530,14 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
-              "high",
-              "adaptive"
+              "high"
             ],
             "defaultThinkingLevel": "low"
+          },
+          "thinkingLevelMap": {
+            "minimal": "low"
           }
         },
         {
@@ -23488,14 +23559,14 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
-              "high",
-              "adaptive"
+              "high"
             ],
             "defaultThinkingLevel": "low"
+          },
+          "thinkingLevelMap": {
+            "minimal": "low"
           }
         },
         {
@@ -23514,13 +23585,13 @@
             "cacheWrite": 0
           },
           "compat": {
+            "supportsStrictMode": true,
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -23543,13 +23614,10 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
-              "low",
-              "medium",
               "high",
-              "adaptive"
+              "max"
             ],
-            "defaultThinkingLevel": "low"
+            "defaultThinkingLevel": "high"
           }
         },
         {
@@ -23571,11 +23639,9 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
               "low",
-              "medium",
               "high",
-              "adaptive"
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -23599,11 +23665,9 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
               "low",
-              "medium",
               "high",
-              "adaptive"
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -23625,12 +23689,11 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -23652,12 +23715,9 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
-              "medium",
               "high",
-              "adaptive"
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -23680,12 +23740,9 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
-              "medium",
               "high",
-              "adaptive"
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -23734,6 +23791,7 @@
             "cacheWrite": 0
           },
           "compat": {
+            "supportsStrictMode": true,
             "thinkingLevels": [
               "off",
               "minimal",
@@ -23764,13 +23822,9 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
-              "low",
-              "medium",
-              "high",
               "adaptive"
             ],
-            "defaultThinkingLevel": "low"
+            "defaultThinkingLevel": "off"
           }
         },
         {
@@ -23790,6 +23844,7 @@
             "cacheWrite": 0
           },
           "compat": {
+            "supportsStrictMode": true,
             "thinkingLevels": [
               "off",
               "minimal",
@@ -23872,15 +23927,12 @@
             "cacheWrite": 0
           },
           "compat": {
+            "supportsStrictMode": true,
             "thinkingLevels": [
               "off",
-              "minimal",
-              "low",
-              "medium",
-              "high",
-              "adaptive"
+              "high"
             ],
-            "defaultThinkingLevel": "low"
+            "defaultThinkingLevel": "high"
           }
         },
         {
@@ -23933,7 +23985,7 @@
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -23957,11 +24009,9 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
               "low",
               "medium",
-              "high",
-              "adaptive"
+              "xhigh"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -23985,12 +24035,10 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
               "minimal",
               "low",
               "medium",
-              "high",
-              "adaptive"
+              "high"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24014,12 +24062,9 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
-              "high",
-              "adaptive"
+              "high"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24043,12 +24088,10 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
               "minimal",
               "low",
               "medium",
-              "high",
-              "adaptive"
+              "high"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24073,11 +24116,9 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
               "low",
               "medium",
-              "high",
-              "adaptive"
+              "high"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24101,12 +24142,9 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
-              "high",
-              "adaptive"
+              "high"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24130,12 +24168,10 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24159,12 +24195,9 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
-              "high",
-              "adaptive"
+              "high"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24189,11 +24222,10 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24217,12 +24249,10 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24247,11 +24277,10 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24276,11 +24305,10 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24305,11 +24333,10 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24334,11 +24361,10 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24362,14 +24388,11 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
-              "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh"
             ],
-            "defaultThinkingLevel": "low"
+            "defaultThinkingLevel": "medium"
           }
         },
         {
@@ -24392,11 +24415,10 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24420,14 +24442,11 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
-              "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh"
             ],
-            "defaultThinkingLevel": "low"
+            "defaultThinkingLevel": "high"
           }
         },
         {
@@ -24450,11 +24469,11 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24479,11 +24498,11 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24507,12 +24526,11 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24537,11 +24555,11 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24566,11 +24584,11 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24594,12 +24612,11 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24623,12 +24640,9 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
-              "high",
-              "adaptive"
+              "high"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24652,12 +24666,10 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24681,12 +24693,10 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24739,12 +24749,12 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
               "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24768,12 +24778,11 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
               "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24797,12 +24806,11 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
               "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -24826,12 +24834,12 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
               "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -25159,13 +25167,14 @@
             "cacheWrite": 0.125
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -25188,15 +25197,12 @@
             "cacheWrite": 0
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
-              "minimal",
-              "low",
-              "medium",
-              "high",
               "adaptive"
             ],
-            "defaultThinkingLevel": "low"
+            "defaultThinkingLevel": "adaptive"
           }
         },
         {
@@ -25219,13 +25225,9 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
-              "low",
-              "medium",
-              "high",
               "adaptive"
             ],
-            "defaultThinkingLevel": "low"
+            "defaultThinkingLevel": "adaptive"
           }
         },
         {
@@ -25248,11 +25250,9 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
               "low",
               "medium",
-              "high",
-              "adaptive"
+              "xhigh"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -25276,14 +25276,14 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
-              "high",
-              "adaptive"
+              "high"
             ],
             "defaultThinkingLevel": "low"
+          },
+          "thinkingLevelMap": {
+            "minimal": "low"
           }
         },
         {
@@ -25302,13 +25302,13 @@
             "cacheWrite": 0
           },
           "compat": {
+            "supportsStrictMode": true,
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -25330,12 +25330,9 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
-              "medium",
               "high",
-              "adaptive"
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -25358,12 +25355,9 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
-              "medium",
               "high",
-              "adaptive"
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -25387,13 +25381,9 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
-              "low",
-              "medium",
-              "high",
-              "adaptive"
+              "high"
             ],
-            "defaultThinkingLevel": "low"
+            "defaultThinkingLevel": "high"
           }
         },
         {
@@ -25414,13 +25404,9 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
-              "low",
-              "medium",
-              "high",
-              "adaptive"
+              "high"
             ],
-            "defaultThinkingLevel": "low"
+            "defaultThinkingLevel": "high"
           }
         },
         {
@@ -25467,15 +25453,13 @@
             "cacheWrite": 2
           },
           "compat": {
+            "supportsStrictMode": true,
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
-              "medium",
               "high",
-              "adaptive"
+              "max"
             ],
-            "defaultThinkingLevel": "low"
+            "defaultThinkingLevel": "max"
           }
         },
         {
@@ -25496,13 +25480,9 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
-              "low",
-              "medium",
-              "high",
               "adaptive"
             ],
-            "defaultThinkingLevel": "low"
+            "defaultThinkingLevel": "adaptive"
           }
         },
         {
@@ -25524,13 +25504,9 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
-              "low",
-              "medium",
-              "high",
               "adaptive"
             ],
-            "defaultThinkingLevel": "low"
+            "defaultThinkingLevel": "off"
           }
         },
         {
@@ -25550,6 +25526,7 @@
             "cacheWrite": 0
           },
           "compat": {
+            "supportsStrictMode": true,
             "thinkingLevels": [
               "off",
               "minimal",
@@ -25578,6 +25555,7 @@
             "cacheWrite": 0
           },
           "compat": {
+            "supportsStrictMode": true,
             "thinkingLevels": [
               "off",
               "minimal",
@@ -25607,12 +25585,11 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -25635,12 +25612,9 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
-              "high",
-              "adaptive"
+              "high"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -25665,11 +25639,11 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh",
+              "max"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -25693,12 +25667,10 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -25722,12 +25694,11 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
               "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -25751,12 +25722,11 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
               "minimal",
               "low",
               "medium",
               "high",
-              "adaptive"
+              "xhigh"
             ],
             "defaultThinkingLevel": "low"
           }
@@ -26924,6 +26894,7 @@
           },
           "compat": {
             "codeMode": "preferred",
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -28437,6 +28408,7 @@
           "compat": {
             "codeMode": "capable",
             "supportsUsageInStreaming": false,
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -28464,6 +28436,7 @@
             "cacheWrite": 12.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -28491,6 +28464,7 @@
             "cacheWrite": 10
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -28539,6 +28513,7 @@
             ]
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -28594,6 +28569,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -28621,6 +28597,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -28649,6 +28626,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -28679,6 +28657,7 @@
           "compat": {
             "codeMode": "capable",
             "supportsUsageInStreaming": false,
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -28707,6 +28686,7 @@
             "cacheWrite": 5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -28734,6 +28714,7 @@
             "cacheWrite": 10
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -28761,6 +28742,7 @@
             "cacheWrite": 12.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -28790,6 +28772,7 @@
           },
           "compat": {
             "supportsUsageInStreaming": false,
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -28817,6 +28800,7 @@
             "cacheWrite": 2.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -28845,6 +28829,7 @@
             "cacheWrite": 2.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -33069,6 +33054,7 @@
             "cacheWrite": 12.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -33097,6 +33083,7 @@
             "cacheWrite": 12.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -33125,6 +33112,7 @@
             "cacheWrite": 10
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -33153,6 +33141,7 @@
             "cacheWrite": 20
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -33230,6 +33219,7 @@
             ]
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -33287,6 +33277,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -33315,6 +33306,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -33344,6 +33336,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -33373,6 +33366,7 @@
             "cacheWrite": 12.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -33402,6 +33396,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -33431,6 +33426,7 @@
             "cacheWrite": 12.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -33460,6 +33456,7 @@
             "cacheWrite": 5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -33488,6 +33485,7 @@
             "cacheWrite": 10
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -33586,6 +33584,7 @@
             ]
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -33614,6 +33613,7 @@
             "cacheWrite": 2.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -33643,6 +33643,7 @@
             "cacheWrite": 2.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -40392,6 +40393,9 @@
             "thinkingLevelLabels": {
               "low": "on"
             }
+          },
+          "thinkingLevelMap": {
+            "low": null
           }
         },
         {
@@ -40606,6 +40610,9 @@
             "thinkingLevelLabels": {
               "low": "on"
             }
+          },
+          "thinkingLevelMap": {
+            "low": null
           }
         },
         {
@@ -40712,6 +40719,9 @@
             "thinkingLevelLabels": {
               "low": "on"
             }
+          },
+          "thinkingLevelMap": {
+            "low": null
           }
         },
         {
@@ -40740,6 +40750,9 @@
             "thinkingLevelLabels": {
               "low": "on"
             }
+          },
+          "thinkingLevelMap": {
+            "low": null
           }
         }
       ]
@@ -42187,6 +42200,7 @@
             "cacheWrite": 12.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -42214,6 +42228,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -42241,6 +42256,7 @@
             "cacheWrite": 12.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -42268,6 +42284,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -42295,6 +42312,7 @@
             "cacheWrite": 10
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -42322,6 +42340,7 @@
             "cacheWrite": 5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -42403,6 +42422,7 @@
             "cacheWrite": 0.125
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -42431,6 +42451,7 @@
             "cacheWrite": 0.0625
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -42567,6 +42588,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -42594,6 +42616,7 @@
             "cacheWrite": 3.125
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -42621,6 +42644,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -42649,6 +42673,7 @@
             "cacheWrite": 3.125
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -42677,6 +42702,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -42705,6 +42731,7 @@
             "cacheWrite": 3.125
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -42733,6 +42760,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -42761,6 +42789,7 @@
             "cacheWrite": 3.125
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -42789,6 +42818,7 @@
             "cacheWrite": 5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -42816,6 +42846,7 @@
             "cacheWrite": 2.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -42897,6 +42928,7 @@
             "cacheWrite": 3.75
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -42924,6 +42956,7 @@
             "cacheWrite": 1.875
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -42951,6 +42984,7 @@
             "cacheWrite": 2.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -42979,6 +43013,7 @@
             "cacheWrite": 1.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -43007,6 +43042,7 @@
             "cacheWrite": 2.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -43035,6 +43071,7 @@
             "cacheWrite": 1.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -52832,6 +52869,7 @@
             "cacheRead": 0.06
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "adaptive"
@@ -52878,6 +52916,7 @@
           "status": "deprecated",
           "replacedBy": "MiniMax-M3.1-Flash",
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -52946,6 +52985,7 @@
           "contextWindow": 1000000,
           "maxTokens": 131072,
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "adaptive"
@@ -52966,6 +53006,7 @@
           "status": "deprecated",
           "replacedBy": "MiniMax-M3.1-Flash",
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -53019,6 +53060,7 @@
             "cacheWrite": 12.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -53046,6 +53088,7 @@
             "cacheWrite": 12.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -53100,6 +53143,7 @@
             "cacheWrite": 12.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -53127,6 +53171,7 @@
             "cacheWrite": 12.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -53154,6 +53199,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -53181,6 +53227,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -53209,6 +53256,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -53237,6 +53285,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -53265,6 +53314,7 @@
             "cacheWrite": 3.75
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -53292,6 +53342,7 @@
             "cacheWrite": 2.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -53320,6 +53371,7 @@
             "cacheWrite": 5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -53347,6 +53399,7 @@
             "cacheWrite": 2.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -53356,6 +53409,9 @@
               "max"
             ],
             "defaultThinkingLevel": "high"
+          },
+          "thinkingLevelMap": {
+            "off": null
           }
         },
         {
@@ -53375,6 +53431,7 @@
             "cacheWrite": 0.125
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -53403,6 +53460,7 @@
             "cacheWrite": 10
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -53730,6 +53788,7 @@
             "cacheWrite": 6.875
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -53806,6 +53865,7 @@
             "cacheWrite": 4.125
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -53961,6 +54021,7 @@
             "cacheWrite": 6.875
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -54046,6 +54107,7 @@
             "cacheWrite": 4.125
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -54130,6 +54192,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -54215,6 +54278,7 @@
             "cacheWrite": 3.75
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -55191,6 +55255,7 @@
             "cacheWrite": 6.875
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -55276,6 +55341,7 @@
             "cacheWrite": 4.125
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -55423,6 +55489,7 @@
             "cacheWrite": 6.875
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -55452,6 +55519,7 @@
             "cacheWrite": 6.875
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -55481,6 +55549,7 @@
             "cacheWrite": 6.875
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -55510,6 +55579,7 @@
             "cacheWrite": 6.875
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -55539,6 +55609,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -55568,6 +55639,7 @@
             "cacheWrite": 6.875
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -55597,6 +55669,7 @@
             "cacheWrite": 6.875
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -55626,6 +55699,7 @@
             "cacheWrite": 6.875
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -55655,6 +55729,7 @@
             "cacheWrite": 6.875
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -55684,6 +55759,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -55713,6 +55789,7 @@
             "cacheWrite": 2.75
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -55742,6 +55819,7 @@
             "cacheWrite": 2.75
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -55771,6 +55849,7 @@
             "cacheWrite": 2.75
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -55800,6 +55879,7 @@
             "cacheWrite": 2.75
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -55829,6 +55909,7 @@
             "cacheWrite": 2.75
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -55858,6 +55939,7 @@
             "cacheWrite": 2.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -55887,6 +55969,7 @@
             "cacheWrite": 13.75
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -55915,6 +55998,7 @@
             "cacheWrite": 12.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -55943,6 +56027,7 @@
             "cacheWrite": 6.875
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -55972,6 +56057,7 @@
             "cacheWrite": 6.875
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -56001,6 +56087,7 @@
             "cacheWrite": 6.875
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -56030,6 +56117,7 @@
             "cacheWrite": 6.875
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -56059,6 +56147,7 @@
             "cacheWrite": 6.875
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -56088,6 +56177,7 @@
             "cacheWrite": 6.25
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -56117,6 +56207,7 @@
             "cacheWrite": 13.75
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -56145,6 +56236,7 @@
             "cacheWrite": 12.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -56173,6 +56265,7 @@
             "cacheWrite": 5.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -56201,6 +56294,7 @@
             "cacheWrite": 5.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -56229,6 +56323,7 @@
             "cacheWrite": 5.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -56257,6 +56352,7 @@
             "cacheWrite": 5.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -56285,6 +56381,7 @@
             "cacheWrite": 5.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -56313,6 +56410,7 @@
             "cacheWrite": 5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -56341,6 +56439,7 @@
             "cacheWrite": 2.75
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -56370,6 +56469,7 @@
             "cacheWrite": 2.75
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -56399,6 +56499,7 @@
             "cacheWrite": 2.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -57048,6 +57149,7 @@
             "cacheWrite": 0.1375
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -57077,6 +57179,7 @@
             "cacheWrite": 0.1375
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -57106,6 +57209,7 @@
             "cacheWrite": 0.1375
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -57135,6 +57239,7 @@
             "cacheWrite": 0.1375
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -57164,6 +57269,7 @@
             "cacheWrite": 0.1375
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -57193,6 +57299,7 @@
             "cacheWrite": 0.125
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -57222,6 +57329,7 @@
             "cacheWrite": 11
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -57250,6 +57358,7 @@
             "cacheWrite": 10
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -57612,6 +57721,7 @@
             "cacheWrite": 13.75
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -57640,6 +57750,7 @@
             "cacheWrite": 34.375
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -57665,6 +57776,9 @@
             "output": 27.5,
             "cacheRead": 0.55,
             "cacheWrite": 6.875
+          },
+          "compat": {
+            "forceAdaptiveThinking": true
           }
         },
         {
@@ -57685,6 +57799,7 @@
             "cacheWrite": 6.875
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -57714,6 +57829,7 @@
             "cacheWrite": 2.75
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -57743,6 +57859,7 @@
             "cacheWrite": 5.5
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -57771,6 +57888,7 @@
             "cacheWrite": 2.75
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -57780,6 +57898,9 @@
               "max"
             ],
             "defaultThinkingLevel": "high"
+          },
+          "thinkingLevelMap": {
+            "off": null
           }
         },
         {
@@ -57800,6 +57921,7 @@
             "cacheWrite": 13.75
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -57828,6 +57950,7 @@
             "cacheWrite": 13.75
           },
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -57854,6 +57977,9 @@
             "output": 27.5,
             "cacheRead": 0.55,
             "cacheWrite": 6.875
+          },
+          "compat": {
+            "forceAdaptiveThinking": true
           }
         },
         {
@@ -59180,6 +59306,7 @@
           "contextWindow": 1000000,
           "maxTokens": 131072,
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "adaptive"
@@ -59221,6 +59348,7 @@
           "status": "deprecated",
           "replacedBy": "MiniMax-M3.1-Flash",
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -59289,6 +59417,7 @@
           "contextWindow": 1000000,
           "maxTokens": 131072,
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "off",
               "adaptive"
@@ -59309,6 +59438,7 @@
           "status": "deprecated",
           "replacedBy": "MiniMax-M3.1-Flash",
           "compat": {
+            "forceAdaptiveThinking": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -59345,5 +59475,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795335017306,
-  "supplementDigest": "06ce29ecd7410355b2dc2ef5fbbb35f9c1ac5b0ebdaa04d5a9ece244f77abdd3"
+  "supplementDigest": "de40dba29514a9bd3a87e562e9da429ea4d69f1315b3fdba61c82f481b2642e7"
 }
