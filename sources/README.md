@@ -27,7 +27,12 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 | `google-vertex`             |           16 | Google 모델 목록 + 2026-11-18 Gemini 4 Argon/Carbon/Hydrogen + 2026-11-21 3.1 Pro custom tools |
 | `google-gemini-cli`         |            7 | `google` 수동 행과 같은 값, 가격 없음(Gemini CLI 로그인 요청 한도, 2026-11-21). `google` 수동 행을 고치면 같이 고친다 |
 | `xai`                       |           12 | 현행 7개 + 공식 별칭 1개(`grok-4.20`) + 공식 전환 안내가 있는 별칭 4개(2026-11-21 `grok-4-0709`) |
-| `minimax`                   |            4 | 플러그인의 text 모델 목록 + 2026-11-18 M3.1 Flash                              |
+| `minimax`                   |            5 | 플러그인의 text 모델 목록 + 2026-11-18 M3.1 Flash + 2026-11-22 퇴역 Preview |
+| `minimax-cn`                |            5 | `minimax` 행의 중국 엔드포인트 사본, 가격 없음(CNY뿐, 2026-11-22) |
+| `minimax-portal-cn`         |            5 | `minimax-portal` 행의 중국 엔드포인트 사본(구독, 2026-11-22) |
+| `kimi`                      |            2 | Agent가 아직 해석하는 퇴역 ID `kimi-code`·`k2p5`(2026-11-22) |
+| `kilocode`                  |            1 | Agent 옛 기본 ID `kilo/auto` 퇴역 행(2026-11-22) |
+| `nvidia`                    |            7 | 공개 목록에 없는 Agent 표 ID 퇴역 행(2026-11-22) |
 | `minimax-portal`            |            5 | M Plan 모델. 2026-11-18 M3.1 Flash 추가, Preview·M2.7은 대체됨                |
 | `amazon-bedrock`            |          164 | SDK 87개 + AWS 문서 추가 77개(2026-10-02 57, 11-18 16, 11-19 GPT-6.2 4)     |
 | `amazon-bedrock-mantle`     |           18 | Claude 10개 + Mantle 전용 8개 (2026-11-19 GPT-6.2 Astra/Sol)              |
@@ -139,7 +144,8 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
 
 - 모델 찾는 방식은 `thinking` 규칙과 같습니다(정확한 ID, `*`로 끝나는 접두사, `provider: "*"`는 정규화한 ID).
   `thinking`과 달리 맞는 규칙이 모두 순서대로 적용됩니다.
-- `set`에 쓸 수 있는 필드는 `name`, `reasoning`, `contextWindow`, `contextTokens`, `maxTokens`, `cost`(`tieredPricing` 포함), `replacedBy`, `status`(`deprecated`·`disabled`)입니다.
+- `set`에 쓸 수 있는 필드는 `name`, `reasoning`, `contextWindow`, `contextTokens`, `maxTokens`, `cost`(`tieredPricing` 포함), `replacedBy`, `status`(`deprecated`·`disabled`), `compat`입니다.
+- `compat`은 런타임 compat 키의 **키 단위 패치**입니다: `{"compat": {"supportsStrictMode": true, "maxTokensField": null}}`는 그 두 키만 바꾸고 지우며 다른 compat 키는 남깁니다. 키는 런타임 이름(영문자만), 값은 boolean·문자열·`null`(지움)입니다. 비면 `compat` 칸 자체가 빠집니다. Effort 키(`thinkingLevels` 등)는 여기 쓰지 않고 `thinking`으로 씁니다.
   `contextTokens`는 창(`contextWindow`)보다 작은 실사용 입력 예산입니다. 상류 행에 없을 때 넣습니다.
   `null`은 필드를 지웁니다. 가격을 모르면 0이 아니라 `"cost": null`로 비웁니다.
 - `reasoning: false`로 바꾸면 그 모델의 Thinking Effort 값도 함께 지웁니다.

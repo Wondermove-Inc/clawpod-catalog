@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795329130064,
+  "generatedAt": 1795332474203,
   "minVersion": "2026.4.11",
   "sourceCommit": "3a4f6b75a01d5b3294040d3bf1b0b6afdd0c3817",
   "providers": {
@@ -44,11 +44,11 @@
               "max"
             ],
             "supportsLongCacheRetention": false,
-            "supportsPromptCacheKey": true,
             "supportsReasoningEffort": true,
             "supportsStore": false,
             "supportsUsageInStreaming": true,
-            "thinkingFormat": "openai"
+            "thinkingFormat": "openai",
+            "promptCacheKeyMode": "enabled"
           }
         },
         {
@@ -79,11 +79,11 @@
               "max"
             ],
             "supportsLongCacheRetention": false,
-            "supportsPromptCacheKey": true,
             "supportsReasoningEffort": true,
             "supportsStore": false,
             "supportsUsageInStreaming": true,
-            "thinkingFormat": "openai"
+            "thinkingFormat": "openai",
+            "promptCacheKeyMode": "enabled"
           },
           "status": "deprecated"
         },
@@ -118,11 +118,11 @@
               "max"
             ],
             "supportsLongCacheRetention": false,
-            "supportsPromptCacheKey": true,
             "supportsReasoningEffort": true,
             "supportsStore": false,
             "supportsUsageInStreaming": true,
-            "thinkingFormat": "openai"
+            "thinkingFormat": "openai",
+            "promptCacheKeyMode": "enabled"
           }
         },
         {
@@ -154,11 +154,11 @@
               "max"
             ],
             "supportsLongCacheRetention": false,
-            "supportsPromptCacheKey": true,
             "supportsReasoningEffort": true,
             "supportsStore": false,
             "supportsUsageInStreaming": true,
-            "thinkingFormat": "openai"
+            "thinkingFormat": "openai",
+            "promptCacheKeyMode": "enabled"
           }
         }
       ],
@@ -943,7 +943,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 384000,
+          "maxTokens": 262144,
           "cost": {
             "input": 0.13,
             "output": 0.26,
@@ -1182,10 +1182,9 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "medium",
               "high"
             ],
-            "defaultThinkingLevel": "high"
+            "defaultThinkingLevel": "off"
           }
         },
         {
@@ -4197,13 +4196,6 @@
             "cacheWrite": 0
           },
           "compat": {
-            "maxTokensField": "max_tokens",
-            "supportsDeveloperRole": false,
-            "supportsReasoningEffort": false,
-            "supportsStore": false,
-            "supportsStrictMode": false,
-            "supportsUsageInStreaming": false,
-            "thinkingFormat": "qwen-chat-template",
             "thinkingLevels": [
               "off",
               "minimal",
@@ -5098,11 +5090,11 @@
             "cacheRead": 0.125,
             "cacheWrite": 0
           },
+          "replacedBy": "gemini-3.1-pro-preview",
+          "status": "deprecated",
+          "reasoning": true,
+          "contextTokens": 128000,
           "compat": {
-            "maxTokensField": "max_tokens",
-            "supportsDeveloperRole": false,
-            "supportsStore": false,
-            "supportsUsageInStreaming": false,
             "thinkingLevels": [
               "minimal",
               "low",
@@ -5111,11 +5103,7 @@
               "adaptive"
             ],
             "defaultThinkingLevel": "adaptive"
-          },
-          "replacedBy": "gemini-3.1-pro-preview",
-          "status": "deprecated",
-          "reasoning": true,
-          "contextTokens": 128000
+          }
         },
         {
           "id": "gemini-3.1-pro-preview",
@@ -5135,10 +5123,6 @@
           },
           "compat": {
             "codeMode": "capable",
-            "maxTokensField": "max_tokens",
-            "supportsDeveloperRole": false,
-            "supportsStore": false,
-            "supportsUsageInStreaming": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -5166,10 +5150,6 @@
           },
           "compat": {
             "codeMode": "capable",
-            "maxTokensField": "max_tokens",
-            "supportsDeveloperRole": false,
-            "supportsStore": false,
-            "supportsUsageInStreaming": false,
             "thinkingLevels": [
               "minimal",
               "low",
@@ -5201,10 +5181,6 @@
           },
           "compat": {
             "codeMode": "capable",
-            "maxTokensField": "max_tokens",
-            "supportsDeveloperRole": false,
-            "supportsStore": false,
-            "supportsUsageInStreaming": false,
             "thinkingLevels": [
               "minimal",
               "low",
@@ -13392,6 +13368,7 @@
           },
           "contextTokens": 272000,
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -13420,6 +13397,7 @@
             "cacheWrite": 20
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -13448,6 +13426,7 @@
             "cacheWrite": 10
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -13477,6 +13456,7 @@
           },
           "contextTokens": 272000,
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -13505,6 +13485,7 @@
             "cacheWrite": 5
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -13533,6 +13514,7 @@
             "cacheWrite": 2.5
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -16550,6 +16532,18 @@
               "low": "on"
             }
           }
+        },
+        {
+          "id": "kilo/auto",
+          "name": "Kilo Auto",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "status": "deprecated"
         }
       ]
     },
@@ -16573,7 +16567,6 @@
             "cacheWrite": 0
           },
           "compat": {
-            "adaptiveThinking": true,
             "codeMode": "preferred",
             "defaultThinkingLevel": "high",
             "supportedReasoningEfforts": [
@@ -16615,7 +16608,6 @@
             "cacheWrite": 0
           },
           "compat": {
-            "adaptiveThinking": true,
             "codeMode": "preferred",
             "defaultThinkingLevel": "high",
             "supportedReasoningEfforts": [
@@ -16651,7 +16643,6 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "compat": {
-            "adaptiveThinking": true,
             "defaultThinkingLevel": "high",
             "supportedReasoningEfforts": [
               "low",
@@ -16686,7 +16677,6 @@
           "contextWindow": 1048576,
           "maxTokens": 131072,
           "compat": {
-            "adaptiveThinking": true,
             "defaultThinkingLevel": "high",
             "supportedReasoningEfforts": [
               "low",
@@ -16749,6 +16739,32 @@
               "low": "on"
             }
           }
+        },
+        {
+          "id": "kimi-code",
+          "name": "Kimi Code",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 32768,
+          "status": "deprecated",
+          "replacedBy": "kimi-for-coding"
+        },
+        {
+          "id": "k2p5",
+          "name": "Kimi Code (legacy model id)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 32768,
+          "status": "deprecated",
+          "replacedBy": "kimi-for-coding"
         }
       ],
       "defaultModel": "kimi-for-coding"
@@ -16772,14 +16788,6 @@
             "cacheWrite": 0
           },
           "compat": {
-            "maxTokensField": "max_tokens",
-            "requiresReasoningContentOnAssistantMessages": true,
-            "supportsDeveloperRole": false,
-            "supportsReasoningEffort": false,
-            "supportsStore": false,
-            "supportsStrictMode": false,
-            "supportsUsageInStreaming": false,
-            "thinkingFormat": "deepseek",
             "thinkingLevels": [
               "off",
               "low"
@@ -17471,7 +17479,6 @@
             "cacheWrite": 0
           },
           "compat": {
-            "adaptiveThinking": true,
             "defaultThinkingLevel": "off",
             "thinkingLevels": [
               "off",
@@ -17530,7 +17537,6 @@
             "cacheWrite": 0
           },
           "compat": {
-            "adaptiveThinking": true,
             "defaultThinkingLevel": "off",
             "thinkingLevels": [
               "off",
@@ -17564,7 +17570,6 @@
             "cacheWrite": 0
           },
           "compat": {
-            "adaptiveThinking": true,
             "defaultThinkingLevel": "off",
             "thinkingLevels": [
               "off",
@@ -18890,6 +18895,7 @@
           "statusReason": "novita no longer lists this model in its public model inventory.",
           "contextTokens": 272000,
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -18942,6 +18948,7 @@
           "statusReason": "novita no longer lists this model in its public model inventory.",
           "contextTokens": 272000,
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -20114,8 +20121,9 @@
             "cacheRead": 0,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "nvidia no longer lists this model in its public model inventory.",
           "compat": {
-            "requiresStringContent": true,
             "thinkingLevels": [
               "off",
               "low"
@@ -20124,9 +20132,7 @@
             "thinkingLevelLabels": {
               "low": "on"
             }
-          },
-          "status": "deprecated",
-          "statusReason": "nvidia no longer lists this model in its public model inventory."
+          }
         },
         {
           "id": "nvidia/nemotron-3-nano-omni-30b-a3b-reasoning",
@@ -20165,7 +20171,6 @@
             "cacheWrite": 0
           },
           "compat": {
-            "requiresStringContent": true,
             "thinkingLevels": [
               "off",
               "medium",
@@ -20190,7 +20195,6 @@
             "cacheWrite": 0
           },
           "compat": {
-            "requiresStringContent": true,
             "thinkingLevels": [
               "off",
               "low"
@@ -20218,7 +20222,6 @@
             "cacheWrite": 0
           },
           "compat": {
-            "requiresStringContent": true,
             "thinkingLevels": [
               "off",
               "medium",
@@ -20316,6 +20319,92 @@
             ],
             "defaultThinkingLevel": "max"
           }
+        },
+        {
+          "id": "moonshotai/kimi-k3",
+          "name": "Kimi K3",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
+          "status": "deprecated",
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "high",
+              "max"
+            ],
+            "defaultThinkingLevel": "max"
+          }
+        },
+        {
+          "id": "nvidia/nemotron-3-super-120b-a12b",
+          "name": "NVIDIA Nemotron 3 Super 120B",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 262144,
+          "maxTokens": 8192,
+          "status": "deprecated"
+        },
+        {
+          "id": "minimaxai/minimax-m3",
+          "name": "MiniMax M3",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 1048576,
+          "maxTokens": 8192,
+          "status": "deprecated"
+        },
+        {
+          "id": "z-ai/glm-5.2",
+          "name": "GLM-5.2",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 1048576,
+          "maxTokens": 8192,
+          "status": "deprecated"
+        },
+        {
+          "id": "moonshotai/kimi-k2.5",
+          "name": "Kimi K2.5",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 262144,
+          "maxTokens": 8192,
+          "status": "deprecated"
+        },
+        {
+          "id": "minimaxai/minimax-m2.5",
+          "name": "MiniMax M2.5",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 204800,
+          "maxTokens": 8192,
+          "status": "deprecated"
+        },
+        {
+          "id": "z-ai/glm5",
+          "name": "GLM-5",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 202752,
+          "maxTokens": 8192,
+          "status": "deprecated"
         }
       ]
     },
@@ -22607,10 +22696,7 @@
             "cacheWrite": 0
           },
           "compat": {
-            "maxTokensField": "max_tokens",
-            "supportsDeveloperRole": false,
-            "supportsStrictMode": false,
-            "supportsUsageInStreaming": true
+            "supportsStrictMode": false
           }
         },
         {
@@ -22632,7 +22718,6 @@
           },
           "compat": {
             "codeMode": "capable",
-            "maxTokensField": "max_tokens",
             "supportedReasoningEfforts": [
               "low",
               "medium",
@@ -22640,8 +22725,6 @@
               "xhigh",
               "max"
             ],
-            "supportsReasoningEffort": true,
-            "supportsUsageInStreaming": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -22672,15 +22755,12 @@
           },
           "compat": {
             "codeMode": "capable",
-            "maxTokensField": "max_tokens",
             "supportedReasoningEfforts": [
               "minimal",
               "low",
               "medium",
               "high"
             ],
-            "supportsReasoningEffort": true,
-            "supportsUsageInStreaming": true,
             "thinkingLevels": [
               "minimal",
               "low",
@@ -22731,7 +22811,6 @@
           },
           "compat": {
             "codeMode": "capable",
-            "maxTokensField": "max_tokens",
             "supportedReasoningEfforts": [
               "none",
               "low",
@@ -22740,8 +22819,6 @@
               "xhigh",
               "max"
             ],
-            "supportsReasoningEffort": true,
-            "supportsUsageInStreaming": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -22772,17 +22849,14 @@
           },
           "compat": {
             "codeMode": "capable",
-            "maxTokensField": "max_tokens",
             "supportedReasoningEfforts": [
               "none",
               "low",
               "high",
               "max"
             ],
-            "supportsDeveloperRole": false,
             "supportsReasoningEffort": true,
-            "supportsStrictMode": false,
-            "supportsUsageInStreaming": true,
+            "supportsStrictMode": true,
             "thinkingLevels": [
               "low",
               "high",
@@ -22809,10 +22883,7 @@
             "cacheWrite": 0
           },
           "compat": {
-            "maxTokensField": "max_tokens",
-            "supportsDeveloperRole": false,
             "supportsStrictMode": false,
-            "supportsUsageInStreaming": true,
             "thinkingLevels": [
               "off",
               "adaptive"
@@ -24818,16 +24889,11 @@
           },
           "compat": {
             "codeMode": "capable",
-            "maxTokensField": "max_tokens",
             "supportedReasoningEfforts": [
               "low",
               "high",
               "max"
             ],
-            "supportsDeveloperRole": false,
-            "supportsReasoningEffort": true,
-            "supportsStrictMode": false,
-            "supportsUsageInStreaming": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -24855,18 +24921,13 @@
           },
           "compat": {
             "codeMode": "capable",
-            "maxTokensField": "max_tokens",
             "supportedReasoningEfforts": [
               "high",
               "max"
             ],
-            "supportsDeveloperRole": false,
             "supportsReasoningEffort": true,
             "supportsStrictMode": false,
-            "supportsUsageInStreaming": true,
             "thinkingLevels": [
-              "off",
-              "low",
               "high",
               "max"
             ],
@@ -24891,18 +24952,14 @@
           },
           "compat": {
             "codeMode": "capable",
-            "maxTokensField": "max_tokens",
             "supportedReasoningEfforts": [
               "low",
               "high",
               "max"
             ],
-            "supportsDeveloperRole": false,
             "supportsReasoningEffort": true,
             "supportsStrictMode": false,
-            "supportsUsageInStreaming": true,
             "thinkingLevels": [
-              "off",
               "low",
               "high",
               "max"
@@ -24951,7 +25008,6 @@
           },
           "compat": {
             "codeMode": "capable",
-            "maxTokensField": "max_tokens",
             "supportedReasoningEfforts": [
               "none",
               "low",
@@ -24960,8 +25016,6 @@
               "xhigh",
               "max"
             ],
-            "supportsReasoningEffort": true,
-            "supportsUsageInStreaming": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -24990,16 +25044,13 @@
             "cacheWrite": 0
           },
           "compat": {
-            "maxTokensField": "max_tokens",
             "supportedReasoningEfforts": [
               "none",
               "low",
               "high"
             ],
-            "supportsDeveloperRole": false,
             "supportsReasoningEffort": true,
             "supportsStrictMode": false,
-            "supportsUsageInStreaming": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -25024,10 +25075,8 @@
             "cacheRead": 0.16,
             "cacheWrite": 0
           },
+          "status": "deprecated",
           "compat": {
-            "supportsDeveloperRole": false,
-            "supportsStrictMode": false,
-            "supportsUsageInStreaming": true,
             "thinkingLevels": [
               "off",
               "low"
@@ -25036,8 +25085,7 @@
             "thinkingLevelLabels": {
               "low": "on"
             }
-          },
-          "status": "deprecated"
+          }
         },
         {
           "id": "kimi-k2.7-code",
@@ -25056,9 +25104,7 @@
             "cacheWrite": 0
           },
           "compat": {
-            "supportsDeveloperRole": false,
-            "supportsStrictMode": false,
-            "supportsUsageInStreaming": true,
+            "supportsStrictMode": true,
             "thinkingLevels": [
               "low"
             ],
@@ -25086,14 +25132,11 @@
           },
           "compat": {
             "codeMode": "capable",
-            "maxTokensField": "max_tokens",
             "supportedReasoningEfforts": [
               "max"
             ],
-            "supportsDeveloperRole": false,
             "supportsReasoningEffort": true,
-            "supportsStrictMode": false,
-            "supportsUsageInStreaming": true,
+            "supportsStrictMode": true,
             "thinkingLevels": [
               "max"
             ],
@@ -25772,30 +25815,12 @@
           },
           "compat": {
             "defaultThinkingLevel": "high",
-            "maxTokensField": "max_tokens",
-            "reasoningEffortMap": {
-              "high": "high",
-              "low": "low",
-              "max": "max",
-              "medium": "high",
-              "minimal": "low",
-              "none": "none",
-              "off": "none",
-              "xhigh": "high"
-            },
             "supportedReasoningEfforts": [
               "none",
               "low",
               "high",
               "max"
             ],
-            "supportsDeveloperRole": true,
-            "supportsLongCacheRetention": false,
-            "supportsPromptCacheKey": true,
-            "supportsReasoningEffort": true,
-            "supportsStrictMode": false,
-            "supportsUsageInStreaming": true,
-            "thinkingFormat": "openai",
             "thinkingLevels": [
               "off",
               "minimal",
@@ -26930,7 +26955,6 @@
           },
           "compat": {
             "codeMode": "preferred",
-            "supportsReasoningEffort": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -27107,11 +27131,7 @@
               "medium",
               "high"
             ],
-            "supportsDeveloperRole": false,
             "supportsReasoningEffort": true,
-            "supportsStore": false,
-            "supportsStrictMode": false,
-            "supportsUsageInStreaming": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -27201,7 +27221,7 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 262144,
+          "maxTokens": 65536,
           "compat": {
             "maxTokensField": "max_tokens",
             "reasoningEffortMap": {
@@ -27220,11 +27240,7 @@
               "medium",
               "high"
             ],
-            "supportsDeveloperRole": false,
             "supportsReasoningEffort": true,
-            "supportsStore": false,
-            "supportsStrictMode": false,
-            "supportsUsageInStreaming": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -27283,8 +27299,6 @@
               "none",
               "high"
             ],
-            "supportsReasoningEffort": true,
-            "supportsUsageInStreaming": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -27345,8 +27359,6 @@
               "low",
               "high"
             ],
-            "supportsReasoningEffort": true,
-            "supportsUsageInStreaming": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -27380,8 +27392,6 @@
               "none",
               "high"
             ],
-            "supportsReasoningEffort": true,
-            "supportsUsageInStreaming": true,
             "thinkingLevels": [
               "off",
               "high"
@@ -27411,8 +27421,6 @@
               "none",
               "high"
             ],
-            "supportsReasoningEffort": true,
-            "supportsUsageInStreaming": true,
             "thinkingLevels": [
               "off",
               "high"
@@ -27439,8 +27447,6 @@
               "none",
               "high"
             ],
-            "supportsReasoningEffort": true,
-            "supportsUsageInStreaming": true,
             "thinkingLevels": [
               "off",
               "high"
@@ -27623,8 +27629,6 @@
               "none",
               "high"
             ],
-            "supportsReasoningEffort": true,
-            "supportsUsageInStreaming": true,
             "thinkingLevels": [
               "off",
               "low",
@@ -27656,8 +27660,6 @@
               "none",
               "high"
             ],
-            "supportsReasoningEffort": true,
-            "supportsUsageInStreaming": true,
             "thinkingLevels": [
               "off",
               "high"
@@ -27687,8 +27689,6 @@
               "none",
               "high"
             ],
-            "supportsReasoningEffort": true,
-            "supportsUsageInStreaming": true,
             "thinkingLevels": [
               "off",
               "high"
@@ -27715,8 +27715,6 @@
               "none",
               "high"
             ],
-            "supportsReasoningEffort": true,
-            "supportsUsageInStreaming": true,
             "thinkingLevels": [
               "off",
               "high"
@@ -27916,7 +27914,6 @@
           "compat": {
             "thinkingLevels": [
               "off",
-              "low",
               "high",
               "max"
             ],
@@ -31305,6 +31302,7 @@
             ]
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -31353,6 +31351,7 @@
             ]
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -31401,6 +31400,7 @@
             ]
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -31449,6 +31449,7 @@
             ]
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -37624,6 +37625,7 @@
           },
           "contextTokens": 272000,
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -37673,6 +37675,7 @@
             ]
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -37723,6 +37726,7 @@
           },
           "contextTokens": 272000,
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -37772,6 +37776,7 @@
             ]
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -48816,6 +48821,7 @@
           },
           "contextTokens": 272000,
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -48843,6 +48849,7 @@
             "cacheWrite": 10
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -48870,6 +48877,7 @@
             "cacheWrite": 5
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -48897,6 +48905,7 @@
             "cacheWrite": 5
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -48925,6 +48934,7 @@
           },
           "contextTokens": 272000,
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -48952,6 +48962,7 @@
             "cacheWrite": 2.5
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -48979,6 +48990,7 @@
             "cacheWrite": 1.25
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -49006,6 +49018,7 @@
             "cacheWrite": 1.25
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -52872,6 +52885,29 @@
             "output": 0.6,
             "cacheRead": 0.015
           },
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "max"
+          }
+        },
+        {
+          "id": "MiniMax-M3.1-Flash-Preview",
+          "name": "MiniMax M3.1 Flash Preview",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "status": "deprecated",
+          "replacedBy": "MiniMax-M3.1-Flash",
           "compat": {
             "thinkingLevels": [
               "low",
@@ -57489,6 +57525,7 @@
             "cacheRead": 0.44
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -57516,6 +57553,7 @@
             "cacheRead": 0.4
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -57543,6 +57581,7 @@
             "cacheRead": 0.11
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -57570,6 +57609,7 @@
             "cacheRead": 0.1
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -58018,6 +58058,7 @@
             "cacheWrite": 11
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -58045,6 +58086,7 @@
             "cacheWrite": 2.75
           },
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -58486,6 +58528,7 @@
           "contextWindow": 272000,
           "maxTokens": 128000,
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -58508,6 +58551,7 @@
           "contextWindow": 272000,
           "maxTokens": 128000,
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -58973,6 +59017,7 @@
           "contextWindow": 272000,
           "maxTokens": 128000,
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -58995,6 +59040,7 @@
           "contextWindow": 272000,
           "maxTokens": 128000,
           "compat": {
+            "cachesInstructions": false,
             "thinkingLevels": [
               "low",
               "medium",
@@ -59110,9 +59156,225 @@
           }
         }
       ]
+    },
+    "minimax-cn": {
+      "api": "anthropic-messages",
+      "models": [
+        {
+          "id": "MiniMax-M2.7",
+          "name": "MiniMax M2.7",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 204800,
+          "maxTokens": 131072,
+          "status": "disabled",
+          "compat": {
+            "thinkingLevels": [
+              "low"
+            ],
+            "defaultThinkingLevel": "low",
+            "thinkingLevelLabels": {
+              "low": "on"
+            }
+          }
+        },
+        {
+          "id": "MiniMax-M2.7-highspeed",
+          "name": "MiniMax M2.7 Highspeed",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 204800,
+          "maxTokens": 131072,
+          "status": "disabled",
+          "compat": {
+            "thinkingLevels": [
+              "low"
+            ],
+            "defaultThinkingLevel": "low",
+            "thinkingLevelLabels": {
+              "low": "on"
+            }
+          }
+        },
+        {
+          "id": "MiniMax-M3",
+          "name": "MiniMax M3",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "adaptive"
+            ],
+            "defaultThinkingLevel": "adaptive"
+          }
+        },
+        {
+          "id": "MiniMax-M3.1-Flash",
+          "name": "MiniMax M3.1 Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "max"
+          }
+        },
+        {
+          "id": "MiniMax-M3.1-Flash-Preview",
+          "name": "MiniMax M3.1 Flash Preview",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "status": "deprecated",
+          "replacedBy": "MiniMax-M3.1-Flash",
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "max"
+          }
+        }
+      ]
+    },
+    "minimax-portal-cn": {
+      "api": "anthropic-messages",
+      "models": [
+        {
+          "id": "MiniMax-M2.7",
+          "name": "MiniMax M2.7",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 204800,
+          "maxTokens": 131072,
+          "status": "deprecated",
+          "replacedBy": "MiniMax-M3.1-Flash",
+          "compat": {
+            "thinkingLevels": [
+              "low"
+            ],
+            "defaultThinkingLevel": "low",
+            "thinkingLevelLabels": {
+              "low": "on"
+            }
+          }
+        },
+        {
+          "id": "MiniMax-M2.7-highspeed",
+          "name": "MiniMax M2.7 Highspeed",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 204800,
+          "maxTokens": 131072,
+          "status": "deprecated",
+          "replacedBy": "MiniMax-M3.1-Flash",
+          "compat": {
+            "thinkingLevels": [
+              "low"
+            ],
+            "defaultThinkingLevel": "low",
+            "thinkingLevelLabels": {
+              "low": "on"
+            }
+          }
+        },
+        {
+          "id": "MiniMax-M3",
+          "name": "MiniMax M3",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "adaptive"
+            ],
+            "defaultThinkingLevel": "adaptive"
+          }
+        },
+        {
+          "id": "MiniMax-M3.1-Flash-Preview",
+          "name": "MiniMax M3.1 Flash Preview",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "status": "deprecated",
+          "replacedBy": "MiniMax-M3.1-Flash",
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "max"
+          }
+        },
+        {
+          "id": "MiniMax-M3.1-Flash",
+          "name": "MiniMax M3.1 Flash",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "max"
+          }
+        }
+      ]
     }
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795329111410,
-  "supplementDigest": "9830fe685c7c2faa57bfdb0a1125f8b7722a219a2ff96163abc729db2edd1159"
+  "supplementDigest": "595201b0e81758a5451dfc078b76d7e23a3f64757fb65bb1531cb9b745a54ff8"
 }

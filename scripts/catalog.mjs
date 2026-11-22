@@ -156,6 +156,12 @@ const overrideSchema = z
         replacedBy: nonempty.nullable().optional(),
         // Lifecycle of upstream rows, which `corrections` cannot reach (supplement rows only).
         status: z.enum(["deprecated", "disabled"]).optional(),
+        // Patch of runtime compat keys, applied key by key: other keys on the row stay,
+        // and `null` deletes that one key.
+        compat: z
+          .record(z.string().regex(/^[A-Za-z]+$/), z.union([z.boolean(), nonempty, z.null()]))
+          .refine((value) => Object.keys(value).length > 0, "empty compat patch")
+          .optional(),
       })
       .strict()
       .refine((value) => Object.keys(value).length > 0, "empty override"),
@@ -252,7 +258,15 @@ export function applyOverrides(providers, overrides = []) {
       for (const override of overrides) {
         if (!ruleMatches(override, provider, model.id)) continue;
         for (const [key, value] of Object.entries(override.set)) {
-          if (value === null) delete model[key];
+          if (key === "compat") {
+            const compat = { ...model.compat };
+            for (const [name, v] of Object.entries(value)) {
+              if (v === null) delete compat[name];
+              else compat[name] = v;
+            }
+            if (Object.keys(compat).length) model.compat = compat;
+            else delete model.compat;
+          } else if (value === null) delete model[key];
           else model[key] = structuredClone(value);
         }
         // A model that no longer reasons must not keep an upstream thinking profile.
