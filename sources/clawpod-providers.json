@@ -137,7 +137,7 @@
       "files": [
         "node_modules/@earendil-works/pi-ai/dist/providers/data/opencode.json"
       ],
-      "notes": "Reviewed 2026-11-21 (sources/REVIEW.md): 69 OpenCode Zen rows copied as they are from the Agent's bundled Pi 1.5.2 data (approved exception to official values: name, reasoning, input, contextWindow, maxTokens and the four base prices are Pi's). Only ids listed by the Zen model API (https://opencode.ai/inference/v1/models) are rows; prices match the Zen pricing table (https://opencode.ai/docs/zen/), the 0 prices are its Free models. Cells where the model API differs are kept at Pi and recorded in REVIEW: deepseek-v4.1-flash name, claude-sonnet-4-5 and gpt-5.4 context window, input budgets (limit.input) not added. Not added: gemini-3.1-pro, gemini-3-flash, glm-5.3-flash-free, minimax-m3.1-flash-free, glm-5, kimi-k2.5 (deprecated), glm-5.1, glm-5.2, kimi-k2.6, inkling-2-small-free (not in the model API). Effort: exact-id thinking rules keep the Agent's current behavior, not the official ladder."
+      "notes": "Reviewed 2026-11-21 (sources/REVIEW.md): 69 OpenCode Zen rows copied as they are from the Agent's bundled Pi 1.5.2 data (approved exception to official values: name, reasoning, input, contextWindow, maxTokens and the four base prices are Pi's). Only ids listed by the Zen model API (https://opencode.ai/inference/v1/models) are rows; prices match the Zen pricing table (https://opencode.ai/docs/zen/), the 0 prices are its Free models. Cells where the model API differs are kept at Pi and recorded in REVIEW: deepseek-v4.1-flash name, claude-sonnet-4-5 and gpt-5.4 context window, input budgets (limit.input) not added. Not added: gemini-3.1-pro, gemini-3-flash, glm-5.3-flash-free, minimax-m3.1-flash-free, glm-5, kimi-k2.5 (deprecated), glm-5.1, glm-5.2, kimi-k2.6, inkling-2-small-free (not in the model API). Effort: exact-id thinking rules keep the Agent's current behavior, not the official ladder. Reviewed 2026-11-22 (ClawPoD Agent I3h): Effort rules now follow the model API capabilities.reasoning (effort list, plus off on toggle or none; toggle without effort = off/adaptive); rows stating neither keep the Agent behavior rule. chat-completions rows the API marks tools.strict get supportsStrictMode."
     },
     "opencode-go": {
       "source": "Wondermove-Inc/clawpod-agent",
@@ -145,7 +145,7 @@
       "files": [
         "node_modules/@earendil-works/pi-ai/dist/providers/data/opencode-go.json"
       ],
-      "notes": "Reviewed 2026-11-21 (sources/REVIEW.md): 22 OpenCode Go rows copied as they are from the Agent's bundled Pi 1.5.2 data (approved exception to official values: name, reasoning, input, contextWindow, maxTokens and the four base prices are Pi's). Only ids listed by the Go model API (https://opencode.ai/inference/go/v1/models) are rows; Go bills per token at listed rates (https://opencode.ai/docs/go/), the 0 prices are free models. kimi-k3.1-pro maxTokens 131072 is Pi's (the model API lists 1048576), recorded in REVIEW. Not added: glm-5.2, mimo-v2.5, mimo-v2.5-pro (not in the model API). Effort: exact-id thinking rules keep the Agent's current behavior, not the official ladder; kimi-k3 takes the official max only."
+      "notes": "Reviewed 2026-11-21 (sources/REVIEW.md): 22 OpenCode Go rows copied as they are from the Agent's bundled Pi 1.5.2 data (approved exception to official values: name, reasoning, input, contextWindow, maxTokens and the four base prices are Pi's). Only ids listed by the Go model API (https://opencode.ai/inference/go/v1/models) are rows; Go bills per token at listed rates (https://opencode.ai/docs/go/), the 0 prices are free models. kimi-k3.1-pro maxTokens 131072 is Pi's (the model API lists 1048576), recorded in REVIEW. Not added: glm-5.2, mimo-v2.5, mimo-v2.5-pro (not in the model API). Effort: exact-id thinking rules keep the Agent's current behavior, not the official ladder; kimi-k3 takes the official max only. Reviewed 2026-11-22 (ClawPoD Agent I3h): Effort rules now follow the model API capabilities.reasoning (effort list, plus off on toggle or none; toggle without effort = off/adaptive); rows stating neither keep the Agent behavior rule. chat-completions rows the API marks tools.strict get supportsStrictMode."
     },
     "byteplus": {
       "source": "Wondermove-Inc/clawpod-agent",
@@ -219,7 +219,7 @@
       "files": [
         "extensions/nvidia/provider-catalog.ts"
       ],
-      "notes": "Retired rows only, values from the Agent plugin table, no price. Reviewed 2026-11-22: added nvidia/nemotron-3-super-120b-a12b, minimaxai/minimax-m3, moonshotai/kimi-k2.5, minimaxai/minimax-m2.5, z-ai/glm5 (deprecated, no replacedBy): not on the public model list (https://integrate.api.nvidia.com/v1/models, 2026-11-22) and no official retirement notice found. moonshotai/kimi-k3 and z-ai/glm-5.2 get no row: the Agent resolves them as nested ids from the moonshot and zai catalog rows without the plugin table, and a row here would replace those values with the old table values."
+      "notes": "Retired rows only, values from the Agent plugin table, no price. Reviewed 2026-11-22: added nvidia/nemotron-3-super-120b-a12b, minimaxai/minimax-m3, moonshotai/kimi-k2.5, minimaxai/minimax-m2.5, z-ai/glm5 (deprecated, no replacedBy): not on the public model list (https://integrate.api.nvidia.com/v1/models, 2026-11-22) and no official retirement notice found. moonshotai/kimi-k3 and z-ai/glm-5.2 get no row: the Agent resolves them as nested ids from the moonshot and zai catalog rows without the plugin table, and a row here would replace those values with the old table values. Reviewed 2026-11-22 (ClawPoD Agent I3h, supersedes the no-row sentence above): added moonshotai/kimi-k3 and z-ai/glm-5.2 (deprecated, no replacedBy; not on https://integrate.api.nvidia.com/v1/models, 2026-11-22, 33 ids) so the Agent still resolves them after its plugin table is gone. Fact fields only (name, input, reasoning, contextWindow, maxTokens, cost and the Effort list) copied from the inner catalog rows moonshot/kimi-k3 and zai/glm-5.2 the Agent borrows today; no request compat and no thinkingLevelMap, so the configured path sends the same request. The price is that inner row value, not an NVIDIA price."
     }
   },
   "providers": {
@@ -7583,6 +7583,41 @@
           "contextWindow": 202752,
           "maxTokens": 8192,
           "status": "deprecated"
+        },
+        {
+          "id": "moonshotai/kimi-k3",
+          "name": "Kimi K3",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 1048576,
+          "cost": {
+            "input": 3,
+            "output": 15,
+            "cacheRead": 0.3,
+            "cacheWrite": 3
+          },
+          "status": "deprecated"
+        },
+        {
+          "id": "z-ai/glm-5.2",
+          "name": "GLM-5.2",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 1.4,
+            "output": 4.4,
+            "cacheRead": 0.26,
+            "cacheWrite": 0
+          },
+          "status": "deprecated"
         }
       ]
     }
@@ -8305,7 +8340,10 @@
         "low": "on"
       },
       "source": "https://docs.x.ai/developers/migration/may-15-retirement",
-      "note": "Retired 2026-05-15; requests run as grok-4.3 with reasoning effort low (fixed)."
+      "note": "Retired 2026-05-15; requests run as grok-4.3 with reasoning effort low (fixed). xAI: reasoning_effort is accepted by grok-4.3 and grok-4.5 and later only, other reasoning models cannot disable or tune reasoning (https://docs.x.ai/docs/guides/reasoning). Single always-on level mapped to null so the Agent sends no effort field: with every other level unlisted the runtime has no level to move to. Replaces the ClawPoD Agent's xAI effort name rule (I3h).",
+      "map": {
+        "low": null
+      }
     },
     {
       "provider": "opencode-go",
@@ -8321,46 +8359,43 @@
       "provider": "opencode",
       "model": "claude-fable-5",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default high: the vendor default of the * claude-fable-5* rule (https://platform.claude.com/docs/en/build-with-claude/effort). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "claude-fable-5-1",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default high: the vendor default of the * claude-fable-5* rule (https://platform.claude.com/docs/en/build-with-claude/effort). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "claude-fable-5-2",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default high: the vendor default of the * claude-fable-5* rule (https://platform.claude.com/docs/en/build-with-claude/effort). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8382,90 +8417,82 @@
       "model": "claude-haiku-5-5",
       "levels": [
         "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max], toggle -> off, low, medium, high, xhigh, max. Default medium: the vendor default of the * claude-haiku-5-5* rule (https://platform.claude.com/docs/en/build-with-claude/effort). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "claude-opus-4-5",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
-        "high",
-        "adaptive"
+        "high"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default high: Anthropic effort default high, the default on every effort model but Opus 5.5 and Haiku 5.5 (https://platform.claude.com/docs/en/build-with-claude/effort); the model API lists no toggle, so the vendor default off is not offered. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "claude-opus-4-6",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, max] -> low, medium, high, max. Default high: Anthropic effort default high, the default on every effort model but Opus 5.5 and Haiku 5.5 (https://platform.claude.com/docs/en/build-with-claude/effort); the model API lists no toggle, so the vendor default off is not offered. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "claude-opus-4-7",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default high: Anthropic effort default high, the default on every effort model but Opus 5.5 and Haiku 5.5 (https://platform.claude.com/docs/en/build-with-claude/effort); the model API lists no toggle, so the vendor default off is not offered. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "claude-opus-4-8",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default high: Anthropic effort default high, the default on every effort model but Opus 5.5 and Haiku 5.5 (https://platform.claude.com/docs/en/build-with-claude/effort); the model API lists no toggle, so the vendor default off is not offered. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "claude-opus-5-5",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default medium: the vendor default of the * claude-opus-5-5* rule (https://platform.claude.com/docs/en/build-with-claude/effort). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8486,271 +8513,238 @@
       "provider": "opencode",
       "model": "claude-sonnet-4-6",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, max] -> low, medium, high, max. Default high: Anthropic effort default high, the default on every effort model but Opus 5.5 and Haiku 5.5 (https://platform.claude.com/docs/en/build-with-claude/effort); the model API lists no toggle, so the vendor default off is not offered. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "claude-sonnet-5",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default high: the vendor default of the * claude-sonnet-5 rule (https://platform.claude.com/docs/en/build-with-claude/effort). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "claude-sonnet-5-5",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default high: the vendor default of the * claude-sonnet-5-5* rule (https://platform.claude.com/docs/en/build-with-claude/effort). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "qwen3.5-plus",
       "levels": [
         "off",
-        "minimal",
-        "low",
-        "medium",
-        "high",
         "adaptive"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "adaptive",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: toggle (budget, no effort) -> off, adaptive. Default adaptive: Qwen enable_thinking defaults to true (https://docs.qwencloud.com/developer-guides/text-generation/thinking): adaptive = thinking on at the model's default budget. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "qwen3.6-plus",
       "levels": [
         "off",
-        "minimal",
-        "low",
-        "medium",
-        "high",
         "adaptive"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "adaptive",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: toggle (budget, no effort) -> off, adaptive. Default adaptive: Qwen enable_thinking defaults to true (https://docs.qwencloud.com/developer-guides/text-generation/thinking): adaptive = thinking on at the model's default budget. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "qwen3.8-flash",
       "levels": [
         "off",
-        "minimal",
         "low",
         "medium",
-        "high",
-        "adaptive"
+        "xhigh"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "xhigh",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, xhigh], toggle -> off, low, medium, xhigh. Default xhigh: the vendor default of the * qwen3-8-flash* rule (https://docs.qwencloud.com/api-reference/chat/openai-chat). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gemini-3.5-flash",
       "levels": [
-        "off",
         "minimal",
         "low",
         "medium",
-        "high",
-        "adaptive"
+        "high"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high] -> minimal, low, medium, high. Default medium: the vendor default of the * gemini-3-5-flash rule (https://cloud.google.com/vertex-ai/generative-ai/docs/thinking). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gemini-3.5-flash-lite",
       "levels": [
-        "off",
         "minimal",
         "low",
         "medium",
-        "high",
-        "adaptive"
+        "high"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "minimal",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high] -> minimal, low, medium, high. Default minimal: the vendor default of the * gemini-3-5-flash-lite rule (https://ai.google.dev/gemini-api/docs/thinking). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gemini-3.7-flash",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
-        "high",
-        "adaptive"
+        "high"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "map": {
+        "minimal": "low"
+      },
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default medium: the vendor default of the * gemini-3-7-flash rule (https://cloud.google.com/vertex-ai/generative-ai/docs/thinking). minimal maps to \"low\": Gemini thinking docs, minimal \"Not supported on Gemini 4 models or gemini-3.8-flash\", 3.7 Flash lists low/medium/high (https://aistudio.google.com/docs/thinking); a stored minimal runs as low instead of a rejected MINIMAL. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gemini-3.8-flash",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
-        "high",
-        "adaptive"
+        "high"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "map": {
+        "minimal": "low"
+      },
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default medium: the vendor default of the * gemini-3-8-flash rule (https://ai.google.dev/gemini-api/docs/thinking). minimal maps to \"low\": Gemini thinking docs, minimal \"Not supported on Gemini 4 models or gemini-3.8-flash\", 3.7 Flash lists low/medium/high (https://aistudio.google.com/docs/thinking); a stored minimal runs as low instead of a rejected MINIMAL. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gemini-4-argon",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
-        "high",
-        "adaptive"
+        "high"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "map": {
+        "minimal": "low"
+      },
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default medium: the vendor default of the * gemini-4-argon rule (https://ai.google.dev/gemini-api/docs/thinking). minimal maps to \"low\": Gemini thinking docs, minimal \"Not supported on Gemini 4 models or gemini-3.8-flash\", 3.7 Flash lists low/medium/high (https://aistudio.google.com/docs/thinking); a stored minimal runs as low instead of a rejected MINIMAL. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "beam-free",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "max",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default max: the vendor default of the * beam-free rule (https://developers.reflection.ai/reasoning). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "deepseek-v4-pro",
       "levels": [
         "off",
-        "minimal",
-        "low",
-        "medium",
         "high",
-        "adaptive"
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [high, max], toggle -> off, high, max. Default high: the vendor default of the * deepseek-v4-pro* rule (https://api-docs.deepseek.com/api/create-chat-completion). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "deepseek-v4.1-flash",
       "levels": [
         "off",
-        "minimal",
         "low",
-        "medium",
         "high",
-        "adaptive"
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, high, max], toggle -> off, low, high, max. Default high: the vendor default of the * deepseek-v4-1-flash* rule (https://api-docs.deepseek.com/api/create-chat-completion). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "deepseek-v4.1-flash-free",
       "levels": [
         "off",
-        "minimal",
         "low",
-        "medium",
         "high",
-        "adaptive"
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, high, max], toggle -> off, low, high, max. Default high: the vendor default of the * deepseek-v4-1-flash* rule (https://api-docs.deepseek.com/api/create-chat-completion). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "flint-40b-free",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
       "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default low: no official default found; keeps the current default low. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "glm-5.3",
       "levels": [
-        "off",
-        "minimal",
         "low",
-        "medium",
         "high",
-        "adaptive"
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "max",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, high, max] -> low, high, max. Default max: the vendor default of the * glm-5-3* rule (https://docs.z.ai/guides/llm/glm-5.3). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "glm-5.3-flash",
       "levels": [
-        "off",
-        "minimal",
         "low",
-        "medium",
         "high",
-        "adaptive"
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "max",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, high, max] -> low, high, max. Default max: the vendor default of the * glm-5-3* rule (https://docs.z.ai/guides/llm/glm-5.3). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8787,15 +8781,11 @@
       "model": "longcat-2.5-free",
       "levels": [
         "off",
-        "minimal",
-        "low",
-        "medium",
-        "high",
         "adaptive"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "off",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: toggle, no effort -> off, adaptive. Default off: the vendor default of the * longcat-2-5* rule (https://huggingface.co/meituan-longcat/LongCat-2.5). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8847,15 +8837,11 @@
       "model": "mistral-large-4",
       "levels": [
         "off",
-        "minimal",
-        "low",
-        "medium",
-        "high",
-        "adaptive"
+        "high"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, high] -> off, high. Default high: the vendor default of the * mistral-large-4* rule (https://docs.mistral.ai/inference/conversations/reasoning). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -8881,401 +8867,359 @@
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, minimal, low, medium, high, xhigh] -> off, minimal, low, medium, high, xhigh. Default high: the vendor default of the * nemotron-3-5-super-vl* rule (https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Super-VL-120B-A12B-BF16). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "qwen3.8-max",
       "levels": [
         "off",
-        "minimal",
         "low",
         "medium",
-        "high",
-        "adaptive"
+        "xhigh"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "xhigh",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, xhigh], toggle -> off, low, medium, xhigh. Default xhigh: the vendor default of the * qwen3-8-max rule (https://docs.qwencloud.com/api-reference/chat/openai-chat). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-5",
       "levels": [
-        "off",
         "minimal",
         "low",
         "medium",
-        "high",
-        "adaptive"
+        "high"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high] -> minimal, low, medium, high. Default medium: OpenAI reasoning guide: medium is the default configuration (https://developers.openai.com/api/docs/guides/reasoning), as the openai/gpt-5 row. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-5-codex",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
-        "high",
-        "adaptive"
+        "high"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default medium: the vendor default of the * gpt-5-codex* rule (https://developers.openai.com/api/docs/models/gpt-5-codex). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-5-nano",
       "levels": [
-        "off",
         "minimal",
         "low",
         "medium",
-        "high",
-        "adaptive"
+        "high"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high] -> minimal, low, medium, high. Default medium: the vendor default of the * gpt-5-nano* rule (https://developers.openai.com/api/docs/models/gpt-5). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-5.1",
       "levels": [
         "off",
-        "minimal",
         "low",
         "medium",
-        "high",
-        "adaptive"
+        "high"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "off",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high] -> off, low, medium, high. Default off: the vendor default of the * gpt-5-1 rule (https://developers.openai.com/api/docs/models/gpt-5.1). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-5.1-codex",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
-        "high",
-        "adaptive"
+        "high"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default medium: the vendor default of the * gpt-5-1-codex* rule (https://developers.openai.com/api/docs/models/gpt-5.1-codex). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-5.1-codex-max",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh] -> low, medium, high, xhigh. Default medium: the vendor default of the * gpt-5-1-codex-max* rule (https://developers.openai.com/api/docs/models/gpt-5.1-codex-max). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-5.1-codex-mini",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
-        "high",
-        "adaptive"
+        "high"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default medium: the vendor default of the * gpt-5-1-codex* rule (https://developers.openai.com/api/docs/models/gpt-5.1-codex). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-5.2",
       "levels": [
         "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "off",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh] -> off, low, medium, high, xhigh. Default off: the vendor default of the * gpt-5-2 rule (https://developers.openai.com/api/docs/models/gpt-5.2). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-5.2-codex",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh] -> low, medium, high, xhigh. Default medium: the vendor default of the * gpt-5-2-codex* rule (https://developers.openai.com/api/docs/models/gpt-5.2-codex). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-5.3-codex",
       "levels": [
         "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh] -> off, low, medium, high, xhigh. Default medium: the vendor default of the * gpt-5-3-codex rule (https://developers.openai.com/api/docs/models/gpt-5.3-codex). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-5.4",
       "levels": [
         "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "off",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh] -> off, low, medium, high, xhigh. Default off: the vendor default of the * gpt-5-4* rule (https://developers.openai.com/api/docs/models/gpt-5.4). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-5.4-mini",
       "levels": [
         "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "off",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh] -> off, low, medium, high, xhigh. Default off: the vendor default of the * gpt-5-4* rule (https://developers.openai.com/api/docs/models/gpt-5.4). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-5.4-nano",
       "levels": [
         "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "off",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh] -> off, low, medium, high, xhigh. Default off: the vendor default of the * gpt-5-4* rule (https://developers.openai.com/api/docs/models/gpt-5.4). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-5.4-pro",
       "levels": [
-        "off",
-        "minimal",
-        "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [medium, high, xhigh] -> medium, high, xhigh. Default medium: the vendor default of the * gpt-5-4-pro* rule (https://developers.openai.com/api/docs/models/gpt-5.4-pro). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-5.5",
       "levels": [
         "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh] -> off, low, medium, high, xhigh. Default medium: the vendor default of the * gpt-5-5 rule (https://developers.openai.com/api/docs/models/gpt-5.5). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-5.5-pro",
       "levels": [
-        "off",
-        "minimal",
-        "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [medium, high, xhigh] -> medium, high, xhigh. Default high: the vendor default of the * gpt-5-5-pro* rule (https://developers.openai.com/api/docs/models/gpt-5.5-pro). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-5.6-luna",
       "levels": [
         "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh, max] -> off, low, medium, high, xhigh, max. Default medium: the vendor default of the * gpt-5-6* rule (https://developers.openai.com/api/docs/models/gpt-5.6-sol). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-5.6-terra",
       "levels": [
         "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh, max] -> off, low, medium, high, xhigh, max. Default medium: the vendor default of the * gpt-5-6* rule (https://developers.openai.com/api/docs/models/gpt-5.6-sol). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-6-astra",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default medium: the vendor default of the * gpt-6-astra* rule (https://developers.openai.com/api/docs/models/gpt-6-astra). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-6-luna",
       "levels": [
         "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh, max] -> off, low, medium, high, xhigh, max. Default medium: the vendor default of the * gpt-6-luna* rule (https://developers.openai.com/api/docs/models/gpt-6-luna). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-6-sol",
       "levels": [
         "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [none, low, medium, high, xhigh, max] -> off, low, medium, high, xhigh, max. Default medium: the vendor default of the * gpt-6-sol* rule (https://developers.openai.com/api/docs/models/gpt-6-sol). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "gpt-6.1-sol",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default medium: the vendor default of the * gpt-6-1-sol* rule (https://developers.openai.com/api/docs/models/gpt-6.1-sol). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "grok-4.5",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
-        "high",
-        "adaptive"
+        "high"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default high: xAI default high (https://docs.x.ai/docs/guides/reasoning). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "grok-4.6",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh] -> low, medium, high, xhigh. Default high: xAI default high (https://docs.x.ai/docs/guides/reasoning). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "grok-4.7",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh] -> low, medium, high, xhigh. Default high: xAI default high (https://docs.x.ai/docs/guides/reasoning). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
@@ -9296,211 +9240,184 @@
       "provider": "opencode",
       "model": "muse-ember-1.0",
       "levels": [
-        "off",
         "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "max",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high, xhigh, max] -> minimal, low, medium, high, xhigh, max. Default max: the vendor default of the * muse-ember* rule (https://dev.meta.ai/docs/reasoning). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "muse-spark-1.2",
       "levels": [
-        "off",
         "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high, xhigh] -> minimal, low, medium, high, xhigh. Default high: the vendor default of the * muse-spark-1-* rule (https://dev.meta.ai/docs/reasoning). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "muse-spark-1.3",
       "levels": [
-        "off",
         "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high, xhigh] -> minimal, low, medium, high, xhigh. Default high: the vendor default of the * muse-spark-1-3* rule (https://dev.meta.ai/docs/reasoning). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode",
       "model": "muse-wonder-1.0",
       "levels": [
-        "off",
         "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "max",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [minimal, low, medium, high, xhigh, max] -> minimal, low, medium, high, xhigh, max. Default max: the vendor default of the * muse-wonder* rule (https://dev.meta.ai/docs/reasoning). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
       "model": "claude-haiku-5-5",
       "levels": [
         "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "OpenCode Go model API capabilities.reasoning: effort [low, medium, high, xhigh, max], toggle -> off, low, medium, high, xhigh, max. Default medium: the vendor default of the * claude-haiku-5-5* rule (https://platform.claude.com/docs/en/build-with-claude/effort). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
       "model": "minimax-m3",
       "levels": [
         "off",
-        "minimal",
-        "low",
-        "medium",
-        "high",
         "adaptive"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "adaptive",
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "OpenCode Go model API capabilities.reasoning: toggle, no effort -> off, adaptive. Default adaptive: as the * minimax-m3* rule (MiniMax OpenAI API: omitted = thinking on; Anthropic API: omitted = off, adaptive = on, https://platform.minimax.io/docs/api-reference/text-anthropic-api). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
       "model": "qwen3.7-plus",
       "levels": [
         "off",
-        "minimal",
-        "low",
-        "medium",
-        "high",
         "adaptive"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "adaptive",
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "OpenCode Go model API capabilities.reasoning: toggle (budget, no effort) -> off, adaptive. Default adaptive: Qwen enable_thinking defaults to true (https://docs.qwencloud.com/developer-guides/text-generation/thinking): adaptive = thinking on at the model's default budget. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
       "model": "qwen3.8-flash",
       "levels": [
         "off",
-        "minimal",
         "low",
         "medium",
-        "high",
-        "adaptive"
+        "xhigh"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "xhigh",
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "OpenCode Go model API capabilities.reasoning: effort [low, medium, xhigh], toggle -> off, low, medium, xhigh. Default xhigh: the vendor default of the * qwen3-8-flash* rule (https://docs.qwencloud.com/api-reference/chat/openai-chat). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
       "model": "gemini-4-argon",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
-        "high",
-        "adaptive"
+        "high"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "map": {
+        "minimal": "low"
+      },
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "OpenCode Go model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default medium: the vendor default of the * gemini-4-argon rule (https://ai.google.dev/gemini-api/docs/thinking). minimal maps to \"low\": Gemini thinking docs, minimal \"Not supported on Gemini 4 models or gemini-3.8-flash\", 3.7 Flash lists low/medium/high (https://aistudio.google.com/docs/thinking); a stored minimal runs as low instead of a rejected MINIMAL. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
       "model": "beam-free",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "max",
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "OpenCode Go model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default max: the vendor default of the * beam-free rule (https://developers.reflection.ai/reasoning). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
       "model": "glm-5.3",
       "levels": [
-        "off",
-        "minimal",
         "low",
-        "medium",
         "high",
-        "adaptive"
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "max",
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "OpenCode Go model API capabilities.reasoning: effort [low, high, max] -> low, high, max. Default max: the vendor default of the * glm-5-3* rule (https://docs.z.ai/guides/llm/glm-5.3). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
       "model": "glm-5.3-flash",
       "levels": [
-        "off",
-        "minimal",
         "low",
-        "medium",
         "high",
-        "adaptive"
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "max",
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "OpenCode Go model API capabilities.reasoning: effort [low, high, max] -> low, high, max. Default max: the vendor default of the * glm-5-3* rule (https://docs.z.ai/guides/llm/glm-5.3). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
       "model": "hy4",
       "levels": [
         "off",
-        "minimal",
-        "low",
-        "medium",
-        "high",
-        "adaptive"
+        "high"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "OpenCode Go model API capabilities.reasoning: effort [none, high] -> off, high. Default high: the vendor default of the * hy4* rule (https://www.tencentcloud.com/document/product/1300/80637). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
       "model": "hy4-preview",
       "levels": [
         "off",
-        "minimal",
-        "low",
-        "medium",
-        "high",
-        "adaptive"
+        "high"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "OpenCode Go model API capabilities.reasoning: effort [none, high] -> off, high. Default high: the vendor default of the * hy4* rule (https://www.tencentcloud.com/document/product/1300/80637). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9521,46 +9438,35 @@
       "provider": "opencode-go",
       "model": "kimi-k3.1-pro",
       "levels": [
-        "off",
-        "minimal",
         "low",
-        "medium",
         "high",
-        "adaptive"
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "max",
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "OpenCode Go model API capabilities.reasoning: effort [low, high, max] -> low, high, max. Default max: the model API's reasoning.default. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
       "model": "longcat-2.0",
       "levels": [
         "off",
-        "minimal",
-        "low",
-        "medium",
-        "high",
         "adaptive"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "adaptive",
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "OpenCode Go model API capabilities.reasoning: toggle, no effort -> off, adaptive. Default adaptive: LongCat-2.0 template enable_thinking defaults to true (https://huggingface.co/meituan-longcat/LongCat-2.0), the on default of the * longcat-2-0* rule. Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
       "model": "longcat-2.5-free",
       "levels": [
         "off",
-        "minimal",
-        "low",
-        "medium",
-        "high",
         "adaptive"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "off",
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "OpenCode Go model API capabilities.reasoning: toggle, no effort -> off, adaptive. Default off: the vendor default of the * longcat-2-5* rule (https://huggingface.co/meituan-longcat/LongCat-2.5). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9596,91 +9502,83 @@
       "provider": "opencode-go",
       "model": "minimax-m3.1-flash",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "max",
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "OpenCode Go model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default max: the vendor default of the * minimax-m3-1-flash* rule (https://platform.minimax.io/docs/api-reference/text-anthropic-api). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
       "model": "step-5-preview",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
-        "high",
-        "adaptive"
+        "high"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "OpenCode Go model API capabilities.reasoning: effort [low, medium, high] -> low, medium, high. Default medium: the vendor default of the * step-5* rule (https://platform.stepfun.ai/docs/en/guides/models/step-5-preview). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
       "model": "gpt-6-luna",
       "levels": [
         "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh",
+        "max"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "medium",
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "OpenCode Go model API capabilities.reasoning: effort [none, low, medium, high, xhigh, max] -> off, low, medium, high, xhigh, max. Default medium: the vendor default of the * gpt-6-luna* rule (https://developers.openai.com/api/docs/models/gpt-6-luna). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
       "model": "grok-4.7",
       "levels": [
-        "off",
-        "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "OpenCode Go model API capabilities.reasoning: effort [low, medium, high, xhigh] -> low, medium, high, xhigh. Default high: xAI default high (https://docs.x.ai/docs/guides/reasoning). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
       "model": "muse-spark-1.2-contributor",
       "levels": [
-        "off",
         "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "OpenCode Go model API capabilities.reasoning: effort [minimal, low, medium, high, xhigh] -> minimal, low, medium, high, xhigh. Default high: the vendor default of the * muse-spark-1-* rule (https://dev.meta.ai/docs/reasoning). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "opencode-go",
       "model": "muse-spark-1.3-contributor",
       "levels": [
-        "off",
         "minimal",
         "low",
         "medium",
         "high",
-        "adaptive"
+        "xhigh"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "OpenCode Go model API capabilities.reasoning: effort [minimal, low, medium, high, xhigh] -> minimal, low, medium, high, xhigh. Default high: the vendor default of the * muse-spark-1-3-contributor* rule (https://dev.meta.ai/docs/reasoning). Reviewed 2026-11-22 (I3h)."
     },
     {
       "provider": "byteplus",
@@ -9867,6 +9765,33 @@
       "note": "OpenCode Go model API: capabilities.reasoning effort [low, high, max], no toggle. Default high as DeepSeek's own default."
     },
     {
+      "provider": "opencode",
+      "model": "claude-opus-5",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "high",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, medium, high, xhigh, max] -> low, medium, high, xhigh, max. Default high: the vendor default of the * claude-opus-5 rule (https://platform.claude.com/docs/en/build-with-claude/effort). Reviewed 2026-11-22 (I3h)."
+    },
+    {
+      "provider": "opencode",
+      "model": "kimi-k3",
+      "levels": [
+        "off",
+        "low",
+        "high",
+        "max"
+      ],
+      "default": "max",
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "OpenCode Zen model API capabilities.reasoning: effort [low, high, max], toggle -> off, low, high, max. Default max: the vendor default of the * kimi-k3* rule (https://platform.kimi.ai/docs/guide/kimi-k3-quickstart). Reviewed 2026-11-22 (I3h)."
+    },
+    {
       "provider": "together",
       "model": "deepseek-ai/DeepSeek-V4-Pro-0813",
       "levels": [
@@ -9877,6 +9802,118 @@
       "default": "high",
       "source": "https://docs.together.ai/docs/inference/chat/reasoning.md",
       "note": "Together: \"DeepSeek V4 Pro 0813 accepts only \"high\" and \"max\" for reasoning_effort. Other values are mapped automatically: \"low\" and \"medium\" map to \"high\". \"high\" and \"xhigh\" map to \"max\".\" The page contradicts itself on high, so high may run at max. Hybrid model, on by default, turned off with reasoning.enabled=false. Default effort not stated; high as DeepSeek's own default."
+    },
+    {
+      "provider": "anthropic",
+      "model": "claude-sonnet-5-5*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "high",
+      "map": {
+        "off": null
+      },
+      "source": "https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting",
+      "note": "Same levels and default as the * claude-sonnet-5-5* rule. Sonnet 5.5 rejects thinking {type: disabled} with a 400 at every effort level, so off maps to null: the level stays listed and the Agent sends no thinking field (no thinking field = off, https://platform.claude.com/docs/en/build-with-claude/thinking). Replaces the ClawPoD Agent's Sonnet 5.5 name rule (I3h)."
+    },
+    {
+      "provider": "anthropic-vertex",
+      "model": "claude-sonnet-5-5*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "high",
+      "map": {
+        "off": null
+      },
+      "source": "https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting",
+      "note": "Same levels and default as the * claude-sonnet-5-5* rule. Sonnet 5.5 rejects thinking {type: disabled} with a 400 at every effort level, so off maps to null: the level stays listed and the Agent sends no thinking field (no thinking field = off, https://platform.claude.com/docs/en/build-with-claude/thinking). Replaces the ClawPoD Agent's Sonnet 5.5 name rule (I3h)."
+    },
+    {
+      "provider": "amazon-bedrock-mantle",
+      "model": "anthropic.claude-sonnet-5-5*",
+      "levels": [
+        "off",
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "high",
+      "map": {
+        "off": null
+      },
+      "source": "https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting",
+      "note": "Same levels and default as the * claude-sonnet-5-5* rule. Sonnet 5.5 rejects thinking {type: disabled} with a 400 at every effort level, so off maps to null: the level stays listed and the Agent sends no thinking field (no thinking field = off, https://platform.claude.com/docs/en/build-with-claude/thinking). Replaces the ClawPoD Agent's Sonnet 5.5 name rule (I3h)."
+    },
+    {
+      "provider": "xai",
+      "model": "grok-4.20",
+      "levels": [
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "map": {
+        "low": null
+      },
+      "source": "https://docs.x.ai/docs/guides/reasoning",
+      "note": "xAI: reasoning_effort is accepted by grok-4.3 and grok-4.5 and later only, other reasoning models cannot disable or tune reasoning (https://docs.x.ai/docs/guides/reasoning). Single always-on level mapped to null so the Agent sends no effort field: with every other level unlisted the runtime has no level to move to. Replaces the ClawPoD Agent's xAI effort name rule (I3h)."
+    },
+    {
+      "provider": "xai",
+      "model": "grok-4.20-0309-reasoning",
+      "levels": [
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "map": {
+        "low": null
+      },
+      "source": "https://docs.x.ai/docs/guides/reasoning",
+      "note": "xAI: reasoning_effort is accepted by grok-4.3 and grok-4.5 and later only, other reasoning models cannot disable or tune reasoning (https://docs.x.ai/docs/guides/reasoning). Single always-on level mapped to null so the Agent sends no effort field: with every other level unlisted the runtime has no level to move to. Replaces the ClawPoD Agent's xAI effort name rule (I3h)."
+    },
+    {
+      "provider": "xai",
+      "model": "grok-build*",
+      "levels": [
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "map": {
+        "low": null
+      },
+      "source": "https://docs.x.ai/docs/guides/reasoning",
+      "note": "xAI: reasoning_effort is accepted by grok-4.3 and grok-4.5 and later only, other reasoning models cannot disable or tune reasoning (https://docs.x.ai/docs/guides/reasoning). Single always-on level mapped to null so the Agent sends no effort field: with every other level unlisted the runtime has no level to move to. Replaces the ClawPoD Agent's xAI effort name rule (I3h)."
+    },
+    {
+      "provider": "nvidia",
+      "model": "moonshotai/kimi-k3",
+      "levels": [
+        "max"
+      ],
+      "default": "max",
+      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
+      "note": "Not the official ladder: copies the published moonshot/kimi-k3 row (levels max, default max), the row the Agent borrows for this nested id today, so the configured path's request stays the same. Retired row (I3h). Without this rule the * kimi-k3* rule would list low/high/max."
     },
     {
       "provider": "*",
@@ -15259,6 +15296,456 @@
       },
       "source": "https://platform.stepfun.com/docs/zh/api-reference/chat/chat-completion-create",
       "note": "Interpretation, not a stated step-3.7-flash value: the StepFun API (zh) table \"Step Plan 通道：Step Router V1 字段差异\" lists max_tokens \"上限为 64K\" for step-router-v1, which the Step Plan channel routes to step-5-preview and step-3.7-flash; 64K is read as 65536 (the Agent plugin value). The same table says model accepts only step-router-v1; whether that applies to every Step Plan model is left to a later plan-row review."
+    },
+    {
+      "provider": "*",
+      "model": "claude-opus-4-6*",
+      "set": {
+        "compat": {
+          "forceAdaptiveThinking": true
+        }
+      },
+      "source": "https://platform.claude.com/docs/en/build-with-claude/thinking",
+      "note": "Adaptive thinking (thinking.type adaptive plus effort) is the on-mode for this family; manual budget_tokens returns 400 on Claude 4.7 and later and is deprecated on 4.6 (https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting). Replaces the ClawPoD Agent's model-name rules (I3h). Read by the Anthropic Messages transports only."
+    },
+    {
+      "provider": "*",
+      "model": "claude-opus-4-7*",
+      "set": {
+        "compat": {
+          "forceAdaptiveThinking": true
+        }
+      },
+      "source": "https://platform.claude.com/docs/en/build-with-claude/thinking",
+      "note": "Adaptive thinking (thinking.type adaptive plus effort) is the on-mode for this family; manual budget_tokens returns 400 on Claude 4.7 and later and is deprecated on 4.6 (https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting). Replaces the ClawPoD Agent's model-name rules (I3h). Read by the Anthropic Messages transports only."
+    },
+    {
+      "provider": "*",
+      "model": "claude-opus-4-8*",
+      "set": {
+        "compat": {
+          "forceAdaptiveThinking": true
+        }
+      },
+      "source": "https://platform.claude.com/docs/en/build-with-claude/thinking",
+      "note": "Adaptive thinking (thinking.type adaptive plus effort) is the on-mode for this family; manual budget_tokens returns 400 on Claude 4.7 and later and is deprecated on 4.6 (https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting). Replaces the ClawPoD Agent's model-name rules (I3h). Read by the Anthropic Messages transports only."
+    },
+    {
+      "provider": "*",
+      "model": "claude-opus-5*",
+      "set": {
+        "compat": {
+          "forceAdaptiveThinking": true
+        }
+      },
+      "source": "https://platform.claude.com/docs/en/build-with-claude/thinking",
+      "note": "Adaptive thinking (thinking.type adaptive plus effort) is the on-mode for this family; manual budget_tokens returns 400 on Claude 4.7 and later and is deprecated on 4.6 (https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting). Replaces the ClawPoD Agent's model-name rules (I3h). Read by the Anthropic Messages transports only."
+    },
+    {
+      "provider": "*",
+      "model": "claude-sonnet-4-6*",
+      "set": {
+        "compat": {
+          "forceAdaptiveThinking": true
+        }
+      },
+      "source": "https://platform.claude.com/docs/en/build-with-claude/thinking",
+      "note": "Adaptive thinking (thinking.type adaptive plus effort) is the on-mode for this family; manual budget_tokens returns 400 on Claude 4.7 and later and is deprecated on 4.6 (https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting). Replaces the ClawPoD Agent's model-name rules (I3h). Read by the Anthropic Messages transports only."
+    },
+    {
+      "provider": "*",
+      "model": "claude-sonnet-5*",
+      "set": {
+        "compat": {
+          "forceAdaptiveThinking": true
+        }
+      },
+      "source": "https://platform.claude.com/docs/en/build-with-claude/thinking",
+      "note": "Adaptive thinking (thinking.type adaptive plus effort) is the on-mode for this family; manual budget_tokens returns 400 on Claude 4.7 and later and is deprecated on 4.6 (https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting). Replaces the ClawPoD Agent's model-name rules (I3h). Read by the Anthropic Messages transports only."
+    },
+    {
+      "provider": "*",
+      "model": "claude-haiku-5-5*",
+      "set": {
+        "compat": {
+          "forceAdaptiveThinking": true
+        }
+      },
+      "source": "https://platform.claude.com/docs/en/build-with-claude/thinking",
+      "note": "Adaptive thinking (thinking.type adaptive plus effort) is the on-mode for this family; manual budget_tokens returns 400 on Claude 4.7 and later and is deprecated on 4.6 (https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting). Replaces the ClawPoD Agent's model-name rules (I3h). Read by the Anthropic Messages transports only."
+    },
+    {
+      "provider": "*",
+      "model": "claude-fable-5*",
+      "set": {
+        "compat": {
+          "forceAdaptiveThinking": true
+        }
+      },
+      "source": "https://platform.claude.com/docs/en/build-with-claude/thinking",
+      "note": "Adaptive thinking (thinking.type adaptive plus effort) is the on-mode for this family; manual budget_tokens returns 400 on Claude 4.7 and later and is deprecated on 4.6 (https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting). Replaces the ClawPoD Agent's model-name rules (I3h). Read by the Anthropic Messages transports only."
+    },
+    {
+      "provider": "*",
+      "model": "claude-mythos-5*",
+      "set": {
+        "compat": {
+          "forceAdaptiveThinking": true
+        }
+      },
+      "source": "https://platform.claude.com/docs/en/build-with-claude/thinking",
+      "note": "Adaptive thinking (thinking.type adaptive plus effort) is the on-mode for this family; manual budget_tokens returns 400 on Claude 4.7 and later and is deprecated on 4.6 (https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting). Replaces the ClawPoD Agent's model-name rules (I3h). Read by the Anthropic Messages transports only."
+    },
+    {
+      "provider": "*",
+      "model": "claude-mythos-preview*",
+      "set": {
+        "compat": {
+          "forceAdaptiveThinking": true
+        }
+      },
+      "source": "https://platform.claude.com/docs/en/build-with-claude/thinking",
+      "note": "Adaptive thinking (thinking.type adaptive plus effort) is the on-mode for this family; manual budget_tokens returns 400 on Claude 4.7 and later and is deprecated on 4.6 (https://platform.claude.com/docs/en/build-with-claude/thinking-troubleshooting). Replaces the ClawPoD Agent's model-name rules (I3h). Read by the Anthropic Messages transports only."
+    },
+    {
+      "provider": "minimax",
+      "model": "MiniMax-M3",
+      "set": {
+        "compat": {
+          "forceAdaptiveThinking": true
+        }
+      },
+      "source": "https://platform.minimax.io/docs/api-reference/text-anthropic-api",
+      "note": "MiniMax Anthropic API: thinking is off by default for MiniMax-M3 and can be enabled with adaptive; MiniMax-M3.1-Flash always thinks and returns 400 if disabled is sent (the Preview id is served by M3.1 Flash). Replaces the ClawPoD Agent's MiniMax name rule (I3h)."
+    },
+    {
+      "provider": "minimax",
+      "model": "MiniMax-M3.1-Flash-Preview",
+      "set": {
+        "compat": {
+          "forceAdaptiveThinking": true
+        }
+      },
+      "source": "https://platform.minimax.io/docs/api-reference/text-anthropic-api",
+      "note": "MiniMax Anthropic API: thinking is off by default for MiniMax-M3 and can be enabled with adaptive; MiniMax-M3.1-Flash always thinks and returns 400 if disabled is sent (the Preview id is served by M3.1 Flash). Replaces the ClawPoD Agent's MiniMax name rule (I3h)."
+    },
+    {
+      "provider": "minimax-cn",
+      "model": "MiniMax-M3",
+      "set": {
+        "compat": {
+          "forceAdaptiveThinking": true
+        }
+      },
+      "source": "https://platform.minimax.io/docs/api-reference/text-anthropic-api",
+      "note": "MiniMax Anthropic API: thinking is off by default for MiniMax-M3 and can be enabled with adaptive; MiniMax-M3.1-Flash always thinks and returns 400 if disabled is sent (the Preview id is served by M3.1 Flash). Replaces the ClawPoD Agent's MiniMax name rule (I3h)."
+    },
+    {
+      "provider": "minimax-cn",
+      "model": "MiniMax-M3.1-Flash-Preview",
+      "set": {
+        "compat": {
+          "forceAdaptiveThinking": true
+        }
+      },
+      "source": "https://platform.minimax.io/docs/api-reference/text-anthropic-api",
+      "note": "MiniMax Anthropic API: thinking is off by default for MiniMax-M3 and can be enabled with adaptive; MiniMax-M3.1-Flash always thinks and returns 400 if disabled is sent (the Preview id is served by M3.1 Flash). Replaces the ClawPoD Agent's MiniMax name rule (I3h)."
+    },
+    {
+      "provider": "minimax-portal",
+      "model": "MiniMax-M3",
+      "set": {
+        "compat": {
+          "forceAdaptiveThinking": true
+        }
+      },
+      "source": "https://platform.minimax.io/docs/api-reference/text-anthropic-api",
+      "note": "MiniMax Anthropic API: thinking is off by default for MiniMax-M3 and can be enabled with adaptive; MiniMax-M3.1-Flash always thinks and returns 400 if disabled is sent (the Preview id is served by M3.1 Flash). Replaces the ClawPoD Agent's MiniMax name rule (I3h)."
+    },
+    {
+      "provider": "minimax-portal",
+      "model": "MiniMax-M3.1-Flash-Preview",
+      "set": {
+        "compat": {
+          "forceAdaptiveThinking": true
+        }
+      },
+      "source": "https://platform.minimax.io/docs/api-reference/text-anthropic-api",
+      "note": "MiniMax Anthropic API: thinking is off by default for MiniMax-M3 and can be enabled with adaptive; MiniMax-M3.1-Flash always thinks and returns 400 if disabled is sent (the Preview id is served by M3.1 Flash). Replaces the ClawPoD Agent's MiniMax name rule (I3h)."
+    },
+    {
+      "provider": "minimax-portal-cn",
+      "model": "MiniMax-M3",
+      "set": {
+        "compat": {
+          "forceAdaptiveThinking": true
+        }
+      },
+      "source": "https://platform.minimax.io/docs/api-reference/text-anthropic-api",
+      "note": "MiniMax Anthropic API: thinking is off by default for MiniMax-M3 and can be enabled with adaptive; MiniMax-M3.1-Flash always thinks and returns 400 if disabled is sent (the Preview id is served by M3.1 Flash). Replaces the ClawPoD Agent's MiniMax name rule (I3h)."
+    },
+    {
+      "provider": "minimax-portal-cn",
+      "model": "MiniMax-M3.1-Flash-Preview",
+      "set": {
+        "compat": {
+          "forceAdaptiveThinking": true
+        }
+      },
+      "source": "https://platform.minimax.io/docs/api-reference/text-anthropic-api",
+      "note": "MiniMax Anthropic API: thinking is off by default for MiniMax-M3 and can be enabled with adaptive; MiniMax-M3.1-Flash always thinks and returns 400 if disabled is sent (the Preview id is served by M3.1 Flash). Replaces the ClawPoD Agent's MiniMax name rule (I3h)."
+    },
+    {
+      "provider": "mistral",
+      "model": "mistral-small-latest",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": true
+        }
+      },
+      "source": "https://docs.mistral.ai/capabilities/reasoning/",
+      "note": "Alias of the current Mistral Small, which takes reasoning_effort (high/none) per the Mistral reasoning page; the Agent plugin already enabled it. Replaces the ClawPoD Agent's Mistral effort id list (I3h)."
+    },
+    {
+      "provider": "mistral",
+      "model": "mistral-small-2603",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": true
+        }
+      },
+      "source": "https://docs.mistral.ai/capabilities/reasoning/",
+      "note": "Mistral reasoning page lists reasoning_effort for this model. Replaces the ClawPoD Agent's Mistral effort id list (I3h)."
+    },
+    {
+      "provider": "mistral",
+      "model": "mistral-medium-3-5",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": true
+        }
+      },
+      "source": "https://docs.mistral.ai/capabilities/reasoning/",
+      "note": "Mistral reasoning page lists reasoning_effort for this model. Replaces the ClawPoD Agent's Mistral effort id list (I3h)."
+    },
+    {
+      "provider": "mistral",
+      "model": "mistral-large-4",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": true
+        }
+      },
+      "source": "https://docs.mistral.ai/capabilities/reasoning/",
+      "note": "Mistral reasoning page lists reasoning_effort for this model. Replaces the ClawPoD Agent's Mistral effort id list (I3h)."
+    },
+    {
+      "provider": "mistral",
+      "model": "zai-glm-5-3",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": true
+        }
+      },
+      "source": "https://docs.mistral.ai/capabilities/reasoning/",
+      "note": "Mistral reasoning page lists reasoning_effort for this model. Replaces the ClawPoD Agent's Mistral effort id list (I3h)."
+    },
+    {
+      "provider": "mistral",
+      "model": "zai-glm-5-3-flash",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": true
+        }
+      },
+      "source": "https://docs.mistral.ai/capabilities/reasoning/",
+      "note": "Mistral reasoning page lists reasoning_effort for this model. Replaces the ClawPoD Agent's Mistral effort id list (I3h)."
+    },
+    {
+      "provider": "mistral",
+      "model": "ministral-3b-2512",
+      "set": {
+        "maxTokens": 8192
+      },
+      "source": "https://docs.mistral.ai/getting-started/models/known-limitations",
+      "note": "Not an official value: Mistral publishes no maximum output, and \"token counts include both input and output tokens\", so maxTokens equal to the window is wrong. 8192 is the output cap the ClawPoD Agent sends today for this row (src/config/defaults.ts mistral table, unknown ids 8192); the Agent's name table is retired (I3h)."
+    },
+    {
+      "provider": "mistral",
+      "model": "ministral-8b-2512",
+      "set": {
+        "maxTokens": 8192
+      },
+      "source": "https://docs.mistral.ai/getting-started/models/known-limitations",
+      "note": "Not an official value: Mistral publishes no maximum output, and \"token counts include both input and output tokens\", so maxTokens equal to the window is wrong. 8192 is the output cap the ClawPoD Agent sends today for this row (src/config/defaults.ts mistral table, unknown ids 8192); the Agent's name table is retired (I3h)."
+    },
+    {
+      "provider": "mistral",
+      "model": "ministral-14b-2512",
+      "set": {
+        "maxTokens": 8192
+      },
+      "source": "https://docs.mistral.ai/getting-started/models/known-limitations",
+      "note": "Not an official value: Mistral publishes no maximum output, and \"token counts include both input and output tokens\", so maxTokens equal to the window is wrong. 8192 is the output cap the ClawPoD Agent sends today for this row (src/config/defaults.ts mistral table, unknown ids 8192); the Agent's name table is retired (I3h)."
+    },
+    {
+      "provider": "mistral",
+      "model": "mistral-large-2512",
+      "set": {
+        "maxTokens": 8192
+      },
+      "source": "https://docs.mistral.ai/getting-started/models/known-limitations",
+      "note": "Not an official value: Mistral publishes no maximum output, and \"token counts include both input and output tokens\", so maxTokens equal to the window is wrong. 8192 is the output cap the ClawPoD Agent sends today for this row (src/config/defaults.ts mistral table, unknown ids 8192); the Agent's name table is retired (I3h)."
+    },
+    {
+      "provider": "mistral",
+      "model": "mistral-medium-2604",
+      "set": {
+        "maxTokens": 8192
+      },
+      "source": "https://docs.mistral.ai/getting-started/models/known-limitations",
+      "note": "Not an official value: Mistral publishes no maximum output, and \"token counts include both input and output tokens\", so maxTokens equal to the window is wrong. 8192 is the output cap the ClawPoD Agent sends today for this row (src/config/defaults.ts mistral table, unknown ids 8192); the Agent's name table is retired (I3h)."
+    },
+    {
+      "provider": "mistral",
+      "model": "mistral-medium-latest",
+      "set": {
+        "maxTokens": 16384
+      },
+      "source": "https://docs.mistral.ai/getting-started/models/known-limitations",
+      "note": "Not an official value: Mistral publishes no maximum output, and \"token counts include both input and output tokens\", so maxTokens equal to the window is wrong. 16384 is the output cap the ClawPoD Agent sends today for this row (src/config/defaults.ts mistral table, mistral-medium-latest 16384); the Agent's name table is retired (I3h)."
+    },
+    {
+      "provider": "kilocode",
+      "model": "kilo/auto",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": false
+        }
+      },
+      "source": "https://openrouter.ai/docs/use-cases/reasoning-tokens",
+      "note": "Router alias: the routed model varies, and the OpenRouter-compatible gateway drops reasoning fields the routed model does not take. The Agent sent no effort for this id; replaces its name rule (I3h)."
+    },
+    {
+      "provider": "kilocode",
+      "model": "x-ai/grok-4.20",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": false
+        }
+      },
+      "source": "https://docs.x.ai/docs/guides/reasoning",
+      "note": "xAI: reasoning_effort only on grok-4.3 and grok-4.5 and later; Grok 4.20 reasoning is always on and not tunable. Replaces the ClawPoD Agent's x-ai name rule on Kilo Gateway (I3h)."
+    },
+    {
+      "provider": "kilocode",
+      "model": "x-ai/grok-4.20-reasoning",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": false
+        }
+      },
+      "source": "https://docs.x.ai/docs/guides/reasoning",
+      "note": "xAI: reasoning_effort only on grok-4.3 and grok-4.5 and later; Grok 4.20 reasoning is always on and not tunable. Replaces the ClawPoD Agent's x-ai name rule on Kilo Gateway (I3h)."
+    },
+    {
+      "provider": "kilocode",
+      "model": "x-ai/grok-4.20-reasoning-beta",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": false
+        }
+      },
+      "source": "https://docs.x.ai/docs/guides/reasoning",
+      "note": "xAI: reasoning_effort only on grok-4.3 and grok-4.5 and later; Grok 4.20 reasoning is always on and not tunable. Replaces the ClawPoD Agent's x-ai name rule on Kilo Gateway (I3h)."
+    },
+    {
+      "provider": "opencode",
+      "model": "mimo-v2.6-flash-free",
+      "set": {
+        "compat": {
+          "supportsStrictMode": true
+        }
+      },
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "Model API api.chat-completions.capabilities.tools.strict: true. Reviewed 2026-11-22 (I3h)."
+    },
+    {
+      "provider": "opencode",
+      "model": "kimi-k2.7-code",
+      "set": {
+        "compat": {
+          "supportsStrictMode": true
+        }
+      },
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "Model API api.chat-completions.capabilities.tools.strict: true. Reviewed 2026-11-22 (I3h)."
+    },
+    {
+      "provider": "opencode",
+      "model": "mistral-large-4",
+      "set": {
+        "compat": {
+          "supportsStrictMode": true
+        }
+      },
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "Model API api.chat-completions.capabilities.tools.strict: true. Reviewed 2026-11-22 (I3h)."
+    },
+    {
+      "provider": "opencode",
+      "model": "beam-free",
+      "set": {
+        "compat": {
+          "supportsStrictMode": true
+        }
+      },
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "Model API api.chat-completions.capabilities.tools.strict: true. Reviewed 2026-11-22 (I3h)."
+    },
+    {
+      "provider": "opencode-go",
+      "model": "mimo-v2.6-flash",
+      "set": {
+        "compat": {
+          "supportsStrictMode": true
+        }
+      },
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "Model API api.chat-completions.capabilities.tools.strict: true. Reviewed 2026-11-22 (I3h)."
+    },
+    {
+      "provider": "opencode-go",
+      "model": "mimo-v2.6-pro",
+      "set": {
+        "compat": {
+          "supportsStrictMode": true
+        }
+      },
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "Model API api.chat-completions.capabilities.tools.strict: true. Reviewed 2026-11-22 (I3h)."
+    },
+    {
+      "provider": "opencode-go",
+      "model": "beam-free",
+      "set": {
+        "compat": {
+          "supportsStrictMode": true
+        }
+      },
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "Model API api.chat-completions.capabilities.tools.strict: true. Reviewed 2026-11-22 (I3h)."
+    },
+    {
+      "provider": "opencode-go",
+      "model": "kimi-k3.1-pro",
+      "set": {
+        "compat": {
+          "supportsStrictMode": true
+        }
+      },
+      "source": "https://opencode.ai/inference/go/v1/models",
+      "note": "Model API api.chat-completions.capabilities.tools.strict: true. Reviewed 2026-11-22 (I3h)."
     }
   ],
   "knownGaps": [

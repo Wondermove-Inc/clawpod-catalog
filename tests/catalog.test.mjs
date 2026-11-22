@@ -835,7 +835,7 @@ test("reviewed xai aliases publish their official target's values and always-on 
   assert.ok(alias, "missing xai/grok-4.20");
   assert.deepEqual(
     { ...alias, compat: undefined },
-    { id: "grok-4.20", name: "Grok 4.20", ...shared, maxTokens: 30_000, compat: undefined },
+    { id: "grok-4.20", name: "Grok 4.20", ...shared, maxTokens: 30_000, compat: undefined, thinkingLevelMap: { low: null } },
   );
   assert.deepEqual(alias.compat, alwaysOn);
   // grok-4-0709 retired 2026-05-15; xAI serves it as grok-4.3 with low reasoning effort.
@@ -851,6 +851,8 @@ test("reviewed xai aliases publish their official target's values and always-on 
       status: "deprecated",
       replacedBy: "grok-4.3",
       compat: undefined,
+      // No effort field on the wire (xAI: effort only on grok-4.3 and 4.5+), I3h.
+      thinkingLevelMap: { low: null },
     },
   );
   assert.deepEqual(retired.compat, alwaysOn);
@@ -937,7 +939,9 @@ test("Gemini CLI manual rows keep the google manual rows' values without a price
   }
 });
 
-// OpenCode Zen and Go rows from Pi 1.5.2, kept at the Agent's current effort (REVIEW 2026-11-21).
+// OpenCode Zen and Go rows from Pi 1.5.2 (REVIEW 2026-11-21). Effort follows the model APIs'
+// capabilities.reasoning (REVIEW 2026-11-22 I3h) except the rows below, which state neither an
+// effort list nor a toggle and keep the Agent's current effort.
 const OPENCODE_IDS = {
   opencode: [
     ...["claude-fable-5", "claude-fable-5-1", "claude-fable-5-2", "claude-haiku-4-5", "claude-haiku-5-5"],
@@ -962,12 +966,19 @@ const OPENCODE_IDS = {
     ...["step-5-preview", "gpt-6-luna", "grok-4.7", "muse-spark-1.2-contributor", "muse-spark-1.3-contributor"],
   ],
 };
+const OPENCODE_STILL_KEPT = [
+  ...["opencode/claude-haiku-4-5", "opencode/claude-sonnet-4-5", "opencode/iceman-free", "opencode/kimi-k2.7-code"],
+  ...["opencode/mimo-v2.6-flash-free", "opencode/minimax-m2.5", "opencode/minimax-m2.7"],
+  ...["opencode/nemotron-3.5-lightning-free", "opencode/grok-build-0.1", "opencode-go/iceman-contributor-free"],
+  ...["opencode-go/mimo-v2.6-flash", "opencode-go/mimo-v2.6-pro"],
+];
+const OPENCODE_API = { opencode: "https://opencode.ai/zen/v1/models", "opencode-go": "https://opencode.ai/inference/go/v1/models" };
 const OPENCODE_KEPT = {
   thinkingLevels: ["off", "minimal", "low", "medium", "high", "adaptive"],
   defaultThinkingLevel: "low",
 };
 
-test("reviewed OpenCode Zen and Go rows publish the Pi 1.5.2 values and the Agent's current effort", () => {
+test("reviewed OpenCode Zen and Go rows publish the Pi 1.5.2 values and the model APIs' effort", () => {
   const supplement = read(path.join(root, "sources/clawpod-providers.json"));
   const next = buildCatalog({ ...fixture(), supplement });
   const get = (p, id) => next.providers[p].models.find((m) => m.id === id);
@@ -976,9 +987,25 @@ test("reviewed OpenCode Zen and Go rows publish the Pi 1.5.2 values and the Agen
   for (const [p, ids] of Object.entries(OPENCODE_IDS)) {
     assert.equal(next.providers[p]?.api, "openai-completions", p);
     assert.deepEqual(next.providers[p].models.map((m) => m.id).sort(), [...ids].sort(), p);
-    // Every row keeps the Agent's list and default for a reasoning model without catalog effort.
-    for (const m of next.providers[p].models) assert.deepEqual(m.compat, OPENCODE_KEPT, `${p}/${m.id}`);
+    for (const m of next.providers[p].models) {
+      const rule = supplement.thinking.find((r) => r.provider === p && r.model === m.id);
+      const levels = { thinkingLevels: m.compat.thinkingLevels, defaultThinkingLevel: m.compat.defaultThinkingLevel };
+      if (OPENCODE_STILL_KEPT.includes(`${p}/${m.id}`)) assert.deepEqual(levels, OPENCODE_KEPT, `${p}/${m.id}`);
+      else assert.deepEqual(levels, { thinkingLevels: rule.levels, defaultThinkingLevel: rule.default }, `${p}/${m.id}`);
+    }
   }
+  // Model API ladders, the Claude adaptive flag and tools.strict from the API.
+  const effort = (p, id) => {
+    const { thinkingLevels, defaultThinkingLevel, ...rest } = get(p, id).compat;
+    return [thinkingLevels, defaultThinkingLevel, rest, get(p, id).thinkingLevelMap];
+  };
+  assert.deepEqual(effort("opencode", "claude-opus-4-6"), [["low", "medium", "high", "max"], "high", { forceAdaptiveThinking: true }, undefined]);
+  assert.deepEqual(effort("opencode", "gpt-5.4"), [["off", "low", "medium", "high", "xhigh"], "off", {}, undefined]);
+  assert.deepEqual(effort("opencode", "gemini-4-argon"), [["low", "medium", "high"], "medium", {}, { minimal: "low" }]);
+  assert.deepEqual(effort("opencode", "beam-free"), [["low", "medium", "high", "xhigh", "max"], "max", { supportsStrictMode: true }, undefined]);
+  assert.deepEqual(effort("opencode-go", "kimi-k3.1-pro"), [["low", "high", "max"], "max", { supportsStrictMode: true }, undefined]);
+  assert.deepEqual(effort("opencode-go", "minimax-m3"), [["off", "adaptive"], "adaptive", {}, undefined]);
+  const strip = ({ compat: _c, thinkingLevelMap: _m, ...m }) => m;
   const row = (id, name, api, input, contextWindow, maxTokens, cost) => ({
     id,
     name,
@@ -988,37 +1015,36 @@ test("reviewed OpenCode Zen and Go rows publish the Pi 1.5.2 values and the Agen
     contextWindow,
     maxTokens,
     cost,
-    compat: OPENCODE_KEPT,
   });
   const ti = ["text", "image"];
   assert.deepEqual(
-    get("opencode", "claude-opus-4-6"),
+    strip(get("opencode", "claude-opus-4-6")),
     row("claude-opus-4-6", "Claude Opus 4.6", "anthropic-messages", ti, 1_000_000, 128_000, {
       input: 5, output: 25, cacheRead: 0.5, cacheWrite: 6.25,
     }),
   );
   // Pi value kept where the OpenCode model API states a 1,050,000 window (REVIEW 2026-11-21).
   assert.deepEqual(
-    get("opencode", "gpt-5.4"),
+    strip(get("opencode", "gpt-5.4")),
     row("gpt-5.4", "GPT-5.4", "openai-responses", ti, 272_000, 128_000, {
       input: 2.5, output: 15, cacheRead: 0.25, cacheWrite: 0,
     }),
   );
   assert.deepEqual(
-    get("opencode", "gemini-4-argon"),
+    strip(get("opencode", "gemini-4-argon")),
     row("gemini-4-argon", "Gemini 4 Argon", "google-generative-ai", ti, 1_048_576, 65_536, {
       input: 2, output: 10, cacheRead: 0.1, cacheWrite: 0,
     }),
   );
   // Officially free (Zen pricing "Free").
   assert.deepEqual(
-    get("opencode", "beam-free"),
+    strip(get("opencode", "beam-free")),
     row("beam-free", "Beam Free", undefined, ["text"], 1_048_576, 131_072, {
       input: 0, output: 0, cacheRead: 0, cacheWrite: 0,
     }),
   );
   assert.deepEqual(
-    get("opencode-go", "kimi-k3.1-pro"),
+    strip(get("opencode-go", "kimi-k3.1-pro")),
     row("kimi-k3.1-pro", "Kimi K3.1 Pro", undefined, ti, 1_048_576, 131_072, {
       input: 2, output: 10, cacheRead: 0.2, cacheWrite: 2,
     }),
@@ -1033,30 +1059,37 @@ test("reviewed OpenCode Zen and Go rows publish the Pi 1.5.2 values and the Agen
   for (const id of ["glm-5.2", "mimo-v2.5", "mimo-v2.5-pro"]) assert.equal(get("opencode-go", id), undefined, id);
 });
 
-test("OpenCode effort rules name one row each and leave the upstream OpenCode rows alone but Go kimi-k3", () => {
+test("OpenCode effort rules name one row each and follow the model APIs where they state a ladder", () => {
   const supplement = read(path.join(root, "sources/clawpod-providers.json"));
   const isOpencode = (r) => r.provider === "opencode" || r.provider === "opencode-go";
   const rules = supplement.thinking.filter(isOpencode);
   const firstWildcard = supplement.thinking.findIndex((r) => r.provider === "*");
-  assert.equal(rules.length, 94);
+  assert.equal(rules.length, 96);
   for (const r of rules) {
     assert.ok(!r.model.endsWith("*"), `exact id ${r.provider}/${r.model}`);
     assert.ok(supplement.thinking.indexOf(r) < firstWildcard, `before * rules ${r.provider}/${r.model}`);
   }
-  // Official Go model API ladders for upstream rows (REVIEW 2026-11-21 kimi-k3, 2026-11-22 DeepSeek).
-  const OFFICIAL_GO = {
-    "kimi-k3": [["max"], "max"],
-    "deepseek-v4-pro": [["high", "max"], "high"],
-    "deepseek-v4.1-flash": [["low", "high", "max"], "high"],
+  // Model API ladders for upstream rows (REVIEW 2026-11-21 kimi-k3, 2026-11-22 DeepSeek and I3h).
+  const OFFICIAL_UPSTREAM = {
+    "opencode-go/kimi-k3": [["max"], "max"],
+    "opencode-go/deepseek-v4-pro": [["high", "max"], "high"],
+    "opencode-go/deepseek-v4.1-flash": [["low", "high", "max"], "high"],
+    "opencode/claude-opus-5": [["low", "medium", "high", "xhigh", "max"], "high"],
+    "opencode/kimi-k3": [["off", "low", "high", "max"], "max"],
   };
-  const keep = rules.filter((r) => !(r.provider === "opencode-go" && OFFICIAL_GO[r.model]));
+  const ref = (r) => `${r.provider}/${r.model}`;
+  const keep = rules.filter((r) => !OFFICIAL_UPSTREAM[ref(r)]);
   assert.deepEqual(
-    keep.map((r) => `${r.provider}/${r.model}`).sort(),
+    keep.map(ref).sort(),
     Object.entries(OPENCODE_IDS).flatMap(([p, ids]) => ids.map((id) => `${p}/${id}`)).sort(),
   );
-  for (const r of keep) {
-    assert.deepEqual([r.levels, r.default], [OPENCODE_KEPT.thinkingLevels, "low"]);
-    assert.match(r.note, /^Not the official ladder: /);
+  for (const r of rules) {
+    if (OPENCODE_STILL_KEPT.includes(ref(r))) {
+      assert.deepEqual([r.levels, r.default], [OPENCODE_KEPT.thinkingLevels, "low"]);
+      assert.match(r.note, /^Not the official ladder: /);
+    } else {
+      assert.equal(r.source, OPENCODE_API[r.provider], ref(r));
+    }
   }
   // Upstream OpenCode rows from the committed artifact, rebuilt with and without this review.
   const artifact = read(path.join(root, "models/v1/catalog.json"));
@@ -1088,9 +1121,8 @@ test("OpenCode effort rules name one row each and leave the upstream OpenCode ro
   for (const p of ["opencode", "opencode-go"]) {
     for (const m of before.providers[p].models) {
       const now = after.providers[p].models.find((x) => x.id === m.id);
-      if (p === "opencode-go" && OFFICIAL_GO[m.id]) {
-        // The Go model API lists these efforts (kimi-k3 max only; DeepSeek without a toggle).
-        assert.deepEqual([now.compat.thinkingLevels, now.compat.defaultThinkingLevel], OFFICIAL_GO[m.id]);
+      if (OFFICIAL_UPSTREAM[`${p}/${m.id}`]) {
+        assert.deepEqual([now.compat.thinkingLevels, now.compat.defaultThinkingLevel], OFFICIAL_UPSTREAM[`${p}/${m.id}`]);
       } else {
         assert.deepEqual(now, m, `${p}/${m.id}`);
       }
@@ -1459,7 +1491,8 @@ test("committed compat rules patch the reviewed request keys and leave the other
   const compat = (p, id) => out[p].models.find((m) => m.id === id).compat;
   assert.deepEqual(compat("kimi", "k3"), { thinkingLevels: ["low"], codeMode: "preferred" });
   assert.deepEqual(compat("kimi", "kimi-for-coding"), { thinkingLevels: ["low"] });
-  assert.deepEqual(compat("mistral", "mistral-small-2603"), { thinkingLevels: ["low"] });
+  // adaptiveThinking dropped (I3e); reasoning_effort per the Mistral reasoning page (I3h).
+  assert.deepEqual(compat("mistral", "mistral-small-2603"), { thinkingLevels: ["low"], supportsReasoningEffort: true });
   assert.deepEqual(compat("abliteration", "abliterated-model"), {
     thinkingLevels: ["low"],
     maxTokensField: "max_tokens",
@@ -1468,7 +1501,11 @@ test("committed compat rules patch the reviewed request keys and leave the other
   // OpenCode: tools.strict from the model API; not stated keeps today's false.
   assert.deepEqual(compat("opencode", "kimi-k3"), { thinkingLevels: ["low"], supportsStrictMode: true });
   assert.deepEqual(compat("opencode", "big-pickle"), { thinkingLevels: ["low"], supportsStrictMode: false });
-  assert.deepEqual(compat("opencode", "claude-opus-5"), { thinkingLevels: ["low"], codeMode: "capable" });
+  assert.deepEqual(compat("opencode", "claude-opus-5"), {
+    thinkingLevels: ["low"],
+    codeMode: "capable",
+    forceAdaptiveThinking: true,
+  });
   assert.deepEqual(compat("opencode-go", "kimi-k2.6"), { thinkingLevels: ["low"] });
   assert.deepEqual(compat("opencode-go", "deepseek-v4.1-flash"), {
     thinkingLevels: ["low"],
@@ -1539,6 +1576,25 @@ test("China MiniMax keys copy the global MiniMax rows without a price", () => {
   assert.ok(SUBSCRIPTION_PROVIDERS.has("minimax-portal-cn"));
 });
 
+// NVIDIA retired ids the Agent also resolves as nested ids: fact fields only, from the inner row (I3h).
+const NVIDIA_INNER = { "moonshotai/kimi-k3": ["moonshot", "kimi-k3"], "z-ai/glm-5.2": ["zai", "glm-5.2"] };
+
+test("NVIDIA kimi-k3 and glm-5.2 retired rows copy the inner rows' facts and no request compat", () => {
+  const artifact = read(path.join(root, "models/v1/catalog.json"));
+  const get = (p, id) => artifact.providers[p].models.find((m) => m.id === id);
+  const facts = (m) => ({
+    name: m.name, input: m.input, reasoning: m.reasoning, contextWindow: m.contextWindow, maxTokens: m.maxTokens,
+    cost: m.cost, thinkingLevels: m.compat?.thinkingLevels, defaultThinkingLevel: m.compat?.defaultThinkingLevel,
+  });
+  for (const [id, [p, innerId]] of Object.entries(NVIDIA_INNER)) {
+    const row = get("nvidia", id);
+    assert.deepEqual(facts(row), facts(get(p, innerId)), id);
+    assert.equal(row.status, "deprecated", id);
+    assert.equal(row.thinkingLevelMap, undefined, id);
+    assert.deepEqual(Object.keys(row.compat).sort(), ["defaultThinkingLevel", "thinkingLevels"], id);
+  }
+});
+
 test("retired Agent ids stay as retired rows with the Agent values and no price", () => {
   const s = read(path.join(root, "sources/clawpod-providers.json"));
   const artifact = read(path.join(root, "models/v1/catalog.json"));
@@ -1551,12 +1607,15 @@ test("retired Agent ids stay as retired rows with the Agent values and no price"
     "moonshotai/kimi-k2.5",
     "minimaxai/minimax-m2.5",
     "z-ai/glm5",
+    "moonshotai/kimi-k3",
+    "z-ai/glm-5.2",
   ]);
   assert.equal(s.providers.kimi.models[1].name, "Kimi Code (legacy model id)");
   for (const p of ["kimi", "kilocode", "nvidia"]) {
     for (const m of s.providers[p].models) {
       assert.equal(m.status, "deprecated", `${p}/${m.id}`);
-      assert.equal(m.cost, undefined, `${p}/${m.id}`);
+      // The two I3h rows copy the inner catalog row's facts, price included (the configured path's values).
+      if (!NVIDIA_INNER[m.id]) assert.equal(m.cost, undefined, `${p}/${m.id}`);
       // replacedBy only where the provider names the target, and it must be active.
       if (m.replacedBy) {
         const target = artifact.providers[p].models.find((x) => x.id === m.replacedBy);
@@ -1638,4 +1697,52 @@ test("committed non-chat rules drop the reviewed realtime rows", () => {
     ["gpt", "gpt-audio"],
   );
   assert.deepEqual(ids("vercel-ai-gateway"), ["openai/gpt-6.2-sol"]);
+});
+
+test("I3h rules reach exactly their target rows", () => {
+  const s = read(path.join(root, "sources/clawpod-providers.json"));
+  const artifact = read(path.join(root, "models/v1/catalog.json"));
+  const rows = Object.entries(artifact.providers).flatMap(([p, v]) => v.models.map((m) => [p, m]));
+  const refs = (pred) => rows.filter(([p, m]) => pred(p, m)).map(([p, m]) => `${p}/${m.id}`).sort();
+  // forceAdaptiveThinking: the ten Claude families on every provider plus the eight MiniMax rows.
+  const families = s.overrides.filter((o) => o.provider === "*" && o.set.compat?.forceAdaptiveThinking === true);
+  assert.equal(families.length, 10);
+  const minimax = ["minimax", "minimax-cn", "minimax-portal", "minimax-portal-cn"].flatMap((p) =>
+    ["MiniMax-M3", "MiniMax-M3.1-Flash-Preview"].map((id) => `${p}/${id}`),
+  );
+  assert.deepEqual(
+    refs((p, m) => m.compat?.forceAdaptiveThinking === true),
+    [...refs((p, m) => families.some((o) => ruleMatches(o, p, m.id))), ...minimax].sort(),
+  );
+  for (const [, m] of rows) if (m.compat?.forceAdaptiveThinking) assert.match(m.id, /claude|MiniMax-M3/i);
+  // Rule maps land on these rows only, after the level filter.
+  assert.deepEqual(refs((p, m) => s.thinking.some((r) => r.map && ruleMatches(r, p, m.id) && s.thinking.find((x) => ruleMatches(x, p, m.id)) === r)), [
+    "amazon-bedrock-mantle/anthropic.claude-sonnet-5-5",
+    "anthropic-vertex/claude-sonnet-5-5",
+    "anthropic/claude-sonnet-5-5",
+    "opencode-go/gemini-4-argon",
+    "opencode/gemini-3.7-flash",
+    "opencode/gemini-3.8-flash",
+    "opencode/gemini-4-argon",
+    "xai/grok-4-0709",
+    "xai/grok-4.20",
+    "xai/grok-4.20-0309-reasoning",
+    "xai/grok-build-0.1",
+  ]);
+  const get = (p, id) => artifact.providers[p].models.find((m) => m.id === id);
+  assert.deepEqual(get("anthropic-vertex", "claude-sonnet-5-5").compat.thinkingLevels[0], "off");
+  assert.equal(get("anthropic-vertex", "claude-sonnet-5-5").thinkingLevelMap.off, null);
+  for (const id of ["grok-4.20", "grok-4.20-0309-reasoning", "grok-build-0.1", "grok-4-0709"]) {
+    assert.deepEqual([get("xai", id).compat.thinkingLevels, get("xai", id).thinkingLevelMap], [["low"], { low: null }], id);
+  }
+  // Effort support and Mistral output caps.
+  assert.deepEqual(refs((p, m) => p === "mistral" && m.compat?.supportsReasoningEffort === true), [
+    "mistral/mistral-large-4", "mistral/mistral-medium-3-5", "mistral/mistral-small-2603",
+    "mistral/mistral-small-latest", "mistral/zai-glm-5-3", "mistral/zai-glm-5-3-flash",
+  ]);
+  assert.deepEqual(refs((p, m) => p === "kilocode" && m.compat?.supportsReasoningEffort === false), [
+    "kilocode/kilo/auto", "kilocode/x-ai/grok-4.20", "kilocode/x-ai/grok-4.20-reasoning", "kilocode/x-ai/grok-4.20-reasoning-beta",
+  ]);
+  for (const [, m] of rows.filter(([p]) => p === "mistral")) assert.ok(m.maxTokens < m.contextWindow, m.id);
+  assert.equal(get("mistral", "mistral-medium-latest").maxTokens, 16384);
 });
