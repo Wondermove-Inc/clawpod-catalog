@@ -835,9 +835,9 @@ test("reviewed xai aliases publish their official target's values and always-on 
   assert.ok(alias, "missing xai/grok-4.20");
   assert.deepEqual(
     { ...alias, compat: undefined },
-    { id: "grok-4.20", name: "Grok 4.20", ...shared, maxTokens: 30_000, compat: undefined, thinkingLevelMap: { low: null } },
+    { id: "grok-4.20", name: "Grok 4.20", ...shared, maxTokens: 30_000, compat: undefined },
   );
-  assert.deepEqual(alias.compat, alwaysOn);
+  assert.deepEqual(alias.compat, { ...alwaysOn, supportsReasoningEffort: false });
   // grok-4-0709 retired 2026-05-15; xAI serves it as grok-4.3 with low reasoning effort.
   const retired = get("grok-4-0709");
   assert.ok(retired, "missing xai/grok-4-0709");
@@ -851,11 +851,11 @@ test("reviewed xai aliases publish their official target's values and always-on 
       status: "deprecated",
       replacedBy: "grok-4.3",
       compat: undefined,
-      // No effort field on the wire (xAI: effort only on grok-4.3 and 4.5+), I3h.
-      thinkingLevelMap: { low: null },
     },
   );
-  assert.deepEqual(retired.compat, alwaysOn);
+  // No effort field on the wire (xAI: effort only on grok-4.3 and 4.5+): a compat flag, not a
+  // null map, so the one level stays selectable (I6).
+  assert.deepEqual(retired.compat, { ...alwaysOn, supportsReasoningEffort: false });
 });
 
 test("reviewed Google rows publish custom tools, Robotics ER 2 and the Gemini CLI rows", () => {
@@ -1734,17 +1734,19 @@ test("I3h rules reach exactly their target rows", () => {
     "opencode/gemini-3.7-flash",
     "opencode/gemini-3.8-flash",
     "opencode/gemini-4-argon",
-    "xai/grok-4-0709",
-    "xai/grok-4.20",
-    "xai/grok-4.20-0309-reasoning",
-    "xai/grok-build-0.1",
   ]);
   const get = (p, id) => artifact.providers[p].models.find((m) => m.id === id);
   assert.deepEqual(get("anthropic-vertex", "claude-sonnet-5-5").compat.thinkingLevels[0], "off");
   assert.equal(get("anthropic-vertex", "claude-sonnet-5-5").thinkingLevelMap.off, null);
+  // Always on and no effort field: the listed level stays selectable (no null map) and the
+  // route takes no effort (I6, the Kilo pattern).
   for (const id of ["grok-4.20", "grok-4.20-0309-reasoning", "grok-build-0.1", "grok-4-0709"]) {
-    assert.deepEqual([get("xai", id).compat.thinkingLevels, get("xai", id).thinkingLevelMap], [["low"], { low: null }], id);
+    const m = get("xai", id);
+    assert.deepEqual([m.compat.thinkingLevels, m.compat.thinkingLevelLabels, m.thinkingLevelMap], [["low"], { low: "on" }, undefined], id);
+    assert.equal(m.compat.supportsReasoningEffort, false, id);
   }
+  // The xai grok-build* override stays on xai; the OpenCode row takes effort (I6 O5, until F1).
+  assert.equal(get("opencode", "grok-build-0.1").compat.supportsReasoningEffort, true);
   // Effort support and Mistral output caps.
   assert.deepEqual(refs((p, m) => p === "mistral" && m.compat?.supportsReasoningEffort === true), [
     "mistral/mistral-large-4", "mistral/mistral-medium-3-5", "mistral/mistral-small-2603",
