@@ -227,9 +227,9 @@ Schema 검증 실패, 필수 provider(`anthropic`, `openai`) 누락, API 충돌,
 
 2026-09-05부터 8회 연속 실패한 원인이 이 부분입니다. 당시에는 model 수 급변(274 -> 1003)이 review 경로로 routing됐고, 그 경로가 `gh pr create`를 호출했는데 조직 정책이 GitHub Actions의 PR 생성을 금지하고 있어 branch push 직후 run이 실패했습니다. Review 경로 자체를 제거해 해결했습니다.
 
-보완 파일 자체는 **수동 관리**합니다. 6시간 작업은 그 파일을 다시 병합하고 검증된 보정·덮어쓰기·Effort 규칙·날짜 전환을 적용합니다. OpenRouter·models.dev 외의 provider API나 Clawpod-Agent 소스에서 보완 모델을 수집하지 않습니다. 수정 절차와 데이터 기준은 [MAINTAINING.md](MAINTAINING.md)와 [sources/README.md](sources/README.md)를 참고하세요.
+보완 파일 자체는 **수동 관리**합니다. 하루 한 번 도는 게시 작업은 그 파일을 다시 병합하고 검증된 보정·덮어쓰기·Effort 규칙·날짜 전환을 적용합니다. OpenRouter·models.dev 외의 provider API나 Clawpod-Agent 소스에서 보완 모델을 수집하지 않습니다. 수정 절차와 데이터 기준은 [MAINTAINING.md](MAINTAINING.md)와 [sources/README.md](sources/README.md)를 참고하세요.
 
-Workflow는 nominal 6시간 cron(`17 */6 * * *`)과 수동 dispatch로 실행됩니다. 동일 concurrency group에서 동시에 하나만 실행하고 running run은 취소하지 않지만, 대기 중인 pending run은 새 pending run으로 대체될 수 있습니다.
+Workflow는 nominal 하루 한 번 cron(`17 18 * * *`, 한국 시간 03:17)과 수동 dispatch로 실행됩니다. 동일 concurrency group에서 동시에 하나만 실행하고 running run은 취소하지 않지만, 대기 중인 pending run은 새 pending run으로 대체될 수 있습니다.
 
 ## 수동 보완 데이터가 반영되는 방식
 
