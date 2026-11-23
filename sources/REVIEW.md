@@ -1107,5 +1107,6 @@ ClawPoD Agent 후속 설계 G1(GO) 의 카탈로그 몫이다. 보류했던 PR #
 
 ## 판단과 한계
 
-- `npm test` 의 기존 실패 1개(main 에서도 실패, 이 PR 무관): "I3h rules reach exactly their target rows" 의 "Mistral 행은 `maxTokens < contextWindow`" 단언이 `c196ec7` 게시에서 새로 들어온 상류 행 `mistral/ministral-14b-latest`(262,144/262,144)·`ministral-3b-latest`(131,072/131,072)·`ministral-8b-latest`(262,144/262,144)에 걸린다. 작은 별칭 행이라 사용자 규칙대로 후속으로 둔다.
-- 검증: `npm run audit` open 0 → 0(cost known 133 → 134, Mantle Haiku knownGaps), Pi 스키마 2271행 실패 0, "matches nothing" 2 = main.
+- Ministral 별칭 3행: `c196ec7` 게시(상류)가 새로 넣은 `mistral/ministral-{3b,8b,14b}-latest` 는 `maxTokens` 가 창과 같아(131,072/262,144) "Mistral 행은 `maxTokens < contextWindow`" 테스트가 main 에서도 실패했고, 게시 워크플로의 `npm test` 단계를 막았다. Mistral 모델 페이지는 각 모델의 이름을 `[ministral-<n>b-2512, ministral-<n>b-latest]` 로 적는다(https://docs.mistral.ai/models/ministral-3-3b-25-12, `-8b-25-12`, `-14b-25-12`). 별칭은 가리키는 모델과 같은 값을 가져야 하므로 `overrides` 3개로 `maxTokens` 를 날짜 행(`ministral-<n>b-2512`)과 같은 8192 로 맞췄다(그 8192 자체는 I3h 의 "공식 값 아님" 값). 두 행의 다른 칸(창·reasoning·입력·가격)은 이미 같다. 테스트 "Ministral -latest aliases carry the values of the dated model they name" 가 고정한다.
+- 생성 결과는 위 22행 + Ministral 별칭 3행 = 25행이다.
+- 검증: `npm test` 104/104, `npm run audit` open 0 → 0(cost known 133 → 134, Mantle Haiku knownGaps), Pi 스키마 2271행 실패 0, "matches nothing" 2 = main.
