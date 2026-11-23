@@ -1083,3 +1083,22 @@ xAI 직결 항상 켜짐 4행은 "추론하지만 effort 칸은 보내지 않음
 - `openrouter/auto` 창 200000은 공식 값이 아니다(페이지에 창이 없음). 수동 `auto` 행·예전 Agent 행과 같은 보수적 값이다.
 - Vercel DeepSeek 384000은 Vercel 표시값(1,048,576)이 아니라 모델 제작사의 상한이다.
 - 배포 순서: 이 PR이 게시된 뒤 Agent는 스냅샷 갱신과 코드(R4 diff)를 한 커밋으로 넣는다.
+
+# 2026-11-23 DeepSeek `-latest` 라우터 별칭 출력 상한
+
+`dd9b1f2` 게시에서 `openrouter/~deepseek/deepseek-pro-latest`의 `maxTokens`가 393,216 → 943,718로 바뀌었다. 같은 날 공개 모델 목록(https://openrouter.ai/api/v1/models, https://api.kilo.ai/api/openrouter/models)은 393,216이다. `-latest` 별칭은 게시 시점마다 다른 경로를 가리킬 수 있어, 그때 받은 값이 튀었다. 이대로면 매 턴 약 94만 출력 토큰을 요청한다.
+
+| `overrides` | 값 | 근거 |
+| --- | --- | --- |
+| `openrouter` `~deepseek/deepseek-pro-latest` | `maxTokens: 393216` | DeepSeek `max_tokens` "must be between 1 and 384K (393216)" (https://api-docs.deepseek.com/api/create-chat-completion), 가격표 최대 출력 384K (https://api-docs.deepseek.com/quick_start/pricing). 실시간 OpenRouter·Kilo 값 393,216 |
+| `openrouter`·`kilocode` `~deepseek/deepseek-flash-latest`, `~deepseek/deepseek-v4-flash-latest` (4행) | `maxTokens: 393216` | 같은 DeepSeek 상한. 실시간 목록이 943,718(상한 초과)을 준다. Vercel DeepSeek 행과 같은 "제작사 상한" 규칙 |
+
+- `kilocode/~deepseek/deepseek-pro-latest`는 지금 393,216(실시간과 같음)이라 규칙을 넣지 않았다. 다시 튀면 같은 규칙을 더한다.
+- 생성 결과(main `dd9b1f2` 게시본 대비, 같은 원본 publish run 45146417923): 위 5행의 `maxTokens`만 바뀜, 추가·삭제 0.
+
+## `-latest` 별칭 전수 대조 (같은 날 실시간 목록, 읽기 전용 GET)
+
+- `openrouter` 20행·`kilocode` 20행의 `maxTokens`·`contextWindow`를 실시간 `top_provider.max_completion_tokens`·`context_length`와 비교: 다른 행은 `openrouter/~deepseek/deepseek-pro-latest` 하나(위에서 고침).
+- 실시간 값 자체가 제작사 문서 상한보다 큰 별칭(고치지 않음, 대상 모델이 바뀌어 제작사 상한이 하나로 정해지지 않음): `~google/gemini-flash-latest`·`~google/gemini-pro-latest`·`~moonshotai/kimi-latest`·`~z-ai/glm-latest` 943,718(두 provider).
+- `-latest` 밖이지만 같은 성질(제작사 상한 393,216 초과, 고치지 않음, 후속): `openrouter`·`kilocode` `deepseek/deepseek-v4-pro-0813` 943,718(실시간도 943,718; DeepSeek 가격표는 DeepSeek-V4-Pro-0813의 최대 출력을 384K로 적음), `deepinfra/deepseek-ai/DeepSeek-V4-Pro` 1,048,576, `ollama-cloud/deepseek-v4-pro`·`:0813` 1,048,576, `vercel-ai-gateway/deepseek/deepseek-v4-pro`·`-0813` 1,048,600.
+- 검증: `npm test` 100/100, `npm run audit` open 0 → 0, Pi 스키마 2277행 실패 0, "matches nothing" 1 = main.

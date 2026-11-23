@@ -16115,6 +16115,51 @@
       },
       "source": "https://api-docs.deepseek.com/quick_start/pricing",
       "note": "384000 is the model maker's cap: DeepSeek lists Flash maximum output 384K (max_tokens 1 to 393216), the same as the direct deepseek row. Vercel lists 1048576 output for this id, served by DeepInfra; the model maker's limit is used as the safe single-response cap."
+    },
+    {
+      "provider": "openrouter",
+      "model": "~deepseek/deepseek-pro-latest",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "Router alias of DeepSeek V4 Pro. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K, https://api-docs.deepseek.com/quick_start/pricing). The 2026-11-23 publish listed 943718 while the live OpenRouter and Kilo model lists give 393216. The alias points at a changing route, so its listed output can jump past the cap between publishes; the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek row. Reviewed 2026-11-23."
+    },
+    {
+      "provider": "openrouter",
+      "model": "~deepseek/deepseek-flash-latest",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "Router alias of DeepSeek Flash. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K, https://api-docs.deepseek.com/quick_start/pricing). The live OpenRouter and Kilo model lists give 943718, over the maker's cap. The alias points at a changing route, so its listed output can jump past the cap between publishes; the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek row. Reviewed 2026-11-23."
+    },
+    {
+      "provider": "openrouter",
+      "model": "~deepseek/deepseek-v4-flash-latest",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "Router alias of DeepSeek Flash. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K, https://api-docs.deepseek.com/quick_start/pricing). The live OpenRouter and Kilo model lists give 943718, over the maker's cap. The alias points at a changing route, so its listed output can jump past the cap between publishes; the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek row. Reviewed 2026-11-23."
+    },
+    {
+      "provider": "kilocode",
+      "model": "~deepseek/deepseek-flash-latest",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "Router alias of DeepSeek Flash. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K, https://api-docs.deepseek.com/quick_start/pricing). The live OpenRouter and Kilo model lists give 943718, over the maker's cap. The alias points at a changing route, so its listed output can jump past the cap between publishes; the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek row. Reviewed 2026-11-23."
+    },
+    {
+      "provider": "kilocode",
+      "model": "~deepseek/deepseek-v4-flash-latest",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "Router alias of DeepSeek Flash. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K, https://api-docs.deepseek.com/quick_start/pricing). The live OpenRouter and Kilo model lists give 943718, over the maker's cap. The alias points at a changing route, so its listed output can jump past the cap between publishes; the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek row. Reviewed 2026-11-23."
     }
   ],
   "knownGaps": [

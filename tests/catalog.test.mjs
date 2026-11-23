@@ -1917,3 +1917,24 @@ test("Bedrock Nova v1 and Vercel DeepSeek V4 Flash vision use the documented out
   }
   assert.equal(next.providers["vercel-ai-gateway"].models[0].maxTokens, 384_000);
 });
+
+test("DeepSeek -latest router aliases stay at DeepSeek's documented output cap", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const f = fixture();
+  const ids = {
+    openrouter: ["~deepseek/deepseek-pro-latest", "~deepseek/deepseek-flash-latest", "~deepseek/deepseek-v4-flash-latest"],
+    kilocode: ["~deepseek/deepseek-flash-latest", "~deepseek/deepseek-v4-flash-latest"],
+  };
+  for (const [provider, list] of Object.entries(ids)) {
+    f.upstream.providers[provider] = {
+      api: "openai-completions",
+      models: list.map((id) => ({ ...localModel(id), contextWindow: 1_048_576, maxTokens: 943_718 })),
+    };
+  }
+  const next = buildCatalog({ ...f, supplement });
+  for (const [provider, list] of Object.entries(ids)) {
+    for (const id of list) {
+      assert.equal(next.providers[provider].models.find((m) => m.id === id)?.maxTokens, 393_216, `${provider}/${id}`);
+    }
+  }
+});
