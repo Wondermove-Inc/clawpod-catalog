@@ -1067,7 +1067,7 @@ xAI 직결 항상 켜짐 4행은 "추론하지만 effort 칸은 보내지 않음
 | 테스트 | GPT-6 12행 `off: "low"`, 가려진 행(Agent 가 다른 id 로 읽는 행) 값 일치, Nova·DeepSeek 한도 | `tests/catalog.test.mjs` |
 
 - `xai`/`grok-build*` 규칙 note는 I3h 문구로 되돌리지 않았다. PR #39 리뷰 F-1(공식 grok-build 페이지는 effort low/medium/high/xhigh, 기본 high)대로 "Not the official ladder (temporary until F1)"로 두고, 인코딩만 `map {low: null}`로 적었다(행 변화 0, MAINTAINING 9장 F1 행).
-- 테스트 보강(리뷰 재검토 5 LOW5-1·5-2): GPT-6 12규칙의 levels·default가 같은 모델의 `*` 규칙과 같은지 단언한다. 가려진 행 테스트는 손으로 적은 짝 대신 Agent의 id 바꿈 규칙(`normalizeStaticProviderModelId`·`provider-model-id-normalize.ts`의 사본)으로 게시본 전체에서 짝을 찾고, 찾은 짝 집합이 기대(3개)와 다르면 실패한다. 규칙은 Agent 코드를 가져올 수 없어 사본이다(Agent가 규칙을 바꾸면 다시 옮긴다).
+- 테스트 보강(리뷰 재검토 5 LOW5-1·5-2): GPT-6 12규칙의 levels·default가 같은 모델의 `*` 규칙과 같은지 단언한다. 가려진 행 테스트는 손으로 적은 짝 대신 Agent의 id 바꿈 규칙 두 층(정적 `normalizeStaticProviderModelId`·`provider-model-id-normalize.ts`, 그리고 플러그인 `normalizeModelId` 훅: Anthropic 별칭 `fable`·`opus`·`sonnet`, Google·xAI는 같은 표)의 사본으로 게시본 전체에서 짝을 찾고, 찾은 짝 집합이 기대(3개)와 다르면 실패한다. 규칙은 Agent 코드를 가져올 수 없어 사본이다(Agent가 규칙을 바꾸면 다시 옮긴다).
 
 ## 단계 없는 호출의 `off` 값 공식 대조 (리뷰 LOW5-4)
 

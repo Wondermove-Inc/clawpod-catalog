@@ -1825,12 +1825,17 @@ test("OpenAI GPT-6 rows that reject none state low for calls that pass no level,
   }
 });
 
-// The ClawPoD Agent rewrites a configured model id before it looks the row up
-// (normalizeStaticProviderModelId in src/agents/model-ref-shared.ts and
-// src/plugin-sdk/provider-model-id-normalize.ts). A row whose id it rewrites to another
-// row of the same provider is never read. This copies those rules; this repo cannot
-// import Agent code, so re-copy them when the Agent changes them.
+// The ClawPoD Agent rewrites a configured model id in two layers before it looks the row
+// up: the static rules (normalizeStaticProviderModelId in src/agents/model-ref-shared.ts and
+// src/plugin-sdk/provider-model-id-normalize.ts), then the provider plugin normalizeModelId
+// hook (src/agents/model-selection-normalize.ts): the Anthropic aliases in
+// extensions/anthropic/register.runtime.ts; the Google and xAI hooks call the same tables
+// again. A row whose id it rewrites to another row of the same provider is never read. This
+// copies both layers; this repo cannot import Agent code, so re-copy them when the Agent
+// changes them.
 const AGENT_ANTHROPIC_IDS = { "opus-4.6": "claude-opus-4-6", "opus-4.5": "claude-opus-4-5", "sonnet-4.6": "claude-sonnet-4-6", "sonnet-4.5": "claude-sonnet-4-5" };
+// Plugin hook layer (anthropic only; the vercel-ai-gateway branch uses the static table only).
+const AGENT_ANTHROPIC_PLUGIN_ALIASES = { fable: "claude-fable-5", opus: "claude-opus-4-8", sonnet: "claude-sonnet-5" };
 const AGENT_GOOGLE_IDS = {
   "gemini-3-pro": "gemini-3.1-pro-preview", "gemini-3-pro-preview": "gemini-3.1-pro-preview",
   "gemini-3.1-flash-lite-preview": "gemini-3.1-flash-lite", "gemini-3-flash": "gemini-3-flash-preview",
@@ -1848,7 +1853,10 @@ const AGENT_XAI_IDS = {
 };
 function agentModelId(provider, id) {
   const anthropic = (m) => AGENT_ANTHROPIC_IDS[m.trim().toLowerCase()] ?? m.trim();
-  if (provider === "anthropic") return anthropic(id);
+  if (provider === "anthropic") {
+    const statics = anthropic(id);
+    return AGENT_ANTHROPIC_PLUGIN_ALIASES[statics.toLowerCase()] ?? statics;
+  }
   if (provider === "huggingface") return id.trim().toLowerCase().startsWith("huggingface/") ? id.trim().slice("huggingface/".length) : id.trim();
   if (provider === "google" || provider === "google-vertex") return AGENT_GOOGLE_IDS[id] ?? id;
   if (provider === "openrouter" && !id.includes("/")) return `openrouter/${id}`;
