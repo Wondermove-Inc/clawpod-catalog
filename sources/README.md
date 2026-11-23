@@ -134,7 +134,7 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
   예: `{"provider": "anthropic", "model": "claude-sonnet-5-5*", "levels": [...], "default": "high", "map": {"off": null}, "source": "https://..."}`는 화면에 `off`를 남기고 요청에는 thinking 칸을 싣지 않습니다.
 - `null`은 Pi에서 "그 단계를 고르지 않음"입니다. Pi `clampThinkingLevel`이 다른 단계로 옮깁니다. `null`은 고를 수 없는 단계에만 씁니다.
   켜져 있지만 effort 칸을 받지 않는 경로는 `map`의 `null`이 아니라 `overrides`의 `compat.supportsReasoningEffort: false`로 적습니다
-  (Agent는 completions·Responses 턴과 요약에서 칸을 빼고, 화면에는 목록 단계를 보입니다). 예: xAI Grok 4.20, Kilo `x-ai/grok-4.20`.
+  (Agent는 completions 턴과 요약에서 칸을 빼고, Agent I6 코드 고침 뒤로는 Responses 턴과 요약에서도 칸을 빼며, 화면에는 목록 단계를 보입니다). 예: xAI Grok 4.20, Kilo `x-ai/grok-4.20`.
 
 ## 자동 값 덮어쓰기 (`overrides`)
 

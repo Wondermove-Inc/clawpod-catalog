@@ -1029,7 +1029,7 @@ xAI 직결 항상 켜짐 4행은 "추론하지만 effort 칸은 보내지 않음
 
 | # | 자리 | 바꾼 것 | 근거 |
 | --- | --- | --- | --- |
-| C1~C4 | `thinking` `xai` `grok-4-0709`, `grok-4.20`, `grok-4.20-0309-reasoning`, `grok-build*` | `map {low: null}` 삭제, note를 "Always on, no effort control; the route takes no effort field"로 | "`grok-4.7`, `grok-4.6`, and `grok-4.5` support the `reasoning_effort` parameter", "Reasoning cannot be disabled." (https://docs.x.ai/docs/guides/reasoning), "Reasoning: Yes" (https://docs.x.ai/developers/models/grok-4.20) |
+| C1~C4 | `thinking` `xai` `grok-4-0709`, `grok-4.20`, `grok-4.20-0309-reasoning`, `grok-build*` | `map {low: null}` 삭제, note를 "Always on, no effort control; the route takes no effort field"로. `grok-build*`만 "Not the official ladder (temporary until F1)": 공식 effort low/medium/high/xhigh(기본 high)와 나눠, 칸 없는 항상 켜짐 인코딩이 오늘 요청(xAI 기본 high)을 지킨다고 적음(source를 grok-build 페이지로) | "`grok-4.7`, `grok-4.6`, and `grok-4.5` support the `reasoning_effort` parameter", "Reasoning cannot be disabled." (https://docs.x.ai/docs/guides/reasoning), "Reasoning: Yes" (https://docs.x.ai/developers/models/grok-4.20) |
 | O1·O2 | `overrides` `xai` `grok-4.20`, `grok-4.20-0309-reasoning` | `set.compat.supportsReasoningEffort: false` | 위 reasoning 가이드. Kilo 행과 같은 패턴 |
 | O3 | `overrides` `xai` `grok-4-0709` | 같음 | "`grok-4-0709` → `grok-4.3` with `low` reasoning effort" (https://docs.x.ai/developers/migration/may-15-retirement) |
 | O4 | `overrides` `xai` `grok-build*`(규칙 C4와 같은 패턴) | 같음. **F1 전까지 임시 값** | https://docs.x.ai/developers/models/grok-build-0.1 은 effort `low, medium, high, xhigh`, 기본 `high`를 적는다. 오늘 요청(칸 없음 = xAI 기본 `high`)을 지킨다 |
