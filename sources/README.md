@@ -132,9 +132,9 @@ Clawpod-Agent commit `b46fcc3becf5cb0304d6a5578a7b7343345a2f1d`의 모델 정의
   규칙 `map`의 문자열 값은 그 단계의 상류 `null`을 풀고 목록에 남깁니다(그 경로가 그 단계를 받는다는 뜻). 규칙 `null`과 `map`에 없는 단계는 지금처럼 상류 `null`로 걸러집니다.
   예: Moonshot `kimi-k3*` 규칙의 `map: {"low": "low", "high": "high"}`는 상류 행 지도가 `null`로 둔 `low`·`high`를 공식 목록(low/high/max)대로 되살립니다.
   예: `{"provider": "anthropic", "model": "claude-sonnet-5-5*", "levels": [...], "default": "high", "map": {"off": null}, "source": "https://..."}`는 화면에 `off`를 남기고 요청에는 thinking 칸을 싣지 않습니다.
-- `null`은 Pi에서 "그 단계를 고르지 않음"입니다. Pi `clampThinkingLevel`이 다른 단계로 옮깁니다. `null`은 고를 수 없는 단계에만 씁니다.
-  켜져 있지만 effort 칸을 받지 않는 경로는 `map`의 `null`이 아니라 `overrides`의 `compat.supportsReasoningEffort: false`로 적습니다
-  (Agent는 completions 턴과 요약에서 칸을 빼고, Agent I6 코드 고침 뒤로는 Responses 턴과 요약에서도 칸을 빼며, 화면에는 목록 단계를 보입니다). 예: xAI Grok 4.20, Kilo `x-ai/grok-4.20`.
+- `null`은 Pi에서 "그 단계를 고르지 않음"입니다. Pi `clampThinkingLevel`이 다른 단계로 옮깁니다. 아무것도 보내지 않으려면 그 행에 옮겨 갈 단계가 남지 않아야 합니다
+  (예: xAI 항상 켜짐 행은 목록이 `low` 하나라 Agent가 나머지 단계를 `null`로 채우고, `low`도 `null`이라 effort가 실리지 않습니다).
+  Agent는 이렇게 고를 단계가 없는 행을 화면에 목록 단계(`on`)로 보입니다. 목록 밖 `off`의 문자열은 단계 없이 부르는 호출(라벨·TTS·이미지 읽기 등)이 보낼 값입니다. Agent는 목록 밖 칸 가운데 이 값만 지킵니다(예: OpenAI GPT-6 Astra·Sol `map: {"off": "low"}`).
 
 ## 자동 값 덮어쓰기 (`overrides`)
 

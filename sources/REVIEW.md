@@ -1054,3 +1054,32 @@ xAI 직결 항상 켜짐 4행은 "추론하지만 effort 칸은 보내지 않음
 - 임시 값: O4·O5와 `xai`/`grok-build*` 규칙은 공식 Grok Build 단계(F1)를 적용하기 전까지 오늘 요청을 지키는 값이다(MAINTAINING 9장).
 - 후속(Agent 쪽, 이 저장소 범위 밖): F2 OpenRouter `x-ai/grok-4.20`·`x-ai/grok-build-0.1`은 effort `low`를 보냄, F3 Venice 요약 `reasoning_effort: low`, F4 Vercel `spacexai/grok-4.20-reasoning(-beta)` 예산, F6 `opencode/grok-build-0.1` cold·warm 표시 차이(F1과 함께), F7 one-off 호출.
 - 검증: `npm test` 통과, `npm run audit` open 1 → 1(main에도 있는 `openrouter/~deepseek/deepseek-pro-latest`), "matches nothing" 3개 = main, thinking profiles 1721/1787 = main, Pi 스키마 2275행 실패 0.
+
+# 2026-11-23 I6 되돌림과 Agent R4 (ClawPoD Agent 3차 I6 R3~R5)
+
+| 항목 | 내용 | 근거 |
+|---|---|---|
+| I6 되돌림 | xAI `grok-4.20`·`grok-4.20-0309-reasoning`·`grok-4-0709`·`grok-build*` 규칙에 `map: {"low": null}` 복원. I6 overrides 5개 삭제 | Agent 운영 턴은 Pi 직렬화기를 지나며, Pi Responses 직렬화기는 `supportsReasoningEffort` 를 읽지 않는다. 열린 `low` 가 `effort:"low"` 로 나갔다. 표시는 Agent 가 고른다(고를 단계가 없는 행은 목록 단계 `on`) |
+| GPT-6 단계 없는 호출 | `openai`·`openai-codex`·`codex` × `gpt-6-astra*`·`gpt-6.1-sol*`·`gpt-6.2-astra*`·`gpt-6.2-sol*` 규칙 12개, `map: {"off": "low"}`, 목록·기본은 `*` 규칙과 같음 | OpenAI 추론 가이드(GPT-6 Astra·Sol 은 `none` 을 거절). Agent 의 예전 OpenAI 규칙이 보내던 값 |
+| `openrouter/auto` | `reasoning: false`, `contextWindow: 200000` | 라우터 별칭(대상 모델이 바뀜). Agent 는 `openrouter/auto` 를 이 id 로 읽는다. 수동 `auto` 행·예전 Agent 행과 같다. https://openrouter.ai/openrouter/auto 는 창을 적지 않는다 |
+| Bedrock Nova v1 | `amazon.nova-{pro,lite,micro,premier}-v1:0` `maxTokens: 10000` | https://docs.aws.amazon.com/nova/latest/userguide/what-is-nova.html "Max Output Tokens 10K/10k" |
+| Vercel `deepseek/deepseek-v4-flash-vision-exp` | `maxTokens: 384000` | 모델 제작사 DeepSeek 의 상한(https://api-docs.deepseek.com/quick_start/pricing "384K"). Vercel 은 DeepInfra 경유로 1,048,576 을 적는다 |
+| 테스트 | GPT-6 12행 `off: "low"`, 가려진 행(Agent 가 다른 id 로 읽는 행) 값 일치, Nova·DeepSeek 한도 | `tests/catalog.test.mjs` |
+
+- `xai`/`grok-build*` 규칙 note는 I3h 문구로 되돌리지 않았다. PR #39 리뷰 F-1(공식 grok-build 페이지는 effort low/medium/high/xhigh, 기본 high)대로 "Not the official ladder (temporary until F1)"로 두고, 인코딩만 `map {low: null}`로 적었다(행 변화 0, MAINTAINING 9장 F1 행).
+- 테스트 보강(리뷰 재검토 5 LOW5-1·5-2): GPT-6 12규칙의 levels·default가 같은 모델의 `*` 규칙과 같은지 단언한다. 가려진 행 테스트는 손으로 적은 짝 대신 Agent의 id 바꿈 규칙(`normalizeStaticProviderModelId`·`provider-model-id-normalize.ts`의 사본)으로 게시본 전체에서 짝을 찾고, 찾은 짝 집합이 기대(3개)와 다르면 실패한다. 규칙은 Agent 코드를 가져올 수 없어 사본이다(Agent가 규칙을 바꾸면 다시 옮긴다).
+
+## 단계 없는 호출의 `off` 값 공식 대조 (리뷰 LOW5-4)
+
+| 행 | 카탈로그 | 공식 원문 | 판정 |
+| --- | --- | --- | --- |
+| `meta` Muse Spark 1.1·1.2·1.2-contributor·1.3·1.3-contributor, Muse Wonder 1.0 (6행) | 목록 `minimal`~, `off` 없음, 지도 `off: "minimal"` | "`"none"` disables reasoning entirely, which Muse Wonder, Muse Spark, and Muse Ember do not support"(표: HTTP 400), 가장 낮은 단계 `minimal` "Shortest reasoning pass", 생략 시 Spark `high`·Wonder `max` (https://dev.meta.ai/docs/reasoning) | 맞다. 끌 수 없고, 단계 없는 호출이 보내는 `minimal`은 받는 값 중 가장 낮다. `none`을 보내면 400 |
+| `stepfun`·`stepfun-plan` `step-3.7-flash` (2행) | 목록 `low, medium, high`, 기본 `medium`, 지도 `off: "low"` | "`step-3.7-flash` supports three reasoning effort levels" low/medium/high, medium "Default" (https://platform.stepfun.ai/docs/en/guides/models/step-3.7-flash). API: "Models that support three reasoning tiers accept `low`, `medium`, `high`" (https://platform.stepfun.ai/docs/en/api-reference/chat/chat-completion-create.md) | 받는 값과 맞다. 두 문서 모두 `none`·끄기를 적지 않는다(끌 수 있다는 근거 없음). `low`는 받는 값 중 가장 낮다. 단계 없는 호출이 생략 시 기본(`medium`) 대신 `low`를 보내는 것은 Agent 규칙("단계 없는 호출 = `off` = 가장 낮은 목록 단계")에 따른 것이다 |
+
+## 판단과 한계
+
+- I6 되돌림으로 xAI 4행은 PR #39 이전 값으로 돌아간다. Agent 표시(고를 단계가 없는 행을 `on`으로)는 Agent 코드가 정한다.
+- GPT-6 12규칙은 `*` 규칙의 단계를 다시 적는다(첫 일치 하나만 쓰므로). 테스트가 어긋남을 잡는다.
+- `openrouter/auto` 창 200000은 공식 값이 아니다(페이지에 창이 없음). 수동 `auto` 행·예전 Agent 행과 같은 보수적 값이다.
+- Vercel DeepSeek 384000은 Vercel 표시값(1,048,576)이 아니라 모델 제작사의 상한이다.
+- 배포 순서: 이 PR이 게시된 뒤 Agent는 스냅샷 갱신과 코드(R4 diff)를 한 커밋으로 넣는다.
