@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795407407252,
+  "generatedAt": 1795416288517,
   "minVersion": "2026.4.11",
-  "sourceCommit": "92e92d76b921e51be2f92f9e536da8102e7eb7b8",
+  "sourceCommit": "b210869fbd515228889dbb088d8f23674fa95177",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -41667,11 +41667,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.044,
-            "output": 0.132,
-            "cacheRead": 0.0014
+            "input": 0.0434,
+            "output": 0.3,
+            "cacheRead": 0.035
           },
           "compat": {
             "thinkingLevels": [
@@ -43525,9 +43525,9 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.055,
-            "output": 0.375,
-            "cacheRead": 0.044
+            "input": 0.0434,
+            "output": 0.3,
+            "cacheRead": 0.035
           },
           "compat": {
             "thinkingLevels": [
@@ -43671,9 +43671,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.15,
-            "output": 0.6,
-            "cacheRead": 0.003
+            "input": 0.3,
+            "output": 1.2,
+            "cacheRead": 0.006
           },
           "compat": {
             "thinkingLevels": [
@@ -44851,9 +44851,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.0675,
-            "output": 0.225,
-            "cacheRead": 0.0375
+            "input": 0.09,
+            "output": 0.3,
+            "cacheRead": 0.05
           },
           "compat": {
             "thinkingLevels": [
@@ -59531,6 +59531,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1795407376336,
+  "sourceGeneratedAt": 1795416272242,
   "supplementDigest": "d1cea080abef497a5094e0a58f6690a777815d3edfef4e7e5e76d72d5f546e5d"
 }
