@@ -1020,3 +1020,37 @@ Agent가 카탈로그 목록에 없는 단계를 실행 지도에서 `null`로 �
 - 캐시(Agent 쪽): glm-5·5.1 기본값 변경으로 저장 단계 없는 세션의 Runtime 줄 `thinking=`이 한 번 바뀐다. 직접 Moonshot K3에 `max` 밖 단계를 저장한 세션은 요청 단계가 공식대로 바뀌어 Moonshot 접두 캐시를 한 번 놓친다("Switching levels invalidates prefix-cache hits"). 턴마다 바뀌는 값은 없다.
 - `qwen-token-plan` GLM의 `off`는 Agent 전송이 `enable_thinking: false`를 보내지 않아 실제로 끄지 못한다(Agent 후속 F2, 이 저장소 범위 밖).
 - 검증: `npm test` 통과, `npm run audit` open 1 → 1(main에도 있는 `openrouter/~deepseek/deepseek-pro-latest` cacheRead > input), "matches nothing" 3개는 main과 같음, thinking profiles 1721/1787(main과 같음), Pi 스키마(`ProviderCompatSchema`·`ThinkingLevelMapSchema`) 2275행 실패 0.
+
+# 2026-11-23 항상 켜진 xAI 행의 effort 칸 표기 (ClawPoD Agent 3차 I6)
+
+xAI 직결 항상 켜짐 4행은 "추론하지만 effort 칸은 보내지 않음"을 규칙 `map {low: null}`로 적어 왔다(I3h). `null`은 "고를 수 없는 단계"라서 Agent 화면이 목록 밖 `off`를 보였다. 같은 뜻의 기존 키 `compat.supportsReasoningEffort: false`(Kilo Gateway Grok 4.20 행이 이미 씀)로 바꾼다. Agent가 Responses 경로에서 이 키를 읽게 하는 코드는 Agent 쪽 같은 묶음이다(설계 S3I6).
+
+## 바꾼 규칙과 근거
+
+| # | 자리 | 바꾼 것 | 근거 |
+| --- | --- | --- | --- |
+| C1~C4 | `thinking` `xai` `grok-4-0709`, `grok-4.20`, `grok-4.20-0309-reasoning`, `grok-build*` | `map {low: null}` 삭제, note를 "Always on, no effort control; the route takes no effort field"로. `grok-build*`만 "Not the official ladder (temporary until F1)": 공식 effort low/medium/high/xhigh(기본 high)와 나눠, 칸 없는 항상 켜짐 인코딩이 오늘 요청(xAI 기본 high)을 지킨다고 적음(source를 grok-build 페이지로) | "`grok-4.7`, `grok-4.6`, and `grok-4.5` support the `reasoning_effort` parameter", "Reasoning cannot be disabled." (https://docs.x.ai/docs/guides/reasoning), "Reasoning: Yes" (https://docs.x.ai/developers/models/grok-4.20) |
+| O1·O2 | `overrides` `xai` `grok-4.20`, `grok-4.20-0309-reasoning` | `set.compat.supportsReasoningEffort: false` | 위 reasoning 가이드. Kilo 행과 같은 패턴 |
+| O3 | `overrides` `xai` `grok-4-0709` | 같음 | "`grok-4-0709` → `grok-4.3` with `low` reasoning effort" (https://docs.x.ai/developers/migration/may-15-retirement) |
+| O4 | `overrides` `xai` `grok-build*`(규칙 C4와 같은 패턴) | 같음. **F1 전까지 임시 값** | https://docs.x.ai/developers/models/grok-build-0.1 은 effort `low, medium, high, xhigh`, 기본 `high`를 적는다. 오늘 요청(칸 없음 = xAI 기본 `high`)을 지킨다 |
+| O5 | `overrides` `opencode` `grok-build-0.1` | `set.compat.supportsReasoningEffort: true`. **F1 전까지 임시 값** | 같은 페이지. Agent Pi 행의 `false`는 어떤 Responses 직렬화기도 읽지 않았고 오늘 effort `high`가 나간다. Agent가 Responses에서 키를 읽게 된 뒤에도 그 요청을 지킨다 |
+
+- 문서: `sources/README.md` `null` 설명("고를 수 없는 단계에만, 칸을 받지 않는 경로는 `supportsReasoningEffort: false`"), `MAINTAINING.md` 5장 항상 켜짐 줄, 9장 F1 행.
+- 원문에 "보내면 거절"은 없다. 그래서 칸을 보내지 않는 오늘 요청을 지킨다.
+
+## 생성 결과 (main `2bf5021` 게시본 대비)
+
+재생성 원본: publish run 45090583867 artifact(`sourceGeneratedAt` 1795394845329, `sourceCommit` 461b02a, main과 같음). `providers=60 (+0/-0) models=2275->2275 (+0)`. 바뀐 행 정확히 5, 추가·삭제 0.
+
+| 행 | 바뀐 칸 |
+| --- | --- |
+| `xai/grok-4.20`, `grok-4.20-0309-reasoning`, `grok-4-0709`, `grok-build-0.1` | `thinkingLevelMap {low: null}` 지움, `compat.supportsReasoningEffort: false` 추가. 목록 `["low"]`·라벨 `{low:"on"}`·기본 `low` 그대로 |
+| `opencode/grok-build-0.1` | `compat.supportsReasoningEffort: true` 추가 |
+
+- Agent 설계·리뷰의 흉내 스냅샷(`/tmp/claude-1000/n1/fix5`, `/tmp/claude-1000/n1-review/fix5`)과 대조: 바뀐 행 집합이 같고, 다섯 행의 값(가격 뺀 행 전체)이 같다. `compat` 안 키 순서만 다르다(실제 출력은 `overrides`가 `thinking`보다 먼저 돌아 `supportsReasoningEffort`가 앞이나 중간에 온다).
+
+## 판단과 한계
+
+- 임시 값: O4·O5와 `xai`/`grok-build*` 규칙은 공식 Grok Build 단계(F1)를 적용하기 전까지 오늘 요청을 지키는 값이다(MAINTAINING 9장).
+- 후속(Agent 쪽, 이 저장소 범위 밖): F2 OpenRouter `x-ai/grok-4.20`·`x-ai/grok-build-0.1`은 effort `low`를 보냄, F3 Venice 요약 `reasoning_effort: low`, F4 Vercel `spacexai/grok-4.20-reasoning(-beta)` 예산, F6 `opencode/grok-build-0.1` cold·warm 표시 차이(F1과 함께), F7 one-off 호출.
+- 검증: `npm test` 통과, `npm run audit` open 1 → 1(main에도 있는 `openrouter/~deepseek/deepseek-pro-latest`), "matches nothing" 3개 = main, thinking profiles 1721/1787 = main, Pi 스키마 2275행 실패 0.

@@ -8328,10 +8328,7 @@
         "low": "on"
       },
       "source": "https://docs.x.ai/developers/migration/may-15-retirement",
-      "note": "Retired 2026-05-15; requests run as grok-4.3 with reasoning effort low (fixed). xAI: reasoning_effort is accepted by grok-4.3 and grok-4.5 and later only, other reasoning models cannot disable or tune reasoning (https://docs.x.ai/docs/guides/reasoning). Single always-on level mapped to null so the Agent sends no effort field: with every other level unlisted the runtime has no level to move to. Replaces the ClawPoD Agent's xAI effort name rule (I3h).",
-      "map": {
-        "low": null
-      }
+      "note": "Retired 2026-05-15; requests run as grok-4.3 with reasoning effort low (fixed). xAI: reasoning_effort is accepted by grok-4.3 and grok-4.5 and later only, other reasoning models cannot disable or tune reasoning (https://docs.x.ai/docs/guides/reasoning). Always on, no effort control; the route takes no effort field (overrides: supportsReasoningEffort false, I6). Replaces the ClawPoD Agent's xAI effort name rule (I3h)."
     },
     {
       "provider": "opencode-go",
@@ -9855,11 +9852,8 @@
       "labels": {
         "low": "on"
       },
-      "map": {
-        "low": null
-      },
       "source": "https://docs.x.ai/docs/guides/reasoning",
-      "note": "xAI: reasoning_effort is accepted by grok-4.3 and grok-4.5 and later only, other reasoning models cannot disable or tune reasoning (https://docs.x.ai/docs/guides/reasoning). Single always-on level mapped to null so the Agent sends no effort field: with every other level unlisted the runtime has no level to move to. Replaces the ClawPoD Agent's xAI effort name rule (I3h)."
+      "note": "xAI: reasoning_effort is accepted by grok-4.3 and grok-4.5 and later only, other reasoning models cannot disable or tune reasoning (https://docs.x.ai/docs/guides/reasoning). Always on, no effort control; the route takes no effort field (overrides: supportsReasoningEffort false, I6). Replaces the ClawPoD Agent's xAI effort name rule (I3h)."
     },
     {
       "provider": "xai",
@@ -9871,11 +9865,8 @@
       "labels": {
         "low": "on"
       },
-      "map": {
-        "low": null
-      },
       "source": "https://docs.x.ai/docs/guides/reasoning",
-      "note": "xAI: reasoning_effort is accepted by grok-4.3 and grok-4.5 and later only, other reasoning models cannot disable or tune reasoning (https://docs.x.ai/docs/guides/reasoning). Single always-on level mapped to null so the Agent sends no effort field: with every other level unlisted the runtime has no level to move to. Replaces the ClawPoD Agent's xAI effort name rule (I3h)."
+      "note": "xAI: reasoning_effort is accepted by grok-4.3 and grok-4.5 and later only, other reasoning models cannot disable or tune reasoning (https://docs.x.ai/docs/guides/reasoning). Always on, no effort control; the route takes no effort field (overrides: supportsReasoningEffort false, I6). Replaces the ClawPoD Agent's xAI effort name rule (I3h)."
     },
     {
       "provider": "xai",
@@ -9887,11 +9878,8 @@
       "labels": {
         "low": "on"
       },
-      "map": {
-        "low": null
-      },
-      "source": "https://docs.x.ai/docs/guides/reasoning",
-      "note": "xAI: reasoning_effort is accepted by grok-4.3 and grok-4.5 and later only, other reasoning models cannot disable or tune reasoning (https://docs.x.ai/docs/guides/reasoning). Single always-on level mapped to null so the Agent sends no effort field: with every other level unlisted the runtime has no level to move to. Replaces the ClawPoD Agent's xAI effort name rule (I3h)."
+      "source": "https://docs.x.ai/developers/models/grok-build-0.1",
+      "note": "Not the official ladder (temporary until REVIEW 2026-11-23 F1): xAI lists efforts low/medium/high/xhigh, default high (https://docs.x.ai/developers/models/grok-build-0.1). Encoded as one always-on level with no effort field (overrides: supportsReasoningEffort false, I6) so today's request (no effort field = xAI default high) stays the same. Replaces the ClawPoD Agent's xAI effort name rule (I3h)."
     },
     {
       "provider": "nvidia",
@@ -15856,6 +15844,61 @@
       },
       "source": "https://developers.openai.com/api/docs/models/gpt-5.6-sol",
       "note": "Upstream list had no none, but the alias snapshot gpt-5.6-sol takes none..max. No runtime reads it and set.compat cannot hold an array, so the stale key is removed. Reviewed 2026-11-23 (I5)."
+    },
+    {
+      "provider": "xai",
+      "model": "grok-4.20",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": false
+        }
+      },
+      "source": "https://docs.x.ai/docs/guides/reasoning",
+      "note": "reasoning_effort only on grok-4.3 and grok-4.5 and later; Grok 4.20 always reasons and takes no effort field. Same as the Kilo Gateway rows (I3h). Reviewed 2026-11-23 (I6)."
+    },
+    {
+      "provider": "xai",
+      "model": "grok-4.20-0309-reasoning",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": false
+        }
+      },
+      "source": "https://docs.x.ai/docs/guides/reasoning",
+      "note": "reasoning_effort only on grok-4.3 and grok-4.5 and later; Grok 4.20 always reasons and takes no effort field. Same as the Kilo Gateway rows (I3h). Reviewed 2026-11-23 (I6)."
+    },
+    {
+      "provider": "xai",
+      "model": "grok-4-0709",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": false
+        }
+      },
+      "source": "https://docs.x.ai/developers/migration/may-15-retirement",
+      "note": "Retired; served as grok-4.3 with low reasoning effort; no effort field sent. Reviewed 2026-11-23 (I6)."
+    },
+    {
+      "provider": "xai",
+      "model": "grok-build*",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": false
+        }
+      },
+      "source": "https://docs.x.ai/developers/models/grok-build-0.1",
+      "note": "Temporary until the Grok Build ladder is applied (REVIEW 2026-11-23 F1): xAI lists efforts low/medium/high/xhigh, default high. Keeps today's request (no effort field = xAI default high) with the always-on rule above. Reviewed 2026-11-23 (I6)."
+    },
+    {
+      "provider": "opencode",
+      "model": "grok-build-0.1",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": true
+        }
+      },
+      "source": "https://docs.x.ai/developers/models/grok-build-0.1",
+      "note": "Temporary until the Grok Build ladder is applied (REVIEW 2026-11-23 F1): xAI lists efforts low/medium/high/xhigh, default high. The Pi row says false, which no Responses serializer read; the run sends effort high today, and this keeps it once the Agent reads the key on Responses. Reviewed 2026-11-23 (I6)."
     }
   ],
   "knownGaps": [

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795394868009,
+  "generatedAt": 1795406911100,
   "minVersion": "2026.4.11",
   "sourceCommit": "461b02a48f587c038427570062eb785493c32bc7",
   "providers": {
@@ -24758,6 +24758,7 @@
             "cacheWrite": 0
           },
           "compat": {
+            "supportsReasoningEffort": true,
             "thinkingLevels": [
               "off",
               "minimal",
@@ -40429,12 +40430,10 @@
             "thinkingLevels": [
               "low"
             ],
+            "supportsReasoningEffort": false,
             "thinkingLevelLabels": {
               "low": "on"
             }
-          },
-          "thinkingLevelMap": {
-            "low": null
           }
         },
         {
@@ -40646,12 +40645,10 @@
             "thinkingLevels": [
               "low"
             ],
+            "supportsReasoningEffort": false,
             "thinkingLevelLabels": {
               "low": "on"
             }
-          },
-          "thinkingLevelMap": {
-            "low": null
           }
         },
         {
@@ -40751,6 +40748,7 @@
             "cacheWrite": 0
           },
           "compat": {
+            "supportsReasoningEffort": false,
             "thinkingLevels": [
               "low"
             ],
@@ -40758,9 +40756,6 @@
             "thinkingLevelLabels": {
               "low": "on"
             }
-          },
-          "thinkingLevelMap": {
-            "low": null
           }
         },
         {
@@ -40782,6 +40777,7 @@
           "status": "deprecated",
           "replacedBy": "grok-4.3",
           "compat": {
+            "supportsReasoningEffort": false,
             "thinkingLevels": [
               "low"
             ],
@@ -40789,9 +40785,6 @@
             "thinkingLevelLabels": {
               "low": "on"
             }
-          },
-          "thinkingLevelMap": {
-            "low": null
           }
         }
       ]
@@ -59514,5 +59507,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795394845329,
-  "supplementDigest": "48fcc91d65ccf93af0c907f15255373d37b2d05b8c4d1039a5d4abb7599feb70"
+  "supplementDigest": "d1cea080abef497a5094e0a58f6690a777815d3edfef4e7e5e76d72d5f546e5d"
 }
