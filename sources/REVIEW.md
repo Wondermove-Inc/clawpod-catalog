@@ -1083,3 +1083,29 @@ xAI 직결 항상 켜짐 4행은 "추론하지만 effort 칸은 보내지 않음
 - `openrouter/auto` 창 200000은 공식 값이 아니다(페이지에 창이 없음). 수동 `auto` 행·예전 Agent 행과 같은 보수적 값이다.
 - Vercel DeepSeek 384000은 Vercel 표시값(1,048,576)이 아니라 모델 제작사의 상한이다.
 - 배포 순서: 이 PR이 게시된 뒤 Agent는 스냅샷 갱신과 코드(R4 diff)를 한 커밋으로 넣는다.
+
+# 2026-11-24 카탈로그 SOT 후속 G1 (DeepSeek V4 출력 상한, Grok Build 공식 단계, 행 보완)
+
+ClawPoD Agent 후속 설계 G1(GO) 의 카탈로그 몫이다. 보류했던 PR #42(DeepSeek `-latest` 5행)를 이 절이 넓혀 대신한다.
+
+| 묶음 | 바꾼 것 | 근거 |
+| --- | --- | --- |
+| DeepSeek V4 | `overrides` 19개 `maxTokens: 393216`: openrouter 6(`~deepseek/deepseek-pro-latest`, `-flash-latest`, `-v4-flash-latest`, `deepseek-v4-flash-0731`, `deepseek-v4-pro-0813`, `deepseek-v4.1-flash-1017:batch`), kilocode 5(`~deepseek/deepseek-flash-latest`, `-v4-flash-latest`, `deepseek-v4-flash-0731`, `deepseek-v4-pro-0813`, `deepseek-v4.1-flash-1017-ultrafast`), deepinfra 2(`DeepSeek-V4-Flash`, `-Pro`), ollama-cloud 2(`deepseek-v4-pro`, `:0813`), vercel-ai-gateway 4(`deepseek-v4-pro`, `-0813`, `deepseek-v4.1-flash`, `-1017-ultrafast`) | DeepSeek `max_tokens` "The value must be between 1 and 384K (393216)." (https://api-docs.deepseek.com/api/create-chat-completion), 가격표 "MAXIMUM: 384K"(V4 Pro 0813·V4.1 Flash 1017, https://api-docs.deepseek.com/quick_start/pricing). 제작사 상한 규칙(Vercel DeepSeek vision 행과 같음). 값은 내려가기만 한다 |
+| Grok Build | `thinking`: `xai`/`grok-build*` 임시 규칙 삭제, `*`/`grok-build*` 를 low/medium/high/xhigh·기본 high 로, `venice`/`grok-build-0-1` 규칙(첫 `*` 규칙 앞, 오늘 행 그대로 `["low"]` on), `opencode`/`grok-build-0.1` 예외를 on 한 단계(`high`)로. `overrides` `xai`/`grok-build-0.1` `contextWindow: 500000` | xAI "Reasoning efforts (supported) `low`, `medium`, `high`, `xhigh`", "(default) `high`", 창 "500,000 tokens", 최대 출력은 적혀 있지 않아 64000 유지(https://docs.x.ai/developers/models/grok-build-0.1). Venice 모델 API `grok-build-0-1` `supportsReasoningEffort: false`(https://api.venice.ai/api/v1/models). OpenCode Zen 모델 API 는 effort 목록 없음(https://opencode.ai/zen/v1/models) |
+| Mistral | `overrides` `mistral`/`mistral-large-latest` `compat.supportsReasoningEffort: true` | Large 4 모델 페이지 이름 목록 `mistral-large-4`, `mistral-large-4-0`, `mistral-large-latest`(https://docs.mistral.ai/models/mistral-large-4-0), reasoning_effort low/medium/high, 생략 시 high(https://docs.mistral.ai/capabilities/reasoning/) |
+| Baseten | `overrides` `baseten`/`moonshotai/Kimi-K3.1-Pro` `compat.supportsReasoningEffort: true`(목록 low/high/max 그대로) | "Kimi K3.1 Pro \| `none`, `low`, `medium`, `high`, `max` (default)"(https://docs.baseten.co/inference/model-apis/reasoning) |
+| Mantle | 수동 행 `amazon-bedrock-mantle`/`anthropic.claude-haiku-5-5`(1M·128K, text·image, reasoning, `anthropic-messages`), `knownGaps` cost, provenance note | AWS Haiku 5.5 모델 카드: "1M tokens", "128K", adaptive 기본, effort low~max 기본 medium, bedrock-mantle 은 us-gov-west-1 만(https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-haiku-5-5.html). compat 은 기존 `*` `claude-haiku-5-5*` 규칙이 만든다(Bedrock `global.anthropic.claude-haiku-5-5` 와 같음) |
+
+- 넣지 않은 것: `mistral-large-4-0-8`(Mistral 공식 이름 목록에 없음), `mistral-medium-latest`(생략 시 기본값이 공식 문서에 없음), 다른 제작사 `-latest` 별칭 8행(작은 오차, 후속). 이 절로 MAINTAINING 9장 "Grok Build 공식 단계"(F1) 행과 REVIEW F6(OpenCode cold·warm 표시 차이)을 닫는다.
+
+## 생성 결과 (main `c196ec7` 게시본 대비)
+
+원본 publish run 45237814152(`sourceGeneratedAt` 1795458343874 = main). `providers=60 (+0/-0) models=2270->2271 (+1)`. 바뀐 행 21 + 추가 1 = 22행, 다른 행 변화 0.
+
+- 설계 흉내(`cat-patch-g1.cjs`, 24행)와 대조: 24행 모두 가격 칸을 뺀 행 전체가 같다. 흉내보다 2행 적은 것은 상류 드리프트다: `openrouter/~deepseek/deepseek-pro-latest`·`~deepseek/deepseek-flash-latest` 는 main 게시본에서 이미 393,216 이다(규칙은 다시 튀지 않게 남겨 둠).
+- `venice/grok-build-0-1` 게시 행은 바뀌지 않는다.
+
+## 판단과 한계
+
+- `npm test` 의 기존 실패 1개(main 에서도 실패, 이 PR 무관): "I3h rules reach exactly their target rows" 의 "Mistral 행은 `maxTokens < contextWindow`" 단언이 `c196ec7` 게시에서 새로 들어온 상류 행 `mistral/ministral-14b-latest`(262,144/262,144)·`ministral-3b-latest`(131,072/131,072)·`ministral-8b-latest`(262,144/262,144)에 걸린다. 작은 별칭 행이라 사용자 규칙대로 후속으로 둔다.
+- 검증: `npm run audit` open 0 → 0(cost known 133 → 134, Mantle Haiku knownGaps), Pi 스키마 2271행 실패 0, "matches nothing" 2 = main.
