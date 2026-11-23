@@ -78,7 +78,7 @@
       "files": [
         "extensions/amazon-bedrock-mantle/discovery.ts"
       ],
-      "notes": "Five explicit Claude definitions; per-model anthropic-messages API preserved. Opus 4.7 reasoning=false is Agent transport policy. Unverified Mythos Preview and Sonnet 5 AWS costs omitted; the old scheduled Sonnet increase is not reliable after cancellation. No runtime discovery. sources/REVIEW.md. Reviewed 2026-10-02: added opus-5-5, sonnet-5-5, fable-5, fable-5-1, opus-4-8 from AWS model cards (bedrock-mantle IDs). Costs for all rows now use AWS Geo/In-region prices (mantle IDs are in-Region only; 10% above global), including the previously omitted Sonnet 5 and Mythos Preview. Opus 4.8 reasoning=false follows the Opus 4.7 transport policy. Also added Mantle-only openai.gpt-5.5, xai.grok-4.3, google.gemma-4-31b/26b-a4b/e2b (provider default openai-completions; AWS cards serve them under /openai/v1 while the Agent uses /v1 — unverified by live call). Grok/Gemma maxTokens are not officially stated. Reviewed 2026-11-18: added openai.gpt-6.1-terra (us-east-1 only); Sonnet 5.5 cacheRead 0.11. Haiku 5.5 mantle ID is GovCloud-only and not added. Reviewed 2026-11-19: added openai.gpt-6.2-astra/sol (bedrock-mantle us-east-1, /openai/v1 path like the other non-Claude rows) with In-Region prices incl. 30-minute cache write."
+      "notes": "Five explicit Claude definitions; per-model anthropic-messages API preserved. Opus 4.7 reasoning=false is Agent transport policy. Unverified Mythos Preview and Sonnet 5 AWS costs omitted; the old scheduled Sonnet increase is not reliable after cancellation. No runtime discovery. sources/REVIEW.md. Reviewed 2026-10-02: added opus-5-5, sonnet-5-5, fable-5, fable-5-1, opus-4-8 from AWS model cards (bedrock-mantle IDs). Costs for all rows now use AWS Geo/In-region prices (mantle IDs are in-Region only; 10% above global), including the previously omitted Sonnet 5 and Mythos Preview. Opus 4.8 reasoning=false follows the Opus 4.7 transport policy. Also added Mantle-only openai.gpt-5.5, xai.grok-4.3, google.gemma-4-31b/26b-a4b/e2b (provider default openai-completions; AWS cards serve them under /openai/v1 while the Agent uses /v1 — unverified by live call). Grok/Gemma maxTokens are not officially stated. Reviewed 2026-11-18: added openai.gpt-6.1-terra (us-east-1 only); Sonnet 5.5 cacheRead 0.11. Haiku 5.5 mantle ID is GovCloud-only and not added. Reviewed 2026-11-19: added openai.gpt-6.2-astra/sol (bedrock-mantle us-east-1, /openai/v1 path like the other non-Claude rows) with In-Region prices incl. 30-minute cache write. Reviewed 2026-11-24: added anthropic.claude-haiku-5-5 (AWS model card: 1M context, 128K output, adaptive thinking, effort low..max default medium; bedrock-mantle in us-gov-west-1 only, https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-haiku-5-5.html); cost left empty (GovCloud price not published)."
     },
     "openrouter": {
       "source": "https://openrouter.ai/api/v1/models; Wondermove-Inc/clawpod-agent (auto alias)",
@@ -4655,6 +4655,18 @@
             "cacheRead": 0.11,
             "cacheWrite": 2.75
           }
+        },
+        {
+          "id": "anthropic.claude-haiku-5-5",
+          "name": "Claude Haiku 5.5",
+          "api": "anthropic-messages",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 128000
         }
       ]
     },
@@ -9213,16 +9225,14 @@
       "provider": "opencode",
       "model": "grok-build-0.1",
       "levels": [
-        "off",
-        "minimal",
-        "low",
-        "medium",
-        "high",
-        "adaptive"
+        "high"
       ],
-      "default": "low",
-      "source": "https://github.com/Wondermove-Inc/clawpod-catalog/blob/main/sources/REVIEW.md",
-      "note": "Not the official ladder: keeps the ClawPoD Agent's current behavior for this Pi-sourced row (the Agent list for a reasoning model without catalog effort, default low) so requests stay unchanged until they can be verified against OpenCode. Breaks MAINTAINING ch.5 on purpose: lists off on rows that cannot turn thinking off and adaptive on Claude effort models. Official ladder and reason: sources/REVIEW.md 2026-11-21. Approved exception."
+      "default": "high",
+      "labels": {
+        "high": "on"
+      },
+      "source": "https://opencode.ai/zen/v1/models",
+      "note": "No effort list on OpenCode Zen; one always-on level. high is what the route sends today and the xAI default. Closes REVIEW F1/F6. Reviewed 2026-11-24."
     },
     {
       "provider": "opencode",
@@ -9878,22 +9888,6 @@
       "note": "xAI: reasoning_effort is accepted by grok-4.3 and grok-4.5 and later only, other reasoning models cannot disable or tune reasoning (https://docs.x.ai/docs/guides/reasoning). Single always-on level mapped to null so the Agent sends no effort field: with every other level unlisted the runtime has no level to move to. Replaces the ClawPoD Agent's xAI effort name rule (I3h)."
     },
     {
-      "provider": "xai",
-      "model": "grok-build*",
-      "levels": [
-        "low"
-      ],
-      "default": "low",
-      "labels": {
-        "low": "on"
-      },
-      "map": {
-        "low": null
-      },
-      "source": "https://docs.x.ai/developers/models/grok-build-0.1",
-      "note": "Not the official ladder (temporary until REVIEW 2026-11-23 F1): xAI lists efforts low/medium/high/xhigh, default high (https://docs.x.ai/developers/models/grok-build-0.1). Encoded as one always-on level mapped to null so the Agent sends no effort field (every other level is unlisted, so the runtime has no level to move to), and today's request (no effort field = xAI default high) stays the same. Replaces the ClawPoD Agent's xAI effort name rule (I3h)."
-    },
-    {
       "provider": "nvidia",
       "model": "moonshotai/kimi-k3",
       "levels": [
@@ -10195,6 +10189,19 @@
       },
       "source": "https://developers.openai.com/api/docs/guides/reasoning",
       "note": "Same levels and default as the * rule. OpenAI GPT-6 Astra and Sol reject reasoning.effort none. A call that passes no level runs as off, which on this list is the lowest listed level, so off states low (the ClawPoD Agent's former OpenAI rule sent low). off stays off the list."
+    },
+    {
+      "provider": "venice",
+      "model": "grok-build-0-1",
+      "levels": [
+        "low"
+      ],
+      "default": "low",
+      "labels": {
+        "low": "on"
+      },
+      "source": "https://api.venice.ai/api/v1/models",
+      "note": "Venice reports supportsReasoningEffort false for grok-build-0-1. Keeps the row exactly as before the xAI ladder. Reviewed 2026-11-24 (F1)."
     },
     {
       "provider": "*",
@@ -11449,14 +11456,14 @@
       "provider": "*",
       "model": "grok-build*",
       "levels": [
-        "low"
+        "low",
+        "medium",
+        "high",
+        "xhigh"
       ],
-      "default": "low",
-      "labels": {
-        "low": "on"
-      },
+      "default": "high",
       "source": "https://docs.x.ai/developers/models/grok-build-0.1",
-      "note": "'Reasoning: Yes' with no reasoning efforts listed; reasoning_effort only documented for grok-4.5+ -> always-on, no control."
+      "note": "xAI: Reasoning efforts (supported) low, medium, high, xhigh; (default) high. Sent as reasoning.effort. Reviewed 2026-11-24 (F1)."
     },
     {
       "provider": "*",
@@ -16115,6 +16122,208 @@
       },
       "source": "https://api-docs.deepseek.com/quick_start/pricing",
       "note": "384000 is the model maker's cap: DeepSeek lists Flash maximum output 384K (max_tokens 1 to 393216), the same as the direct deepseek row. Vercel lists 1048576 output for this id, served by DeepInfra; the model maker's limit is used as the safe single-response cap."
+    },
+    {
+      "provider": "openrouter",
+      "model": "~deepseek/deepseek-pro-latest",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek V4 family. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K for V4 Pro and V4.1 Flash, https://api-docs.deepseek.com/quick_start/pricing). The gateway lists a larger output (or a -latest alias jumps between routes); the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek vision row. Reviewed 2026-11-24 (G1)."
+    },
+    {
+      "provider": "openrouter",
+      "model": "~deepseek/deepseek-flash-latest",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek V4 family. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K for V4 Pro and V4.1 Flash, https://api-docs.deepseek.com/quick_start/pricing). The gateway lists a larger output (or a -latest alias jumps between routes); the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek vision row. Reviewed 2026-11-24 (G1)."
+    },
+    {
+      "provider": "openrouter",
+      "model": "~deepseek/deepseek-v4-flash-latest",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek V4 family. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K for V4 Pro and V4.1 Flash, https://api-docs.deepseek.com/quick_start/pricing). The gateway lists a larger output (or a -latest alias jumps between routes); the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek vision row. Reviewed 2026-11-24 (G1)."
+    },
+    {
+      "provider": "openrouter",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek V4 family. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K for V4 Pro and V4.1 Flash, https://api-docs.deepseek.com/quick_start/pricing). The gateway lists a larger output (or a -latest alias jumps between routes); the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek vision row. Reviewed 2026-11-24 (G1)."
+    },
+    {
+      "provider": "openrouter",
+      "model": "deepseek/deepseek-v4-pro-0813",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek V4 family. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K for V4 Pro and V4.1 Flash, https://api-docs.deepseek.com/quick_start/pricing). The gateway lists a larger output (or a -latest alias jumps between routes); the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek vision row. Reviewed 2026-11-24 (G1)."
+    },
+    {
+      "provider": "openrouter",
+      "model": "deepseek/deepseek-v4.1-flash-1017:batch",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek V4 family. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K for V4 Pro and V4.1 Flash, https://api-docs.deepseek.com/quick_start/pricing). The gateway lists a larger output (or a -latest alias jumps between routes); the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek vision row. Reviewed 2026-11-24 (G1)."
+    },
+    {
+      "provider": "kilocode",
+      "model": "~deepseek/deepseek-flash-latest",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek V4 family. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K for V4 Pro and V4.1 Flash, https://api-docs.deepseek.com/quick_start/pricing). The gateway lists a larger output (or a -latest alias jumps between routes); the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek vision row. Reviewed 2026-11-24 (G1)."
+    },
+    {
+      "provider": "kilocode",
+      "model": "~deepseek/deepseek-v4-flash-latest",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek V4 family. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K for V4 Pro and V4.1 Flash, https://api-docs.deepseek.com/quick_start/pricing). The gateway lists a larger output (or a -latest alias jumps between routes); the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek vision row. Reviewed 2026-11-24 (G1)."
+    },
+    {
+      "provider": "kilocode",
+      "model": "deepseek/deepseek-v4-flash-0731",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek V4 family. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K for V4 Pro and V4.1 Flash, https://api-docs.deepseek.com/quick_start/pricing). The gateway lists a larger output (or a -latest alias jumps between routes); the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek vision row. Reviewed 2026-11-24 (G1)."
+    },
+    {
+      "provider": "kilocode",
+      "model": "deepseek/deepseek-v4-pro-0813",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek V4 family. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K for V4 Pro and V4.1 Flash, https://api-docs.deepseek.com/quick_start/pricing). The gateway lists a larger output (or a -latest alias jumps between routes); the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek vision row. Reviewed 2026-11-24 (G1)."
+    },
+    {
+      "provider": "kilocode",
+      "model": "deepseek/deepseek-v4.1-flash-1017-ultrafast",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek V4 family. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K for V4 Pro and V4.1 Flash, https://api-docs.deepseek.com/quick_start/pricing). The gateway lists a larger output (or a -latest alias jumps between routes); the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek vision row. Reviewed 2026-11-24 (G1)."
+    },
+    {
+      "provider": "deepinfra",
+      "model": "deepseek-ai/DeepSeek-V4-Flash",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek V4 family. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K for V4 Pro and V4.1 Flash, https://api-docs.deepseek.com/quick_start/pricing). The gateway lists a larger output (or a -latest alias jumps between routes); the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek vision row. Reviewed 2026-11-24 (G1)."
+    },
+    {
+      "provider": "deepinfra",
+      "model": "deepseek-ai/DeepSeek-V4-Pro",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek V4 family. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K for V4 Pro and V4.1 Flash, https://api-docs.deepseek.com/quick_start/pricing). The gateway lists a larger output (or a -latest alias jumps between routes); the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek vision row. Reviewed 2026-11-24 (G1)."
+    },
+    {
+      "provider": "ollama-cloud",
+      "model": "deepseek-v4-pro",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek V4 family. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K for V4 Pro and V4.1 Flash, https://api-docs.deepseek.com/quick_start/pricing). The gateway lists a larger output (or a -latest alias jumps between routes); the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek vision row. Reviewed 2026-11-24 (G1)."
+    },
+    {
+      "provider": "ollama-cloud",
+      "model": "deepseek-v4-pro:0813",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek V4 family. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K for V4 Pro and V4.1 Flash, https://api-docs.deepseek.com/quick_start/pricing). The gateway lists a larger output (or a -latest alias jumps between routes); the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek vision row. Reviewed 2026-11-24 (G1)."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "deepseek/deepseek-v4-pro",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek V4 family. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K for V4 Pro and V4.1 Flash, https://api-docs.deepseek.com/quick_start/pricing). The gateway lists a larger output (or a -latest alias jumps between routes); the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek vision row. Reviewed 2026-11-24 (G1)."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "deepseek/deepseek-v4-pro-0813",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek V4 family. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K for V4 Pro and V4.1 Flash, https://api-docs.deepseek.com/quick_start/pricing). The gateway lists a larger output (or a -latest alias jumps between routes); the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek vision row. Reviewed 2026-11-24 (G1)."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "deepseek/deepseek-v4.1-flash",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek V4 family. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K for V4 Pro and V4.1 Flash, https://api-docs.deepseek.com/quick_start/pricing). The gateway lists a larger output (or a -latest alias jumps between routes); the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek vision row. Reviewed 2026-11-24 (G1)."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "deepseek/deepseek-v4.1-flash-1017-ultrafast",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek V4 family. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K for V4 Pro and V4.1 Flash, https://api-docs.deepseek.com/quick_start/pricing). The gateway lists a larger output (or a -latest alias jumps between routes); the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek vision row. Reviewed 2026-11-24 (G1)."
+    },
+    {
+      "provider": "xai",
+      "model": "grok-build-0.1",
+      "set": {
+        "contextWindow": 500000
+      },
+      "source": "https://docs.x.ai/developers/models/grok-build-0.1",
+      "note": "xAI model page: context window 500,000 tokens. Max output not stated; the row keeps 64000. Reviewed 2026-11-24 (F1)."
+    },
+    {
+      "provider": "mistral",
+      "model": "mistral-large-latest",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": true
+        }
+      },
+      "source": "https://docs.mistral.ai/models/mistral-large-4-0",
+      "note": "API name of Mistral Large 4 (model page names mistral-large-4, mistral-large-4-0, mistral-large-latest), which takes reasoning_effort low/medium/high (https://docs.mistral.ai/capabilities/reasoning/). The row listed those levels but sent none. Reviewed 2026-11-24."
+    },
+    {
+      "provider": "baseten",
+      "model": "moonshotai/Kimi-K3.1-Pro",
+      "set": {
+        "compat": {
+          "supportsReasoningEffort": true
+        }
+      },
+      "source": "https://docs.baseten.co/inference/model-apis/reasoning",
+      "note": "Baseten takes reasoning_effort for Kimi K3.1 Pro (none, low, medium, high, max; default max). The row listed low/high/max but sent none. Levels unchanged. Reviewed 2026-11-24."
     }
   ],
   "knownGaps": [
@@ -16438,6 +16647,12 @@
       "model": "MiniMax-M3.1-Flash",
       "check": "cost",
       "reason": "Reviewed 2026-11-22: MiniMax China publishes prices in CNY only (https://platform.minimaxi.com/docs/pricing/overview.md); no USD price."
+    },
+    {
+      "provider": "amazon-bedrock-mantle",
+      "model": "anthropic.claude-haiku-5-5",
+      "check": "cost",
+      "reason": "Reviewed 2026-11-24: the bedrock-mantle Haiku 5.5 id is offered in us-gov-west-1 only (https://docs.aws.amazon.com/bedrock/latest/userguide/model-card-anthropic-claude-haiku-5-5.html); AWS does not publish a GovCloud price for it."
     }
   ],
   "nonChatModels": [

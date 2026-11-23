@@ -969,7 +969,8 @@ const OPENCODE_IDS = {
 const OPENCODE_STILL_KEPT = [
   ...["opencode/claude-haiku-4-5", "opencode/claude-sonnet-4-5", "opencode/iceman-free", "opencode/kimi-k2.7-code"],
   ...["opencode/mimo-v2.6-flash-free", "opencode/minimax-m2.5", "opencode/minimax-m2.7"],
-  ...["opencode/nemotron-3.5-lightning-free", "opencode/grok-build-0.1", "opencode-go/iceman-contributor-free"],
+  // opencode/grok-build-0.1 left this list on 2026-11-24 (G1): one always-on level, high.
+  ...["opencode/nemotron-3.5-lightning-free", "opencode-go/iceman-contributor-free"],
   ...["opencode-go/mimo-v2.6-flash", "opencode-go/mimo-v2.6-pro"],
 ];
 const OPENCODE_API = { opencode: "https://opencode.ai/zen/v1/models", "opencode-go": "https://opencode.ai/inference/go/v1/models" };
@@ -1749,17 +1750,17 @@ test("I3h rules reach exactly their target rows", () => {
     "xai/grok-4-0709",
     "xai/grok-4.20",
     "xai/grok-4.20-0309-reasoning",
-    "xai/grok-build-0.1",
   ]);
   const get = (p, id) => artifact.providers[p].models.find((m) => m.id === id);
   assert.deepEqual(get("anthropic-vertex", "claude-sonnet-5-5").compat.thinkingLevels[0], "off");
   assert.equal(get("anthropic-vertex", "claude-sonnet-5-5").thinkingLevelMap.off, null);
-  for (const id of ["grok-4.20", "grok-4.20-0309-reasoning", "grok-build-0.1", "grok-4-0709"]) {
+  // grok-build-0.1 takes xAI's official ladder since G1 (2026-11-24); the other three stay always on.
+  for (const id of ["grok-4.20", "grok-4.20-0309-reasoning", "grok-4-0709"]) {
     assert.deepEqual([get("xai", id).compat.thinkingLevels, get("xai", id).thinkingLevelMap], [["low"], { low: null }], id);
   }
   // Effort support and Mistral output caps.
   assert.deepEqual(refs((p, m) => p === "mistral" && m.compat?.supportsReasoningEffort === true), [
-    "mistral/mistral-large-4", "mistral/mistral-medium-3-5", "mistral/mistral-small-2603",
+    "mistral/mistral-large-4", "mistral/mistral-large-latest", "mistral/mistral-medium-3-5", "mistral/mistral-small-2603",
     "mistral/mistral-small-latest", "mistral/zai-glm-5-3", "mistral/zai-glm-5-3-flash",
   ]);
   assert.deepEqual(refs((p, m) => p === "kilocode" && m.compat?.supportsReasoningEffort === false), [
@@ -1916,4 +1917,93 @@ test("Bedrock Nova v1 and Vercel DeepSeek V4 Flash vision use the documented out
     assert.equal(next.providers["amazon-bedrock"].models.find((m) => m.id === id)?.maxTokens, 10_000, id);
   }
   assert.equal(next.providers["vercel-ai-gateway"].models[0].maxTokens, 384_000);
+});
+
+// G1 follow-ups (2026-11-24): DeepSeek V4 output caps, Grok Build official ladder, catalog row fixes.
+const G1_DEEPSEEK = {
+  openrouter: ["~deepseek/deepseek-pro-latest", "~deepseek/deepseek-flash-latest", "~deepseek/deepseek-v4-flash-latest",
+    "deepseek/deepseek-v4-flash-0731", "deepseek/deepseek-v4-pro-0813", "deepseek/deepseek-v4.1-flash-1017:batch"],
+  kilocode: ["~deepseek/deepseek-flash-latest", "~deepseek/deepseek-v4-flash-latest", "deepseek/deepseek-v4-flash-0731",
+    "deepseek/deepseek-v4-pro-0813", "deepseek/deepseek-v4.1-flash-1017-ultrafast"],
+  deepinfra: ["deepseek-ai/DeepSeek-V4-Flash", "deepseek-ai/DeepSeek-V4-Pro"],
+  "ollama-cloud": ["deepseek-v4-pro", "deepseek-v4-pro:0813"],
+  "vercel-ai-gateway": ["deepseek/deepseek-v4-pro", "deepseek/deepseek-v4-pro-0813", "deepseek/deepseek-v4.1-flash",
+    "deepseek/deepseek-v4.1-flash-1017-ultrafast"],
+};
+
+test("DeepSeek V4 rows on gateways cap a response at DeepSeek's documented 393216 tokens", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const f = fixture();
+  for (const [provider, ids] of Object.entries(G1_DEEPSEEK)) {
+    f.upstream.providers[provider] = {
+      api: "openai-completions",
+      models: ids.map((id) => ({ ...localModel(id), contextWindow: 1_048_576, maxTokens: 1_048_576 })),
+    };
+  }
+  const next = buildCatalog({ ...f, supplement });
+  let n = 0;
+  for (const [provider, ids] of Object.entries(G1_DEEPSEEK)) {
+    for (const id of ids) {
+      assert.equal(next.providers[provider].models.find((m) => m.id === id)?.maxTokens, 393_216, `${provider}/${id}`);
+      n++;
+    }
+  }
+  assert.equal(n, 19);
+});
+
+test("Grok Build: xAI official ladder and window, Venice row as before, OpenCode one on level", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const f = fixture();
+  f.upstream.providers.xai = {
+    api: "openai-responses",
+    models: [{ ...localModel("grok-build-0.1"), contextWindow: 256_000, maxTokens: 64_000, compat: { defaultThinkingLevel: "off", thinkingLevels: ["off"] } }],
+  };
+  f.upstream.providers.venice = { api: "openai-completions", models: [{ ...localModel("grok-build-0-1"), contextWindow: 256_000, maxTokens: 65_536 }] };
+  const next = buildCatalog({ ...f, supplement });
+  const get = (p, id) => next.providers[p].models.find((m) => m.id === id);
+  const xai = get("xai", "grok-build-0.1");
+  assert.deepEqual([xai.compat.thinkingLevels, xai.compat.defaultThinkingLevel, xai.compat.thinkingLevelLabels, xai.thinkingLevelMap],
+    [["low", "medium", "high", "xhigh"], "high", undefined, undefined]);
+  assert.equal(xai.contextWindow, 500_000);
+  assert.equal(xai.maxTokens, 64_000);
+  // Venice reports no effort control: the row keeps today's single always-on level.
+  const venice = get("venice", "grok-build-0-1");
+  assert.deepEqual(venice.compat, { thinkingLevels: ["low"], defaultThinkingLevel: "low", thinkingLevelLabels: { low: "on" } });
+  assert.equal(venice.thinkingLevelMap, undefined);
+  // The venice rule must come before the * grok-build* rule (first match wins, * rules match model keys).
+  const veniceRule = supplement.thinking.findIndex((r) => r.provider === "venice" && r.model === "grok-build-0-1");
+  const starRule = supplement.thinking.findIndex((r) => r.provider === "*" && r.model === "grok-build*");
+  assert.ok(veniceRule >= 0 && veniceRule < starRule);
+  assert.equal(supplement.thinking.some((r) => r.provider === "xai" && r.model.startsWith("grok-build")), false);
+  const opencode = get("opencode", "grok-build-0.1");
+  assert.deepEqual([opencode.compat.thinkingLevels, opencode.compat.defaultThinkingLevel, opencode.compat.thinkingLevelLabels],
+    [["high"], "high", { high: "on" }]);
+});
+
+test("mistral-large-latest and Baseten Kimi K3.1 Pro send the effort they list; mistral-large-4-0-8 unchanged", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const f = fixture();
+  f.upstream.providers.mistral = {
+    api: "openai-completions",
+    models: ["mistral-large-latest", "mistral-large-4-0-8"].map((id) => ({ ...localModel(id), contextWindow: 262_144, maxTokens: 16_384 })),
+  };
+  f.upstream.providers.baseten = { api: "openai-completions", models: [{ ...localModel("moonshotai/Kimi-K3.1-Pro"), contextWindow: 1_048_576, maxTokens: 262_144 }] };
+  const next = buildCatalog({ ...f, supplement });
+  const get = (p, id) => next.providers[p].models.find((m) => m.id === id);
+  assert.equal(get("mistral", "mistral-large-latest").compat.supportsReasoningEffort, true);
+  assert.equal(get("mistral", "mistral-large-4-0-8").compat?.supportsReasoningEffort, undefined);
+  const kimi = get("baseten", "moonshotai/Kimi-K3.1-Pro");
+  assert.deepEqual([kimi.compat.thinkingLevels, kimi.compat.defaultThinkingLevel, kimi.compat.supportsReasoningEffort], [["low", "high", "max"], "max", true]);
+});
+
+test("Mantle Haiku 5.5 row publishes the Bedrock Haiku 5.5 effort profile without a price", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const next = buildCatalog({ ...fixture(), supplement });
+  const mantle = next.providers["amazon-bedrock-mantle"].models.find((m) => m.id === "anthropic.claude-haiku-5-5");
+  assert.ok(mantle, "missing amazon-bedrock-mantle/anthropic.claude-haiku-5-5");
+  const expected = { forceAdaptiveThinking: true, thinkingLevels: ["off", "low", "medium", "high", "xhigh", "max"], defaultThinkingLevel: "medium" };
+  assert.deepEqual(mantle.compat, expected);
+  assert.deepEqual(next.providers["amazon-bedrock"].models.find((m) => m.id === "global.anthropic.claude-haiku-5-5").compat, expected);
+  assert.deepEqual([mantle.api, mantle.contextWindow, mantle.maxTokens, mantle.cost], ["anthropic-messages", 1_000_000, 128_000, undefined]);
+  assert.ok(supplement.knownGaps.some((g) => g.provider === "amazon-bedrock-mantle" && g.model === "anthropic.claude-haiku-5-5" && g.check === "cost"));
 });
