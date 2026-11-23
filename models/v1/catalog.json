@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795416288517,
+  "generatedAt": 1795424158934,
   "minVersion": "2026.4.11",
   "sourceCommit": "b210869fbd515228889dbb088d8f23674fa95177",
   "providers": {
@@ -22010,7 +22010,7 @@
           "thinkingLevelMap": {
             "max": "max",
             "minimal": "low",
-            "off": null,
+            "off": "low",
             "xhigh": "xhigh"
           }
         },
@@ -22209,7 +22209,7 @@
           "thinkingLevelMap": {
             "max": "max",
             "minimal": "low",
-            "off": null,
+            "off": "low",
             "xhigh": "xhigh"
           }
         },
@@ -22326,7 +22326,7 @@
           "thinkingLevelMap": {
             "max": "max",
             "minimal": "low",
-            "off": null,
+            "off": "low",
             "xhigh": "xhigh"
           }
         },
@@ -22392,7 +22392,7 @@
           "thinkingLevelMap": {
             "max": "max",
             "minimal": "low",
-            "off": null,
+            "off": "low",
             "xhigh": "xhigh"
           }
         },
@@ -24758,7 +24758,6 @@
             "cacheWrite": 0
           },
           "compat": {
-            "supportsReasoningEffort": true,
             "thinkingLevels": [
               "off",
               "minimal",
@@ -33864,7 +33863,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 1048576,
+          "maxTokens": 384000,
           "cost": {
             "input": 0.2156,
             "output": 0.6468,
@@ -40430,10 +40429,12 @@
             "thinkingLevels": [
               "low"
             ],
-            "supportsReasoningEffort": false,
             "thinkingLevelLabels": {
               "low": "on"
             }
+          },
+          "thinkingLevelMap": {
+            "low": null
           }
         },
         {
@@ -40645,10 +40646,12 @@
             "thinkingLevels": [
               "low"
             ],
-            "supportsReasoningEffort": false,
             "thinkingLevelLabels": {
               "low": "on"
             }
+          },
+          "thinkingLevelMap": {
+            "low": null
           }
         },
         {
@@ -40748,7 +40751,6 @@
             "cacheWrite": 0
           },
           "compat": {
-            "supportsReasoningEffort": false,
             "thinkingLevels": [
               "low"
             ],
@@ -40756,6 +40758,9 @@
             "thinkingLevelLabels": {
               "low": "on"
             }
+          },
+          "thinkingLevelMap": {
+            "low": null
           }
         },
         {
@@ -40777,7 +40782,6 @@
           "status": "deprecated",
           "replacedBy": "grok-4.3",
           "compat": {
-            "supportsReasoningEffort": false,
             "thinkingLevels": [
               "low"
             ],
@@ -40785,6 +40789,9 @@
             "thinkingLevelLabels": {
               "low": "on"
             }
+          },
+          "thinkingLevelMap": {
+            "low": null
           }
         }
       ]
@@ -49373,8 +49380,8 @@
             "text",
             "image"
           ],
-          "reasoning": true,
-          "contextWindow": 2000000,
+          "reasoning": false,
+          "contextWindow": 200000,
           "maxTokens": 8192
         },
         {
@@ -53561,7 +53568,7 @@
           ],
           "reasoning": false,
           "contextWindow": 300000,
-          "maxTokens": 8192,
+          "maxTokens": 10000,
           "cost": {
             "input": 0.06,
             "output": 0.24,
@@ -53578,7 +53585,7 @@
           ],
           "reasoning": false,
           "contextWindow": 128000,
-          "maxTokens": 8192,
+          "maxTokens": 10000,
           "cost": {
             "input": 0.035,
             "output": 0.14,
@@ -53596,7 +53603,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1000000,
-          "maxTokens": 16384,
+          "maxTokens": 10000,
           "cost": {
             "input": 2.5,
             "output": 12.5,
@@ -53614,7 +53621,7 @@
           ],
           "reasoning": false,
           "contextWindow": 300000,
-          "maxTokens": 8192,
+          "maxTokens": 10000,
           "cost": {
             "input": 0.8,
             "output": 3.2,
@@ -58575,6 +58582,9 @@
               "max"
             ],
             "defaultThinkingLevel": "medium"
+          },
+          "thinkingLevelMap": {
+            "off": "low"
           }
         },
         {
@@ -58620,6 +58630,9 @@
               "max"
             ],
             "defaultThinkingLevel": "medium"
+          },
+          "thinkingLevelMap": {
+            "off": "low"
           }
         },
         {
@@ -58689,6 +58702,9 @@
               "max"
             ],
             "defaultThinkingLevel": "medium"
+          },
+          "thinkingLevelMap": {
+            "off": "low"
           }
         },
         {
@@ -58712,6 +58728,9 @@
               "max"
             ],
             "defaultThinkingLevel": "medium"
+          },
+          "thinkingLevelMap": {
+            "off": "low"
           }
         },
         {
@@ -59064,6 +59083,9 @@
               "max"
             ],
             "defaultThinkingLevel": "medium"
+          },
+          "thinkingLevelMap": {
+            "off": "low"
           }
         },
         {
@@ -59109,6 +59131,9 @@
               "max"
             ],
             "defaultThinkingLevel": "medium"
+          },
+          "thinkingLevelMap": {
+            "off": "low"
           }
         },
         {
@@ -59178,6 +59203,9 @@
               "max"
             ],
             "defaultThinkingLevel": "medium"
+          },
+          "thinkingLevelMap": {
+            "off": "low"
           }
         },
         {
@@ -59201,6 +59229,9 @@
               "max"
             ],
             "defaultThinkingLevel": "medium"
+          },
+          "thinkingLevelMap": {
+            "off": "low"
           }
         }
       ]
@@ -59532,5 +59563,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795416272242,
-  "supplementDigest": "d1cea080abef497a5094e0a58f6690a777815d3edfef4e7e5e76d72d5f546e5d"
+  "supplementDigest": "ede71805a30e9b0d221b2141d6bc8a80ab12a8429264da423515b908df89b2ee"
 }

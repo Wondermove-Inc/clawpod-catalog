@@ -835,9 +835,9 @@ test("reviewed xai aliases publish their official target's values and always-on 
   assert.ok(alias, "missing xai/grok-4.20");
   assert.deepEqual(
     { ...alias, compat: undefined },
-    { id: "grok-4.20", name: "Grok 4.20", ...shared, maxTokens: 30_000, compat: undefined },
+    { id: "grok-4.20", name: "Grok 4.20", ...shared, maxTokens: 30_000, compat: undefined, thinkingLevelMap: { low: null } },
   );
-  assert.deepEqual(alias.compat, { ...alwaysOn, supportsReasoningEffort: false });
+  assert.deepEqual(alias.compat, alwaysOn);
   // grok-4-0709 retired 2026-05-15; xAI serves it as grok-4.3 with low reasoning effort.
   const retired = get("grok-4-0709");
   assert.ok(retired, "missing xai/grok-4-0709");
@@ -851,11 +851,11 @@ test("reviewed xai aliases publish their official target's values and always-on 
       status: "deprecated",
       replacedBy: "grok-4.3",
       compat: undefined,
+      // No effort field on the wire (xAI: effort only on grok-4.3 and 4.5+), I3h.
+      thinkingLevelMap: { low: null },
     },
   );
-  // No effort field on the wire (xAI: effort only on grok-4.3 and 4.5+): a compat flag, not a
-  // null map, so the one level stays selectable (I6).
-  assert.deepEqual(retired.compat, { ...alwaysOn, supportsReasoningEffort: false });
+  assert.deepEqual(retired.compat, alwaysOn);
 });
 
 test("reviewed Google rows publish custom tools, Robotics ER 2 and the Gemini CLI rows", () => {
@@ -1726,27 +1726,37 @@ test("I3h rules reach exactly their target rows", () => {
     "amazon-bedrock-mantle/anthropic.claude-sonnet-5-5",
     "anthropic-vertex/claude-sonnet-5-5",
     "anthropic/claude-sonnet-5-5",
+    "codex/gpt-6-astra",
+    "codex/gpt-6.1-sol",
+    "codex/gpt-6.2-astra",
+    "codex/gpt-6.2-sol",
     "moonshot/kimi-k3",
     "moonshot/kimi-k3.1-pro",
     "moonshot/kimi-k3.1-pro-highspeed",
+    "openai-codex/gpt-6-astra",
+    "openai-codex/gpt-6.1-sol",
+    "openai-codex/gpt-6.2-astra",
+    "openai-codex/gpt-6.2-sol",
+    "openai/gpt-6-astra",
+    "openai/gpt-6.1-sol",
+    "openai/gpt-6.2-astra",
+    "openai/gpt-6.2-sol",
     "openai/gpt-daybreak-blue-latest",
     "opencode-go/gemini-4-argon",
     "opencode/gemini-3.7-flash",
     "opencode/gemini-3.8-flash",
     "opencode/gemini-4-argon",
+    "xai/grok-4-0709",
+    "xai/grok-4.20",
+    "xai/grok-4.20-0309-reasoning",
+    "xai/grok-build-0.1",
   ]);
   const get = (p, id) => artifact.providers[p].models.find((m) => m.id === id);
   assert.deepEqual(get("anthropic-vertex", "claude-sonnet-5-5").compat.thinkingLevels[0], "off");
   assert.equal(get("anthropic-vertex", "claude-sonnet-5-5").thinkingLevelMap.off, null);
-  // Always on and no effort field: the listed level stays selectable (no null map) and the
-  // route takes no effort (I6, the Kilo pattern).
   for (const id of ["grok-4.20", "grok-4.20-0309-reasoning", "grok-build-0.1", "grok-4-0709"]) {
-    const m = get("xai", id);
-    assert.deepEqual([m.compat.thinkingLevels, m.compat.thinkingLevelLabels, m.thinkingLevelMap], [["low"], { low: "on" }, undefined], id);
-    assert.equal(m.compat.supportsReasoningEffort, false, id);
+    assert.deepEqual([get("xai", id).compat.thinkingLevels, get("xai", id).thinkingLevelMap], [["low"], { low: null }], id);
   }
-  // The xai grok-build* override stays on xai; the OpenCode row takes effort (I6 O5, until F1).
-  assert.equal(get("opencode", "grok-build-0.1").compat.supportsReasoningEffort, true);
   // Effort support and Mistral output caps.
   assert.deepEqual(refs((p, m) => p === "mistral" && m.compat?.supportsReasoningEffort === true), [
     "mistral/mistral-large-4", "mistral/mistral-medium-3-5", "mistral/mistral-small-2603",
@@ -1793,4 +1803,109 @@ test("I5 rules give the reviewed rows their official levels and keep today's req
   assert.equal(get("openai", "gpt-daybreak-blue-latest").compat.supportedReasoningEfforts, undefined);
   assert.deepEqual(profile("baseten", "moonshotai/Kimi-K3"), [["off", "low", "high", "max"], "max", undefined]);
   assert.deepEqual(profile("baseten", "openai/gpt-oss-120b"), [["off", "minimal", "low", "medium", "high"], "medium", undefined]);
+});
+
+test("OpenAI GPT-6 rows that reject none state low for calls that pass no level, off unlisted", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const f = fixture();
+  f.upstream.providers.openai.models.push(
+    ...["gpt-6-astra", "gpt-6.1-sol", "gpt-6.2-astra", "gpt-6.2-sol"].map((id) => ({
+      ...localModel(id),
+      thinkingLevelMap: { off: null, minimal: "low", xhigh: "xhigh", max: "max" },
+    })),
+  );
+  const next = buildCatalog({ ...f, supplement });
+  for (const provider of ["openai", "openai-codex", "codex"]) {
+    for (const id of ["gpt-6-astra", "gpt-6.1-sol", "gpt-6.2-astra", "gpt-6.2-sol"]) {
+      const row = next.providers[provider].models.find((m) => m.id === id);
+      assert.ok(row, `missing ${provider}/${id}`);
+      assert.equal(row.thinkingLevelMap?.off, "low", `${provider}/${id}`);
+      assert.deepEqual(row.compat.thinkingLevels, ["low", "medium", "high", "xhigh", "max"], `${provider}/${id}`);
+    }
+  }
+});
+
+// The ClawPoD Agent rewrites a configured model id before it looks the row up
+// (normalizeStaticProviderModelId in src/agents/model-ref-shared.ts and
+// src/plugin-sdk/provider-model-id-normalize.ts). A row whose id it rewrites to another
+// row of the same provider is never read. This copies those rules; this repo cannot
+// import Agent code, so re-copy them when the Agent changes them.
+const AGENT_ANTHROPIC_IDS = { "opus-4.6": "claude-opus-4-6", "opus-4.5": "claude-opus-4-5", "sonnet-4.6": "claude-sonnet-4-6", "sonnet-4.5": "claude-sonnet-4-5" };
+const AGENT_GOOGLE_IDS = {
+  "gemini-3-pro": "gemini-3.1-pro-preview", "gemini-3-pro-preview": "gemini-3.1-pro-preview",
+  "gemini-3.1-flash-lite-preview": "gemini-3.1-flash-lite", "gemini-3-flash": "gemini-3-flash-preview",
+  "gemini-3.1-pro": "gemini-3.1-pro-preview", "gemini-3.1-flash": "gemini-3-flash-preview",
+  "gemini-3.1-flash-preview": "gemini-3-flash-preview",
+};
+const AGENT_XAI_IDS = {
+  "grok-4.5-latest": "grok-4.5", "grok-build-latest": "grok-4.5", "grok-4.3-latest": "grok-4.3",
+  "grok-code-fast-1": "grok-build-0.1", "grok-code-fast": "grok-build-0.1", "grok-code-fast-1-0825": "grok-build-0.1",
+  "grok-4-fast-reasoning": "grok-4-fast", "grok-4-1-fast-reasoning": "grok-4-1-fast",
+  "grok-4.20-experimental-beta-0304-reasoning": "grok-4.20-0309-reasoning",
+  "grok-4.20-experimental-beta-0304-non-reasoning": "grok-4.20-0309-non-reasoning",
+  "grok-4.20-reasoning": "grok-4.20-0309-reasoning", "grok-4.20-beta-latest-reasoning": "grok-4.20-0309-reasoning",
+  "grok-4.20-non-reasoning": "grok-4.20-0309-non-reasoning", "grok-4.20-beta-latest-non-reasoning": "grok-4.20-0309-non-reasoning",
+};
+function agentModelId(provider, id) {
+  const anthropic = (m) => AGENT_ANTHROPIC_IDS[m.trim().toLowerCase()] ?? m.trim();
+  if (provider === "anthropic") return anthropic(id);
+  if (provider === "huggingface") return id.trim().toLowerCase().startsWith("huggingface/") ? id.trim().slice("huggingface/".length) : id.trim();
+  if (provider === "google" || provider === "google-vertex") return AGENT_GOOGLE_IDS[id] ?? id;
+  if (provider === "openrouter" && !id.includes("/")) return `openrouter/${id}`;
+  if (provider === "xai") return AGENT_XAI_IDS[id] ?? id;
+  if (provider === "vercel-ai-gateway" && !id.includes("/") && anthropic(id).startsWith("claude-")) return `anthropic/${anthropic(id)}`;
+  return id;
+}
+
+test("rows the ClawPoD Agent reads under another id agree on the values it uses", () => {
+  const artifact = read(path.join(root, "models/v1/catalog.json"));
+  const pairs = [];
+  for (const [provider, entry] of Object.entries(artifact.providers)) {
+    for (const skipped of entry.models) {
+      const readId = agentModelId(provider, skipped.id);
+      const read = readId !== skipped.id && entry.models.find((m) => m.id === readId);
+      if (!read) continue;
+      pairs.push(`${provider}/${skipped.id} -> ${readId}`);
+      for (const key of ["reasoning", "maxTokens", "contextWindow"]) {
+        assert.equal(skipped[key], read[key], `${provider} ${skipped.id} vs ${readId}: ${key}`);
+      }
+    }
+  }
+  // A new pair needs the same check; a missing one means a row or a rule moved.
+  assert.deepEqual(pairs.sort(), [
+    "google-vertex/gemini-3.1-flash-preview -> gemini-3-flash-preview",
+    "google/gemini-3.1-flash-preview -> gemini-3-flash-preview",
+    "openrouter/auto -> openrouter/auto",
+  ]);
+  assert.equal(artifact.providers.openrouter.models.find((m) => m.id === "openrouter/auto").reasoning, false);
+});
+
+test("provider rules that only add a map keep the levels and default of the * rule they shadow", () => {
+  const s = read(path.join(root, "sources/clawpod-providers.json"));
+  const gpt6 = s.thinking.filter((r) => r.map?.off === "low" && ["openai", "openai-codex", "codex"].includes(r.provider));
+  assert.equal(gpt6.length, 12);
+  for (const rule of gpt6) {
+    // The rule's own model pattern names original ids; the * rules name model keys.
+    const star = s.thinking.find((r) => r.provider === "*" && ruleMatches(r, rule.provider, rule.model.replace(/\*$/, "")));
+    assert.ok(star, `${rule.provider}/${rule.model}`);
+    assert.deepEqual([rule.levels, rule.default], [star.levels, star.default], `${rule.provider}/${rule.model} vs * ${star.model}`);
+  }
+});
+
+test("Bedrock Nova v1 and Vercel DeepSeek V4 Flash vision use the documented output caps", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const f = fixture();
+  f.upstream.providers["amazon-bedrock"] = {
+    api: "bedrock-converse-stream",
+    models: ["amazon.nova-pro-v1:0", "amazon.nova-lite-v1:0", "amazon.nova-micro-v1:0", "amazon.nova-premier-v1:0"].map((id) => ({ ...localModel(id), maxTokens: 8_192 })),
+  };
+  f.upstream.providers["vercel-ai-gateway"] = {
+    api: "anthropic-messages",
+    models: [{ ...localModel("deepseek/deepseek-v4-flash-vision-exp"), contextWindow: 1_048_576, maxTokens: 1_048_576 }],
+  };
+  const next = buildCatalog({ ...f, supplement });
+  for (const id of ["amazon.nova-pro-v1:0", "amazon.nova-lite-v1:0", "amazon.nova-micro-v1:0", "amazon.nova-premier-v1:0"]) {
+    assert.equal(next.providers["amazon-bedrock"].models.find((m) => m.id === id)?.maxTokens, 10_000, id);
+  }
+  assert.equal(next.providers["vercel-ai-gateway"].models[0].maxTokens, 384_000);
 });

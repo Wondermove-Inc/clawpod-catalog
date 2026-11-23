@@ -8328,7 +8328,10 @@
         "low": "on"
       },
       "source": "https://docs.x.ai/developers/migration/may-15-retirement",
-      "note": "Retired 2026-05-15; requests run as grok-4.3 with reasoning effort low (fixed). xAI: reasoning_effort is accepted by grok-4.3 and grok-4.5 and later only, other reasoning models cannot disable or tune reasoning (https://docs.x.ai/docs/guides/reasoning). Always on, no effort control; the route takes no effort field (overrides: supportsReasoningEffort false, I6). Replaces the ClawPoD Agent's xAI effort name rule (I3h)."
+      "note": "Retired 2026-05-15; requests run as grok-4.3 with reasoning effort low (fixed). xAI: reasoning_effort is accepted by grok-4.3 and grok-4.5 and later only, other reasoning models cannot disable or tune reasoning (https://docs.x.ai/docs/guides/reasoning). Single always-on level mapped to null so the Agent sends no effort field: with every other level unlisted the runtime has no level to move to. Replaces the ClawPoD Agent's xAI effort name rule (I3h).",
+      "map": {
+        "low": null
+      }
     },
     {
       "provider": "opencode-go",
@@ -9852,8 +9855,11 @@
       "labels": {
         "low": "on"
       },
+      "map": {
+        "low": null
+      },
       "source": "https://docs.x.ai/docs/guides/reasoning",
-      "note": "xAI: reasoning_effort is accepted by grok-4.3 and grok-4.5 and later only, other reasoning models cannot disable or tune reasoning (https://docs.x.ai/docs/guides/reasoning). Always on, no effort control; the route takes no effort field (overrides: supportsReasoningEffort false, I6). Replaces the ClawPoD Agent's xAI effort name rule (I3h)."
+      "note": "xAI: reasoning_effort is accepted by grok-4.3 and grok-4.5 and later only, other reasoning models cannot disable or tune reasoning (https://docs.x.ai/docs/guides/reasoning). Single always-on level mapped to null so the Agent sends no effort field: with every other level unlisted the runtime has no level to move to. Replaces the ClawPoD Agent's xAI effort name rule (I3h)."
     },
     {
       "provider": "xai",
@@ -9865,8 +9871,11 @@
       "labels": {
         "low": "on"
       },
+      "map": {
+        "low": null
+      },
       "source": "https://docs.x.ai/docs/guides/reasoning",
-      "note": "xAI: reasoning_effort is accepted by grok-4.3 and grok-4.5 and later only, other reasoning models cannot disable or tune reasoning (https://docs.x.ai/docs/guides/reasoning). Always on, no effort control; the route takes no effort field (overrides: supportsReasoningEffort false, I6). Replaces the ClawPoD Agent's xAI effort name rule (I3h)."
+      "note": "xAI: reasoning_effort is accepted by grok-4.3 and grok-4.5 and later only, other reasoning models cannot disable or tune reasoning (https://docs.x.ai/docs/guides/reasoning). Single always-on level mapped to null so the Agent sends no effort field: with every other level unlisted the runtime has no level to move to. Replaces the ClawPoD Agent's xAI effort name rule (I3h)."
     },
     {
       "provider": "xai",
@@ -9878,8 +9887,11 @@
       "labels": {
         "low": "on"
       },
+      "map": {
+        "low": null
+      },
       "source": "https://docs.x.ai/developers/models/grok-build-0.1",
-      "note": "Not the official ladder (temporary until REVIEW 2026-11-23 F1): xAI lists efforts low/medium/high/xhigh, default high (https://docs.x.ai/developers/models/grok-build-0.1). Encoded as one always-on level with no effort field (overrides: supportsReasoningEffort false, I6) so today's request (no effort field = xAI default high) stays the same. Replaces the ClawPoD Agent's xAI effort name rule (I3h)."
+      "note": "Not the official ladder (temporary until REVIEW 2026-11-23 F1): xAI lists efforts low/medium/high/xhigh, default high (https://docs.x.ai/developers/models/grok-build-0.1). Encoded as one always-on level mapped to null so the Agent sends no effort field (every other level is unlisted, so the runtime has no level to move to), and today's request (no effort field = xAI default high) stays the same. Replaces the ClawPoD Agent's xAI effort name rule (I3h)."
     },
     {
       "provider": "nvidia",
@@ -9979,6 +9991,210 @@
       "default": "medium",
       "source": "https://docs.baseten.co/inference/model-apis/reasoning",
       "note": "Baseten accepts none and minimal. Exception: Baseten says none can still reason on this model (it is not a full off); off is kept so today's none request stays the same. xhigh/max are not listed: gpt-oss reasons at low/medium/high (OpenAI model page), and today those stored values run as high. Reviewed 2026-11-23 (I5)."
+    },
+    {
+      "provider": "openai",
+      "model": "gpt-6-astra*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "map": {
+        "off": "low"
+      },
+      "source": "https://developers.openai.com/api/docs/guides/reasoning",
+      "note": "Same levels and default as the * rule. OpenAI GPT-6 Astra and Sol reject reasoning.effort none. A call that passes no level runs as off, which on this list is the lowest listed level, so off states low (the ClawPoD Agent's former OpenAI rule sent low). off stays off the list."
+    },
+    {
+      "provider": "openai",
+      "model": "gpt-6.1-sol*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "map": {
+        "off": "low"
+      },
+      "source": "https://developers.openai.com/api/docs/guides/reasoning",
+      "note": "Same levels and default as the * rule. OpenAI GPT-6 Astra and Sol reject reasoning.effort none. A call that passes no level runs as off, which on this list is the lowest listed level, so off states low (the ClawPoD Agent's former OpenAI rule sent low). off stays off the list."
+    },
+    {
+      "provider": "openai",
+      "model": "gpt-6.2-astra*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "map": {
+        "off": "low"
+      },
+      "source": "https://developers.openai.com/api/docs/guides/reasoning",
+      "note": "Same levels and default as the * rule. OpenAI GPT-6 Astra and Sol reject reasoning.effort none. A call that passes no level runs as off, which on this list is the lowest listed level, so off states low (the ClawPoD Agent's former OpenAI rule sent low). off stays off the list."
+    },
+    {
+      "provider": "openai",
+      "model": "gpt-6.2-sol*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "map": {
+        "off": "low"
+      },
+      "source": "https://developers.openai.com/api/docs/guides/reasoning",
+      "note": "Same levels and default as the * rule. OpenAI GPT-6 Astra and Sol reject reasoning.effort none. A call that passes no level runs as off, which on this list is the lowest listed level, so off states low (the ClawPoD Agent's former OpenAI rule sent low). off stays off the list."
+    },
+    {
+      "provider": "openai-codex",
+      "model": "gpt-6-astra*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "map": {
+        "off": "low"
+      },
+      "source": "https://developers.openai.com/api/docs/guides/reasoning",
+      "note": "Same levels and default as the * rule. OpenAI GPT-6 Astra and Sol reject reasoning.effort none. A call that passes no level runs as off, which on this list is the lowest listed level, so off states low (the ClawPoD Agent's former OpenAI rule sent low). off stays off the list."
+    },
+    {
+      "provider": "openai-codex",
+      "model": "gpt-6.1-sol*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "map": {
+        "off": "low"
+      },
+      "source": "https://developers.openai.com/api/docs/guides/reasoning",
+      "note": "Same levels and default as the * rule. OpenAI GPT-6 Astra and Sol reject reasoning.effort none. A call that passes no level runs as off, which on this list is the lowest listed level, so off states low (the ClawPoD Agent's former OpenAI rule sent low). off stays off the list."
+    },
+    {
+      "provider": "openai-codex",
+      "model": "gpt-6.2-astra*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "map": {
+        "off": "low"
+      },
+      "source": "https://developers.openai.com/api/docs/guides/reasoning",
+      "note": "Same levels and default as the * rule. OpenAI GPT-6 Astra and Sol reject reasoning.effort none. A call that passes no level runs as off, which on this list is the lowest listed level, so off states low (the ClawPoD Agent's former OpenAI rule sent low). off stays off the list."
+    },
+    {
+      "provider": "openai-codex",
+      "model": "gpt-6.2-sol*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "map": {
+        "off": "low"
+      },
+      "source": "https://developers.openai.com/api/docs/guides/reasoning",
+      "note": "Same levels and default as the * rule. OpenAI GPT-6 Astra and Sol reject reasoning.effort none. A call that passes no level runs as off, which on this list is the lowest listed level, so off states low (the ClawPoD Agent's former OpenAI rule sent low). off stays off the list."
+    },
+    {
+      "provider": "codex",
+      "model": "gpt-6-astra*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "map": {
+        "off": "low"
+      },
+      "source": "https://developers.openai.com/api/docs/guides/reasoning",
+      "note": "Same levels and default as the * rule. OpenAI GPT-6 Astra and Sol reject reasoning.effort none. A call that passes no level runs as off, which on this list is the lowest listed level, so off states low (the ClawPoD Agent's former OpenAI rule sent low). off stays off the list."
+    },
+    {
+      "provider": "codex",
+      "model": "gpt-6.1-sol*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "map": {
+        "off": "low"
+      },
+      "source": "https://developers.openai.com/api/docs/guides/reasoning",
+      "note": "Same levels and default as the * rule. OpenAI GPT-6 Astra and Sol reject reasoning.effort none. A call that passes no level runs as off, which on this list is the lowest listed level, so off states low (the ClawPoD Agent's former OpenAI rule sent low). off stays off the list."
+    },
+    {
+      "provider": "codex",
+      "model": "gpt-6.2-astra*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "map": {
+        "off": "low"
+      },
+      "source": "https://developers.openai.com/api/docs/guides/reasoning",
+      "note": "Same levels and default as the * rule. OpenAI GPT-6 Astra and Sol reject reasoning.effort none. A call that passes no level runs as off, which on this list is the lowest listed level, so off states low (the ClawPoD Agent's former OpenAI rule sent low). off stays off the list."
+    },
+    {
+      "provider": "codex",
+      "model": "gpt-6.2-sol*",
+      "levels": [
+        "low",
+        "medium",
+        "high",
+        "xhigh",
+        "max"
+      ],
+      "default": "medium",
+      "map": {
+        "off": "low"
+      },
+      "source": "https://developers.openai.com/api/docs/guides/reasoning",
+      "note": "Same levels and default as the * rule. OpenAI GPT-6 Astra and Sol reject reasoning.effort none. A call that passes no level runs as off, which on this list is the lowest listed level, so off states low (the ClawPoD Agent's former OpenAI rule sent low). off stays off the list."
     },
     {
       "provider": "*",
@@ -15846,59 +16062,59 @@
       "note": "Upstream list had no none, but the alias snapshot gpt-5.6-sol takes none..max. No runtime reads it and set.compat cannot hold an array, so the stale key is removed. Reviewed 2026-11-23 (I5)."
     },
     {
-      "provider": "xai",
-      "model": "grok-4.20",
+      "provider": "openrouter",
+      "model": "openrouter/auto",
       "set": {
-        "compat": {
-          "supportsReasoningEffort": false
-        }
+        "reasoning": false,
+        "contextWindow": 200000
       },
-      "source": "https://docs.x.ai/docs/guides/reasoning",
-      "note": "reasoning_effort only on grok-4.3 and grok-4.5 and later; Grok 4.20 always reasons and takes no effort field. Same as the Kilo Gateway rows (I3h). Reviewed 2026-11-23 (I6)."
+      "source": "https://openrouter.ai/openrouter/auto",
+      "note": "Router alias: the routed model varies (MAINTAINING: router aliases get no levels). Targets that must reason reject effort none, and the OpenRouter request format does not read supportsReasoningEffort, so the row takes no reasoning controls. The page states no context window; 200000 is the conservative window the manual auto row and the former Agent row use, since a routed model can be smaller. The Agent reads this id for openrouter/auto, so it matches the manual auto row."
     },
     {
-      "provider": "xai",
-      "model": "grok-4.20-0309-reasoning",
+      "provider": "amazon-bedrock",
+      "model": "amazon.nova-pro-v1:0",
       "set": {
-        "compat": {
-          "supportsReasoningEffort": false
-        }
+        "maxTokens": 10000
       },
-      "source": "https://docs.x.ai/docs/guides/reasoning",
-      "note": "reasoning_effort only on grok-4.3 and grok-4.5 and later; Grok 4.20 always reasons and takes no effort field. Same as the Kilo Gateway rows (I3h). Reviewed 2026-11-23 (I6)."
+      "source": "https://docs.aws.amazon.com/nova/latest/userguide/what-is-nova.html",
+      "note": "AWS Nova v1 model specifications: Max Output Tokens 10K (Premier), 10k (Pro, Lite, Micro)."
     },
     {
-      "provider": "xai",
-      "model": "grok-4-0709",
+      "provider": "amazon-bedrock",
+      "model": "amazon.nova-lite-v1:0",
       "set": {
-        "compat": {
-          "supportsReasoningEffort": false
-        }
+        "maxTokens": 10000
       },
-      "source": "https://docs.x.ai/developers/migration/may-15-retirement",
-      "note": "Retired; served as grok-4.3 with low reasoning effort; no effort field sent. Reviewed 2026-11-23 (I6)."
+      "source": "https://docs.aws.amazon.com/nova/latest/userguide/what-is-nova.html",
+      "note": "AWS Nova v1 model specifications: Max Output Tokens 10K (Premier), 10k (Pro, Lite, Micro)."
     },
     {
-      "provider": "xai",
-      "model": "grok-build*",
+      "provider": "amazon-bedrock",
+      "model": "amazon.nova-micro-v1:0",
       "set": {
-        "compat": {
-          "supportsReasoningEffort": false
-        }
+        "maxTokens": 10000
       },
-      "source": "https://docs.x.ai/developers/models/grok-build-0.1",
-      "note": "Temporary until the Grok Build ladder is applied (REVIEW 2026-11-23 F1): xAI lists efforts low/medium/high/xhigh, default high. Keeps today's request (no effort field = xAI default high) with the always-on rule above. Reviewed 2026-11-23 (I6)."
+      "source": "https://docs.aws.amazon.com/nova/latest/userguide/what-is-nova.html",
+      "note": "AWS Nova v1 model specifications: Max Output Tokens 10K (Premier), 10k (Pro, Lite, Micro)."
     },
     {
-      "provider": "opencode",
-      "model": "grok-build-0.1",
+      "provider": "amazon-bedrock",
+      "model": "amazon.nova-premier-v1:0",
       "set": {
-        "compat": {
-          "supportsReasoningEffort": true
-        }
+        "maxTokens": 10000
       },
-      "source": "https://docs.x.ai/developers/models/grok-build-0.1",
-      "note": "Temporary until the Grok Build ladder is applied (REVIEW 2026-11-23 F1): xAI lists efforts low/medium/high/xhigh, default high. The Pi row says false, which no Responses serializer read; the run sends effort high today, and this keeps it once the Agent reads the key on Responses. Reviewed 2026-11-23 (I6)."
+      "source": "https://docs.aws.amazon.com/nova/latest/userguide/what-is-nova.html",
+      "note": "AWS Nova v1 model specifications: Max Output Tokens 10K (Premier), 10k (Pro, Lite, Micro)."
+    },
+    {
+      "provider": "vercel-ai-gateway",
+      "model": "deepseek/deepseek-v4-flash-vision-exp",
+      "set": {
+        "maxTokens": 384000
+      },
+      "source": "https://api-docs.deepseek.com/quick_start/pricing",
+      "note": "384000 is the model maker's cap: DeepSeek lists Flash maximum output 384K (max_tokens 1 to 393216), the same as the direct deepseek row. Vercel lists 1048576 output for this id, served by DeepInfra; the model maker's limit is used as the safe single-response cap."
     }
   ],
   "knownGaps": [
