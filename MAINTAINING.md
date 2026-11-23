@@ -18,7 +18,7 @@
 
 ## 1. catalog가 만들어지는 순서
 
-`.github/workflows/publish.yml`이 6시간마다(`17 */6 * * *`) 실행합니다.
+`.github/workflows/publish.yml`이 하루 한 번(`17 18 * * *`, 한국 시간 03:17) 실행합니다.
 
 1. **`generate` job (읽기 권한만):**
    - `openclaw/openclaw` main을 받아 `scripts/generate-openclaw-catalog.sh`로 OpenClaw catalog를 생성합니다. 생성기의 크기 제한 2개를 32MiB로 올려서 실행합니다.
@@ -41,7 +41,7 @@
 
 | 구분 | provider | 새 모델 |
 | --- | --- | --- |
-| 자동 | OpenClaw가 만드는 provider 전부(`anthropic`, `openai`, `google`, `xai`, `zai`, `ollama-cloud`, 중계 provider 등), `openrouter` | 6시간마다 자동 추가 |
+| 자동 | OpenClaw가 만드는 provider 전부(`anthropic`, `openai`, `google`, `xai`, `zai`, `ollama-cloud`, 중계 provider 등), `openrouter` | 하루 한 번 자동 추가 |
 | 수동 | `openai-codex`, `codex`, `amazon-bedrock`, `amazon-bedrock-mantle`, `anthropic-vertex`, `google-vertex`, `google-gemini-cli`, `minimax-portal`, `minimax-cn`, `minimax-portal-cn`, `synthetic` (그 밖에 수동 파일 `providers`에 있는 행) | 사람이 공식 문서를 보고 추가 |
 
 `anthropic`, `openai`, `google`, `xai`, `zai`, `minimax`, `opencode`, `opencode-go`, `byteplus`, `volcengine`, `together`, `kimi`, `kilocode`, `nvidia`는 자동 행과 수동 행이 섞여 있습니다. 수동 파일 `providers`에 있는 ID가 해당 provider의 수동 행입니다.
@@ -240,7 +240,7 @@ npm run audit
 - 머지는 merge commit 방식(`gh pr merge <n> --merge`)으로 합니다.
 - **확인 2:** 같은 디렉터리에 artifact를 두 번 받으면 `gh run download`가 `file exists`를 내고도 종료 코드 0으로 끝나, 옛 원본으로 재생성됩니다. 그래서 위 명령처럼 먼저 `rm -rf /tmp/catalog-sources`를 합니다.
 
-**충돌:** bot이 6시간마다 `models/v1/catalog.json`을 커밋하므로, 그사이 main이 바뀌면 catalog가 충돌합니다. 그때는 최신 main으로 rebase하고, 최신 artifact로 위 재생성을 다시 합니다. catalog를 손으로 합치지 않습니다.
+**충돌:** bot이 하루 한 번 `models/v1/catalog.json`을 커밋하므로, 그사이 main이 바뀌면 catalog가 충돌합니다. 그때는 최신 main으로 rebase하고, 최신 artifact로 위 재생성을 다시 합니다. catalog를 손으로 합치지 않습니다.
 - **머지 후:** 바로 반영하려면 `gh workflow run publish.yml --ref main`을 실행합니다. 공개 raw URL은 GitHub 캐시 때문에 최대 약 5분 늦게 바뀝니다.
 
 ## 8. 장애 대응 (실제로 겪은 것)

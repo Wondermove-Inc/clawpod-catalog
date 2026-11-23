@@ -1,7 +1,7 @@
 # 수동 관리 보완 카탈로그
 
 `clawpod-providers.json`은 이 레포가 직접 관리하는 추가 모델 입력입니다.
-6시간 게시 작업은 OpenClaw 생성기로 직접 만든 upstream 원본과 이 파일을 병합합니다. **Clawpod-Agent를
+하루 한 번 도는 게시 작업은 OpenClaw 생성기로 직접 만든 upstream 원본과 이 파일을 병합합니다. **Clawpod-Agent를
 clone하거나 실행하지 않으며, provider API에서 이 파일을 자동 수집하지 않습니다.**
 `openrouter`만 예외로, 게시 작업이 OpenRouter 공개 API에서 직접 받습니다. 이 파일에는 Agent 전용
 별칭 `auto`만 남아 있습니다(루트 README의 "1-1. OpenRouter" 참고).
@@ -212,7 +212,7 @@ upstream이 나중에 근거 없는 가격을 넣어도 계속 비워 둡니다.
   목록 순서대로 처리하므로 Legacy → EOL 전환은 두 규칙으로 표현할 수 있습니다.
 - 현재 zAI의 오래된 upstream 가격, Codex 종료 상태, Vertex Sonnet 5 인상 취소와
   AWS EOL·zAI Flash 할인 종료·Gemini 도입 가격 종료를 관리합니다.
-- 날짜 규칙은 **다음 정상 6시간 게시에서** 반영됩니다. 경계 시각에 별도 작업을 실행하지
+- 날짜 규칙은 **다음 정상 일일 게시에서** 반영됩니다. 경계 시각에 별도 작업을 실행하지
   않으므로 cron 간격만큼 지연될 수 있습니다. 원본 시각이 같아도 결과가 바뀌면 게시합니다.
 - 날짜가 지나면 CI가 임의로 실패하는 방식이 아닙니다. 외부 정책 변경·할인 연장·인상 취소는
   여전히 수동으로 확인해야 합니다. Google/AWS가 날짜만 공지한 경우 UTC 자정을 게시 기준으로 씁니다.
