@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795424158934,
+  "generatedAt": 1795425908453,
   "minVersion": "2026.4.11",
-  "sourceCommit": "b210869fbd515228889dbb088d8f23674fa95177",
+  "sourceCommit": "16e32fe710b0db0ba7f43a56d2f42805ad9442e3",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -7300,9 +7300,9 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.0443,
+            "input": 0.0434,
             "output": 0.3,
             "cacheRead": 0.035,
             "cacheWrite": 0
@@ -8825,7 +8825,7 @@
           "contextWindow": 1048576,
           "maxTokens": 943718,
           "cost": {
-            "input": 0.0443,
+            "input": 0.0434,
             "output": 0.3,
             "cacheRead": 0.035,
             "cacheWrite": 0
@@ -9043,6 +9043,31 @@
               "max"
             ],
             "defaultThinkingLevel": "high"
+          }
+        },
+        {
+          "id": "dots-studio/dots-3-note-preview:free",
+          "name": "Dots Studio: Dots3-Note Preview (free)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 512000,
+          "maxTokens": 460800,
+          "cost": {
+            "input": 0,
+            "output": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low"
+            ],
+            "defaultThinkingLevel": "low",
+            "thinkingLevelLabels": {
+              "low": "on"
+            }
           }
         },
         {
@@ -13679,9 +13704,9 @@
           "contextWindow": 131072,
           "maxTokens": 117964,
           "cost": {
-            "input": 0.017,
-            "output": 0.085,
-            "cacheRead": 0.0085,
+            "input": 0.0153,
+            "output": 0.0765,
+            "cacheRead": 0.00765,
             "cacheWrite": 0
           },
           "compat": {
@@ -16363,12 +16388,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 204800,
+          "contextWindow": 202752,
           "maxTokens": 131072,
           "cost": {
-            "input": 1.19,
-            "output": 3.74,
-            "cacheRead": 0.6,
+            "input": 1.4,
+            "output": 4.4,
+            "cacheRead": 0.26,
             "cacheWrite": 0
           },
           "compat": {
@@ -41650,11 +41675,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 393216,
+          "maxTokens": 943718,
           "cost": {
-            "input": 0.1188,
-            "output": 5,
-            "cacheRead": 0.12
+            "input": 0.111,
+            "output": 4.44,
+            "cacheRead": 0.097
           },
           "compat": {
             "thinkingLevels": [
@@ -59562,6 +59587,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1795416272242,
+  "sourceGeneratedAt": 1795425889725,
   "supplementDigest": "ede71805a30e9b0d221b2141d6bc8a80ab12a8429264da423515b908df89b2ee"
 }
