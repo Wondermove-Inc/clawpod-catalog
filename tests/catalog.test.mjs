@@ -2045,6 +2045,24 @@ const RESTORED = {
   },
 };
 
+// The last published rows that listed native document (PDF) input, which the Agent reads.
+const RESTORED_DOCUMENT = new Set([
+  "openai/gpt-4.1-mini", "openai/gpt-4o", "openai/gpt-4o-mini", "openai/gpt-5.3-codex", "openai/o3",
+  "anthropic/claude-opus-4-5", "anthropic/claude-opus-4-5-20251101",
+]);
+
+test("manual rows may list document input like upstream rows; other input kinds stay rejected", () => {
+  const base = read(path.join(root, "sources/clawpod-providers.json"));
+  const withInput = (input) => {
+    const s = structuredClone(base);
+    s.providers.openai.models[0].input = input;
+    return s;
+  };
+  assert.doesNotThrow(() => validateSupplement(withInput(["text", "image", "document"])));
+  assert.throws(() => validateSupplement(withInput(["text", "video"])));
+  assert.throws(() => validateSupplement(withInput(["text", "audio"])));
+});
+
 test("still-served OpenAI and Anthropic rows upstream dropped publish their last published values", () => {
   const supplement = read(path.join(root, "sources/clawpod-providers.json"));
   const next = buildCatalog({ ...fixture(), supplement });
@@ -2054,7 +2072,8 @@ test("still-served OpenAI and Anthropic rows upstream dropped publish their last
       assert.ok(row, `missing ${provider}/${id}`);
       assert.deepEqual(
         [row.name, row.input, row.reasoning, row.contextWindow, row.maxTokens, row.cost, row.status, row.thinkingLevelMap],
-        [name, ["text", "image"], reasoning, contextWindow, maxTokens, cost, undefined, undefined],
+        [name, RESTORED_DOCUMENT.has(`${provider}/${id}`) ? ["text", "image", "document"] : ["text", "image"],
+          reasoning, contextWindow, maxTokens, cost, undefined, undefined],
         `${provider}/${id}`,
       );
       if (effort) assert.deepEqual([row.compat.thinkingLevels, row.compat.defaultThinkingLevel], effort, `${provider}/${id}`);

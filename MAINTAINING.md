@@ -130,7 +130,7 @@ npm run audit                                          # 전수 검사: open 항
 - 한도가 없는 행은 Agent가 사용하지 않습니다.
 
 ### 입력 형식 (`input`)
-- 수동 행(`providers`)과 `overrides`에는 `text`, `image`만 쓸 수 있습니다(스키마 제한). 문서·음성·영상 입력을 지원해도 수동 행에는 넣지 않고, 필요하면 REVIEW에 적습니다. 자동 행(OpenClaw)의 `document`·`video`는 그대로 둡니다.
+- 수동 행(`providers`)에는 `text`, `image`, `document`(네이티브 문서·PDF 입력, 자동 행과 같은 이름)를 쓸 수 있습니다(스키마 제한, 2026-11-24 `document` 추가). `overrides`는 입력을 바꾸지 않습니다. 음성·영상 입력을 지원해도 수동 행에는 넣지 않고, 필요하면 REVIEW에 적습니다. 자동 행(OpenClaw)의 `document`·`video`는 그대로 둡니다.
 
 ### reasoning
 - 생각(thinking) 모드가 있으면 `true`입니다. 켜고 끌 수만 있어도 `true`입니다.

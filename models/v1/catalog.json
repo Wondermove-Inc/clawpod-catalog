@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795487647228,
+  "generatedAt": 1795488070178,
   "minVersion": "2026.4.11",
   "sourceCommit": "ff9c567e0c30099900c0b9f134abdda488593819",
   "providers": {
@@ -892,7 +892,8 @@
           "name": "Claude Opus 4.5 (latest)",
           "input": [
             "text",
-            "image"
+            "image",
+            "document"
           ],
           "reasoning": true,
           "contextWindow": 200000,
@@ -919,7 +920,8 @@
           "name": "Claude Opus 4.5",
           "input": [
             "text",
-            "image"
+            "image",
+            "document"
           ],
           "reasoning": true,
           "contextWindow": 200000,
@@ -22422,7 +22424,8 @@
           "name": "GPT-4.1 mini",
           "input": [
             "text",
-            "image"
+            "image",
+            "document"
           ],
           "reasoning": false,
           "contextWindow": 1047576,
@@ -22439,7 +22442,8 @@
           "name": "GPT-4o",
           "input": [
             "text",
-            "image"
+            "image",
+            "document"
           ],
           "reasoning": false,
           "contextWindow": 128000,
@@ -22490,7 +22494,8 @@
           "name": "GPT-4o mini",
           "input": [
             "text",
-            "image"
+            "image",
+            "document"
           ],
           "reasoning": false,
           "contextWindow": 128000,
@@ -22634,7 +22639,8 @@
           "name": "GPT-5.3 Codex",
           "input": [
             "text",
-            "image"
+            "image",
+            "document"
           ],
           "reasoning": true,
           "contextWindow": 400000,
@@ -22660,7 +22666,8 @@
           "name": "o3",
           "input": [
             "text",
-            "image"
+            "image",
+            "document"
           ],
           "reasoning": true,
           "contextWindow": 200000,
@@ -59606,5 +59613,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795482895725,
-  "supplementDigest": "4c21acaa41832f47969234092d916dd1fb636498a7d6f36c2b4f65029c924c0b"
+  "supplementDigest": "fb44bc4f38a54c4d5cd12a9445e7623748e31671a837f149dc6c4bd63db43826"
 }
