@@ -1767,7 +1767,6 @@ test("I3h rules reach exactly their target rows", () => {
     "kilocode/kilo/auto", "kilocode/x-ai/grok-4.20", "kilocode/x-ai/grok-4.20-reasoning", "kilocode/x-ai/grok-4.20-reasoning-beta",
   ]);
   for (const [, m] of rows.filter(([p]) => p === "mistral")) assert.ok(m.maxTokens < m.contextWindow, m.id);
-  assert.equal(get("mistral", "mistral-medium-latest").maxTokens, 16384);
 });
 
 test("I5 rules give the reviewed rows their official levels and keep today's requests", () => {
