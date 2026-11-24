@@ -33,7 +33,7 @@
         "extensions/xai/provider-catalog.ts",
         "extensions/xai/model-definitions.ts"
       ],
-      "notes": "Reviewed 2026-09-08. Three documented legacy slugs redirect to grok-4.3 with none reasoning; metadata and deprecated status reflect that target. Four unverified old slugs omitted. Canonical models keep Agent maxTokens=10000 operating fallback (not vendor maximum). Standard short-context prices only. sources/REVIEW.md. Reviewed 2026-11-21: added grok-4.20 (official alias of grok-4.20-0309-reasoning, values of that row; maxTokens 30000 is not an official value, it mirrors the published grok-4.20-0309-reasoning row) and grok-4-0709 (retired 2026-05-15, redirects to grok-4.3 with low reasoning; values of the grok-4.3 row incl. maxTokens 64000, not the 10000 Agent fallback). grok-3-fast/-mini/-mini-fast, grok-4-fast, grok-4, grok-4-1, grok-4-1-fast not added (no official id). Other official grok-4.20 aliases not added (no consumer)."
+      "notes": "Reviewed 2026-09-08. Three documented legacy slugs redirect to grok-4.3 with none reasoning; metadata and deprecated status reflect that target. Four unverified old slugs omitted. Canonical models keep Agent maxTokens=10000 operating fallback (not vendor maximum). Standard short-context prices only. sources/REVIEW.md. Reviewed 2026-11-21: added grok-4.20 (official alias of grok-4.20-0309-reasoning, values of that row; maxTokens 30000 is not an official value, it mirrors the published grok-4.20-0309-reasoning row) and grok-4-0709 (retired 2026-05-15, redirects to grok-4.3 with low reasoning; values of the grok-4.3 row incl. maxTokens 64000, not the 10000 Agent fallback). grok-3-fast/-mini/-mini-fast, grok-4-fast, grok-4, grok-4-1, grok-4-1-fast not added (no official id). Other official grok-4.20 aliases not added (no consumer). Reviewed 2026-11-24: removed the manual grok-build-0.1 row (xAI release notes: end of life on November 19, 2026, no longer served on the API, https://docs.x.ai/docs/release-notes); the upstream row is published as disabled."
     },
     "minimax": {
       "source": "Wondermove-Inc/clawpod-agent",
@@ -951,23 +951,6 @@
             "input": 2,
             "output": 6,
             "cacheRead": 0.5,
-            "cacheWrite": 0
-          }
-        },
-        {
-          "id": "grok-build-0.1",
-          "name": "Grok Build 0.1",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 256000,
-          "maxTokens": 10000,
-          "cost": {
-            "input": 1,
-            "output": 2,
-            "cacheRead": 0.2,
             "cacheWrite": 0
           }
         },
@@ -16351,6 +16334,15 @@
       },
       "source": "https://docs.mistral.ai/getting-started/models/known-limitations",
       "note": "Not an official value: Mistral publishes no maximum output, and \"token counts include both input and output tokens\", so maxTokens equal to the 262144 window is wrong. New row in the 2026-11-24 publish (alias of ministral-14b-2512 on https://docs.mistral.ai/models/ministral-3-14b-25-12); 128000 matches its sibling aliases ministral-3b-latest and ministral-8b-latest and is below the window. Reviewed 2026-11-24 (G1)."
+    },
+    {
+      "provider": "xai",
+      "model": "grok-build-0.1",
+      "set": {
+        "status": "disabled"
+      },
+      "source": "https://docs.x.ai/docs/release-notes",
+      "note": "xAI release notes, \"grok-build-0.1 end of life\": \"grok-build-0.1 reached end of life on November 19, 2026 and is no longer served on the API.\" No replacement named. The row comes from upstream, so it stays published as disabled (MAINTAINING ch.5: an announced end is disabled). Reviewed 2026-11-24."
     }
   ],
   "knownGaps": [
