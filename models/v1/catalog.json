@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795480147263,
+  "generatedAt": 1795482019080,
   "minVersion": "2026.4.11",
   "sourceCommit": "ba2046d48e1784b79121a3de358534df73622760",
   "providers": {
@@ -40430,7 +40430,8 @@
               "high",
               "xhigh"
             ]
-          }
+          },
+          "status": "disabled"
         },
         {
           "id": "grok-3",
@@ -59341,5 +59342,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795480129111,
-  "supplementDigest": "34491bc17a056b1f8b0847889ff5990a4273b25e313d1c59962a3e3a0b545a00"
+  "supplementDigest": "9f8f2b7d0f5265fd73ddd47ea6df178dbc8d690e9940c87d9377ce9e3f2da735"
 }

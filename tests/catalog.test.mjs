@@ -1767,7 +1767,6 @@ test("I3h rules reach exactly their target rows", () => {
     "kilocode/kilo/auto", "kilocode/x-ai/grok-4.20", "kilocode/x-ai/grok-4.20-reasoning", "kilocode/x-ai/grok-4.20-reasoning-beta",
   ]);
   for (const [, m] of rows.filter(([p]) => p === "mistral")) assert.ok(m.maxTokens < m.contextWindow, m.id);
-  assert.equal(get("mistral", "mistral-medium-latest").maxTokens, 16384);
 });
 
 test("I5 rules give the reviewed rows their official levels and keep today's requests", () => {
@@ -2006,4 +2005,18 @@ test("Mantle Haiku 5.5 row publishes the Bedrock Haiku 5.5 effort profile withou
   assert.deepEqual(next.providers["amazon-bedrock"].models.find((m) => m.id === "global.anthropic.claude-haiku-5-5").compat, expected);
   assert.deepEqual([mantle.api, mantle.contextWindow, mantle.maxTokens, mantle.cost], ["anthropic-messages", 1_000_000, 128_000, undefined]);
   assert.ok(supplement.knownGaps.some((g) => g.provider === "amazon-bedrock-mantle" && g.model === "anthropic.claude-haiku-5-5" && g.check === "cost"));
+});
+
+test("xAI Grok Build is published as disabled after xAI ended it; the gateway copies keep their own state", () => {
+  // xAI release notes: "grok-build-0.1 reached end of life on November 19, 2026 and is no longer served on the API."
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  assert.equal(supplement.providers.xai.models.some((m) => m.id === "grok-build-0.1"), false, "no manual xai row");
+  const f = fixture();
+  f.upstream.providers.xai = { api: "openai-responses", models: [{ ...localModel("grok-build-0.1"), contextWindow: 256_000, maxTokens: 64_000 }] };
+  f.upstream.providers.venice = { api: "openai-completions", models: [{ ...localModel("grok-build-0-1"), status: "deprecated" }] };
+  const next = buildCatalog({ ...f, supplement });
+  const get = (p, id) => next.providers[p].models.find((m) => m.id === id);
+  assert.equal(get("xai", "grok-build-0.1").status, "disabled");
+  assert.equal(get("venice", "grok-build-0-1").status, "deprecated");
+  assert.equal(get("opencode", "grok-build-0.1").status, undefined);
 });

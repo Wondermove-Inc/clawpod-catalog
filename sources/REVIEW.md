@@ -1110,3 +1110,19 @@ ClawPoD Agent 후속 설계 G1(GO) 의 카탈로그 몫이다. 보류했던 PR #
 - Ministral 별칭 3행: `c196ec7` 게시(상류)가 `mistral/ministral-3b-latest`·`ministral-8b-latest` 의 `maxTokens` 를 128,000 에서 창과 같은 131,072·262,144 로 올리고, 새 행 `ministral-14b-latest`(262,144/262,144)를 넣었다. 그래서 "Mistral 행은 `maxTokens < contextWindow`" 테스트가 main 에서 실패했고 게시 워크플로의 `npm test` 단계를 막았다. 3b·8b 는 그 전 게시본(`097fc5b`, Agent 스냅샷 `51edb3d9df` 와 같음)의 128,000 으로 되돌렸다(Agent 가 오늘 보내는 값, 동작 변화 0). 14b 는 새 행이라 오늘 동작이 없고, 형제 별칭과 같은 128,000(창 아래)을 넣었다. 셋 다 공식 값이 아니다(Mistral 은 최대 출력을 공개하지 않음, https://docs.mistral.ai/getting-started/models/known-limitations).
 - 후속(공식 값 없음): Mistral 모델 페이지는 각 모델의 이름을 `[ministral-<n>b-2512, ministral-<n>b-latest]` 로 적는다(https://docs.mistral.ai/models/ministral-3-3b-25-12, `-8b-25-12`, `-14b-25-12`). 그런데 별칭은 128,000, 날짜 행은 8,192(I3h K6, Agent 가 오늘 보내는 값)로 서로 다르다. 둘 다 공식 값이 아니라 지금은 오늘 동작을 지키고, Mistral 이 최대 출력을 공개하면 함께 맞춘다.
 - 검증: `npm test` 103/103, `npm run audit` open 0 → 0(cost known 133 → 134, Mantle Haiku knownGaps), Pi 스키마 2271행 실패 0, "matches nothing" 2 = main.
+
+# 2026-11-24 xAI Grok Build 종료
+
+xAI 릴리스 노트 "grok-build-0.1 end of life": "`grok-build-0.1` reached end of life on November 19, 2026 and is no longer served on the API." (https://docs.x.ai/docs/release-notes, 대체 모델 언급 없음). 모델 페이지(https://docs.x.ai/developers/models/grok-build-0.1)와 모델 표(https://docs.x.ai/developers/models)는 아직 종료를 적지 않는다.
+
+| 행 | 판단 | 근거 |
+| --- | --- | --- |
+| `xai/grok-build-0.1` | `overrides` `status: "disabled"`. 수동 행은 지움(같은 ID 상류 행이 이겨서 게시에 쓰이지 않던 사본) | 위 릴리스 노트. 행은 상류(OpenClaw)에서 오므로 이 저장소에서 지울 수 없다. MAINTAINING 5장 "제조사가 종료를 공지했으면 `disabled`" |
+| `openrouter/x-ai/grok-build-0.1` | 해당 없음 | 카탈로그에 이미 없고, 공개 목록(https://openrouter.ai/api/v1/models, 2026-11-24 GET, 476 ID)에도 없다. Kilo(https://api.kilo.ai/api/openrouter/models, 470 ID)도 없다 |
+| `venice/grok-build-0-1` | 그대로(상류가 이미 `deprecated`) | Venice 모델 API(https://api.venice.ai/api/v1/models, `type=text` 147 ID·`type=all` 434 ID)에 없다. Venice 의 종료 공지는 찾지 못했다 → MAINTAINING 5장 "문서에서 사라졌지만 종료 공지가 없으면 `deprecated`" 와 같다 |
+| `opencode/grok-build-0.1` | 그대로 | OpenCode Zen 모델 API(https://opencode.ai/zen/v1/models, 105 ID)에 아직 있다 |
+
+- 규칙: `*` `grok-build*` thinking 규칙과 `xai` `contextWindow: 500000` override 는 남긴 `disabled` 행(그리고 앞으로의 사본)을 여전히 설명하므로 그대로 둔다. venice·opencode 규칙도 행이 남아 있어 그대로.
+- 생성 결과(main `2cbc1c3` 게시본 대비, 같은 원본 publish run 45297137290): `xai/grok-build-0.1` 에 `status: "disabled"` 가 붙는 1행뿐. 추가·삭제 0.
+- 게시를 막던 테스트 실패 정리: `2cbc1c3` 게시(상류)가 `mistral/mistral-large-2512`·`mistral-medium-2604`·`mistral-medium-latest` 를 뺐다. 그래서 main 에서 "I3h rules reach exactly their target rows" 의 `get("mistral", "mistral-medium-latest").maxTokens` 단언이 실패했고 게시 워크플로의 `npm test` 단계를 막았다. 그 세 id 만 겨냥하던 죽은 데이터를 지웠다: `overrides` 3개(`mistral-large-2512`·`mistral-medium-2604` `maxTokens` 8192, `mistral-medium-latest` 16384), `*` thinking 규칙 2개(`mistral-medium-2604`, `mistral-medium-latest`), 테스트의 `mistral-medium-latest` 한 줄. 다섯 규칙은 모두 "matches nothing" 목록에 있었다(main 7 → 이 PR 2). 남은 Mistral 행 전부를 도는 `maxTokens < contextWindow` 단언과 나머지 단언은 그대로다. 상류에 그 id 가 다시 생기면 같은 공식 근거로 규칙을 되살린다.
+- 검증: `npm test` 104/104, `npm run audit` open 1 = main 1(`openrouter/~deepseek/deepseek-pro-latest` cacheRead, 상류), Pi 스키마 2267행 실패 0, 생성 diff 는 여전히 `xai/grok-build-0.1` 1행.
