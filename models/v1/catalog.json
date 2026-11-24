@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795489481301,
+  "generatedAt": 1795501636658,
   "minVersion": "2026.4.11",
   "sourceCommit": "766f6157f4d36e7338df8cd7f6934a711bfb1f4b",
   "providers": {
@@ -10625,7 +10625,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 512000,
           "cost": {
             "input": 0.1,
             "output": 0.4,
@@ -17726,6 +17726,100 @@
               "max"
             ],
             "defaultThinkingLevel": "max"
+          }
+        },
+        {
+          "id": "mistral-large-2512",
+          "name": "Mistral Large 3",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": false,
+          "contextWindow": 262144,
+          "maxTokens": 8192,
+          "cost": {
+            "input": 0.5,
+            "output": 1.5,
+            "cacheRead": 0.05,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "mistral-medium-2604",
+          "name": "Mistral Medium 3.5",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 8192,
+          "cost": {
+            "input": 1.5,
+            "output": 7.5,
+            "cacheRead": 0.15,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "high"
+            ],
+            "defaultThinkingLevel": "off"
+          }
+        },
+        {
+          "id": "mistral-medium-latest",
+          "name": "Mistral Medium (latest)",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 1.5,
+            "output": 7.5,
+            "cacheRead": 0.15,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "high"
+            ],
+            "defaultThinkingLevel": "off"
+          }
+        },
+        {
+          "id": "mistral-large-4-0-8",
+          "name": "Mistral Large 4.0.8",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 262144,
+          "cost": {
+            "input": 0.7,
+            "output": 2.1,
+            "cacheRead": 0.07,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "high"
           }
         }
       ],
@@ -52160,7 +52254,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 131072,
           "cost": {
             "input": 0.12,
             "output": 0.38,
@@ -59599,5 +59693,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795489461357,
-  "supplementDigest": "fb44bc4f38a54c4d5cd12a9445e7623748e31671a837f149dc6c4bd63db43826"
+  "supplementDigest": "ec7ee71a7fe90be1963e853192550773d1081c9caa43339e578c2e93257abff5"
 }

@@ -1149,3 +1149,21 @@ xAI 릴리스 노트 "grok-build-0.1 end of life": "`grok-build-0.1` reached end
 - `kilocode/~deepseek/deepseek-pro-latest`: 상류가 943,718 로 다시 올렸다. G1 DeepSeek 상한 규칙(393,216)에 이 행을 더했다(같은 note·source).
 - 생성 결과(main `e774e35` 게시본 대비, 같은 원본 publish run 45303259744): 추가 15행 + Kilo 1행 바뀜, 그 밖 변화 0. 복원 15행 모두 마지막 게시 행과 바이트까지 같다.
 - 검증: `npm test` 106/106, `npm run audit` open 0 = main, Pi 스키마 2279행 실패 0, "matches nothing" main 3 → 2(`codex-spark` knownGaps 삭제). 남은 둘: `kilocode cohere/north-mini-code:free`, `venice grok-build-0-1` thinking 규칙(상류가 행을 뺌, 그 규칙을 고정하는 fixture 테스트가 있어 이번에 건드리지 않음).
+
+# 2026-11-24 상류가 뺀 Mistral 4행 복원과 게이트웨이 출력 상한 2개
+
+상류 게시가 아직 서비스되는 Mistral 행을 빼고(Agent 는 Pi 행으로 돌아 요청 모양·한도가 바뀜, 예: `mistral-medium-latest` 출력 16,384 → 8,192), 게이트웨이 두 행의 출력을 올렸다. 오늘 동작을 지키려고 마지막 게시 값으로 되돌린다.
+
+| 행 | 처리 | 근거 |
+| --- | --- | --- |
+| `mistral/mistral-large-2512` | 수동 행 복원(`c196ec7` 게시 행 그대로) + PR #45 가 지운 `overrides` `maxTokens: 8192` 복원 | "Deprecated & retired models" `mistral-large-2512` 10/31/2026 → 은퇴 4/30/2027 (https://docs.mistral.ai/getting-started/models/models_overview/): 아직 서비스 |
+| `mistral/mistral-medium-2604` | 수동 행 복원(`c196ec7`) + `overrides` 8192 + `*` thinking 규칙(off/high, 기본 off) 복원 | 같은 표 `mistral-medium-3-5`(v26.04) 10/31/2026 → 4/30/2027 |
+| `mistral/mistral-medium-latest` | 수동 행 복원(`c196ec7`, 출력 16,384) + `overrides` 16384 + `*` thinking 규칙 복원 | Mistral Medium 3.5 모델 페이지가 API 이름으로 적음(https://docs.mistral.ai/models/mistral-medium-3-5-26-04) |
+| `mistral/mistral-large-4-0-8` | 수동 행 복원(`dd9b1f2`), 단계는 기존 `*` `mistral-large-4*` | Mistral 문서에 이 id 가 없지만 은퇴 공지도 없다(확인된 은퇴 아님) |
+| `openrouter/z-ai/glm-5.3-flash` | `overrides` `maxTokens: 131072` | OpenRouter 모델 목록(https://openrouter.ai/api/v1/models, 2026-11-24) `top_provider.max_completion_tokens` 131,072. 상류 `99b9383` 게시만 943,718 |
+| `kilocode/minimax/minimax-m3.1-flash` | `overrides` `maxTokens: 512000` | **공식 값 아님.** MiniMax 는 최대 출력을 공개하지 않는다(https://platform.minimax.io/docs/guides/models-intro, "1M context window"). 512,000 은 `e774e35` 전까지 게시하던 값이자 Agent 가 오늘 보내는 값. Kilo 모델 목록은 지금 943,718 |
+
+- 수동 provider `mistral` 을 새로 만들었다(`api: openai-completions`, provenance 는 이 저장소의 게시 이력). 상류가 같은 id 를 다시 내면 상류 행이 이긴다. 입력 `document` 는 PR #46 스키마로 그대로 둔다.
+- PR #45 의 규칙 문구는 `ffbac46^` 판 그대로, 같은 자리에 되살렸다. "matches nothing" 은 main 2 = 이 PR 2.
+- 생성 결과(main `99b9383` 게시본 대비, 같은 원본 publish run 45316602724): Mistral 4행 추가(마지막 게시 행과 바이트까지 같음), 상한 2행 바뀜. 그 밖 0.
+- 검증: `npm test` 108/108, `npm run audit` open 0, Pi 스키마 2282행 실패 0.

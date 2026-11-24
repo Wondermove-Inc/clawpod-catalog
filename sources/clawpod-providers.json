@@ -220,6 +220,14 @@
         "extensions/nvidia/provider-catalog.ts"
       ],
       "notes": "Retired rows only, values from the Agent plugin table, no price. Reviewed 2026-11-22: added nvidia/nemotron-3-super-120b-a12b, minimaxai/minimax-m3, moonshotai/kimi-k2.5, minimaxai/minimax-m2.5, z-ai/glm5 (deprecated, no replacedBy): not on the public model list (https://integrate.api.nvidia.com/v1/models, 2026-11-22) and no official retirement notice found. moonshotai/kimi-k3 and z-ai/glm-5.2 get no row: the Agent resolves them as nested ids from the moonshot and zai catalog rows without the plugin table, and a row here would replace those values with the old table values. Reviewed 2026-11-22 (ClawPoD Agent I3h, supersedes the no-row sentence above): added moonshotai/kimi-k3 and z-ai/glm-5.2 (deprecated, no replacedBy; not on https://integrate.api.nvidia.com/v1/models, 2026-11-22, 33 ids) so the Agent still resolves them after its plugin table is gone. Fact fields only (name, input, reasoning, contextWindow, maxTokens and the Effort list) copied from the inner catalog rows moonshot/kimi-k3 and zai/glm-5.2 the Agent borrows today; no request compat and no thinkingLevelMap, so the configured path sends the same request. No price: the Moonshot and Z.ai rates are not NVIDIA prices."
+    },
+    "mistral": {
+      "source": "Wondermove-Inc/clawpod-catalog",
+      "revision": "c196ec7 (mistral-large-2512, mistral-medium-2604, mistral-medium-latest); dd9b1f2 (mistral-large-4-0-8)",
+      "files": [
+        "models/v1/catalog.json"
+      ],
+      "notes": "Rows the upstream catalog dropped while Mistral still lists or serves them; values are the last published rows, input included. Reviewed 2026-11-24: mistral-large-2512 and mistral-medium-3-5 (version 26.04, API name mistral-medium-2604 / mistral-medium-latest) are Deprecated with retirement 4/30/2027 (https://docs.mistral.ai/getting-started/models/models_overview/); mistral-large-4-0-8 has no retirement notice. The ClawPoD Agent runs these ids today with these values."
     }
   },
   "providers": {
@@ -7865,6 +7873,83 @@
           "status": "deprecated"
         }
       ]
+    },
+    "mistral": {
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "mistral-large-2512",
+          "name": "Mistral Large 3",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": false,
+          "contextWindow": 262144,
+          "maxTokens": 8192,
+          "cost": {
+            "input": 0.5,
+            "output": 1.5,
+            "cacheRead": 0.05,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "mistral-medium-2604",
+          "name": "Mistral Medium 3.5",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 8192,
+          "cost": {
+            "input": 1.5,
+            "output": 7.5,
+            "cacheRead": 0.15,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "mistral-medium-latest",
+          "name": "Mistral Medium (latest)",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 1.5,
+            "output": 7.5,
+            "cacheRead": 0.15,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "mistral-large-4-0-8",
+          "name": "Mistral Large 4.0.8",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 262144,
+          "cost": {
+            "input": 0.7,
+            "output": 2.1,
+            "cacheRead": 0.07,
+            "cacheWrite": 0
+          }
+        }
+      ]
     }
   },
   "corrections": [
@@ -11757,6 +11842,28 @@
       "default": "off",
       "source": "https://docs.mistral.ai/inference/conversations/reasoning",
       "note": "Medium 3.5 reasoning_effort accepts only none/high (none -> off). Default when omitted: official chat template sets reasoning_effort='none' if undefined (https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/blob/main/chat_template.jinja); API docs silent."
+    },
+    {
+      "provider": "*",
+      "model": "mistral-medium-2604",
+      "levels": [
+        "off",
+        "high"
+      ],
+      "default": "off",
+      "source": "https://docs.mistral.ai/inference/conversations/reasoning",
+      "note": "Mistral Medium 3.5 (version 26.04): none/high, default none per official chat template."
+    },
+    {
+      "provider": "*",
+      "model": "mistral-medium-latest",
+      "levels": [
+        "off",
+        "high"
+      ],
+      "default": "off",
+      "source": "https://docs.mistral.ai/models/mistral-medium-3-5-26-04",
+      "note": "Docs list mistral-medium-latest as API name of Mistral Medium 3.5: none/high, default none."
     },
     {
       "provider": "*",
@@ -16113,6 +16220,33 @@
       "note": "Not an official value: Mistral publishes no maximum output, and \"token counts include both input and output tokens\", so maxTokens equal to the window is wrong. 8192 is the output cap the ClawPoD Agent sends today for this row (src/config/defaults.ts mistral table, unknown ids 8192); the Agent's name table is retired (I3h)."
     },
     {
+      "provider": "mistral",
+      "model": "mistral-large-2512",
+      "set": {
+        "maxTokens": 8192
+      },
+      "source": "https://docs.mistral.ai/getting-started/models/known-limitations",
+      "note": "Not an official value: Mistral publishes no maximum output, and \"token counts include both input and output tokens\", so maxTokens equal to the window is wrong. 8192 is the output cap the ClawPoD Agent sends today for this row (src/config/defaults.ts mistral table, unknown ids 8192); the Agent's name table is retired (I3h)."
+    },
+    {
+      "provider": "mistral",
+      "model": "mistral-medium-2604",
+      "set": {
+        "maxTokens": 8192
+      },
+      "source": "https://docs.mistral.ai/getting-started/models/known-limitations",
+      "note": "Not an official value: Mistral publishes no maximum output, and \"token counts include both input and output tokens\", so maxTokens equal to the window is wrong. 8192 is the output cap the ClawPoD Agent sends today for this row (src/config/defaults.ts mistral table, unknown ids 8192); the Agent's name table is retired (I3h)."
+    },
+    {
+      "provider": "mistral",
+      "model": "mistral-medium-latest",
+      "set": {
+        "maxTokens": 16384
+      },
+      "source": "https://docs.mistral.ai/getting-started/models/known-limitations",
+      "note": "Not an official value: Mistral publishes no maximum output, and \"token counts include both input and output tokens\", so maxTokens equal to the window is wrong. 16384 is the output cap the ClawPoD Agent sends today for this row (src/config/defaults.ts mistral table, mistral-medium-latest 16384); the Agent's name table is retired (I3h)."
+    },
+    {
       "provider": "kilocode",
       "model": "kilo/auto",
       "set": {
@@ -16578,6 +16712,24 @@
       },
       "source": "https://api-docs.deepseek.com/api/create-chat-completion",
       "note": "DeepSeek V4 family. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K for V4 Pro and V4.1 Flash, https://api-docs.deepseek.com/quick_start/pricing). The gateway lists a larger output (or a -latest alias jumps between routes); the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek vision row. Reviewed 2026-11-24 (G1)."
+    },
+    {
+      "provider": "openrouter",
+      "model": "z-ai/glm-5.3-flash",
+      "set": {
+        "maxTokens": 131072
+      },
+      "source": "https://openrouter.ai/api/v1/models",
+      "note": "The OpenRouter model list gives top_provider.max_completion_tokens 131072 for z-ai/glm-5.3-flash (2026-11-24 GET), the value this row was published with until the 2026-11-24 upstream publish raised it to 943718. Keeps the cap the ClawPoD Agent sends today. Reviewed 2026-11-24."
+    },
+    {
+      "provider": "kilocode",
+      "model": "minimax/minimax-m3.1-flash",
+      "set": {
+        "maxTokens": 512000
+      },
+      "source": "https://platform.minimax.io/docs/guides/models-intro",
+      "note": "Not an official value: MiniMax publishes a 1M context window but no maximum output for MiniMax-M3.1-Flash. 512000 is the value this row was published with until the e774e35 publish raised it to 943718 (the Kilo model list, https://api.kilo.ai/api/openrouter/models, now reports 943718); kept so the cap the ClawPoD Agent sends today stays the same. Reviewed 2026-11-24."
     }
   ],
   "knownGaps": [
