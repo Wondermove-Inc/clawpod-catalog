@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795501636658,
+  "generatedAt": 1795502639176,
   "minVersion": "2026.4.11",
   "sourceCommit": "766f6157f4d36e7338df8cd7f6934a711bfb1f4b",
   "providers": {
@@ -10624,7 +10624,7 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
+          "contextWindow": 1000000,
           "maxTokens": 512000,
           "cost": {
             "input": 0.1,
@@ -59693,5 +59693,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795489461357,
-  "supplementDigest": "ec7ee71a7fe90be1963e853192550773d1081c9caa43339e578c2e93257abff5"
+  "supplementDigest": "9f36e66a525ccf58caa5aa6d27d5613440aa6ab4e378d781e28aa5d4191938f1"
 }

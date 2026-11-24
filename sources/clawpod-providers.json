@@ -16726,10 +16726,11 @@
       "provider": "kilocode",
       "model": "minimax/minimax-m3.1-flash",
       "set": {
+        "contextWindow": 1000000,
         "maxTokens": 512000
       },
       "source": "https://platform.minimax.io/docs/guides/models-intro",
-      "note": "Not an official value: MiniMax publishes a 1M context window but no maximum output for MiniMax-M3.1-Flash. 512000 is the value this row was published with until the e774e35 publish raised it to 943718 (the Kilo model list, https://api.kilo.ai/api/openrouter/models, now reports 943718); kept so the cap the ClawPoD Agent sends today stays the same. Reviewed 2026-11-24."
+      "note": "Not official values for the output: MiniMax publishes a 1M context window (\"Frontier multimodal coding model with 1M context window\") but no maximum output for MiniMax-M3.1-Flash. contextWindow 1000000 (MiniMax's 1M) and maxTokens 512000 are the values this row was published with until the e774e35 publish raised them to 1048576 and 943718 (the Kilo model list, https://api.kilo.ai/api/openrouter/models, now reports those); kept so what the ClawPoD Agent sends today stays the same. Reviewed 2026-11-24."
     }
   ],
   "knownGaps": [

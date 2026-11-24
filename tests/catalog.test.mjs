@@ -2113,5 +2113,6 @@ test("gateway rows whose upstream output jumped keep the output cap they publish
   f.upstream.providers.kilocode = { api: "openai-completions", models: [{ ...localModel("minimax/minimax-m3.1-flash"), contextWindow: 1_048_576, maxTokens: 943_718 }] };
   const next = buildCatalog({ ...f, supplement });
   assert.equal(next.providers.openrouter.models.find((m) => m.id === "z-ai/glm-5.3-flash").maxTokens, 131_072);
-  assert.equal(next.providers.kilocode.models.find((m) => m.id === "minimax/minimax-m3.1-flash").maxTokens, 512_000);
+  const minimax = next.providers.kilocode.models.find((m) => m.id === "minimax/minimax-m3.1-flash");
+  assert.deepEqual([minimax.contextWindow, minimax.maxTokens], [1_000_000, 512_000]);
 });

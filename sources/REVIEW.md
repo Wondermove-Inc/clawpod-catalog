@@ -1161,9 +1161,9 @@ xAI 릴리스 노트 "grok-build-0.1 end of life": "`grok-build-0.1` reached end
 | `mistral/mistral-medium-latest` | 수동 행 복원(`c196ec7`, 출력 16,384) + `overrides` 16384 + `*` thinking 규칙 복원 | Mistral Medium 3.5 모델 페이지가 API 이름으로 적음(https://docs.mistral.ai/models/mistral-medium-3-5-26-04) |
 | `mistral/mistral-large-4-0-8` | 수동 행 복원(`dd9b1f2`), 단계는 기존 `*` `mistral-large-4*` | Mistral 문서에 이 id 가 없지만 은퇴 공지도 없다(확인된 은퇴 아님) |
 | `openrouter/z-ai/glm-5.3-flash` | `overrides` `maxTokens: 131072` | OpenRouter 모델 목록(https://openrouter.ai/api/v1/models, 2026-11-24) `top_provider.max_completion_tokens` 131,072. 상류 `99b9383` 게시만 943,718 |
-| `kilocode/minimax/minimax-m3.1-flash` | `overrides` `maxTokens: 512000` | **공식 값 아님.** MiniMax 는 최대 출력을 공개하지 않는다(https://platform.minimax.io/docs/guides/models-intro, "1M context window"). 512,000 은 `e774e35` 전까지 게시하던 값이자 Agent 가 오늘 보내는 값. Kilo 모델 목록은 지금 943,718 |
+| `kilocode/minimax/minimax-m3.1-flash` | `overrides` `contextWindow: 1000000`, `maxTokens: 512000` | 창 1,000,000 은 MiniMax "1M context window"(https://platform.minimax.io/docs/guides/models-intro). 출력 512,000 은 **공식 값 아님**(MiniMax 는 최대 출력을 공개하지 않음). 둘 다 `e774e35` 전까지 게시하던 값이자 Agent main 스냅샷 값. Kilo 모델 목록은 지금 1,048,576 / 943,718 |
 
 - 수동 provider `mistral` 을 새로 만들었다(`api: openai-completions`, provenance 는 이 저장소의 게시 이력). 상류가 같은 id 를 다시 내면 상류 행이 이긴다. 입력 `document` 는 PR #46 스키마로 그대로 둔다.
 - PR #45 의 규칙 문구는 `ffbac46^` 판 그대로, 같은 자리에 되살렸다. "matches nothing" 은 main 2 = 이 PR 2.
-- 생성 결과(main `99b9383` 게시본 대비, 같은 원본 publish run 45316602724): Mistral 4행 추가(마지막 게시 행과 바이트까지 같음), 상한 2행 바뀜. 그 밖 0.
+- 생성 결과(main `99b9383` 게시본 대비, 같은 원본 publish run 45316602724): Mistral 4행 추가(마지막 게시 행과 바이트까지 같음), 상한 2행 바뀜(Kilo MiniMax 는 창·출력 둘 다). 그 밖 0.
 - 검증: `npm test` 108/108, `npm run audit` open 0, Pi 스키마 2282행 실패 0.
