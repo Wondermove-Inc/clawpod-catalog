@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795515586455,
+  "generatedAt": 1795516018296,
   "minVersion": "2026.4.11",
-  "sourceCommit": "23f6f8cf5d10fe6f8f6a3217b6d27f860d8b1b20",
+  "sourceCommit": "3cc30065454e33b306946502d20c0f9514325067",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -41586,6 +41586,45 @@
           }
         },
         {
+          "id": "glm-5.4",
+          "name": "GLM-5.4",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0,
+            "output": 0,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "codeMode": "preferred",
+            "defaultThinkingLevel": "max",
+            "supportedReasoningEfforts": [
+              "medium",
+              "high",
+              "max"
+            ],
+            "supportsReasoningEffort": true,
+            "thinkingLevels": [
+              "off",
+              "low",
+              "high",
+              "max"
+            ]
+          },
+          "thinkingLevelMap": {
+            "low": "medium",
+            "medium": "medium",
+            "minimal": "medium",
+            "xhigh": "max"
+          }
+        },
+        {
           "id": "glm-5v-turbo",
           "name": "GLM-5V-Turbo",
           "input": [
@@ -41786,9 +41825,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.044,
-            "output": 0.132,
-            "cacheRead": 0.0014
+            "input": 0.047,
+            "output": 0.3,
+            "cacheRead": 0.035
           },
           "compat": {
             "thinkingLevels": [
@@ -43642,7 +43681,7 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.045,
+            "input": 0.047,
             "output": 0.3,
             "cacheRead": 0.035
           },
@@ -43763,9 +43802,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.0498,
-            "output": 0.1992,
-            "cacheRead": 0.000996
+            "input": 0.14,
+            "output": 0.42,
+            "cacheRead": 0.0042
           },
           "compat": {
             "thinkingLevels": [
@@ -45133,12 +45172,12 @@
             "text"
           ],
           "reasoning": true,
-          "contextWindow": 131072,
+          "contextWindow": 262144,
           "maxTokens": 32768,
           "cost": {
-            "input": 0.06,
-            "output": 0.18,
-            "cacheRead": 0.012
+            "input": 0.021,
+            "output": 0.063,
+            "cacheRead": 0.0042
           },
           "compat": {
             "thinkingLevels": [
@@ -59647,6 +59686,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1795503477522,
+  "sourceGeneratedAt": 1795515997733,
   "supplementDigest": "86ae7facdaa2415a31e3b5aa14404e62d2ce51455c9198561f76a717e8c9b8da"
 }
