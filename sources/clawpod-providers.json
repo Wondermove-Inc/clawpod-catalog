@@ -137,7 +137,7 @@
       "files": [
         "node_modules/@earendil-works/pi-ai/dist/providers/data/opencode.json"
       ],
-      "notes": "Reviewed 2026-11-21 (sources/REVIEW.md): 69 OpenCode Zen rows copied as they are from the Agent's bundled Pi 1.5.2 data (approved exception to official values: name, reasoning, input, contextWindow, maxTokens and the four base prices are Pi's). Only ids listed by the Zen model API (https://opencode.ai/inference/v1/models) are rows; prices match the Zen pricing table (https://opencode.ai/docs/zen/), the 0 prices are its Free models. Cells where the model API differs are kept at Pi and recorded in REVIEW: deepseek-v4.1-flash name, claude-sonnet-4-5 and gpt-5.4 context window, input budgets (limit.input) not added. Not added: gemini-3.1-pro, gemini-3-flash, glm-5.3-flash-free, minimax-m3.1-flash-free, glm-5, kimi-k2.5 (deprecated), glm-5.1, glm-5.2, kimi-k2.6, inkling-2-small-free (not in the model API). Effort: exact-id thinking rules keep the Agent's current behavior, not the official ladder. Reviewed 2026-11-22 (ClawPoD Agent I3h): Effort rules now follow the model API capabilities.reasoning (effort list, plus off on toggle or none; toggle without effort = off/adaptive); rows stating neither keep the Agent behavior rule. chat-completions rows the API marks tools.strict get supportsStrictMode."
+      "notes": "Reviewed 2026-11-21 (sources/REVIEW.md): 69 OpenCode Zen rows copied as they are from the Agent's bundled Pi 1.5.2 data (approved exception to official values: name, reasoning, input, contextWindow, maxTokens and the four base prices are Pi's). Only ids listed by the Zen model API (https://opencode.ai/inference/v1/models) are rows; prices match the Zen pricing table (https://opencode.ai/docs/zen/), the 0 prices are its Free models. Cells where the model API differs are kept at Pi and recorded in REVIEW: deepseek-v4.1-flash name, claude-sonnet-4-5 and gpt-5.4 context window, input budgets (limit.input) not added. Not added: gemini-3.1-pro, gemini-3-flash, glm-5.3-flash-free, minimax-m3.1-flash-free, glm-5, kimi-k2.5 (deprecated), glm-5.1, glm-5.2, kimi-k2.6, inkling-2-small-free (not in the model API). Effort: exact-id thinking rules keep the Agent's current behavior, not the official ladder. Reviewed 2026-11-22 (ClawPoD Agent I3h): Effort rules now follow the model API capabilities.reasoning (effort list, plus off on toggle or none; toggle without effort = off/adaptive); rows stating neither keep the Agent behavior rule. chat-completions rows the API marks tools.strict get supportsStrictMode. Reviewed 2026-11-24: grok-build-0.1 set to disabled. xAI release notes, \"grok-build-0.1 end of life\": \"grok-build-0.1 reached end of life on November 19, 2026 and is no longer served on the API.\" (https://docs.x.ai/docs/release-notes). Grok Build is served only by xAI and OpenCode relays it, so the route ended with it (same as the xai row, PR #45)."
     },
     "opencode-go": {
       "source": "Wondermove-Inc/clawpod-agent",
@@ -6971,7 +6971,8 @@
             "output": 2,
             "cacheRead": 0.2,
             "cacheWrite": 0
-          }
+          },
+          "status": "disabled"
         },
         {
           "id": "muse-ember-1.0",

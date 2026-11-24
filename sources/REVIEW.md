@@ -1167,3 +1167,15 @@ xAI 릴리스 노트 "grok-build-0.1 end of life": "`grok-build-0.1` reached end
 - PR #45 의 규칙 문구는 `ffbac46^` 판 그대로, 같은 자리에 되살렸다. "matches nothing" 은 main 2 = 이 PR 2.
 - 생성 결과(main `99b9383` 게시본 대비, 같은 원본 publish run 45316602724): Mistral 4행 추가(마지막 게시 행과 바이트까지 같음), 상한 2행 바뀜. 그 밖 0.
 - 검증: `npm test` 108/108, `npm run audit` open 0, Pi 스키마 2282행 실패 0.
+
+# 2026-11-24 OpenCode Grok Build 종료
+
+사용자 결정: Grok Build 는 모든 곳에서 정리한다. Grok Build 는 xAI 만 서비스하고 xAI 가 끝냈으므로 중계 경로도 함께 끝났다.
+
+| 행 | 처리 | 근거 |
+| --- | --- | --- |
+| `opencode/grok-build-0.1`(수동 행) | 행에 `status: "disabled"`(MAINTAINING 5장: 수동 행 상태는 행에 직접). 단계 규칙·다른 값은 지금 게시 그대로 | xAI 릴리스 노트 "grok-build-0.1 end of life": "`grok-build-0.1` reached end of life on November 19, 2026 and is no longer served on the API." (https://docs.x.ai/docs/release-notes). OpenCode 는 xAI 모델을 중계한다. PR #45 의 `xai/grok-build-0.1` 와 같은 판단 |
+| `venice/grok-build-0-1` | 해당 없음 | 상류가 이미 뺐다(생성 결과에 없음) |
+| 그 밖 | 해당 없음 | 생성 결과에서 `grok-build` 행은 `xai`(이미 `disabled`)와 `opencode` 뿐이다. OpenRouter 원본 목록에도 없다 |
+
+- 생성 결과(main `3ae68c8` 게시본 대비, 같은 원본 publish run 45344044655): `opencode/grok-build-0.1` 에 `status: "disabled"` 가 붙는 1행뿐.

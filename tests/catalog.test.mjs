@@ -2009,7 +2009,7 @@ test("Mantle Haiku 5.5 row publishes the Bedrock Haiku 5.5 effort profile withou
   assert.ok(supplement.knownGaps.some((g) => g.provider === "amazon-bedrock-mantle" && g.model === "anthropic.claude-haiku-5-5" && g.check === "cost"));
 });
 
-test("xAI Grok Build is published as disabled after xAI ended it; the gateway copies keep their own state", () => {
+test("Grok Build is published as disabled after xAI ended it, on xAI and on the OpenCode relay", () => {
   // xAI release notes: "grok-build-0.1 reached end of life on November 19, 2026 and is no longer served on the API."
   const supplement = read(path.join(root, "sources/clawpod-providers.json"));
   assert.equal(supplement.providers.xai.models.some((m) => m.id === "grok-build-0.1"), false, "no manual xai row");
@@ -2020,7 +2020,8 @@ test("xAI Grok Build is published as disabled after xAI ended it; the gateway co
   const get = (p, id) => next.providers[p].models.find((m) => m.id === id);
   assert.equal(get("xai", "grok-build-0.1").status, "disabled");
   assert.equal(get("venice", "grok-build-0-1").status, "deprecated");
-  assert.equal(get("opencode", "grok-build-0.1").status, undefined);
+  // OpenCode relays xAI's model, so it ended with it (2026-11-24).
+  assert.equal(get("opencode", "grok-build-0.1").status, "disabled");
 });
 
 // Rows upstream dropped while the provider still serves them (OpenAI and Anthropic deprecation
