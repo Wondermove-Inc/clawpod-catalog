@@ -2106,7 +2106,7 @@ test("Mistral rows upstream dropped while Mistral still serves them publish thei
   assert.equal(next.providers.mistral.api, "openai-completions");
 });
 
-test("gateway rows whose upstream output jumped keep the output cap they publish today", () => {
+test("gateway rows whose upstream output jumped get their gateway output cap", () => {
   const supplement = read(path.join(root, "sources/clawpod-providers.json"));
   const f = fixture();
   f.upstream.providers.openrouter = { api: "openai-completions", models: [{ ...localModel("z-ai/glm-5.3-flash"), contextWindow: 1_048_576, maxTokens: 943_718 }] };
@@ -2114,5 +2114,6 @@ test("gateway rows whose upstream output jumped keep the output cap they publish
   const next = buildCatalog({ ...f, supplement });
   assert.equal(next.providers.openrouter.models.find((m) => m.id === "z-ai/glm-5.3-flash").maxTokens, 131_072);
   const minimax = next.providers.kilocode.models.find((m) => m.id === "minimax/minimax-m3.1-flash");
-  assert.deepEqual([minimax.contextWindow, minimax.maxTokens], [1_000_000, 512_000]);
+  // Kilo Gateway values confirmed by the user (2026-11-24): window as upstream, output 524288.
+  assert.deepEqual([minimax.contextWindow, minimax.maxTokens], [1_048_576, 524_288]);
 });

@@ -16726,11 +16726,10 @@
       "provider": "kilocode",
       "model": "minimax/minimax-m3.1-flash",
       "set": {
-        "contextWindow": 1000000,
-        "maxTokens": 512000
+        "maxTokens": 524288
       },
-      "source": "https://platform.minimax.io/docs/guides/models-intro",
-      "note": "Not official values for the output: MiniMax publishes a 1M context window (\"Frontier multimodal coding model with 1M context window\") but no maximum output for MiniMax-M3.1-Flash. contextWindow 1000000 (MiniMax's 1M) and maxTokens 512000 are the values this row was published with until the e774e35 publish raised them to 1048576 and 943718 (the Kilo model list, https://api.kilo.ai/api/openrouter/models, now reports those); kept so what the ClawPoD Agent sends today stays the same. Reviewed 2026-11-24."
+      "source": "https://api.kilo.ai/api/openrouter/models",
+      "note": "Kilo Gateway values for MiniMax-M3.1-Flash confirmed by the user on 2026-11-24: context window 1048576 (as upstream publishes) and max output 524288. The upstream e774e35 publish raised the output to 943718. MiniMax publishes no maximum output (https://platform.minimax.io/docs/guides/models-intro). This changes the row from main's 1000000 / 512000 (the values published until e774e35). Reviewed 2026-11-24."
     }
   ],
   "knownGaps": [
