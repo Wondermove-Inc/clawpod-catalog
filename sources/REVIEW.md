@@ -1170,11 +1170,11 @@ xAI 릴리스 노트 "grok-build-0.1 end of life": "`grok-build-0.1` reached end
 
 # 2026-11-24 OpenCode Grok Build 종료
 
-사용자 결정: Grok Build 는 모든 곳에서 정리한다. Grok Build 는 xAI 만 서비스하고 xAI 가 끝냈으므로 중계 경로도 함께 끝났다.
+사용자 결정: Grok Build 는 모든 경로에서 정리한다. OpenCode Zen 모델 API(https://opencode.ai/zen/v1/models, 2026-11-24)는 아직 `grok-build-0.1` 을 나열한다. 그래도 xAI 가 모델을 끝냈고 OpenCode 는 xAI 모델을 중계하므로, 사용자 결정에 따라 `disabled` 로 둔다.
 
 | 행 | 처리 | 근거 |
 | --- | --- | --- |
-| `opencode/grok-build-0.1`(수동 행) | 행에 `status: "disabled"`(MAINTAINING 5장: 수동 행 상태는 행에 직접). 단계 규칙·다른 값은 지금 게시 그대로 | xAI 릴리스 노트 "grok-build-0.1 end of life": "`grok-build-0.1` reached end of life on November 19, 2026 and is no longer served on the API." (https://docs.x.ai/docs/release-notes). OpenCode 는 xAI 모델을 중계한다. PR #45 의 `xai/grok-build-0.1` 와 같은 판단 |
+| `opencode/grok-build-0.1`(수동 행) | 행에 `status: "disabled"`(MAINTAINING 5장: 수동 행 상태는 행에 직접). 단계 규칙·다른 값은 지금 게시 그대로 | xAI 릴리스 노트 "grok-build-0.1 end of life": "`grok-build-0.1` reached end of life on November 19, 2026 and is no longer served on the API." (https://docs.x.ai/docs/release-notes). OpenCode 는 xAI 모델을 중계한다(Zen 모델 API 는 아직 나열). 사용자 결정. PR #45 의 `xai/grok-build-0.1` 와 같은 판단 |
 | `venice/grok-build-0-1` | 해당 없음 | 상류가 이미 뺐다(생성 결과에 없음) |
 | 그 밖 | 해당 없음 | 생성 결과에서 `grok-build` 행은 `xai`(이미 `disabled`)와 `opencode` 뿐이다. OpenRouter 원본 목록에도 없다 |
 
