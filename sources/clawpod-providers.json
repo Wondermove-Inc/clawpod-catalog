@@ -16729,7 +16729,7 @@
         "maxTokens": 524288
       },
       "source": "https://api.kilo.ai/api/openrouter/models",
-      "note": "Kilo Gateway values for MiniMax-M3.1-Flash confirmed by the user on 2026-11-24: context window 1048576 (as upstream publishes) and max output 524288. The upstream e774e35 publish raised the output to 943718. MiniMax publishes no maximum output (https://platform.minimax.io/docs/guides/models-intro). This changes the row from main's 1000000 / 512000 (the values published until e774e35). Reviewed 2026-11-24."
+      "note": "Kilo's public model API (this source) currently reports max_completion_tokens 943718 for this model; 524288 is the Kilo Gateway max output confirmed by the user on 2026-11-24, with the context window 1048576 as upstream publishes. Do not revert this cap to the API value. No Kilo page publishing 524288 was found. MiniMax publishes no maximum output (https://platform.minimax.io/docs/guides/models-intro). This changes the row from main's 1000000 / 512000 (the values published until e774e35). Reviewed 2026-11-24."
     }
   ],
   "knownGaps": [

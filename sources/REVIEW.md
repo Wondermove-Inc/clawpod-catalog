@@ -1161,7 +1161,7 @@ xAI 릴리스 노트 "grok-build-0.1 end of life": "`grok-build-0.1` reached end
 | `mistral/mistral-medium-latest` | 수동 행 복원(`c196ec7`, 출력 16,384) + `overrides` 16384 + `*` thinking 규칙 복원 | Mistral Medium 3.5 모델 페이지가 API 이름으로 적음(https://docs.mistral.ai/models/mistral-medium-3-5-26-04) |
 | `mistral/mistral-large-4-0-8` | 수동 행 복원(`dd9b1f2`), 단계는 기존 `*` `mistral-large-4*` | Mistral 문서에 이 id 가 없지만 은퇴 공지도 없다(확인된 은퇴 아님) |
 | `openrouter/z-ai/glm-5.3-flash` | `overrides` `maxTokens: 131072` | OpenRouter 모델 목록(https://openrouter.ai/api/v1/models, 2026-11-24) `top_provider.max_completion_tokens` 131,072. 상류 `99b9383` 게시만 943,718 |
-| `kilocode/minimax/minimax-m3.1-flash` | `overrides` `maxTokens: 524288`(창은 상류 1,048,576 그대로) | Kilo Gateway 값, 사용자 확인(2026-11-24): 창 1,048,576, 최대 출력 524,288. 상류 `e774e35` 게시가 출력을 943,718 로 올렸다. MiniMax 는 최대 출력을 공개하지 않는다(https://platform.minimax.io/docs/guides/models-intro). **main 의 1,000,000 / 512,000 에서 바뀐다**(`e774e35` 전 게시값, Agent main 스냅샷 값) |
+| `kilocode/minimax/minimax-m3.1-flash` | `overrides` `maxTokens: 524288`(창은 상류 1,048,576 그대로) | Kilo 공개 모델 API(https://api.kilo.ai/api/openrouter/models)는 지금 `max_completion_tokens` **943,718** 을 준다. **524,288 은 사용자가 확인한 Kilo Gateway 값**(2026-11-24, 창 1,048,576)이다. 그래서 이 상한을 API 값으로 되돌리면 안 된다. 524,288 을 적은 Kilo 페이지는 찾지 못해 source 는 API URL 로 두었다. MiniMax 는 최대 출력을 공개하지 않는다(https://platform.minimax.io/docs/guides/models-intro). **main 의 1,000,000 / 512,000 에서 바뀐다**(`e774e35` 전 게시값, Agent main 스냅샷 값) |
 
 - 수동 provider `mistral` 을 새로 만들었다(`api: openai-completions`, provenance 는 이 저장소의 게시 이력). 상류가 같은 id 를 다시 내면 상류 행이 이긴다. 입력 `document` 는 PR #46 스키마로 그대로 둔다.
 - PR #45 의 규칙 문구는 `ffbac46^` 판 그대로, 같은 자리에 되살렸다. "matches nothing" 은 main 2 = 이 PR 2.
