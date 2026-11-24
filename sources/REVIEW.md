@@ -1167,3 +1167,30 @@ xAI 릴리스 노트 "grok-build-0.1 end of life": "`grok-build-0.1` reached end
 - PR #45 의 규칙 문구는 `ffbac46^` 판 그대로, 같은 자리에 되살렸다. "matches nothing" 은 main 2 = 이 PR 2.
 - 생성 결과(main `99b9383` 게시본 대비, 같은 원본 publish run 45316602724): Mistral 4행 추가(마지막 게시 행과 바이트까지 같음), 상한 2행 바뀜. 그 밖 0.
 - 검증: `npm test` 108/108, `npm run audit` open 0, Pi 스키마 2282행 실패 0.
+
+# 2026-11-24 OpenCode Grok Build 종료
+
+사용자 결정: Grok Build 는 모든 경로에서 정리한다. OpenCode Zen 모델 API(https://opencode.ai/zen/v1/models, 2026-11-24)는 아직 `grok-build-0.1` 을 나열한다. 그래도 xAI 가 모델을 끝냈고 OpenCode 는 xAI 모델을 중계하므로, 사용자 결정에 따라 `disabled` 로 둔다.
+
+| 행 | 처리 | 근거 |
+| --- | --- | --- |
+| `opencode/grok-build-0.1`(수동 행) | 행에 `status: "disabled"`(MAINTAINING 5장: 수동 행 상태는 행에 직접). 단계 규칙·다른 값은 지금 게시 그대로 | xAI 릴리스 노트 "grok-build-0.1 end of life": "`grok-build-0.1` reached end of life on November 19, 2026 and is no longer served on the API." (https://docs.x.ai/docs/release-notes). OpenCode 는 xAI 모델을 중계한다(Zen 모델 API 는 아직 나열). 사용자 결정. PR #45 의 `xai/grok-build-0.1` 와 같은 판단 |
+| `venice/grok-build-0-1` | 해당 없음 | 상류가 이미 뺐다(생성 결과에 없음) |
+| 그 밖 | 해당 없음 | 생성 결과에서 `grok-build` 행은 `xai`(이미 `disabled`)와 `opencode` 뿐이다. OpenRouter 원본 목록에도 없다 |
+
+- 생성 결과(main `3ae68c8` 게시본 대비, 같은 원본 publish run 45344044655): `opencode/grok-build-0.1` 에 `status: "disabled"` 가 붙는 1행뿐.
+
+## Grok Build 중계 행 2개 (같은 날, Agent 설계 G6 9.3절)
+
+Agent 가 이 두 중계 id 를 카탈로그 밖 값(xai 행·Pi 행)으로 계속 목록에 올리므로, 카탈로그가 상태를 적을 수 있게 `disabled` 수동 행을 넣었다. 근거는 위 xAI 릴리스 노트와, 두 중계 모델 API(https://openrouter.ai/api/v1/models, Vercel AI Gateway 모델 목록)에 이 모델이 이미 없다는 확인이다.
+
+| 행 | 값 | 출처 |
+| --- | --- | --- |
+| `openrouter/x-ai/grok-build-0.1`(`providers.openrouter` 끝) | Grok Build 0.1, text·image, reasoning, 500,000 / 64,000, $1 / $2 / cacheRead 0.2 / cacheWrite 0, `disabled` | Agent 가 오늘 이 경로에 쓰는 `xai/grok-build-0.1` 게시 행 값 |
+| `vercel-ai-gateway/spacexai/grok-build-0.1`(`providers.vercel-ai-gateway` 신설, `api: anthropic-messages`) | 같은 이름·입력·reasoning, 256,000 / 256,000, 같은 비용, `disabled` | Agent 가 오늘 쓰는 Pi 행 값 |
+
+- 단계는 둘 다 `*` `grok-build*` 규칙이 준다(low/medium/high/xhigh, 기본 high, 라벨 없음). 걸리는 `overrides`·`knownGaps` 는 없다.
+- xai 게시 행의 cacheRead 는 부동소수 `0.19999999999999998` 이고 수동 행은 `0.2` 다(요청 바이트에는 안 들어간다).
+- Vercel Pi 행의 200K 초과 구간 요금(`tiers`)과 `allowEmptySignature` 는 수동 행 스키마로 적을 수 없다.
+- 상류가 같은 id 를 다시 나열하면 상류 행이 이겨 수동 행과 상태가 사라진다(`scripts/catalog.mjs` 병합). 그때는 `overrides` 의 `set.status` 로 옮긴다(MAINTAINING 9장).
+- 생성 결과(main `3ae68c8` 대비, publish run 45344044655): `opencode/grok-build-0.1` `disabled` + 위 2행 추가 = 3행.

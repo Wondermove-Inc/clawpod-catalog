@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795503494705,
+  "generatedAt": 1795515586455,
   "minVersion": "2026.4.11",
   "sourceCommit": "23f6f8cf5d10fe6f8f6a3217b6d27f860d8b1b20",
   "providers": {
@@ -24780,6 +24780,7 @@
             "cacheRead": 0.2,
             "cacheWrite": 0
           },
+          "status": "disabled",
           "compat": {
             "thinkingLevels": [
               "high"
@@ -39563,6 +39564,33 @@
               "low": "on"
             }
           }
+        },
+        {
+          "id": "spacexai/grok-build-0.1",
+          "name": "Grok Build 0.1",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 256000,
+          "maxTokens": 256000,
+          "cost": {
+            "input": 1,
+            "output": 2,
+            "cacheRead": 0.2,
+            "cacheWrite": 0
+          },
+          "status": "disabled",
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ],
+            "defaultThinkingLevel": "high"
+          }
         }
       ]
     },
@@ -52323,6 +52351,33 @@
           "reasoning": false,
           "contextWindow": 200000,
           "maxTokens": 8192
+        },
+        {
+          "id": "x-ai/grok-build-0.1",
+          "name": "Grok Build 0.1",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 500000,
+          "maxTokens": 64000,
+          "cost": {
+            "input": 1,
+            "output": 2,
+            "cacheRead": 0.2,
+            "cacheWrite": 0
+          },
+          "status": "disabled",
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ],
+            "defaultThinkingLevel": "high"
+          }
         }
       ]
     },
@@ -59593,5 +59648,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795503477522,
-  "supplementDigest": "fcfe73051a021e2f9d58fd507bf1b39e0d5af023e7b2f0e6a8998f1bc6a61aec"
+  "supplementDigest": "86ae7facdaa2415a31e3b5aa14404e62d2ce51455c9198561f76a717e8c9b8da"
 }
