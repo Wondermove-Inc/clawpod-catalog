@@ -513,6 +513,7 @@ test("committed supplemental data covers the requested providers and preserves p
       "kimi",
       "kilocode",
       "nvidia",
+      "mistral",
     ].sort(),
   );
   const codex = s.providers["openai-codex"].models.find((m) => m.id === "gpt-6-astra");
@@ -1767,6 +1768,7 @@ test("I3h rules reach exactly their target rows", () => {
     "kilocode/kilo/auto", "kilocode/x-ai/grok-4.20", "kilocode/x-ai/grok-4.20-reasoning", "kilocode/x-ai/grok-4.20-reasoning-beta",
   ]);
   for (const [, m] of rows.filter(([p]) => p === "mistral")) assert.ok(m.maxTokens < m.contextWindow, m.id);
+  assert.equal(get("mistral", "mistral-medium-latest").maxTokens, 16384);
 });
 
 test("I5 rules give the reviewed rows their official levels and keep today's requests", () => {
@@ -2082,4 +2084,36 @@ test("still-served OpenAI and Anthropic rows upstream dropped publish their last
   }
   // Retired or not on the API: stays out.
   assert.equal(next.providers.openai.models.some((m) => m.id === "gpt-5.3-codex-spark"), false);
+});
+
+test("Mistral rows upstream dropped while Mistral still serves them publish their last published values", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const next = buildCatalog({ ...fixture(), supplement });
+  const get = (id) => next.providers.mistral.models.find((m) => m.id === id);
+  const doc = ["text", "image", "document"];
+  const expected = {
+    "mistral-large-2512": ["Mistral Large 3", doc, false, 262_144, 8_192, { input: 0.5, output: 1.5, cacheRead: 0.05, cacheWrite: 0 }, undefined],
+    "mistral-medium-2604": ["Mistral Medium 3.5", doc, true, 262_144, 8_192, { input: 1.5, output: 7.5, cacheRead: 0.15, cacheWrite: 0 }, { thinkingLevels: ["off", "high"], defaultThinkingLevel: "off" }],
+    "mistral-medium-latest": ["Mistral Medium (latest)", doc, true, 262_144, 16_384, { input: 1.5, output: 7.5, cacheRead: 0.15, cacheWrite: 0 }, { thinkingLevels: ["off", "high"], defaultThinkingLevel: "off" }],
+    "mistral-large-4-0-8": ["Mistral Large 4.0.8", doc, true, 1_048_576, 262_144, { input: 0.7, output: 2.1, cacheRead: 0.07, cacheWrite: 0 }, { thinkingLevels: ["low", "medium", "high"], defaultThinkingLevel: "high" }],
+  };
+  for (const [id, [name, input, reasoning, contextWindow, maxTokens, cost, compat]] of Object.entries(expected)) {
+    const row = get(id);
+    assert.ok(row, `missing mistral/${id}`);
+    assert.deepEqual([row.name, row.input, row.reasoning, row.contextWindow, row.maxTokens, row.cost, row.compat, row.status],
+      [name, input, reasoning, contextWindow, maxTokens, cost, compat, undefined], id);
+  }
+  assert.equal(next.providers.mistral.api, "openai-completions");
+});
+
+test("gateway rows whose upstream output jumped get their gateway output cap", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const f = fixture();
+  f.upstream.providers.openrouter = { api: "openai-completions", models: [{ ...localModel("z-ai/glm-5.3-flash"), contextWindow: 1_048_576, maxTokens: 943_718 }] };
+  f.upstream.providers.kilocode = { api: "openai-completions", models: [{ ...localModel("minimax/minimax-m3.1-flash"), contextWindow: 1_048_576, maxTokens: 943_718 }] };
+  const next = buildCatalog({ ...f, supplement });
+  assert.equal(next.providers.openrouter.models.find((m) => m.id === "z-ai/glm-5.3-flash").maxTokens, 131_072);
+  const minimax = next.providers.kilocode.models.find((m) => m.id === "minimax/minimax-m3.1-flash");
+  // Kilo Gateway values confirmed by the user (2026-11-24): window as upstream, output 524288.
+  assert.deepEqual([minimax.contextWindow, minimax.maxTokens], [1_048_576, 524_288]);
 });
