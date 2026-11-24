@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795458363318,
+  "generatedAt": 1795479395020,
   "minVersion": "2026.4.11",
   "sourceCommit": "515a93c6725b5217057b32b1d21cb6c5d1ab8fa7",
   "providers": {
@@ -1171,6 +1171,7 @@
             "cacheWrite": 0
           },
           "compat": {
+            "supportsReasoningEffort": true,
             "thinkingLevels": [
               "low",
               "high",
@@ -2819,7 +2820,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 1048576,
+          "maxTokens": 393216,
           "cost": {
             "input": 0.09,
             "output": 0.18,
@@ -2897,7 +2898,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 1048576,
+          "maxTokens": 393216,
           "cost": {
             "input": 1.2999999999999998,
             "output": 2.5999999999999996,
@@ -7250,7 +7251,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 393216,
           "cost": {
             "input": 0.3,
             "output": 1.2,
@@ -7300,7 +7301,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 393216,
           "cost": {
             "input": 0.0434,
             "output": 0.3,
@@ -8823,7 +8824,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 393216,
           "cost": {
             "input": 0.0434,
             "output": 0.3,
@@ -8898,7 +8899,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 393216,
           "cost": {
             "input": 1.32,
             "output": 3.96,
@@ -9002,7 +9003,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 1048576,
+          "maxTokens": 393216,
           "cost": {
             "input": 2.4,
             "output": 9.6,
@@ -17387,7 +17388,7 @@
           ],
           "reasoning": false,
           "contextWindow": 262144,
-          "maxTokens": 262144,
+          "maxTokens": 128000,
           "cost": {
             "input": 0.2,
             "output": 0.2,
@@ -17423,7 +17424,7 @@
           ],
           "reasoning": false,
           "contextWindow": 131072,
-          "maxTokens": 131072,
+          "maxTokens": 128000,
           "cost": {
             "input": 0.1,
             "output": 0.1,
@@ -17459,7 +17460,7 @@
           ],
           "reasoning": false,
           "contextWindow": 262144,
-          "maxTokens": 262144,
+          "maxTokens": 128000,
           "cost": {
             "input": 0.15,
             "output": 0.15,
@@ -17529,6 +17530,7 @@
             "cacheWrite": 0
           },
           "compat": {
+            "supportsReasoningEffort": true,
             "thinkingLevels": [
               "low",
               "medium",
@@ -20566,7 +20568,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 1048576,
+          "maxTokens": 393216,
           "compat": {
             "codeMode": "capable",
             "supportsTools": true,
@@ -20588,7 +20590,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 1048576,
+          "maxTokens": 393216,
           "compat": {
             "supportsTools": true,
             "supportsUsageInStreaming": true,
@@ -24476,14 +24478,12 @@
           },
           "compat": {
             "thinkingLevels": [
-              "off",
-              "minimal",
-              "low",
-              "medium",
-              "high",
-              "adaptive"
+              "high"
             ],
-            "defaultThinkingLevel": "low"
+            "defaultThinkingLevel": "high",
+            "thinkingLevelLabels": {
+              "high": "on"
+            }
           }
         },
         {
@@ -33762,7 +33762,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048600,
-          "maxTokens": 1048600,
+          "maxTokens": 393216,
           "cost": {
             "input": 1.32,
             "output": 3.96,
@@ -33787,7 +33787,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048600,
-          "maxTokens": 1048600,
+          "maxTokens": 393216,
           "cost": {
             "input": 1.32,
             "output": 3.96,
@@ -33814,7 +33814,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 1048576,
+          "maxTokens": 393216,
           "cost": {
             "input": 0.3,
             "output": 1.2,
@@ -33893,7 +33893,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 1048576,
+          "maxTokens": 393216,
           "cost": {
             "input": 2.4,
             "output": 9.6,
@@ -40507,7 +40507,7 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 256000,
+          "contextWindow": 500000,
           "maxTokens": 64000,
           "cost": {
             "input": 1,
@@ -40516,16 +40516,13 @@
             "cacheWrite": 0
           },
           "compat": {
-            "defaultThinkingLevel": "low",
+            "defaultThinkingLevel": "high",
             "thinkingLevels": [
-              "low"
-            ],
-            "thinkingLevelLabels": {
-              "low": "on"
-            }
-          },
-          "thinkingLevelMap": {
-            "low": null
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ]
           }
         },
         {
@@ -41548,7 +41545,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 393216,
           "cost": {
             "input": 0.0434,
             "output": 0.3,
@@ -43404,7 +43401,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 393216,
           "cost": {
             "input": 0.0434,
             "output": 0.3,
@@ -43500,7 +43497,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 393216,
           "cost": {
             "input": 1.32,
             "output": 3.96,
@@ -43575,7 +43572,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 393216,
           "cost": {
             "input": 0.035,
             "output": 0.149,
@@ -58129,6 +58126,30 @@
             ],
             "defaultThinkingLevel": "medium"
           }
+        },
+        {
+          "id": "anthropic.claude-haiku-5-5",
+          "name": "Claude Haiku 5.5",
+          "api": "anthropic-messages",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1000000,
+          "maxTokens": 128000,
+          "compat": {
+            "forceAdaptiveThinking": true,
+            "thinkingLevels": [
+              "off",
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
         }
       ]
     },
@@ -59437,5 +59458,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795458343874,
-  "supplementDigest": "ede71805a30e9b0d221b2141d6bc8a80ab12a8429264da423515b908df89b2ee"
+  "supplementDigest": "34491bc17a056b1f8b0847889ff5990a4273b25e313d1c59962a3e3a0b545a00"
 }
