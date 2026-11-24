@@ -2007,25 +2007,3 @@ test("Mantle Haiku 5.5 row publishes the Bedrock Haiku 5.5 effort profile withou
   assert.deepEqual([mantle.api, mantle.contextWindow, mantle.maxTokens, mantle.cost], ["anthropic-messages", 1_000_000, 128_000, undefined]);
   assert.ok(supplement.knownGaps.some((g) => g.provider === "amazon-bedrock-mantle" && g.model === "anthropic.claude-haiku-5-5" && g.check === "cost"));
 });
-
-test("Ministral -latest aliases carry the values of the dated model they name", () => {
-  // Mistral model pages list each Ministral 3 model as names [ministral-<n>b-2512, ministral-<n>b-latest].
-  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
-  const f = fixture();
-  f.upstream.providers.mistral = {
-    api: "openai-completions",
-    models: [["3b", 131_072], ["8b", 262_144], ["14b", 262_144]].flatMap(([size, window]) =>
-      ["2512", "latest"].map((v) => ({ ...localModel(`ministral-${size}-${v}`), reasoning: false, contextWindow: window, maxTokens: window })),
-    ),
-  };
-  const next = buildCatalog({ ...f, supplement });
-  const get = (id) => next.providers.mistral.models.find((m) => m.id === id);
-  for (const size of ["3b", "8b", "14b"]) {
-    const alias = get(`ministral-${size}-latest`);
-    const dated = get(`ministral-${size}-2512`);
-    for (const key of ["maxTokens", "contextWindow", "reasoning", "input"]) {
-      assert.deepEqual(alias[key], dated[key], `ministral-${size}-latest ${key}`);
-    }
-    assert.ok(alias.maxTokens < alias.contextWindow, `ministral-${size}-latest`);
-  }
-});

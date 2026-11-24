@@ -1100,13 +1100,13 @@ ClawPoD Agent 후속 설계 G1(GO) 의 카탈로그 몫이다. 보류했던 PR #
 
 ## 생성 결과 (main `c196ec7` 게시본 대비)
 
-원본 publish run 45237814152(`sourceGeneratedAt` 1795458343874 = main). `providers=60 (+0/-0) models=2270->2271 (+1)`. 바뀐 행 21 + 추가 1 = 22행, 다른 행 변화 0.
+원본 publish run 45237814152(`sourceGeneratedAt` 1795458343874 = main). `providers=60 (+0/-0) models=2270->2271 (+1)`. 바뀐 행 24 + 추가 1 = **25행**(G1 22행 + 아래 Ministral 별칭 3행), 다른 행 변화 0.
 
 - 설계 흉내(`cat-patch-g1.cjs`, 24행)와 대조: 24행 모두 가격 칸을 뺀 행 전체가 같다. 흉내보다 2행 적은 것은 상류 드리프트다: `openrouter/~deepseek/deepseek-pro-latest`·`~deepseek/deepseek-flash-latest` 는 main 게시본에서 이미 393,216 이다(규칙은 다시 튀지 않게 남겨 둠).
 - `venice/grok-build-0-1` 게시 행은 바뀌지 않는다.
 
 ## 판단과 한계
 
-- Ministral 별칭 3행: `c196ec7` 게시(상류)가 새로 넣은 `mistral/ministral-{3b,8b,14b}-latest` 는 `maxTokens` 가 창과 같아(131,072/262,144) "Mistral 행은 `maxTokens < contextWindow`" 테스트가 main 에서도 실패했고, 게시 워크플로의 `npm test` 단계를 막았다. Mistral 모델 페이지는 각 모델의 이름을 `[ministral-<n>b-2512, ministral-<n>b-latest]` 로 적는다(https://docs.mistral.ai/models/ministral-3-3b-25-12, `-8b-25-12`, `-14b-25-12`). 별칭은 가리키는 모델과 같은 값을 가져야 하므로 `overrides` 3개로 `maxTokens` 를 날짜 행(`ministral-<n>b-2512`)과 같은 8192 로 맞췄다(그 8192 자체는 I3h 의 "공식 값 아님" 값). 두 행의 다른 칸(창·reasoning·입력·가격)은 이미 같다. 테스트 "Ministral -latest aliases carry the values of the dated model they name" 가 고정한다.
-- 생성 결과는 위 22행 + Ministral 별칭 3행 = 25행이다.
-- 검증: `npm test` 104/104, `npm run audit` open 0 → 0(cost known 133 → 134, Mantle Haiku knownGaps), Pi 스키마 2271행 실패 0, "matches nothing" 2 = main.
+- Ministral 별칭 3행: `c196ec7` 게시(상류)가 `mistral/ministral-3b-latest`·`ministral-8b-latest` 의 `maxTokens` 를 128,000 에서 창과 같은 131,072·262,144 로 올리고, 새 행 `ministral-14b-latest`(262,144/262,144)를 넣었다. 그래서 "Mistral 행은 `maxTokens < contextWindow`" 테스트가 main 에서 실패했고 게시 워크플로의 `npm test` 단계를 막았다. 3b·8b 는 그 전 게시본(`097fc5b`, Agent 스냅샷 `51edb3d9df` 와 같음)의 128,000 으로 되돌렸다(Agent 가 오늘 보내는 값, 동작 변화 0). 14b 는 새 행이라 오늘 동작이 없고, 형제 별칭과 같은 128,000(창 아래)을 넣었다. 셋 다 공식 값이 아니다(Mistral 은 최대 출력을 공개하지 않음, https://docs.mistral.ai/getting-started/models/known-limitations).
+- 후속(공식 값 없음): Mistral 모델 페이지는 각 모델의 이름을 `[ministral-<n>b-2512, ministral-<n>b-latest]` 로 적는다(https://docs.mistral.ai/models/ministral-3-3b-25-12, `-8b-25-12`, `-14b-25-12`). 그런데 별칭은 128,000, 날짜 행은 8,192(I3h K6, Agent 가 오늘 보내는 값)로 서로 다르다. 둘 다 공식 값이 아니라 지금은 오늘 동작을 지키고, Mistral 이 최대 출력을 공개하면 함께 맞춘다.
+- 검증: `npm test` 103/103, `npm run audit` open 0 → 0(cost known 133 → 134, Mantle Haiku knownGaps), Pi 스키마 2271행 실패 0, "matches nothing" 2 = main.

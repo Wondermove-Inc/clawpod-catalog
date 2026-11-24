@@ -16329,28 +16329,28 @@
       "provider": "mistral",
       "model": "ministral-3b-latest",
       "set": {
-        "maxTokens": 8192
+        "maxTokens": 128000
       },
-      "source": "https://docs.mistral.ai/models/ministral-3-3b-25-12",
-      "note": "Alias of ministral-3b-2512: the Mistral model page names this model [ministral-3b-2512, ministral-3b-latest]. An alias carries the values of the model it names, so maxTokens follows the ministral-3b-2512 row (8192, itself not an official value: Mistral publishes no maximum output, https://docs.mistral.ai/getting-started/models/known-limitations). Reviewed 2026-11-24 (G1)."
+      "source": "https://docs.mistral.ai/getting-started/models/known-limitations",
+      "note": "Not an official value: Mistral publishes no maximum output (\"token counts include both input and output tokens\"). 128000 is the value this row was published with before the 2026-11-24 publish raised it to the window, and the output cap the ClawPoD Agent sends today; kept so working requests stay the same. Alias of ministral-3b-2512 (https://docs.mistral.ai/models/ministral-3-3b-25-12), whose row says 8192, also not official (follow-up). Reviewed 2026-11-24 (G1)."
     },
     {
       "provider": "mistral",
       "model": "ministral-8b-latest",
       "set": {
-        "maxTokens": 8192
+        "maxTokens": 128000
       },
-      "source": "https://docs.mistral.ai/models/ministral-3-8b-25-12",
-      "note": "Alias of ministral-8b-2512: the Mistral model page names this model [ministral-8b-2512, ministral-8b-latest]. An alias carries the values of the model it names, so maxTokens follows the ministral-8b-2512 row (8192, itself not an official value: Mistral publishes no maximum output, https://docs.mistral.ai/getting-started/models/known-limitations). Reviewed 2026-11-24 (G1)."
+      "source": "https://docs.mistral.ai/getting-started/models/known-limitations",
+      "note": "Not an official value: Mistral publishes no maximum output (\"token counts include both input and output tokens\"). 128000 is the value this row was published with before the 2026-11-24 publish raised it to the window, and the output cap the ClawPoD Agent sends today; kept so working requests stay the same. Alias of ministral-8b-2512 (https://docs.mistral.ai/models/ministral-3-8b-25-12), whose row says 8192, also not official (follow-up). Reviewed 2026-11-24 (G1)."
     },
     {
       "provider": "mistral",
       "model": "ministral-14b-latest",
       "set": {
-        "maxTokens": 8192
+        "maxTokens": 128000
       },
-      "source": "https://docs.mistral.ai/models/ministral-3-14b-25-12",
-      "note": "Alias of ministral-14b-2512: the Mistral model page names this model [ministral-14b-2512, ministral-14b-latest]. An alias carries the values of the model it names, so maxTokens follows the ministral-14b-2512 row (8192, itself not an official value: Mistral publishes no maximum output, https://docs.mistral.ai/getting-started/models/known-limitations). Reviewed 2026-11-24 (G1)."
+      "source": "https://docs.mistral.ai/getting-started/models/known-limitations",
+      "note": "Not an official value: Mistral publishes no maximum output, and \"token counts include both input and output tokens\", so maxTokens equal to the 262144 window is wrong. New row in the 2026-11-24 publish (alias of ministral-14b-2512 on https://docs.mistral.ai/models/ministral-3-14b-25-12); 128000 matches its sibling aliases ministral-3b-latest and ministral-8b-latest and is below the window. Reviewed 2026-11-24 (G1)."
     }
   ],
   "knownGaps": [
