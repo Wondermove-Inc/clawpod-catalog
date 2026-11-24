@@ -1179,3 +1179,18 @@ xAI 릴리스 노트 "grok-build-0.1 end of life": "`grok-build-0.1` reached end
 | 그 밖 | 해당 없음 | 생성 결과에서 `grok-build` 행은 `xai`(이미 `disabled`)와 `opencode` 뿐이다. OpenRouter 원본 목록에도 없다 |
 
 - 생성 결과(main `3ae68c8` 게시본 대비, 같은 원본 publish run 45344044655): `opencode/grok-build-0.1` 에 `status: "disabled"` 가 붙는 1행뿐.
+
+## Grok Build 중계 행 2개 (같은 날, Agent 설계 G6 9.3절)
+
+Agent 가 이 두 중계 id 를 카탈로그 밖 값(xai 행·Pi 행)으로 계속 목록에 올리므로, 카탈로그가 상태를 적을 수 있게 `disabled` 수동 행을 넣었다. 근거는 위 xAI 릴리스 노트와, 두 중계 모델 API(https://openrouter.ai/api/v1/models, Vercel AI Gateway 모델 목록)에 이 모델이 이미 없다는 확인이다.
+
+| 행 | 값 | 출처 |
+| --- | --- | --- |
+| `openrouter/x-ai/grok-build-0.1`(`providers.openrouter` 끝) | Grok Build 0.1, text·image, reasoning, 500,000 / 64,000, $1 / $2 / cacheRead 0.2 / cacheWrite 0, `disabled` | Agent 가 오늘 이 경로에 쓰는 `xai/grok-build-0.1` 게시 행 값 |
+| `vercel-ai-gateway/spacexai/grok-build-0.1`(`providers.vercel-ai-gateway` 신설, `api: anthropic-messages`) | 같은 이름·입력·reasoning, 256,000 / 256,000, 같은 비용, `disabled` | Agent 가 오늘 쓰는 Pi 행 값 |
+
+- 단계는 둘 다 `*` `grok-build*` 규칙이 준다(low/medium/high/xhigh, 기본 high, 라벨 없음). 걸리는 `overrides`·`knownGaps` 는 없다.
+- xai 게시 행의 cacheRead 는 부동소수 `0.19999999999999998` 이고 수동 행은 `0.2` 다(요청 바이트에는 안 들어간다).
+- Vercel Pi 행의 200K 초과 구간 요금(`tiers`)과 `allowEmptySignature` 는 수동 행 스키마로 적을 수 없다.
+- 상류가 같은 id 를 다시 나열하면 상류 행이 이겨 수동 행과 상태가 사라진다(`scripts/catalog.mjs` 병합). 그때는 `overrides` 의 `set.status` 로 옮긴다(MAINTAINING 9장).
+- 생성 결과(main `3ae68c8` 대비, publish run 45344044655): `opencode/grok-build-0.1` `disabled` + 위 2행 추가 = 3행.

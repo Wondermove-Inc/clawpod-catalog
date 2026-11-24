@@ -87,7 +87,7 @@
         "scripts/openrouter.mjs",
         "extensions/openrouter/provider-catalog.ts"
       ],
-      "notes": "Only the Agent `auto` alias is kept here. Every other openrouter model comes from the official https://openrouter.ai/api/v1/models list, fetched each publish run and converted by scripts/openrouter.mjs (added 2026-10-02). sources/REVIEW.md."
+      "notes": "Only the Agent `auto` alias is kept here. Every other openrouter model comes from the official https://openrouter.ai/api/v1/models list, fetched each publish run and converted by scripts/openrouter.mjs (added 2026-10-02). sources/REVIEW.md. Reviewed 2026-11-24: added x-ai/grok-build-0.1 as disabled. xAI release notes, \"grok-build-0.1 end of life\": \"grok-build-0.1 reached end of life on November 19, 2026 and is no longer served on the API.\" (https://docs.x.ai/docs/release-notes); the OpenRouter model API no longer lists it. Values are the xai/grok-build-0.1 row the ClawPoD Agent uses for this relay today (500000 / 64000, $1/$2, cacheRead 0.2; the xai row stores 0.19999999999999998). If the upstream list names this id again, the upstream row wins the merge and drops this status: move it to overrides set.status."
     },
     "openai-codex": {
       "source": "Wondermove-Inc/clawpod-agent",
@@ -228,6 +228,14 @@
         "models/v1/catalog.json"
       ],
       "notes": "Rows the upstream catalog dropped while Mistral still lists or serves them; values are the last published rows, input included. Reviewed 2026-11-24: mistral-large-2512 and mistral-medium-3-5 (version 26.04, API name mistral-medium-2604 / mistral-medium-latest) are Deprecated with retirement 4/30/2027 (https://docs.mistral.ai/getting-started/models/models_overview/); mistral-large-4-0-8 has no retirement notice. The ClawPoD Agent runs these ids today with these values."
+    },
+    "vercel-ai-gateway": {
+      "source": "Wondermove-Inc/clawpod-agent",
+      "revision": "e92e7c2515; @earendil-works/pi-ai vercel-ai-gateway data",
+      "files": [
+        "node_modules/@earendil-works/pi-ai/dist/providers/data/vercel-ai-gateway.json"
+      ],
+      "notes": "Retired row only. Reviewed 2026-11-24: added spacexai/grok-build-0.1 as disabled. xAI release notes, \"grok-build-0.1 end of life\": \"grok-build-0.1 reached end of life on November 19, 2026 and is no longer served on the API.\" (https://docs.x.ai/docs/release-notes); the Vercel AI Gateway model API no longer lists it. Values are the Pi row the ClawPoD Agent uses today (256000 / 256000, $1/$2, cacheRead 0.2); its price tier above 200K input tokens cannot be written in a manual row. If the upstream list names this id again, the upstream row wins the merge and drops this status: move it to overrides set.status."
     }
   },
   "providers": {
@@ -4674,6 +4682,24 @@
           "reasoning": false,
           "contextWindow": 200000,
           "maxTokens": 8192
+        },
+        {
+          "id": "x-ai/grok-build-0.1",
+          "name": "Grok Build 0.1",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 500000,
+          "maxTokens": 64000,
+          "cost": {
+            "input": 1,
+            "output": 2,
+            "cacheRead": 0.2,
+            "cacheWrite": 0
+          },
+          "status": "disabled"
         }
       ]
     },
@@ -7949,6 +7975,29 @@
             "cacheRead": 0.07,
             "cacheWrite": 0
           }
+        }
+      ]
+    },
+    "vercel-ai-gateway": {
+      "api": "anthropic-messages",
+      "models": [
+        {
+          "id": "spacexai/grok-build-0.1",
+          "name": "Grok Build 0.1",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 256000,
+          "maxTokens": 256000,
+          "cost": {
+            "input": 1,
+            "output": 2,
+            "cacheRead": 0.2,
+            "cacheWrite": 0
+          },
+          "status": "disabled"
         }
       ]
     }

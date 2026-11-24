@@ -44,7 +44,7 @@
 | 자동 | OpenClaw가 만드는 provider 전부(`anthropic`, `openai`, `google`, `xai`, `zai`, `ollama-cloud`, 중계 provider 등), `openrouter` | 하루 한 번 자동 추가 |
 | 수동 | `openai-codex`, `codex`, `amazon-bedrock`, `amazon-bedrock-mantle`, `anthropic-vertex`, `google-vertex`, `google-gemini-cli`, `minimax-portal`, `minimax-cn`, `minimax-portal-cn`, `synthetic` (그 밖에 수동 파일 `providers`에 있는 행) | 사람이 공식 문서를 보고 추가 |
 
-`anthropic`, `openai`, `google`, `xai`, `zai`, `minimax`, `opencode`, `opencode-go`, `byteplus`, `volcengine`, `together`, `kimi`, `kilocode`, `nvidia`, `mistral`은 자동 행과 수동 행이 섞여 있습니다. 수동 파일 `providers`에 있는 ID가 해당 provider의 수동 행입니다.
+`anthropic`, `openai`, `google`, `xai`, `zai`, `minimax`, `opencode`, `opencode-go`, `byteplus`, `volcengine`, `together`, `kimi`, `kilocode`, `nvidia`, `mistral`, `openrouter`, `vercel-ai-gateway`은 자동 행과 수동 행이 섞여 있습니다. 수동 파일 `providers`에 있는 ID가 해당 provider의 수동 행입니다.
 
 ## 2. 파일 지도
 
@@ -281,6 +281,7 @@ npm run audit
 | 수시 (I5 완전한 끄기 아닌 `off`, 2026-11-23) | `baseten/openai/gpt-oss-120b`의 `off`(`none`으로 나감)는 5장 "`off`는 실제로 끌 수 있을 때만"의 예외입니다. Baseten은 이 모델에 "`none` can still reason", "OpenAI GPT 120B can return `reasoning_content` with `none`"이라고 적습니다(https://docs.baseten.co/inference/model-apis/reasoning). 목록에서 `off`를 빼면 Agent가 오늘 보내는 `none` 대신 `minimal`을 보내고(Agent I5 코드 고침 뒤) 사용자는 가장 낮은 단계를 잃으므로, 오늘 요청을 지키려고 남겼습니다(승인된 예외, REVIEW 2026-11-23 I5). Baseten이 `none`을 완전한 끄기로 바꾸면 예외가 아니게 됩니다 |
 | 수시 (I5 후속, 2026-11-23) | F3: `thinking`의 `nvidia`/`moonshotai/kimi-k3` 규칙(퇴역 행, `max` 하나)은 안쪽 행이 I5 C1로 low/high/max가 된 뒤에도 I3h 때의 `max` 하나를 지킵니다(note를 그렇게 고쳤음). 단계를 바꾸면 그 경로의 요청이 바뀌므로 Agent 쪽 측정과 함께 따로 봅니다. F4: Baseten `moonshotai/Kimi-K3.1-Pro`도 공식이 `none`을 받습니다(지금 `off` 없음). F5: `kimi/k3`·`k3-256k` 목록의 `off`는 Kimi Code 공식(항상 생각, low/high/max)과 어긋납니다 |
 | 2026-12-11·2027-01-14·2027-01-22·2027-04-01 (복원한 폐기 행) | 2026-11-24 복원한 수동 행은 공식 폐기(Deprecated)지만 마지막 게시 행대로 상태를 비워 두었습니다. 종료일: `openai` `gpt-5`·`gpt-5-mini`·`gpt-5-nano`·`gpt-5-pro`·`o3`·`o3-pro` 2026-12-11, `gpt-4o-2024-08-06`·`gpt-4o-2024-11-20`·`gpt-4.1-mini`(날짜 스냅샷) 2027-01-14, `anthropic` `claude-opus-4-5`·`-20251101` 2027-01-22, `openai` `gpt-5.1`·`gpt-5.3-codex` 2027-04-01(https://developers.openai.com/api/docs/deprecations, https://platform.claude.com/docs/en/about-claude/model-deprecations). `gpt-4o`·`gpt-4o-mini`·`gpt-4.1-mini` 별칭은 종료일이 없습니다. `deprecated` 표시와 날짜 `corrections`(`effectiveAt`, `disabled`)를 넣을지 결정이 필요합니다. 상류가 같은 id 를 다시 내면 수동 행은 쓰이지 않습니다 |
+| 수시 (Grok Build 중계 행, 2026-11-24) | `openrouter/x-ai/grok-build-0.1`·`vercel-ai-gateway/spacexai/grok-build-0.1`·`opencode/grok-build-0.1` 은 `disabled` 수동 행입니다(xAI 가 2026-11-19 종료, https://docs.x.ai/docs/release-notes, 두 중계 모델 API 에서도 빠짐). 상류(OpenRouter·Vercel 자동 목록)가 같은 id 를 다시 나열하면 병합에서 상류 행이 이겨 수동 행과 상태가 사라집니다. 그때는 `xai` 행처럼 `overrides` 의 `set.status: "disabled"` 로 옮깁니다 |
 | Agent SOT 전환 시 | Sonnet 5.5의 `off`(`between_tools`로만 가능), Codex 모델 기본 Effort가 API 기본값과 같은지, Agent의 `max` 단계 지원 |
 
 `corrections`의 날짜 규칙(Sonnet 4.5 EOL 2027-04-08, Gemini 4 Vertex 가격 2026-12-01 등)은 자동으로 적용되므로 여기에 넣지 않습니다.

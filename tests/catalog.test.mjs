@@ -514,6 +514,7 @@ test("committed supplemental data covers the requested providers and preserves p
       "kilocode",
       "nvidia",
       "mistral",
+      "vercel-ai-gateway",
     ].sort(),
   );
   const codex = s.providers["openai-codex"].models.find((m) => m.id === "gpt-6-astra");
@@ -528,10 +529,11 @@ test("committed supplemental data covers the requested providers and preserves p
   assert.ok(
     s.providers["anthropic-vertex"].models.some((m) => m.id === "claude-haiku-4-5@20251001"),
   );
-  // Everything else comes from the OpenRouter API on each publish run.
+  // Everything else comes from the OpenRouter API on each publish run (plus the retired
+  // Grok Build relay row, which the API no longer lists).
   assert.deepEqual(
     s.providers.openrouter.models.map((m) => m.id),
-    ["auto"],
+    ["auto", "x-ai/grok-build-0.1"],
   );
   const f = fixture();
   const next = buildCatalog({ ...f, supplement: s });
@@ -1704,7 +1706,8 @@ test("committed non-chat rules drop the reviewed realtime rows", () => {
     ids("openai").filter((id) => !manual.has(id)),
     ["gpt", "gpt-audio"],
   );
-  assert.deepEqual(ids("vercel-ai-gateway"), ["openai/gpt-6.2-sol"]);
+  const manualVercel = new Set(supplement.providers["vercel-ai-gateway"].models.map((m) => m.id));
+  assert.deepEqual(ids("vercel-ai-gateway").filter((id) => !manualVercel.has(id)), ["openai/gpt-6.2-sol"]);
 });
 
 test("I3h rules reach exactly their target rows", () => {
@@ -1937,7 +1940,8 @@ test("DeepSeek V4 rows on gateways cap a response at DeepSeek's documented 39321
   const f = fixture();
   for (const [provider, ids] of Object.entries(G1_DEEPSEEK)) {
     f.upstream.providers[provider] = {
-      api: "openai-completions",
+      // Vercel AI Gateway rows run on Anthropic Messages (its manual block says so).
+      api: provider === "vercel-ai-gateway" ? "anthropic-messages" : "openai-completions",
       models: ids.map((id) => ({ ...localModel(id), contextWindow: 1_048_576, maxTokens: 1_048_576 })),
     };
   }
@@ -2117,4 +2121,25 @@ test("gateway rows whose upstream output jumped get their gateway output cap", (
   const minimax = next.providers.kilocode.models.find((m) => m.id === "minimax/minimax-m3.1-flash");
   // Kilo Gateway values confirmed by the user (2026-11-24): window as upstream, output 524288.
   assert.deepEqual([minimax.contextWindow, minimax.maxTokens], [1_048_576, 524_288]);
+});
+
+test("Grok Build relay rows on OpenRouter and Vercel are published as disabled with their values", () => {
+  // xAI ended grok-build-0.1 on 2026-11-19 (release notes); both relays' model APIs dropped it.
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const next = buildCatalog({ ...fixture(), supplement });
+  const ladder = { thinkingLevels: ["low", "medium", "high", "xhigh"], defaultThinkingLevel: "high" };
+  const cost = { input: 1, output: 2, cacheRead: 0.2, cacheWrite: 0 };
+  const cases = [
+    ["openrouter", "x-ai/grok-build-0.1", "openai-completions", 500_000, 64_000],
+    ["vercel-ai-gateway", "spacexai/grok-build-0.1", "anthropic-messages", 256_000, 256_000],
+  ];
+  for (const [provider, id, api, contextWindow, maxTokens] of cases) {
+    const row = next.providers[provider].models.find((m) => m.id === id);
+    assert.ok(row, `missing ${provider}/${id}`);
+    assert.deepEqual(
+      [next.providers[provider].api, row.name, row.input, row.reasoning, row.contextWindow, row.maxTokens, row.cost, row.status, row.compat, row.thinkingLevelMap],
+      [api, "Grok Build 0.1", ["text", "image"], true, contextWindow, maxTokens, cost, "disabled", ladder, undefined],
+      `${provider}/${id}`,
+    );
+  }
 });

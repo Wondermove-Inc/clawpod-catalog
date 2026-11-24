@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795511154722,
+  "generatedAt": 1795515004000,
   "minVersion": "2026.4.11",
   "sourceCommit": "23f6f8cf5d10fe6f8f6a3217b6d27f860d8b1b20",
   "providers": {
@@ -39564,6 +39564,33 @@
               "low": "on"
             }
           }
+        },
+        {
+          "id": "spacexai/grok-build-0.1",
+          "name": "Grok Build 0.1",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 256000,
+          "maxTokens": 256000,
+          "cost": {
+            "input": 1,
+            "output": 2,
+            "cacheRead": 0.2,
+            "cacheWrite": 0
+          },
+          "status": "disabled",
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ],
+            "defaultThinkingLevel": "high"
+          }
         }
       ]
     },
@@ -52324,6 +52351,33 @@
           "reasoning": false,
           "contextWindow": 200000,
           "maxTokens": 8192
+        },
+        {
+          "id": "x-ai/grok-build-0.1",
+          "name": "Grok Build 0.1",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 500000,
+          "maxTokens": 64000,
+          "cost": {
+            "input": 1,
+            "output": 2,
+            "cacheRead": 0.2,
+            "cacheWrite": 0
+          },
+          "status": "disabled",
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ],
+            "defaultThinkingLevel": "high"
+          }
         }
       ]
     },
@@ -59594,5 +59648,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795503477522,
-  "supplementDigest": "2bf6ba66e5725e8d7cca3613666fc1a5985a24b521d185e41b5fc63c10ed92a4"
+  "supplementDigest": "aa034175abc0285c272e0e81dcedcf1329565c098a63c6d76a7131693de793c0"
 }
