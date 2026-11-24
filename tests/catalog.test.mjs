@@ -1923,7 +1923,7 @@ const G1_DEEPSEEK = {
   openrouter: ["~deepseek/deepseek-pro-latest", "~deepseek/deepseek-flash-latest", "~deepseek/deepseek-v4-flash-latest",
     "deepseek/deepseek-v4-flash-0731", "deepseek/deepseek-v4-pro-0813", "deepseek/deepseek-v4.1-flash-1017:batch"],
   kilocode: ["~deepseek/deepseek-flash-latest", "~deepseek/deepseek-v4-flash-latest", "deepseek/deepseek-v4-flash-0731",
-    "deepseek/deepseek-v4-pro-0813", "deepseek/deepseek-v4.1-flash-1017-ultrafast"],
+    "deepseek/deepseek-v4-pro-0813", "deepseek/deepseek-v4.1-flash-1017-ultrafast", "~deepseek/deepseek-pro-latest"],
   deepinfra: ["deepseek-ai/DeepSeek-V4-Flash", "deepseek-ai/DeepSeek-V4-Pro"],
   "ollama-cloud": ["deepseek-v4-pro", "deepseek-v4-pro:0813"],
   "vercel-ai-gateway": ["deepseek/deepseek-v4-pro", "deepseek/deepseek-v4-pro-0813", "deepseek/deepseek-v4.1-flash",
@@ -1947,7 +1947,7 @@ test("DeepSeek V4 rows on gateways cap a response at DeepSeek's documented 39321
       n++;
     }
   }
-  assert.equal(n, 19);
+  assert.equal(n, 20);
 });
 
 test("Grok Build: xAI official ladder and window, Venice row as before, OpenCode one on level", () => {
@@ -2019,4 +2019,67 @@ test("xAI Grok Build is published as disabled after xAI ended it; the gateway co
   assert.equal(get("xai", "grok-build-0.1").status, "disabled");
   assert.equal(get("venice", "grok-build-0-1").status, "deprecated");
   assert.equal(get("opencode", "grok-build-0.1").status, undefined);
+});
+
+// Rows upstream dropped while the provider still serves them (OpenAI and Anthropic deprecation
+// pages, 2026-11-24): restored as manual rows with the values of their last published row.
+const RESTORED = {
+  openai: {
+    "gpt-4.1-mini": ["GPT-4.1 mini", false, 1_047_576, 32_768, { input: 0.4, output: 1.6, cacheRead: 0.1, cacheWrite: 0 }],
+    "gpt-4o": ["GPT-4o", false, 128_000, 16_384, { input: 2.5, output: 10, cacheRead: 1.25, cacheWrite: 0 }],
+    "gpt-4o-2024-08-06": ["GPT-4o (2024-08-06)", false, 128_000, 16_384, { input: 2.5, output: 10, cacheRead: 1.25, cacheWrite: 0 }],
+    "gpt-4o-2024-11-20": ["GPT-4o (2024-11-20)", false, 128_000, 16_384, { input: 2.5, output: 10, cacheRead: 1.25, cacheWrite: 0 }],
+    "gpt-4o-mini": ["GPT-4o mini", false, 128_000, 16_384, { input: 0.15, output: 0.6, cacheRead: 0.075, cacheWrite: 0 }],
+    "gpt-5": ["GPT-5", true, 400_000, 128_000, { input: 1.25, output: 10, cacheRead: 0.125, cacheWrite: 0 }, [["minimal", "low", "medium", "high"], "medium"]],
+    "gpt-5-mini": ["GPT-5 Mini", true, 400_000, 128_000, { input: 0.25, output: 2, cacheRead: 0.025, cacheWrite: 0 }, [["minimal", "low", "medium", "high"], "medium"]],
+    "gpt-5-nano": ["GPT-5 Nano", true, 400_000, 128_000, { input: 0.05, output: 0.4, cacheRead: 0.005, cacheWrite: 0 }, [["minimal", "low", "medium", "high"], "medium"]],
+    "gpt-5-pro": ["GPT-5 Pro", true, 400_000, 272_000, { input: 15, output: 120, cacheRead: 0, cacheWrite: 0 }, [["high"], "high"]],
+    "gpt-5.1": ["GPT-5.1", true, 400_000, 128_000, { input: 1.25, output: 10, cacheRead: 0.125, cacheWrite: 0 }, [["off", "low", "medium", "high"], "off"]],
+    "gpt-5.3-codex": ["GPT-5.3 Codex", true, 400_000, 128_000, { input: 1.75, output: 14, cacheRead: 0.175, cacheWrite: 0 }, [["low", "medium", "high", "xhigh"], "medium"]],
+    o3: ["o3", true, 200_000, 100_000, { input: 2, output: 8, cacheRead: 0.5, cacheWrite: 0 }, [["low", "medium", "high"], "medium"]],
+    "o3-pro": ["o3-pro", true, 200_000, 100_000, { input: 20, output: 80, cacheRead: 0, cacheWrite: 0 }, [["low", "medium", "high"], "medium"]],
+  },
+  anthropic: {
+    "claude-opus-4-5": ["Claude Opus 4.5 (latest)", true, 200_000, 64_000, { input: 5, output: 25, cacheRead: 0.5, cacheWrite: 6.25 }, [["off", "minimal", "low", "medium", "high"], "off"]],
+    "claude-opus-4-5-20251101": ["Claude Opus 4.5", true, 200_000, 64_000, { input: 5, output: 25, cacheRead: 0.5, cacheWrite: 6.25 }, [["off", "minimal", "low", "medium", "high"], "off"]],
+  },
+};
+
+// The last published rows that listed native document (PDF) input, which the Agent reads.
+const RESTORED_DOCUMENT = new Set([
+  "openai/gpt-4.1-mini", "openai/gpt-4o", "openai/gpt-4o-mini", "openai/gpt-5.3-codex", "openai/o3",
+  "anthropic/claude-opus-4-5", "anthropic/claude-opus-4-5-20251101",
+]);
+
+test("manual rows may list document input like upstream rows; other input kinds stay rejected", () => {
+  const base = read(path.join(root, "sources/clawpod-providers.json"));
+  const withInput = (input) => {
+    const s = structuredClone(base);
+    s.providers.openai.models[0].input = input;
+    return s;
+  };
+  assert.doesNotThrow(() => validateSupplement(withInput(["text", "image", "document"])));
+  assert.throws(() => validateSupplement(withInput(["text", "video"])));
+  assert.throws(() => validateSupplement(withInput(["text", "audio"])));
+});
+
+test("still-served OpenAI and Anthropic rows upstream dropped publish their last published values", () => {
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const next = buildCatalog({ ...fixture(), supplement });
+  for (const [provider, rows] of Object.entries(RESTORED)) {
+    for (const [id, [name, reasoning, contextWindow, maxTokens, cost, effort]] of Object.entries(rows)) {
+      const row = next.providers[provider].models.find((m) => m.id === id);
+      assert.ok(row, `missing ${provider}/${id}`);
+      assert.deepEqual(
+        [row.name, row.input, row.reasoning, row.contextWindow, row.maxTokens, row.cost, row.status, row.thinkingLevelMap],
+        [name, RESTORED_DOCUMENT.has(`${provider}/${id}`) ? ["text", "image", "document"] : ["text", "image"],
+          reasoning, contextWindow, maxTokens, cost, undefined, undefined],
+        `${provider}/${id}`,
+      );
+      if (effort) assert.deepEqual([row.compat.thinkingLevels, row.compat.defaultThinkingLevel], effort, `${provider}/${id}`);
+      else assert.equal(row.compat, undefined, `${provider}/${id}`);
+    }
+  }
+  // Retired or not on the API: stays out.
+  assert.equal(next.providers.openai.models.some((m) => m.id === "gpt-5.3-codex-spark"), false);
 });

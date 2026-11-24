@@ -121,7 +121,7 @@
       "files": [
         "node_modules/@earendil-works/pi-ai/dist/providers/data/openai.json"
       ],
-      "notes": "Reviewed 2026-11-21: added the 10 Pi openai-responses rows the upstream openai block lacks (values as in Pi 1.5.2, approved exception: Pi version and file hash). Status/replacement from https://developers.openai.com/api/docs/deprecations (notice 2026-04-22): gpt-4, gpt-4-turbo, gpt-4.1-nano, gpt-4o-2024-05-13, o1, o1-pro, o3-mini, o4-mini shut down 2026-10-23; gpt-5-chat-latest shut down 2026-07-23. chat-latest is not on the deprecations or models pages. gpt-5.6-cyber not added: Daybreak Red approval required. sources/REVIEW.md."
+      "notes": "Reviewed 2026-11-21: added the 10 Pi openai-responses rows the upstream openai block lacks (values as in Pi 1.5.2, approved exception: Pi version and file hash). Status/replacement from https://developers.openai.com/api/docs/deprecations (notice 2026-04-22): gpt-4, gpt-4-turbo, gpt-4.1-nano, gpt-4o-2024-05-13, o1, o1-pro, o3-mini, o4-mini shut down 2026-10-23; gpt-5-chat-latest shut down 2026-07-23. chat-latest is not on the deprecations or models pages. gpt-5.6-cyber not added: Daybreak Red approval required. sources/REVIEW.md. Reviewed 2026-11-24: restored gpt-4.1-mini, gpt-4o, gpt-4o-2024-08-06, gpt-4o-2024-11-20, gpt-4o-mini, gpt-5, gpt-5-mini, gpt-5-nano, gpt-5-pro, gpt-5.1, gpt-5.3-codex, o3, o3-pro with their last published values (catalog dd9b1f2) after the upstream catalog dropped them; OpenAI still serves them (Deprecated, shutdown dates Dec 11 2026 to Apr 1 2027, https://developers.openai.com/api/docs/deprecations; gpt-4o, gpt-4o-mini, gpt-4.1-mini model pages Status Deprecated with no shutdown date). Input as published, including document (native PDF) where the row had it."
     },
     "anthropic": {
       "source": "Wondermove-Inc/clawpod-agent",
@@ -129,7 +129,7 @@
       "files": [
         "node_modules/@earendil-works/pi-ai/dist/providers/data/anthropic.json"
       ],
-      "notes": "Reviewed 2026-11-21: added claude-sonnet-4-5 and claude-sonnet-4-5-20250929, the Pi 1.5.2 anthropic-messages rows the upstream anthropic block lacks (name, limits, input, reasoning, price as in Pi; approved exception: Pi version and file hash). Limits and price match https://platform.claude.com/docs/en/about-claude/models/overview.md and https://platform.claude.com/docs/en/about-claude/pricing.md. Status: deprecated 2026-09-30, retires 2026-11-30, replacement claude-sonnet-5-5; the retirement includes the dateless claude-sonnet-4-5 (https://platform.claude.com/docs/en/about-claude/model-deprecations.md); disabled by a dated correction. claude-mythos-5-1 not added (limited availability, verified organizations only). sources/REVIEW.md."
+      "notes": "Reviewed 2026-11-21: added claude-sonnet-4-5 and claude-sonnet-4-5-20250929, the Pi 1.5.2 anthropic-messages rows the upstream anthropic block lacks (name, limits, input, reasoning, price as in Pi; approved exception: Pi version and file hash). Limits and price match https://platform.claude.com/docs/en/about-claude/models/overview.md and https://platform.claude.com/docs/en/about-claude/pricing.md. Status: deprecated 2026-09-30, retires 2026-11-30, replacement claude-sonnet-5-5; the retirement includes the dateless claude-sonnet-4-5 (https://platform.claude.com/docs/en/about-claude/model-deprecations.md); disabled by a dated correction. claude-mythos-5-1 not added (limited availability, verified organizations only). sources/REVIEW.md. Reviewed 2026-11-24: restored claude-opus-4-5 and claude-opus-4-5-20251101 with their last published values (catalog 2cbc1c3) after the upstream catalog dropped them; Anthropic still serves them (Deprecated November 23, 2026, retirement January 22, 2027, https://platform.claude.com/docs/en/about-claude/model-deprecations). Input as published, including document (native PDF)."
     },
     "opencode": {
       "source": "Wondermove-Inc/clawpod-agent",
@@ -5509,6 +5509,232 @@
           },
           "status": "disabled",
           "replacedBy": "gpt-5.6-terra"
+        },
+        {
+          "id": "gpt-4.1-mini",
+          "name": "GPT-4.1 mini",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": false,
+          "contextWindow": 1047576,
+          "maxTokens": 32768,
+          "cost": {
+            "input": 0.4,
+            "output": 1.6,
+            "cacheRead": 0.1,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "gpt-4o",
+          "name": "GPT-4o",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": false,
+          "contextWindow": 128000,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 2.5,
+            "output": 10,
+            "cacheRead": 1.25,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "gpt-4o-2024-08-06",
+          "name": "GPT-4o (2024-08-06)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": false,
+          "contextWindow": 128000,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 2.5,
+            "output": 10,
+            "cacheRead": 1.25,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "gpt-4o-2024-11-20",
+          "name": "GPT-4o (2024-11-20)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": false,
+          "contextWindow": 128000,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 2.5,
+            "output": 10,
+            "cacheRead": 1.25,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "gpt-4o-mini",
+          "name": "GPT-4o mini",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": false,
+          "contextWindow": 128000,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.075,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "gpt-5",
+          "name": "GPT-5",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 400000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 1.25,
+            "output": 10,
+            "cacheRead": 0.125,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "gpt-5-mini",
+          "name": "GPT-5 Mini",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 400000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 0.25,
+            "output": 2,
+            "cacheRead": 0.025,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "gpt-5-nano",
+          "name": "GPT-5 Nano",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 400000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 0.05,
+            "output": 0.4,
+            "cacheRead": 0.005,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "gpt-5-pro",
+          "name": "GPT-5 Pro",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 400000,
+          "maxTokens": 272000,
+          "cost": {
+            "input": 15,
+            "output": 120,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "gpt-5.1",
+          "name": "GPT-5.1",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 400000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 1.25,
+            "output": 10,
+            "cacheRead": 0.125,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "gpt-5.3-codex",
+          "name": "GPT-5.3 Codex",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 400000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 1.75,
+            "output": 14,
+            "cacheRead": 0.175,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "o3",
+          "name": "o3",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 200000,
+          "maxTokens": 100000,
+          "cost": {
+            "input": 2,
+            "output": 8,
+            "cacheRead": 0.5,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "o3-pro",
+          "name": "o3-pro",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 200000,
+          "maxTokens": 100000,
+          "cost": {
+            "input": 20,
+            "output": 80,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
         }
       ]
     },
@@ -5552,6 +5778,42 @@
           },
           "status": "deprecated",
           "replacedBy": "claude-sonnet-5-5"
+        },
+        {
+          "id": "claude-opus-4-5",
+          "name": "Claude Opus 4.5 (latest)",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 200000,
+          "maxTokens": 64000,
+          "cost": {
+            "input": 5,
+            "output": 25,
+            "cacheRead": 0.5,
+            "cacheWrite": 6.25
+          }
+        },
+        {
+          "id": "claude-opus-4-5-20251101",
+          "name": "Claude Opus 4.5",
+          "input": [
+            "text",
+            "image",
+            "document"
+          ],
+          "reasoning": true,
+          "contextWindow": 200000,
+          "maxTokens": 64000,
+          "cost": {
+            "input": 5,
+            "output": 25,
+            "cacheRead": 0.5,
+            "cacheWrite": 6.25
+          }
         }
       ]
     },
@@ -10185,6 +10447,19 @@
       },
       "source": "https://api.venice.ai/api/v1/models",
       "note": "Venice reports supportsReasoningEffort false for grok-build-0-1. Keeps the row exactly as before the xAI ladder. Reviewed 2026-11-24 (F1)."
+    },
+    {
+      "provider": "openai",
+      "model": "gpt-5",
+      "levels": [
+        "minimal",
+        "low",
+        "medium",
+        "high"
+      ],
+      "default": "medium",
+      "source": "https://developers.openai.com/api/docs/models/gpt-5",
+      "note": "\"Reasoning.effort supports: minimal, low, medium, and high.\" Default medium as the last published row (catalog dd9b1f2) and the * gpt-5-mini* / gpt-5-nano* rules. Restored manual row, upstream dropped it (Deprecated, shutdown Dec 11, 2026, https://developers.openai.com/api/docs/deprecations). Provider rule so other gateways' gpt-5 rows are untouched. Reviewed 2026-11-24."
     },
     {
       "provider": "*",
@@ -16294,6 +16569,15 @@
       },
       "source": "https://docs.x.ai/docs/release-notes",
       "note": "xAI release notes, \"grok-build-0.1 end of life\": \"grok-build-0.1 reached end of life on November 19, 2026 and is no longer served on the API.\" No replacement named. The row comes from upstream, so it stays published as disabled (MAINTAINING ch.5: an announced end is disabled). Reviewed 2026-11-24."
+    },
+    {
+      "provider": "kilocode",
+      "model": "~deepseek/deepseek-pro-latest",
+      "set": {
+        "maxTokens": 393216
+      },
+      "source": "https://api-docs.deepseek.com/api/create-chat-completion",
+      "note": "DeepSeek V4 family. 393216 is the model maker's cap: DeepSeek max_tokens \"must be between 1 and 384K (393216)\" (pricing page: maximum output 384K for V4 Pro and V4.1 Flash, https://api-docs.deepseek.com/quick_start/pricing). The gateway lists a larger output (or a -latest alias jumps between routes); the maker's limit is used as the safe single-response cap, as for the Vercel DeepSeek vision row. Reviewed 2026-11-24 (G1)."
     }
   ],
   "knownGaps": [
@@ -16416,12 +16700,6 @@
       "model": "baidu/cobuddy",
       "check": "thinking",
       "reason": "novita/baidu/cobuddy: no official thinking documentation found (2026-11-19 review)."
-    },
-    {
-      "provider": "openai",
-      "model": "gpt-5.3-codex-spark",
-      "check": "thinking",
-      "reason": "No official effort documentation: not in OpenAI API docs (model page 404) nor current Codex models doc; ChatGPT/Codex-subscription-only. Current hint off..xhigh comes from OpenClaw only."
     },
     {
       "provider": "openrouter",

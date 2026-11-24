@@ -53,7 +53,8 @@ const supplementalModelSchema = z
     ...modelFields,
     api: supplementalApi.optional(),
     name: nonempty,
-    input: z.array(z.enum(["text", "image"])).min(1),
+    // "document" (native PDF input) is the same input kind upstream rows carry.
+    input: z.array(z.enum(["text", "image", "document"])).min(1),
     reasoning: z.boolean(),
     contextWindow: z.number().int().positive(),
     maxTokens: z.number().int().positive(),
