@@ -1126,3 +1126,26 @@ xAI 릴리스 노트 "grok-build-0.1 end of life": "`grok-build-0.1` reached end
 - 생성 결과(main `2cbc1c3` 게시본 대비, 같은 원본 publish run 45297137290): `xai/grok-build-0.1` 에 `status: "disabled"` 가 붙는 1행뿐. 추가·삭제 0.
 - 게시를 막던 테스트 실패 정리: `2cbc1c3` 게시(상류)가 `mistral/mistral-large-2512`·`mistral-medium-2604`·`mistral-medium-latest` 를 뺐다. 그래서 main 에서 "I3h rules reach exactly their target rows" 의 `get("mistral", "mistral-medium-latest").maxTokens` 단언이 실패했고 게시 워크플로의 `npm test` 단계를 막았다. 그 세 id 만 겨냥하던 죽은 데이터를 지웠다: `overrides` 3개(`mistral-large-2512`·`mistral-medium-2604` `maxTokens` 8192, `mistral-medium-latest` 16384), `*` thinking 규칙 2개(`mistral-medium-2604`, `mistral-medium-latest`), 테스트의 `mistral-medium-latest` 한 줄. 다섯 규칙은 모두 "matches nothing" 목록에 있었다(main 7 → 이 PR 2). 남은 Mistral 행 전부를 도는 `maxTokens < contextWindow` 단언과 나머지 단언은 그대로다. 상류에 그 id 가 다시 생기면 같은 공식 근거로 규칙을 되살린다.
 - 검증: `npm test` 104/104, `npm run audit` open 1 = main 1(`openrouter/~deepseek/deepseek-pro-latest` cacheRead, 상류), Pi 스키마 2267행 실패 0, 생성 diff 는 여전히 `xai/grok-build-0.1` 1행.
+
+# 2026-11-24 상류가 뺀 행 중 아직 서비스되는 행 복원
+
+상류 게시 `c196ec7`…`e774e35` 이 OpenAI 14행, Anthropic 2행, Mistral 4행, Venice 1행, OpenRouter 1행을 뺐다. Agent 는 빠진 id 를 Pi 내장 행으로 돌린다(예: `openai/gpt-5.3-codex` 가 저장 `off`·단계 없는 호출에 공식 밖 `none` 을 보냄). 메이저 프로바이더의 아직 서비스되는 행은 수동 행으로 되살려 카탈로그가 다시 SOT 가 되게 했다. 값은 빠지기 직전 게시본 그대로다(OpenAI `dd9b1f2`, Anthropic `2cbc1c3`).
+
+| 행 | 판정 | 근거 |
+| --- | --- | --- |
+| `openai/gpt-4o`, `gpt-4o-mini`, `gpt-4.1-mini` | 서비스 중 → 복원 | 모델 페이지 "Status: Deprecated", 종료일 없음, 입력 "text, image" (https://developers.openai.com/api/docs/models/gpt-4o, `/gpt-4o-mini`, `/gpt-4.1-mini`). 4.1 mini 날짜 스냅샷은 종료 2027-01-14 (https://developers.openai.com/api/docs/deprecations) |
+| `openai/gpt-4o-2024-08-06`, `gpt-4o-2024-11-20` | 서비스 중 → 복원 | 폐기 표 "GPT-4o (`gpt-4o-2024-08-06`, `gpt-4o-2024-11-20`)" Deprecated, 종료 Jan 14, 2027 |
+| `openai/gpt-5`, `gpt-5-mini`, `gpt-5-nano`, `gpt-5-pro`, `o3`, `o3-pro` | 서비스 중 → 복원 | 폐기 표 Deprecated, 종료 Dec 11, 2026 |
+| `openai/gpt-5.1`, `gpt-5.3-codex` | 서비스 중 → 복원 | 폐기 표 Deprecated, 종료 Apr 1, 2027 |
+| `openai/gpt-5.3-codex-spark` | API 에 없음 → 그대로 뺌 | 모델 페이지 404, 폐기 표에 없음. ChatGPT/Codex 구독 전용(기존 `knownGaps` 사유). 그 `knownGaps` 항목은 이제 아무 행에도 걸리지 않아 지웠다 |
+| `anthropic/claude-opus-4-5`, `claude-opus-4-5-20251101` | 서비스 중 → 복원 | "claude-opus-4-5-20251101 \| Deprecated \| November 23, 2026 \| January 22, 2027", "This retirement includes `claude-opus-4-5`" (https://platform.claude.com/docs/en/about-claude/model-deprecations). 모델 표 200K / 64K / $5·$25 |
+| `mistral/mistral-large-2512`, `mistral-medium-2604`(= Medium 3.5) | 폐기 예정(종료 2027-04-30) → 그대로 뺌 | "Deprecated & retired models" 표 `mistral-large-2512`·`mistral-medium-3-5` 10/31/2026 → 4/30/2027 (https://docs.mistral.ai/getting-started/models/models_overview/). 메이저 아님(사용자 규칙), PR #45 에서 죽은 규칙을 지운 결정과 같다 |
+| `mistral/mistral-medium-latest`, `mistral-large-4-0-8` | 공식 문서에 없음 → 그대로 뺌 | 같은 페이지에 없음 |
+| `venice/grok-build-0-1` | 종료 → 그대로 뺌 | xAI 릴리스 노트 "grok-build-0.1 reached end of life on November 19, 2026"(https://docs.x.ai/docs/release-notes), Venice 목록에 없음 |
+| `openrouter/xiaomi/mimo-v2.5-pro` | 목록에 없음 → 그대로 뺌 | OpenRouter 공개 목록(https://openrouter.ai/api/v1/models, 2026-11-24)에 `mimo-v2.5-pro` 없음(`v2.5`·`v2.6-*` 만) |
+
+- 복원 방법: `providers.openai`·`providers.anthropic` 수동 행(이름·reasoning·창·출력·가격은 마지막 게시 행 그대로). 단계는 기존 `*` 규칙이 같은 값을 준다(`gpt-5-mini*`, `gpt-5-nano*`, `gpt-5-pro*`, `gpt-5-1`, `gpt-5-3-codex`, `o3*`, `claude-opus-4-5*`). `gpt-5` 는 상류 행의 단계만 있었고 `*` 규칙이 없어 `openai`/`gpt-5` 정확한 ID 규칙(minimal~high, 기본 medium, 모델 페이지 "Reasoning.effort supports: minimal, low, medium, and high")을 첫 `*` 규칙 앞에 넣었다. 상류가 같은 id 를 다시 내면 상류 행이 이긴다.
+- 마지막 게시 행과 다른 칸: **입력 `document`**. `gpt-4.1-mini`·`gpt-4o`·`gpt-4o-mini`·`gpt-5.3-codex`·`o3` 와 Anthropic 2행은 게시 행이 `text, image, document` 였지만 수동 행 스키마가 `text`·`image` 만 받는다(MAINTAINING 5장 입력 형식). OpenAI 3개 모델 페이지는 입력을 "text, image" 로 적는다. Agent 의 지금(Pi 대체 행) OpenAI 행도 `text, image` 다.
+- `kilocode/~deepseek/deepseek-pro-latest`: 상류가 943,718 로 다시 올렸다. G1 DeepSeek 상한 규칙(393,216)에 이 행을 더했다(같은 note·source).
+- 생성 결과(main `e774e35` 게시본 대비, 같은 원본 publish run 45303259744): 추가 15행 + Kilo 1행 바뀜, 그 밖 변화 0. 복원 15행 중 8행은 마지막 게시 행과 바이트까지 같고, 7행은 입력 `document` 만 다르다.
+- 검증: `npm test` 105/105, `npm run audit` open 0 = main, Pi 스키마 2279행 실패 0, "matches nothing" main 3 → 2(`codex-spark` knownGaps 삭제). 남은 둘: `kilocode cohere/north-mini-code:free`, `venice grok-build-0-1` thinking 규칙(상류가 행을 뺌, 그 규칙을 고정하는 fixture 테스트가 있어 이번에 건드리지 않음).

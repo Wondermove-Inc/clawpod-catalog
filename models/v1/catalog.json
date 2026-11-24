@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795482917679,
+  "generatedAt": 1795487647228,
   "minVersion": "2026.4.11",
   "sourceCommit": "ff9c567e0c30099900c0b9f134abdda488593819",
   "providers": {
@@ -876,6 +876,60 @@
           },
           "status": "deprecated",
           "replacedBy": "claude-sonnet-5-5",
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "minimal",
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "off"
+          }
+        },
+        {
+          "id": "claude-opus-4-5",
+          "name": "Claude Opus 4.5 (latest)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 200000,
+          "maxTokens": 64000,
+          "cost": {
+            "input": 5,
+            "output": 25,
+            "cacheRead": 0.5,
+            "cacheWrite": 6.25
+          },
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "minimal",
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "off"
+          }
+        },
+        {
+          "id": "claude-opus-4-5-20251101",
+          "name": "Claude Opus 4.5",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 200000,
+          "maxTokens": 64000,
+          "cost": {
+            "input": 5,
+            "output": 25,
+            "cacheRead": 0.5,
+            "cacheWrite": 6.25
+          },
           "compat": {
             "thinkingLevels": [
               "off",
@@ -7220,7 +7274,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "maxTokens": 393216,
           "cost": {
             "input": 0.111,
             "output": 4.44,
@@ -22354,6 +22408,294 @@
           },
           "status": "disabled",
           "replacedBy": "gpt-5.6-terra",
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "gpt-4.1-mini",
+          "name": "GPT-4.1 mini",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": false,
+          "contextWindow": 1047576,
+          "maxTokens": 32768,
+          "cost": {
+            "input": 0.4,
+            "output": 1.6,
+            "cacheRead": 0.1,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "gpt-4o",
+          "name": "GPT-4o",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": false,
+          "contextWindow": 128000,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 2.5,
+            "output": 10,
+            "cacheRead": 1.25,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "gpt-4o-2024-08-06",
+          "name": "GPT-4o (2024-08-06)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": false,
+          "contextWindow": 128000,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 2.5,
+            "output": 10,
+            "cacheRead": 1.25,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "gpt-4o-2024-11-20",
+          "name": "GPT-4o (2024-11-20)",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": false,
+          "contextWindow": 128000,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 2.5,
+            "output": 10,
+            "cacheRead": 1.25,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "gpt-4o-mini",
+          "name": "GPT-4o mini",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": false,
+          "contextWindow": 128000,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.075,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "gpt-5",
+          "name": "GPT-5",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 400000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 1.25,
+            "output": 10,
+            "cacheRead": 0.125,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "minimal",
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "gpt-5-mini",
+          "name": "GPT-5 Mini",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 400000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 0.25,
+            "output": 2,
+            "cacheRead": 0.025,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "minimal",
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "gpt-5-nano",
+          "name": "GPT-5 Nano",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 400000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 0.05,
+            "output": 0.4,
+            "cacheRead": 0.005,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "minimal",
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "gpt-5-pro",
+          "name": "GPT-5 Pro",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 400000,
+          "maxTokens": 272000,
+          "cost": {
+            "input": 15,
+            "output": 120,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "high"
+            ],
+            "defaultThinkingLevel": "high"
+          }
+        },
+        {
+          "id": "gpt-5.1",
+          "name": "GPT-5.1",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 400000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 1.25,
+            "output": 10,
+            "cacheRead": 0.125,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "off"
+          }
+        },
+        {
+          "id": "gpt-5.3-codex",
+          "name": "GPT-5.3 Codex",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 400000,
+          "maxTokens": 128000,
+          "cost": {
+            "input": 1.75,
+            "output": 14,
+            "cacheRead": 0.175,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high",
+              "xhigh"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "o3",
+          "name": "o3",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 200000,
+          "maxTokens": 100000,
+          "cost": {
+            "input": 2,
+            "output": 8,
+            "cacheRead": 0.5,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "medium"
+          }
+        },
+        {
+          "id": "o3-pro",
+          "name": "o3-pro",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 200000,
+          "maxTokens": 100000,
+          "cost": {
+            "input": 20,
+            "output": 80,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          },
           "compat": {
             "thinkingLevels": [
               "low",
@@ -59264,5 +59606,5 @@
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795482895725,
-  "supplementDigest": "9f8f2b7d0f5265fd73ddd47ea6df178dbc8d690e9940c87d9377ce9e3f2da735"
+  "supplementDigest": "4c21acaa41832f47969234092d916dd1fb636498a7d6f36c2b4f65029c924c0b"
 }
