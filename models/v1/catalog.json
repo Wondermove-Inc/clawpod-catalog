@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795657257485,
+  "generatedAt": 1795717617176,
   "minVersion": "2026.4.11",
-  "sourceCommit": "8df77ebc6c40fa06c2e72a2d5689bc3d9a872f86",
+  "sourceCommit": "2fda93cf03a882cd080e7984392d50b95c4737aa",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -2685,25 +2685,6 @@
           }
         },
         {
-          "id": "ByteDance/Seed-1.8",
-          "name": "Seed 1.8",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 256000,
-          "maxTokens": 64000,
-          "compat": {
-            "thinkingLevels": [
-              "off",
-              "low",
-              "medium",
-              "high"
-            ]
-          }
-        },
-        {
           "id": "ByteDance/Seed-2.0-code",
           "name": "Seed 2.0 Code",
           "input": [
@@ -2736,31 +2717,6 @@
                 ]
               }
             ]
-          },
-          "compat": {
-            "thinkingLevels": [
-              "off",
-              "low",
-              "medium",
-              "high"
-            ],
-            "defaultThinkingLevel": "medium"
-          }
-        },
-        {
-          "id": "ByteDance/Seed-2.0-mini",
-          "name": "Seed 2.0 Mini",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": true,
-          "contextWindow": 256000,
-          "maxTokens": 131072,
-          "cost": {
-            "input": 0.1,
-            "output": 0.4,
-            "cacheRead": 0.02
           },
           "compat": {
             "thinkingLevels": [
@@ -3243,30 +3199,6 @@
             "thinkingLevelLabels": {
               "low": "on"
             }
-          }
-        },
-        {
-          "id": "ibm-granite/granite-4.2-8b",
-          "name": "Granite 4.2 8B",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 131072,
-          "maxTokens": 117964,
-          "cost": {
-            "input": 0.060000000000000005,
-            "output": 0.25,
-            "cacheRead": 0.015000000000000001,
-            "cacheWrite": 0
-          },
-          "compat": {
-            "thinkingLevels": [
-              "off",
-              "low",
-              "high"
-            ],
-            "defaultThinkingLevel": "high"
           }
         },
         {
@@ -4107,6 +4039,22 @@
           }
         },
         {
+          "id": "Sao10K/L3.1-70B-Euryale-v2.2",
+          "name": "Llama 3.1 Euryale 70B v2.2",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 131072,
+          "maxTokens": 16384,
+          "cost": {
+            "input": 0.8500000000000001,
+            "output": 0.8500000000000001,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
           "id": "tencent/Hy4",
           "name": "Hy4",
           "input": [
@@ -4766,6 +4714,40 @@
           }
         },
         {
+          "id": "accounts/fireworks/models/inkling-2-mini",
+          "name": "Inkling 2 Mini",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 65536,
+          "cost": {
+            "input": 0.15,
+            "output": 0.5,
+            "cacheRead": 0.015,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "accounts/fireworks/models/inkling-2-small",
+          "name": "Inkling 2 Small",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0.3,
+            "output": 1,
+            "cacheRead": 0.03,
+            "cacheWrite": 0
+          }
+        },
+        {
           "id": "accounts/fireworks/models/kimi-k3",
           "name": "Kimi K3",
           "input": [
@@ -5182,6 +5164,55 @@
           }
         },
         {
+          "id": "accounts/fireworks/routers/glm-5p3-flash-flex",
+          "name": "GLM 5.3 Flash Flex",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048573,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0.075,
+            "output": 0.25,
+            "cacheRead": 0.015,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "high",
+              "max"
+            ],
+            "defaultThinkingLevel": "max"
+          }
+        },
+        {
+          "id": "accounts/fireworks/routers/glm-5p3-flex",
+          "name": "GLM 5.3 Flex",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048573,
+          "maxTokens": 262144,
+          "cost": {
+            "input": 0.7,
+            "output": 2.2,
+            "cacheRead": 0.13,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "high",
+              "max"
+            ],
+            "defaultThinkingLevel": "max"
+          }
+        },
+        {
           "id": "accounts/fireworks/routers/glm-5p3-spot",
           "name": "GLM 5.3 Spot",
           "input": [
@@ -5334,6 +5365,23 @@
             "input": 4.5,
             "output": 22.5,
             "cacheRead": 0.45,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "accounts/fireworks/routers/kimi-k3p1-pro-ultrafast",
+          "name": "Kimi K3.1 Pro Ultra-fast",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 1048576,
+          "cost": {
+            "input": 5,
+            "output": 25,
+            "cacheRead": 0.5,
             "cacheWrite": 0
           }
         },
@@ -7790,9 +7838,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.06,
-            "output": 0.18,
-            "cacheRead": 0.015,
+            "input": 0.047,
+            "output": 0.3,
+            "cacheRead": 0.035,
             "cacheWrite": 0
           },
           "compat": {
@@ -9296,9 +9344,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.06,
-            "output": 0.18,
-            "cacheRead": 0.015,
+            "input": 0.047,
+            "output": 0.3,
+            "cacheRead": 0.035,
             "cacheWrite": 0
           },
           "compat": {
@@ -9348,7 +9396,7 @@
           "maxTokens": 393216,
           "cost": {
             "input": 0.888188,
-            "output": 1.5463,
+            "output": 1.5082,
             "cacheRead": 0.2,
             "cacheWrite": 0
           },
@@ -10092,7 +10140,7 @@
           ],
           "reasoning": false,
           "contextWindow": 131072,
-          "maxTokens": 16384,
+          "maxTokens": 117964,
           "cost": {
             "input": 0.064,
             "output": 0.128,
@@ -10111,9 +10159,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.05,
-            "output": 0.18,
-            "cacheRead": 0.025,
+            "input": 0.047,
+            "output": 0.168,
+            "cacheRead": 0.023,
             "cacheWrite": 0
           },
           "compat": {
@@ -10186,31 +10234,6 @@
               "high"
             ],
             "defaultThinkingLevel": "high"
-          }
-        },
-        {
-          "id": "inception/mercury-3",
-          "name": "Mercury 3",
-          "input": [
-            "text"
-          ],
-          "reasoning": true,
-          "contextWindow": 1000000,
-          "maxTokens": 131072,
-          "cost": {
-            "input": 0.1,
-            "output": 0.35,
-            "cacheRead": 0.01,
-            "cacheWrite": 0
-          },
-          "compat": {
-            "thinkingLevels": [
-              "minimal",
-              "low",
-              "medium",
-              "high"
-            ],
-            "defaultThinkingLevel": "low"
           }
         },
         {
@@ -15335,7 +15358,7 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 131072,
+          "maxTokens": 235929,
           "cost": {
             "input": 0.035,
             "output": 1.5,
@@ -16443,7 +16466,7 @@
         },
         {
           "id": "xiaomi/mimo-v2.6-flash-mopd",
-          "name": "Xiaomi: MiMo-V2.6-Flash-MOPD",
+          "name": "MiMo-V2.6-Flash-MOPD",
           "input": [
             "text",
             "image"
@@ -16914,8 +16937,8 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 943718,
+          "contextWindow": 1048575,
+          "maxTokens": 943717,
           "cost": {
             "input": 0.15,
             "output": 0.5,
@@ -18470,6 +18493,8 @@
             "cacheRead": 0.35,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "low"
@@ -18495,6 +18520,8 @@
             "cacheRead": 0,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "low"
@@ -18649,6 +18676,8 @@
             "cacheRead": 0,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "off",
@@ -18676,6 +18705,8 @@
             "cacheRead": 0,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "off",
@@ -18832,7 +18863,9 @@
             "output": 0.4,
             "cacheRead": 0,
             "cacheWrite": 0
-          }
+          },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory."
         },
         {
           "id": "mindai/macaron-v1-tall",
@@ -19105,6 +19138,8 @@
             "cacheRead": 0.15,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "low"
@@ -19185,6 +19220,8 @@
             "cacheRead": 0.19,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "low"
@@ -19286,6 +19323,8 @@
             "cacheRead": 0,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "off",
@@ -19471,6 +19510,8 @@
             "cacheRead": 0,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "low",
@@ -19496,6 +19537,8 @@
             "cacheRead": 0,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "low"
@@ -19597,6 +19640,8 @@
             "cacheRead": 0,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "off",
@@ -19651,6 +19696,8 @@
             "cacheRead": 0,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "off",
@@ -19678,6 +19725,8 @@
             "cacheRead": 0,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "off",
@@ -19705,6 +19754,8 @@
             "cacheRead": 0,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "off",
@@ -19732,6 +19783,8 @@
             "cacheRead": 0,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "off",
@@ -19753,11 +19806,13 @@
           "contextWindow": 1000000,
           "maxTokens": 65536,
           "cost": {
-            "input": 1.25,
-            "output": 3.75,
-            "cacheRead": 0.25,
-            "cacheWrite": 0
+            "input": 1.65,
+            "output": 4.951,
+            "cacheRead": 0.33,
+            "cacheWrite": 2.063
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "off",
@@ -19880,7 +19935,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1000000,
-          "maxTokens": 262000,
+          "maxTokens": 262144,
           "cost": {
             "input": 1.413,
             "output": 4.24,
@@ -20034,6 +20089,8 @@
             "cacheRead": 0.042,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "off",
@@ -20195,6 +20252,8 @@
             "cacheRead": 0.11,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "off",
@@ -20248,6 +20307,8 @@
             "cacheRead": 0.055,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "off",
@@ -20300,6 +20361,8 @@
             "cacheRead": 0.01,
             "cacheWrite": 0
           },
+          "status": "deprecated",
+          "statusReason": "novita no longer lists this model in its public model inventory.",
           "compat": {
             "thinkingLevels": [
               "off",
@@ -28299,6 +28362,57 @@
               "max"
             ],
             "defaultThinkingLevel": "max"
+          }
+        },
+        {
+          "id": "kimi-k3.1-pro-highspeed",
+          "name": "Kimi K3.1 Pro Highspeed",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 1048576,
+          "cost": {
+            "input": 4,
+            "output": 20,
+            "cacheRead": 0.2,
+            "cacheWrite": 4
+          },
+          "compat": {
+            "thinkingLevels": [
+              "low",
+              "high",
+              "max"
+            ],
+            "defaultThinkingLevel": "max"
+          }
+        },
+        {
+          "id": "mimo-v2.5-pro",
+          "name": "MiMo-V2.5-Pro",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 1048576,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0.435,
+            "output": 0.87,
+            "cacheRead": 0.0036,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low"
+            ],
+            "defaultThinkingLevel": "low",
+            "thinkingLevelLabels": {
+              "low": "on"
+            }
           }
         },
         {
@@ -43018,9 +43132,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.0999,
-            "output": 5,
-            "cacheRead": 0.0999
+            "input": 0.111,
+            "output": 4.44,
+            "cacheRead": 0.097
           },
           "compat": {
             "thinkingLevels": [
@@ -43042,9 +43156,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.047,
-            "output": 0.3,
-            "cacheRead": 0.035
+            "input": 0.04532,
+            "output": 0.13596,
+            "cacheRead": 0.001442
           },
           "compat": {
             "thinkingLevels": [
@@ -44893,9 +45007,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.06,
-            "output": 0.18,
-            "cacheRead": 0.015
+            "input": 0.0456,
+            "output": 0.3,
+            "cacheRead": 0.035
           },
           "compat": {
             "thinkingLevels": [
@@ -44966,9 +45080,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.888188,
-            "output": 1.5082,
-            "cacheRead": 0.2
+            "input": 0.75726,
+            "output": 1.5004,
+            "cacheRead": 0.21
           },
           "compat": {
             "thinkingLevels": [
@@ -45014,9 +45128,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.14,
-            "output": 0.42,
-            "cacheRead": 0.0042
+            "input": 0.0507,
+            "output": 0.2028,
+            "cacheRead": 0.001014
           },
           "compat": {
             "thinkingLevels": [
@@ -45039,9 +45153,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.3,
-            "output": 1.2,
-            "cacheRead": 0.006
+            "input": 0.15,
+            "output": 0.6,
+            "cacheRead": 0.003
           },
           "compat": {
             "thinkingLevels": [
@@ -46161,10 +46275,11 @@
           ],
           "reasoning": false,
           "contextWindow": 131072,
-          "maxTokens": 16384,
+          "maxTokens": 117964,
           "cost": {
             "input": 0.08,
-            "output": 0.16
+            "output": 0.45,
+            "cacheRead": 0.04
           }
         },
         {
@@ -46194,9 +46309,9 @@
           "contextWindow": 262144,
           "maxTokens": 235929,
           "cost": {
-            "input": 0.0765,
-            "output": 0.255,
-            "cacheRead": 0.0425
+            "input": 0.09,
+            "output": 0.3,
+            "cacheRead": 0.05
           },
           "compat": {
             "thinkingLevels": [
@@ -46466,6 +46581,32 @@
           "cost": {
             "input": 0,
             "output": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low"
+            ],
+            "defaultThinkingLevel": "low",
+            "thinkingLevelLabels": {
+              "low": "on"
+            }
+          }
+        },
+        {
+          "id": "inclusionai/lingsante-3.1-air-vl",
+          "name": "inclusionAI: LingSante 3.1 Air VL",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 131072,
+          "maxTokens": 32768,
+          "cost": {
+            "input": 0.06,
+            "output": 0.18,
+            "cacheRead": 0.012
           },
           "compat": {
             "thinkingLevels": [
@@ -47103,9 +47244,9 @@
           "contextWindow": 1048576,
           "maxTokens": 524288,
           "cost": {
-            "input": 0.15,
-            "output": 0.6,
-            "cacheRead": 0.015
+            "input": 0.075,
+            "output": 0.3,
+            "cacheRead": 0.0075
           },
           "compat": {
             "thinkingLevels": [
@@ -47569,6 +47710,34 @@
             "thinkingLevelLabels": {
               "low": "on"
             }
+          }
+        },
+        {
+          "id": "moonshotai/kimi-k2",
+          "name": "MoonshotAI: Kimi K2 0711",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 131072,
+          "maxTokens": 98304,
+          "cost": {
+            "input": 0.57,
+            "output": 2.3
+          }
+        },
+        {
+          "id": "moonshotai/kimi-k2-0905",
+          "name": "MoonshotAI: Kimi K2 0905",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 262144,
+          "maxTokens": 98304,
+          "cost": {
+            "input": 0.6,
+            "output": 2.5
           }
         },
         {
@@ -50783,7 +50952,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "maxTokens": 943718,
           "cost": {
             "input": 0.07,
             "output": 0.5,
@@ -50811,7 +50980,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "maxTokens": 943718,
           "cost": {
             "input": 0,
             "output": 0
@@ -51779,11 +51948,11 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 131072,
+          "maxTokens": 235929,
           "cost": {
-            "input": 0.035,
-            "output": 1.5,
-            "cacheRead": 0.0175
+            "input": 0.06,
+            "output": 1.96,
+            "cacheRead": 0.059
           },
           "compat": {
             "thinkingLevels": [
@@ -52388,9 +52557,9 @@
           "contextWindow": 262144,
           "maxTokens": 128000,
           "cost": {
-            "input": 0.132,
-            "output": 0.528,
-            "cacheRead": 0.033
+            "input": 0.0825,
+            "output": 0.33,
+            "cacheRead": 0.020625
           },
           "compat": {
             "thinkingLevels": [
@@ -52457,9 +52626,9 @@
           "contextWindow": 1048576,
           "maxTokens": 64000,
           "cost": {
-            "input": 0.834,
-            "output": 2.501,
-            "cacheRead": 0.042
+            "input": 0.7506,
+            "output": 2.2509,
+            "cacheRead": 0.0378
           },
           "compat": {
             "thinkingLevels": [
@@ -53475,12 +53644,12 @@
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
+          "contextWindow": 1048575,
           "maxTokens": 131072,
           "cost": {
-            "input": 0.12,
-            "output": 0.38,
-            "cacheRead": 0.02
+            "input": 0.15,
+            "output": 0.5,
+            "cacheRead": 0.03
           },
           "compat": {
             "thinkingLevels": [
@@ -60973,6 +61142,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1795657227072,
+  "sourceGeneratedAt": 1795717597293,
   "supplementDigest": "517ac220289b5f703ef76e5f17207b8d99030ece3f09809a003b834eed7e841f"
 }
