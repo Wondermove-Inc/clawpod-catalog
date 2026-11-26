@@ -236,6 +236,17 @@
         "node_modules/@earendil-works/pi-ai/dist/providers/data/vercel-ai-gateway.json"
       ],
       "notes": "Retired row only. Reviewed 2026-11-24: added spacexai/grok-build-0.1 as disabled. xAI release notes, \"grok-build-0.1 end of life\": \"grok-build-0.1 reached end of life on November 19, 2026 and is no longer served on the API.\" (https://docs.x.ai/docs/release-notes); the Vercel AI Gateway model API no longer lists it. Values are the Pi row the ClawPoD Agent uses today (256000 / 256000, $1/$2, cacheRead 0.2); its price tier above 200K input tokens cannot be written in a manual row. If the upstream list names this id again, the upstream row wins the merge and drops this status: move it to overrides set.status."
+    },
+    "upstage": {
+      "source": "Upstage official docs",
+      "revision": "2026-11-26",
+      "files": [
+        "https://console.upstage.ai/docs/models/solar-pro-4",
+        "https://console.upstage.ai/docs/models/solar-mini-4",
+        "https://www.upstage.ai/pricing",
+        "https://console.upstage.ai/api/chat"
+      ],
+      "notes": "New provider (no upstream rows), Chat Completions at https://api.upstage.ai/v1 (API reference; the base URL is not stored in the catalog). Reviewed 2026-11-26: added solar-pro4 and solar-mini4 (ids the API reference lists, also as solar-pro-4 / solar-mini-4): 512K context (524288), 128K max output (131072), text input (the model pages list languages only, no image input), reasoning mode available; effort levels come from the existing * solar-pro4* / solar-mini4* rules (off..max, default off; the API takes reasoning_effort none..max). Cost is the list price per 1M tokens: Solar Pro 4 $0.30 input / $1.20 output / $0.06 cached, Solar Mini 4 $0.10 / $0.40 / $0.01 (pricing page; VAT excluded). The model pages also show a promotional price (Solar Pro 4 $0.15 / $0.60 / $0.03, Solar Mini 4 $0.05 / $0.20 / $0.005); list price kept by user decision, recheck when the promotion ends."
     }
   },
   "providers": {
@@ -7998,6 +8009,43 @@
             "cacheWrite": 0
           },
           "status": "disabled"
+        }
+      ]
+    },
+    "upstage": {
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "solar-pro4",
+          "name": "Solar Pro 4",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 524288,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0.3,
+            "output": 1.2,
+            "cacheRead": 0.06,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "solar-mini4",
+          "name": "Solar Mini 4",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 524288,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0.1,
+            "output": 0.4,
+            "cacheRead": 0.01,
+            "cacheWrite": 0
+          }
         }
       ]
     }

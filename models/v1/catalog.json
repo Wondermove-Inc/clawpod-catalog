@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795631137561,
+  "generatedAt": 1795656132333,
   "minVersion": "2026.4.11",
   "sourceCommit": "7219415bb902aec02dfa03b376a141c40ffafc80",
   "providers": {
@@ -60964,9 +60964,68 @@
           }
         }
       ]
+    },
+    "upstage": {
+      "api": "openai-completions",
+      "models": [
+        {
+          "id": "solar-pro4",
+          "name": "Solar Pro 4",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 524288,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0.3,
+            "output": 1.2,
+            "cacheRead": 0.06,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "off"
+          }
+        },
+        {
+          "id": "solar-mini4",
+          "name": "Solar Mini 4",
+          "input": [
+            "text"
+          ],
+          "reasoning": true,
+          "contextWindow": 524288,
+          "maxTokens": 131072,
+          "cost": {
+            "input": 0.1,
+            "output": 0.4,
+            "cacheRead": 0.01,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low",
+              "medium",
+              "high",
+              "xhigh",
+              "max"
+            ],
+            "defaultThinkingLevel": "off"
+          }
+        }
+      ]
     }
   },
   "sourceMinVersion": "2026.7.0",
   "sourceGeneratedAt": 1795631119125,
-  "supplementDigest": "86ae7facdaa2415a31e3b5aa14404e62d2ce51455c9198561f76a717e8c9b8da"
+  "supplementDigest": "517ac220289b5f703ef76e5f17207b8d99030ece3f09809a003b834eed7e841f"
 }
