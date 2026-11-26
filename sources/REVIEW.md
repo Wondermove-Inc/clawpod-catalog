@@ -1194,3 +1194,7 @@ Agent 가 이 두 중계 id 를 카탈로그 밖 값(xai 행·Pi 행)으로 계�
 - Vercel Pi 행의 200K 초과 구간 요금(`tiers`)과 `allowEmptySignature` 는 수동 행 스키마로 적을 수 없다.
 - 상류가 같은 id 를 다시 나열하면 상류 행이 이겨 수동 행과 상태가 사라진다(`scripts/catalog.mjs` 병합). 그때는 `overrides` 의 `set.status` 로 옮긴다(MAINTAINING 9장).
 - 생성 결과(main `3ae68c8` 대비, publish run 45344044655): `opencode/grok-build-0.1` `disabled` + 위 2행 추가 = 3행.
+
+# 2026-11-26 GPT-6 healthcare 변형 4행 (테스트 기대 목록)
+
+상류가 `openai/gpt-6-astra-healthcare`·`gpt-6.1-sol-healthcare`·`gpt-6.2-astra-healthcare`·`gpt-6.2-sol-healthcare` 를 넣었다. 이 4행은 PR #40 의 GPT-6 provider 규칙(`gpt-6-astra*` 등 접두사)에 걸려 같은 단계와 `map {off: "low"}` 로 게시된다. 데이터는 바꾸지 않고(오늘 게시값 그대로), 규칙 대상 행을 고정하는 테스트 "I3h rules reach exactly their target rows" 의 기대 목록에 4행을 더했다(사용자 결정).
