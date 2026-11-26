@@ -515,6 +515,7 @@ test("committed supplemental data covers the requested providers and preserves p
       "nvidia",
       "mistral",
       "vercel-ai-gateway",
+      "upstage",
     ].sort(),
   );
   const codex = s.providers["openai-codex"].models.find((m) => m.id === "gpt-6-astra");
@@ -2145,6 +2146,28 @@ test("Grok Build relay rows on OpenRouter and Vercel are published as disabled w
       [next.providers[provider].api, row.name, row.input, row.reasoning, row.contextWindow, row.maxTokens, row.cost, row.status, row.compat, row.thinkingLevelMap],
       [api, "Grok Build 0.1", ["text", "image"], true, contextWindow, maxTokens, cost, "disabled", ladder, undefined],
       `${provider}/${id}`,
+    );
+  }
+});
+
+test("Upstage Solar Pro 4 and Solar Mini 4 publish the official rows at list price", () => {
+  // https://console.upstage.ai/docs/models/solar-pro-4, /solar-mini-4 (512K context, 128K output,
+  // text), https://www.upstage.ai/pricing list price, https://console.upstage.ai/api/chat (ids).
+  const supplement = read(path.join(root, "sources/clawpod-providers.json"));
+  const next = buildCatalog({ ...fixture(), supplement });
+  assert.equal(next.providers.upstage?.api, "openai-completions");
+  const ladder = { thinkingLevels: ["off", "low", "medium", "high", "xhigh", "max"], defaultThinkingLevel: "off" };
+  const expected = {
+    "solar-pro4": ["Solar Pro 4", { input: 0.3, output: 1.2, cacheRead: 0.06, cacheWrite: 0 }],
+    "solar-mini4": ["Solar Mini 4", { input: 0.1, output: 0.4, cacheRead: 0.01, cacheWrite: 0 }],
+  };
+  assert.deepEqual(next.providers.upstage.models.map((m) => m.id).sort(), Object.keys(expected).sort());
+  for (const [id, [name, cost]] of Object.entries(expected)) {
+    const row = next.providers.upstage.models.find((m) => m.id === id);
+    assert.deepEqual(
+      [row.name, row.input, row.reasoning, row.contextWindow, row.maxTokens, row.cost, row.status, row.compat, row.thinkingLevelMap],
+      [name, ["text"], true, 524_288, 131_072, cost, undefined, ladder, undefined],
+      id,
     );
   }
 });

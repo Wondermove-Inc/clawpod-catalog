@@ -1198,3 +1198,23 @@ Agent 가 이 두 중계 id 를 카탈로그 밖 값(xai 행·Pi 행)으로 계�
 # 2026-11-26 GPT-6 healthcare 변형 4행 (테스트 기대 목록)
 
 상류가 `openai/gpt-6-astra-healthcare`·`gpt-6.1-sol-healthcare`·`gpt-6.2-astra-healthcare`·`gpt-6.2-sol-healthcare` 를 넣었다. 이 4행은 PR #40 의 GPT-6 provider 규칙(`gpt-6-astra*` 등 접두사)에 걸려 같은 단계와 `map {off: "low"}` 로 게시된다. 데이터는 바꾸지 않고(오늘 게시값 그대로), 규칙 대상 행을 고정하는 테스트 "I3h rules reach exactly their target rows" 의 기대 목록에 4행을 더했다(사용자 결정).
+
+# 2026-11-26 Upstage Solar 공식 행 (`upstage` provider 신설)
+
+ClawPoD Agent TimelyGPT 설계(3.5절)의 카탈로그 몫이다. Upstage 직접 경로의 Solar 두 모델을 수동 행으로 넣는다. 상류(OpenClaw)에는 `upstage` provider 가 없고, 중계(`kilocode`·`openrouter`)의 `upstage/solar-*` 행은 그대로다.
+
+| 칸 | `solar-pro4` | `solar-mini4` | 근거 |
+| --- | --- | --- | --- |
+| provider `api` | `openai-completions` | 같음 | API 참조: `base_url="https://api.upstage.ai/v1"`, `POST /chat/completions` (https://console.upstage.ai/api/chat). base URL 은 catalog 에 넣지 않는다(전송 칸) |
+| id | `solar-pro4` | `solar-mini4` | API 참조의 모델 목록에 `solar-pro4`·`solar-mini4`(그리고 `solar-pro-4`·`solar-mini-4`, 날짜 id) |
+| name | Solar Pro 4 | Solar Mini 4 | https://console.upstage.ai/docs/models |
+| input | text | text | 모델 페이지가 입력·출력 언어(영·한·일)만 적고 이미지 입력은 없다 |
+| reasoning | true | true | 모델 페이지 "Reasoning mode available", Reasoning "Supported" |
+| contextWindow / maxTokens | 524288 / 131072 | 524288 / 131072 | "512K context length", "Max output tokens 128K" (https://console.upstage.ai/docs/models/solar-pro-4, `/solar-mini-4`) |
+| cost (USD / 1M) | 0.30 / 1.20 / cacheRead 0.06 / cacheWrite 0 | 0.10 / 0.40 / 0.01 / 0 | https://www.upstage.ai/pricing 표시 가격(정가, VAT 별도). 사용자 결정 |
+| 단계 | off·low·medium·high·xhigh·max, 기본 off | 같음 | 기존 `*` `solar-pro4*`·`solar-mini4*` 규칙. API 는 `reasoning_effort` `none`~`max` 를 받는다 |
+
+## 판단과 한계
+
+- 가격: 모델 페이지에 "A promotional discount is currently applied" 와 프로모션가(Pro 4 $0.15 / $0.60 / $0.03, Mini 4 $0.05 / $0.20 / $0.005)가 보인다. 정가를 넣었다(사용자 결정). 프로모션이 끝나거나 정가가 바뀌면 다시 본다(MAINTAINING 9장).
+- 생성 결과(main `dc5faf1` 게시본 대비): `upstage` provider 의 2행만 추가된다. `kilocode`·`openrouter` 의 Solar 4행씩을 포함한 다른 행은 바이트까지 같다.
