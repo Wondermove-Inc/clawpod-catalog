@@ -1,8 +1,8 @@
 {
   "schemaVersion": 1,
-  "generatedAt": 1795717617176,
+  "generatedAt": 1795803985589,
   "minVersion": "2026.4.11",
-  "sourceCommit": "2fda93cf03a882cd080e7984392d50b95c4737aa",
+  "sourceCommit": "82c7f5982ef75bb60ea6fd588916a8ab5f40e8c5",
   "providers": {
     "abliteration": {
       "api": "openai-completions",
@@ -3255,6 +3255,33 @@
           }
         },
         {
+          "id": "inclusionAI/LingSante-3.1-air-VL",
+          "name": "LingSante 3.1 Air VL",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 131072,
+          "maxTokens": 32768,
+          "cost": {
+            "input": 0.060000000000000005,
+            "output": 0.18,
+            "cacheRead": 0.012000000000000002,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "low"
+            ],
+            "defaultThinkingLevel": "low",
+            "thinkingLevelLabels": {
+              "low": "on"
+            }
+          }
+        },
+        {
           "id": "meta-llama/Llama-3.3-70B-Instruct-Turbo",
           "name": "Llama 3.3 70B Turbo",
           "input": [
@@ -3538,6 +3565,31 @@
             "thinkingLevelLabels": {
               "low": "on"
             }
+          }
+        },
+        {
+          "id": "nvidia/NVIDIA-Nemotron-3.5-Super-VL",
+          "name": "Nemotron 3.5 Super VL 120B A12B",
+          "input": [
+            "text",
+            "image"
+          ],
+          "reasoning": true,
+          "contextWindow": 262144,
+          "maxTokens": 8192,
+          "cost": {
+            "input": 0.15,
+            "output": 0.5,
+            "cacheRead": 0.0199999995,
+            "cacheWrite": 0
+          },
+          "compat": {
+            "thinkingLevels": [
+              "off",
+              "medium",
+              "high"
+            ],
+            "defaultThinkingLevel": "high"
           }
         },
         {
@@ -7813,9 +7865,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.111,
-            "output": 4.44,
-            "cacheRead": 0.097,
+            "input": 0.0999,
+            "output": 5,
+            "cacheRead": 0.0999,
             "cacheWrite": 0
           },
           "compat": {
@@ -8883,6 +8935,9 @@
           },
           "compat": {
             "thinkingLevels": [
+              "off",
+              "low",
+              "medium",
               "high"
             ],
             "defaultThinkingLevel": "high"
@@ -9368,11 +9423,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 393216,
+          "maxTokens": 262144,
           "cost": {
-            "input": 0.44,
-            "output": 1.32,
-            "cacheRead": 0.028,
+            "input": 0.2156,
+            "output": 0.6468,
+            "cacheRead": 0.00686,
             "cacheWrite": 0
           },
           "compat": {
@@ -9419,9 +9474,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.111,
-            "output": 4.44,
-            "cacheRead": 0.097,
+            "input": 0.0999,
+            "output": 5,
+            "cacheRead": 0.0999,
             "cacheWrite": 0
           },
           "compat": {
@@ -10140,7 +10195,7 @@
           ],
           "reasoning": false,
           "contextWindow": 131072,
-          "maxTokens": 117964,
+          "maxTokens": 16384,
           "cost": {
             "input": 0.064,
             "output": 0.128,
@@ -10160,7 +10215,7 @@
           "maxTokens": 235929,
           "cost": {
             "input": 0.047,
-            "output": 0.168,
+            "output": 0.169,
             "cacheRead": 0.023,
             "cacheWrite": 0
           },
@@ -10420,18 +10475,20 @@
           }
         },
         {
-          "id": "inclusionai/ling-3.2-flash:free",
-          "name": "inclusionAI: Ling 3.2 Flash (free)",
+          "id": "inclusionai/lingsante-3.1-air-vl",
+          "name": "inclusionAI: LingSante 3.1 Air VL",
           "input": [
             "text",
             "image"
           ],
           "reasoning": true,
-          "contextWindow": 1048576,
-          "maxTokens": 262144,
+          "contextWindow": 131072,
+          "maxTokens": 32768,
           "cost": {
-            "input": 0,
-            "output": 0
+            "input": 0.06,
+            "output": 0.18,
+            "cacheRead": 0.012,
+            "cacheWrite": 0
           },
           "compat": {
             "thinkingLevels": [
@@ -10707,8 +10764,8 @@
             "text"
           ],
           "reasoning": false,
-          "contextWindow": 128000,
-          "maxTokens": 115200,
+          "contextWindow": 131072,
+          "maxTokens": 32768,
           "cost": {
             "input": 0.1,
             "output": 0.32,
@@ -10789,7 +10846,7 @@
           ],
           "reasoning": true,
           "contextWindow": 131072,
-          "maxTokens": 117964,
+          "maxTokens": 16384,
           "cost": {
             "input": 0.3,
             "output": 1.2,
@@ -11550,10 +11607,26 @@
           ],
           "reasoning": false,
           "contextWindow": 131072,
-          "maxTokens": 131072,
+          "maxTokens": 98304,
           "cost": {
             "input": 0.57,
             "output": 2.3,
+            "cacheRead": 0,
+            "cacheWrite": 0
+          }
+        },
+        {
+          "id": "moonshotai/kimi-k2-0905",
+          "name": "MoonshotAI: Kimi K2 0905",
+          "input": [
+            "text"
+          ],
+          "reasoning": false,
+          "contextWindow": 262144,
+          "maxTokens": 98304,
+          "cost": {
+            "input": 0.6,
+            "output": 2.5,
             "cacheRead": 0,
             "cacheWrite": 0
           }
@@ -11567,7 +11640,7 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 235929,
+          "maxTokens": 131072,
           "cost": {
             "input": 0.6,
             "output": 3,
@@ -14114,9 +14187,9 @@
           "contextWindow": 131072,
           "maxTokens": 117964,
           "cost": {
-            "input": 0.017,
-            "output": 0.085,
-            "cacheRead": 0.0085,
+            "input": 0.0153,
+            "output": 0.0765,
+            "cacheRead": 0.00765,
             "cacheWrite": 0
           },
           "compat": {
@@ -14380,7 +14453,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "maxTokens": 943718,
           "cost": {
             "input": 0.07,
             "output": 0.5,
@@ -14409,7 +14482,7 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 131072,
+          "maxTokens": 943718,
           "cost": {
             "input": 0,
             "output": 0
@@ -15176,8 +15249,8 @@
           "maxTokens": 235929,
           "cost": {
             "input": 0.05,
-            "output": 0.7,
-            "cacheRead": 0.025,
+            "output": 0.69,
+            "cacheRead": 0.024,
             "cacheWrite": 0
           },
           "compat": {
@@ -32845,23 +32918,6 @@
           }
         },
         {
-          "id": "pareto",
-          "name": "Pareto",
-          "input": [
-            "text",
-            "image"
-          ],
-          "reasoning": false,
-          "contextWindow": 1000000,
-          "maxTokens": 32768,
-          "cost": {
-            "input": 1,
-            "output": 4,
-            "cacheRead": 0.0375,
-            "cacheWrite": 0
-          }
-        },
-        {
           "id": "qwen-3-6-plus",
           "name": "Qwen 3.6 Plus Uncensored",
           "input": [
@@ -43132,9 +43188,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.111,
-            "output": 4.44,
-            "cacheRead": 0.097
+            "input": 0.0999,
+            "output": 5,
+            "cacheRead": 0.0999
           },
           "compat": {
             "thinkingLevels": [
@@ -44612,6 +44668,9 @@
           },
           "compat": {
             "thinkingLevels": [
+              "off",
+              "low",
+              "medium",
               "high"
             ],
             "defaultThinkingLevel": "high"
@@ -45054,11 +45113,11 @@
           ],
           "reasoning": true,
           "contextWindow": 1048576,
-          "maxTokens": 393216,
+          "maxTokens": 262144,
           "cost": {
-            "input": 0.44,
-            "output": 1.32,
-            "cacheRead": 0.028
+            "input": 0.2156,
+            "output": 0.6468,
+            "cacheRead": 0.00686
           },
           "compat": {
             "thinkingLevels": [
@@ -45080,8 +45139,8 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.75726,
-            "output": 1.5004,
+            "input": 0.70487,
+            "output": 1.544,
             "cacheRead": 0.21
           },
           "compat": {
@@ -45103,9 +45162,9 @@
           "contextWindow": 1048576,
           "maxTokens": 393216,
           "cost": {
-            "input": 0.111,
-            "output": 4.44,
-            "cacheRead": 0.097
+            "input": 0.0999,
+            "output": 5,
+            "cacheRead": 0.0999
           },
           "compat": {
             "thinkingLevels": [
@@ -46275,11 +46334,10 @@
           ],
           "reasoning": false,
           "contextWindow": 131072,
-          "maxTokens": 117964,
+          "maxTokens": 16384,
           "cost": {
             "input": 0.08,
-            "output": 0.45,
-            "cacheRead": 0.04
+            "output": 0.16
           }
         },
         {
@@ -46291,11 +46349,10 @@
           ],
           "reasoning": false,
           "contextWindow": 131072,
-          "maxTokens": 117964,
+          "maxTokens": 16384,
           "cost": {
-            "input": 0.04,
-            "output": 0.05,
-            "cacheRead": 0.02
+            "input": 0.05,
+            "output": 0.1
           }
         },
         {
@@ -46569,8 +46626,8 @@
           }
         },
         {
-          "id": "inclusionai/ling-3.2-flash:free",
-          "name": "inclusionAI: Ling 3.2 Flash (free)",
+          "id": "inclusionai/ling-3.2-flash",
+          "name": "inclusionAI: Ling 3.2 Flash",
           "input": [
             "text",
             "image"
@@ -46579,8 +46636,9 @@
           "contextWindow": 1048576,
           "maxTokens": 262144,
           "cost": {
-            "input": 0,
-            "output": 0
+            "input": 0.3,
+            "output": 0.9,
+            "cacheRead": 0.06
           },
           "compat": {
             "thinkingLevels": [
@@ -46811,12 +46869,12 @@
             "text"
           ],
           "reasoning": false,
-          "contextWindow": 128000,
-          "maxTokens": 115200,
+          "contextWindow": 131072,
+          "maxTokens": 32768,
           "cost": {
-            "input": 0.71,
-            "output": 0.71,
-            "cacheRead": 0.71
+            "input": 0.59,
+            "output": 0.79,
+            "cacheRead": 0.295
           }
         },
         {
@@ -46902,10 +46960,10 @@
           ],
           "reasoning": true,
           "contextWindow": 131072,
-          "maxTokens": 117964,
+          "maxTokens": 16384,
           "cost": {
-            "input": 0.35,
-            "output": 1.5,
+            "input": 0.3,
+            "output": 1.2,
             "cacheRead": 0.04
           },
           "compat": {
@@ -47749,11 +47807,10 @@
           ],
           "reasoning": true,
           "contextWindow": 262144,
-          "maxTokens": 235929,
+          "maxTokens": 131072,
           "cost": {
-            "input": 0.5,
-            "output": 2.5,
-            "cacheRead": 0.15
+            "input": 0.6,
+            "output": 3
           },
           "compat": {
             "thinkingLevels": [
@@ -52720,9 +52777,9 @@
           "contextWindow": 1048576,
           "maxTokens": 65536,
           "cost": {
-            "input": 0.075,
-            "output": 0.3,
-            "cacheRead": 0.015
+            "input": 0.06,
+            "output": 0.24,
+            "cacheRead": 0.012
           },
           "compat": {
             "thinkingLevels": [
@@ -61142,6 +61199,6 @@
     }
   },
   "sourceMinVersion": "2026.7.0",
-  "sourceGeneratedAt": 1795717597293,
+  "sourceGeneratedAt": 1795803958268,
   "supplementDigest": "517ac220289b5f703ef76e5f17207b8d99030ece3f09809a003b834eed7e841f"
 }
